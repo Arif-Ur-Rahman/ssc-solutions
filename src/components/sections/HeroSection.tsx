@@ -1,46 +1,155 @@
+'use client'
+
 import Link from 'next/link'
-import { Search } from 'lucide-react'
+import { Search, ArrowRight, BookOpen, Trophy, Users } from 'lucide-react'
+import { useState } from 'react'
+
+const stats = [
+  { icon: BookOpen, label: 'Subjects', value: '15+' },
+  { icon: Trophy, label: 'Questions Solved', value: '50K+' },
+  { icon: Users, label: 'Students', value: '2L+' },
+]
 
 export default function HeroSection() {
+  const [query, setQuery] = useState('')
+
   return (
-    <section className="bg-gradient-to-r from-primary-50 to-primary-100 py-20">
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Your Complete SSC Study Companion
+    <section className="relative overflow-hidden bg-[#0a0f1e] min-h-[92vh] flex items-center">
+
+      {/* ── Decorative background ── */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        {/* Radial glow blobs */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-indigo-700/20 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-violet-600/15 blur-[100px]" />
+        <div className="absolute top-1/2 left-0 w-[350px] h-[350px] rounded-full bg-sky-500/10 blur-[90px]" />
+
+        {/* Dot-grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+          }}
+        />
+
+        {/* Top border beam */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent" />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 py-24 flex flex-col items-center text-center">
+
+        {/* Pill badge */}
+        <div className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-400/25 text-indigo-300 text-sm font-medium px-4 py-1.5 rounded-full mb-8 animate-fade-in">
+          <span className="inline-block w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+          SSC 2025 Resources Now Live
+        </div>
+
+        {/* Headline */}
+        <h1
+          className="text-5xl md:text-7xl font-extrabold leading-[1.08] tracking-tight mb-6 animate-fade-in-up"
+          style={{ animationDelay: '80ms' }}
+        >
+          <span className="text-white">Your Complete</span>
+          <br />
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #38bdf8 100%)',
+            }}
+          >
+            SSC Study Companion
+          </span>
         </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          Access comprehensive solutions, study materials, and resources for all SSC subjects
+
+        {/* Sub-headline */}
+        <p
+          className="text-lg md:text-xl text-slate-400 max-w-xl mb-12 animate-fade-in-up"
+          style={{ animationDelay: '160ms' }}
+        >
+          Comprehensive solutions, study materials, and resources for every SSC subject — all in one place.
         </p>
-        
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center bg-white rounded-lg shadow-md p-2">
-            <Search className="h-5 w-5 text-gray-400 ml-2" />
+
+        {/* Search bar */}
+        <div
+          className="w-full max-w-2xl mb-10 animate-fade-in-up"
+          style={{ animationDelay: '240ms' }}
+        >
+          <div className="flex items-center bg-white/5 border border-white/10 rounded-2xl px-4 py-3 gap-3 shadow-[0_0_40px_rgba(99,102,241,0.15)] focus-within:border-indigo-500/60 focus-within:shadow-[0_0_50px_rgba(99,102,241,0.25)] transition-all duration-300">
+            <Search className="h-5 w-5 text-slate-400 shrink-0" />
             <input
               type="text"
-              placeholder="Search for subjects, chapters, or topics..."
-              className="flex-1 px-4 py-2 focus:outline-none"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Search subjects, chapters, or topics…"
+              className="flex-1 bg-transparent text-white placeholder:text-slate-500 focus:outline-none text-base"
             />
-            <button className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition">
+            <button className="shrink-0 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-sm font-semibold px-5 py-2 rounded-xl transition-all duration-200">
               Search
             </button>
           </div>
         </div>
-        
-        <div className="mt-12 flex justify-center space-x-4">
-          <Link 
-            href="/subjects" 
-            className="bg-primary-600 text-white px-8 py-3 rounded-lg hover:bg-primary-700 transition"
+
+        {/* CTA buttons */}
+        <div
+          className="flex flex-wrap justify-center gap-4 mb-20 animate-fade-in-up"
+          style={{ animationDelay: '320ms' }}
+        >
+          <Link
+            href="/subjects"
+            className="group inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3.5 rounded-xl transition-all duration-200 active:scale-95 shadow-lg shadow-indigo-700/40"
           >
             Browse Subjects
+            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
           </Link>
-          <Link 
-            href="/about" 
-            className="bg-white text-primary-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition"
+          <Link
+            href="/about"
+            className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-semibold px-8 py-3.5 rounded-xl transition-all duration-200 active:scale-95"
           >
             Learn More
           </Link>
         </div>
+
+        {/* Stats row */}
+        <div
+          className="flex flex-wrap justify-center gap-px animate-fade-in-up"
+          style={{ animationDelay: '400ms' }}
+        >
+          {stats.map(({ icon: Icon, label, value }, i) => (
+            <div
+              key={label}
+              className={`flex flex-col items-center px-12 py-6 ${
+                i !== stats.length - 1
+                  ? 'border-r border-white/10'
+                  : ''
+              }`}
+            >
+              <Icon className="h-5 w-5 text-indigo-400 mb-2" />
+              <span className="text-2xl font-bold text-white">{value}</span>
+              <span className="text-sm text-slate-500 mt-0.5">{label}</span>
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Bottom fade to page content */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(10,15,30,0.8))' }}
+      />
+
+      <style>{`
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes fade-in-up {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in        { animation: fade-in     0.6s ease both; }
+        .animate-fade-in-up     { animation: fade-in-up  0.7s ease both; }
+      `}</style>
     </section>
   )
 }
