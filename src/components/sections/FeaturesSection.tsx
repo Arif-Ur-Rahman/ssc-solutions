@@ -103,12 +103,16 @@ export default function FeaturesSection() {
                   style={{ boxShadow: `0 0 40px ${accent.icon}18` }}
                 />
 
-                {/* Icon */}
+                {/* Icon - Fixed: Set color on parent and use currentColor */}
                 <div
                   className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-5 transition-transform duration-300 group-hover:-translate-y-0.5"
-                  style={{ background: accent.bg, border: `1px solid ${accent.border}` }}
+                  style={{ 
+                    background: accent.bg, 
+                    border: `1px solid ${accent.border}`,
+                    color: accent.icon // Set color on the parent div
+                  }}
                 >
-                  <IconComponent className="h-5 w-5" style={{ color: accent.icon }} />
+                  <IconComponent className="h-5 w-5 text-current" /> {/* Uses parent's color */}
                 </div>
 
                 <h3 className="text-lg font-semibold text-white mb-2 tracking-tight">
