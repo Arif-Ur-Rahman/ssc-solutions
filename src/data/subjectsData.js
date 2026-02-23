@@ -1,41 +1,43 @@
 export const subjectsData = [
   {
     id: 1,
-    name: 'Mathematics',
-    slug: 'mathematics',
-    description: 'Complete solutions for all math chapters including algebra, geometry, and trigonometry',
-    chapters: 12,
-    icon: 'Calculator'
+    name: 'General Math',
+    slug: 'general-maths',
+    description: 'Complete solutions for all General Math chapters including algebra, geometry, and trigonometry',
+    chapters: 17,
+    icon: 'Calculator',
+    coverImage: '/covers/gmath.png',
   },
   {
     id: 2,
-    name: 'Science',
-    slug: 'science',
-    description: 'Physics, Chemistry, and Biology solutions with detailed explanations',
+    name: 'Physics',
+    slug: 'physics',
+    description: 'Physics solutions covering Mathmatical Physics of SSC Text Book.',
     chapters: 15,
-    icon: 'Flask'
+    icon: 'Flask',
+    coverImage: '/covers/Physics.jpg',
   },
   {
     id: 3,
-    name: 'English',
-    slug: 'english',
-    description: 'Grammar, literature, and writing skills with practice exercises',
-    chapters: 10,
+    name: 'Higher Math',
+    slug: 'higher-maths',
+    description: 'Advanced mathematics solutions for higher secondary level students',
+    chapters: 13,
     icon: 'BookOpen'
   },
   {
     id: 4,
-    name: 'Bangla',
-    slug: 'bangla',
-    description: 'Bengali literature, grammar, and composition solutions',
-    chapters: 8,
+    name: 'Chemistry',
+    slug: 'chemistry',
+    description: 'Chemistry solutions covering all chapters of the SSC textbook',
+    chapters: 12,
     icon: 'Book'
   },
   {
     id: 5,
-    name: 'Social Science',
-    slug: 'social-science',
-    description: 'History, geography, civics, and economics study materials',
+    name: 'Biology',
+    slug: 'biology',
+    description: 'Biology solutions covering all chapters of the SSC textbook',
     chapters: 14,
     icon: 'Globe'
   },
@@ -43,7 +45,7 @@ export const subjectsData = [
     id: 6,
     name: 'ICT',
     slug: 'ict',
-    description: 'Information and Communication Technology solutions',
+    description: 'Information and Communication Technology solutions, including some programming exercises',
     chapters: 6,
     icon: 'Computer'
   }

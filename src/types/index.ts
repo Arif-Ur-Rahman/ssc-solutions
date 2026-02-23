@@ -1,10 +1,12 @@
+
 export interface Subject {
-  id: number;
-  name: string;
-  slug: string;
-  description: string;
-  chapters: number;
-  icon: string;
+  id: number
+  name: string
+  slug: string
+  description: string
+  chapters: number
+  icon: string
+  coverImage?: string   // optional — shows placeholder if absent
 }
 
 export interface Chapter {
@@ -31,4 +33,14 @@ export interface Feature {
 export interface NavItem {
   name: string;
   href: string;
+}
+
+export interface Subject {
+  id: number
+  name: string
+  slug: string
+  description: string
+  chapters: number
+  icon: string
+  coverImage?: string   // optional — shows placeholder if absent
 }
