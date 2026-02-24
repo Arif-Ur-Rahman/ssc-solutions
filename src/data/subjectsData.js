@@ -23,7 +23,8 @@ export const subjectsData = [
     slug: 'higher-maths',
     description: 'Advanced mathematics solutions for higher secondary level students',
     chapters: 13,
-    icon: 'BookOpen'
+    icon: 'BookOpen',
+    coverImage: '/covers/Hmath.jpg',
   },
   {
     id: 4,
