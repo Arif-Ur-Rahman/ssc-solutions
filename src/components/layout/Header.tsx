@@ -81,7 +81,7 @@ export default function Header() {
                 Log in
               </Link>
               <Link
-                href="/subjects"
+                href="/signup"
                 className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-sm font-semibold px-5 py-2 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-700/30"
               >
                 Get Started
@@ -139,7 +139,7 @@ export default function Header() {
                 Log in
               </Link>
               <Link
-                href="/subjects"
+                href="/signup"
                 className="px-4 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-all duration-200 text-center shadow-lg shadow-indigo-700/30"
                 onClick={() => setIsMenuOpen(false)}
               >

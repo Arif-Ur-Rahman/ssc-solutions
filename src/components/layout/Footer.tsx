@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { BookOpen, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react'
+import { BookOpen, Mail, Phone, MessageCircle, MapPin, ArrowUpRight } from 'lucide-react'
+import { contactInfo, whatsappLink } from '@/data/contactInfo'
 
 interface FooterLink {
   label: string
@@ -122,24 +123,37 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="mailto:support@sscsolutions.com"
+                  href={`mailto:${contactInfo.email}`}
                   className="flex items-start gap-3 text-sm text-slate-400 hover:text-white transition-colors duration-200 group"
                 >
                   <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-400/20 group-hover:bg-indigo-500/20 transition-colors shrink-0">
                     <Mail className="h-3.5 w-3.5 text-indigo-400" />
                   </span>
-                  support@sscsolutions.com
+                  <span className="break-all">{contactInfo.email}</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+8801234567890"
+                  href={`tel:${contactInfo.phoneTel}`}
                   className="flex items-start gap-3 text-sm text-slate-400 hover:text-white transition-colors duration-200 group"
                 >
                   <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-sky-500/10 border border-sky-400/20 group-hover:bg-sky-500/20 transition-colors shrink-0">
                     <Phone className="h-3.5 w-3.5 text-sky-400" />
                   </span>
-                  +880 1234-567890
+                  {contactInfo.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-sm text-slate-400 hover:text-white transition-colors duration-200 group"
+                >
+                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-400/20 group-hover:bg-emerald-500/20 transition-colors shrink-0">
+                    <MessageCircle className="h-3.5 w-3.5 text-emerald-400" />
+                  </span>
+                  WhatsApp us
                 </a>
               </li>
               <li>
@@ -147,7 +161,7 @@ export default function Footer() {
                   <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-violet-500/10 border border-violet-400/20 shrink-0">
                     <MapPin className="h-3.5 w-3.5 text-violet-400" />
                   </span>
-                  Dhaka, Bangladesh
+                  {contactInfo.location}
                 </div>
               </li>
             </ul>

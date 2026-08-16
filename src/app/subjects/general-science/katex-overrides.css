@@ -1,0 +1,10 @@
+/* KaTeX display maths sits inside a column of solution steps, so the default
+   1em block margin and the 2em indent that `fleqn` adds are both removed. */
+
+.katex-display {
+  margin: 0.2rem 0;
+}
+
+.katex-display > .katex {
+  padding-left: 0 !important;
+}

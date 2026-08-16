@@ -28,6 +28,23 @@ export const subjectsData = [
   },
   {
     id: 4,
+    name: 'English',
+    slug: 'english',
+    description: 'Model answers for paragraphs, stories, dialogues, compositions, letters and emails',
+    chapters: 6,
+    icon: 'Languages',
+  },
+  {
+    id: 8,
+    name: 'General Science',
+    slug: 'general-science',
+    description: 'General Science solutions covering all chapters of the SSC textbook',
+    // TODO: set to the real chapter count once chaptersData.ts is filled in.
+    chapters: 0,
+    icon: 'FlaskConical',
+  },
+  {
+    id: 5,
     name: 'Chemistry',
     slug: 'chemistry',
     description: 'Chemistry solutions covering all chapters of the SSC textbook',
@@ -35,7 +52,7 @@ export const subjectsData = [
     icon: 'Book'
   },
   {
-    id: 5,
+    id: 6,
     name: 'Biology',
     slug: 'biology',
     description: 'Biology solutions covering all chapters of the SSC textbook',
@@ -43,7 +60,7 @@ export const subjectsData = [
     icon: 'Globe'
   },
   {
-    id: 6,
+    id: 7,
     name: 'ICT',
     slug: 'ict',
     description: 'Information and Communication Technology solutions, including some programming exercises',
