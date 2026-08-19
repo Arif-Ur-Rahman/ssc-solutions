@@ -33,10 +33,17 @@ export default function PieceView({ piece }: { piece: Piece }) {
         </div>
       )}
 
-      <div className="rounded-2xl border border-white/8 border-l-2 border-l-sky-400/60 bg-white/[0.02] px-6 py-6">
-        <div className="mb-5 font-mono text-[10px] uppercase tracking-widest text-sky-400">
-          Model Answer
-        </div>
+      <div className="mb-3 font-mono text-[10px] uppercase tracking-widest text-sky-400">
+        Model Answer
+      </div>
+
+      {/* The answer is set on a white sheet in black ink, the way it would be
+          written on the answer script — the surrounding interface stays dark,
+          so the writing reads as paper laid on the page. */}
+      <div className="rounded-2xl bg-white px-6 py-8 text-neutral-900 shadow-xl shadow-black/40 ring-1 ring-black/5 md:px-10 md:py-10">
+        <h2 className="mb-6 text-center font-hand text-[1.6rem] font-bold leading-snug">
+          {piece.title}
+        </h2>
 
         {/* The written piece itself is set in a hand, so it reads as a
             student's answer rather than as interface text. Generous leading
@@ -46,19 +53,17 @@ export default function PieceView({ piece }: { piece: Piece }) {
             if (block.type === "dialogue") {
               return (
                 <div key={i} className="flex gap-3">
-                  <span className="w-28 shrink-0 font-bold text-sky-300">
+                  <span className="w-28 shrink-0 font-bold">
                     {block.speaker}:
                   </span>
-                  <span className="min-w-0 flex-1 text-slate-200">
-                    {block.text}
-                  </span>
+                  <span className="min-w-0 flex-1">{block.text}</span>
                 </div>
               );
             }
 
             if (block.type === "label") {
               return (
-                <p key={i} className="font-bold text-slate-100">
+                <p key={i} className="font-bold">
                   {block.text}
                 </p>
               );
@@ -68,9 +73,9 @@ export default function PieceView({ piece }: { piece: Piece }) {
               return (
                 <p
                   key={i}
-                  className="rounded-lg border border-emerald-400/20 bg-emerald-500/[0.07] px-4 py-3 text-slate-100"
+                  className="border-l-2 border-neutral-300 bg-neutral-50 px-4 py-3"
                 >
-                  <span className="mr-2 align-middle font-mono text-[10px] uppercase tracking-widest text-emerald-400">
+                  <span className="mr-2 align-middle font-mono text-[10px] uppercase tracking-widest text-neutral-500">
                     {block.label}
                   </span>
                   {block.text}
@@ -78,11 +83,7 @@ export default function PieceView({ piece }: { piece: Piece }) {
               );
             }
 
-            return (
-              <p key={i} className="text-slate-200">
-                {block.text}
-              </p>
-            );
+            return <p key={i}>{block.text}</p>;
           })}
         </div>
       </div>
