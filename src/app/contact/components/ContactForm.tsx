@@ -76,7 +76,7 @@ export default function ContactForm() {
   }
 
   const fieldClass = (hasError?: string) =>
-    `w-full bg-white/[0.04] border rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-600 transition-all duration-200 focus:outline-none focus:bg-white/[0.06] ${
+    `w-full bg-white/[0.04] border rounded-xl px-4 py-3 text-base sm:text-sm text-white placeholder:text-slate-600 transition-all duration-200 focus:outline-none focus:bg-white/[0.06] ${
       hasError
         ? 'border-rose-500/50 focus:border-rose-400/70'
         : 'border-white/10 focus:border-indigo-500/60'
@@ -121,7 +121,7 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-7 md:p-9 overflow-hidden"
+      className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7 md:p-9 overflow-hidden"
       style={{ backdropFilter: 'blur(8px)' }}
     >
       {/* Card glow */}

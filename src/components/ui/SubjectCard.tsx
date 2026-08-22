@@ -28,13 +28,14 @@ export default function SubjectCard({ subject, index = 0 }: SubjectCardProps) {
         onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 0 32px ${accent.glow}`)}
         onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 0 0 0 transparent')}
       >
-        {/* Book cover — wider */}
-        <div className="relative w-40 shrink-0 overflow-hidden">
+        {/* Book cover — wider, but never more than a third of a phone screen */}
+        <div className="relative w-28 shrink-0 overflow-hidden sm:w-36 lg:w-40">
           {subject.coverImage ? (
             <Image
               src={subject.coverImage}
               alt={`${subject.name} cover`}
               fill
+              sizes="(min-width: 1024px) 10rem, (min-width: 640px) 9rem, 7rem"
               className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
@@ -52,7 +53,7 @@ export default function SubjectCard({ subject, index = 0 }: SubjectCardProps) {
         </div>
 
         {/* Card body */}
-        <div className="flex flex-col justify-between flex-1 px-5 py-4 min-w-0">
+        <div className="flex flex-col justify-between flex-1 px-4 py-4 min-w-0 sm:px-5">
           <div>
             <h3 className="text-base font-bold text-white leading-snug mb-1.5 group-hover:text-indigo-200 transition-colors duration-200 truncate">
               {subject.name}
@@ -62,7 +63,7 @@ export default function SubjectCard({ subject, index = 0 }: SubjectCardProps) {
             </p>
           </div>
 
-          <div className="flex items-center justify-between mt-4">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 mt-4">
             <div className="flex items-center gap-1.5">
               <span
                 className="inline-flex items-center justify-center w-5 h-5 rounded-md"

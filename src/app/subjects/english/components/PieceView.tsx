@@ -8,7 +8,7 @@ export default function PieceView({ piece }: { piece: Piece }) {
     <article>
       {/* The instruction and the hints, the way the question paper prints them */}
       {(piece.prompt || piece.hints) && (
-        <div className="mb-8 rounded-2xl border border-white/8 bg-white/[0.03] px-6 py-5">
+        <div className="mb-8 rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-5 sm:px-6">
           <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-sky-400">
             <HelpCircle className="h-3 w-3" />
             Question
@@ -40,20 +40,20 @@ export default function PieceView({ piece }: { piece: Piece }) {
       {/* The answer is set on a white sheet in black ink, the way it would be
           written on the answer script — the surrounding interface stays dark,
           so the writing reads as paper laid on the page. */}
-      <div className="rounded-2xl bg-white px-6 py-8 text-neutral-900 shadow-xl shadow-black/40 ring-1 ring-black/5 md:px-10 md:py-10">
-        <h2 className="mb-6 text-center font-hand text-[1.6rem] font-bold leading-snug">
+      <div className="rounded-2xl bg-white px-5 py-7 text-neutral-900 shadow-xl shadow-black/40 ring-1 ring-black/5 sm:px-6 sm:py-8 md:px-10 md:py-10">
+        <h2 className="mb-6 text-center font-hand text-[1.35rem] font-bold leading-snug sm:text-[1.6rem]">
           {piece.title}
         </h2>
 
         {/* The written piece itself is set in a hand, so it reads as a
             student's answer rather than as interface text. Generous leading
             keeps the larger handwriting face comfortable over long essays. */}
-        <div className="space-y-4 font-hand text-[1.3rem] leading-[1.85] tracking-[0.01em]">
+        <div className="space-y-4 font-hand text-[1.15rem] leading-[1.85] tracking-[0.01em] sm:text-[1.3rem]">
           {piece.body.map((block, i) => {
             if (block.type === "dialogue") {
               return (
-                <div key={i} className="flex gap-3">
-                  <span className="w-28 shrink-0 font-bold">
+                <div key={i} className="flex flex-col gap-x-3 sm:flex-row">
+                  <span className="font-bold sm:w-28 sm:shrink-0">
                     {block.speaker}:
                   </span>
                   <span className="min-w-0 flex-1">{block.text}</span>

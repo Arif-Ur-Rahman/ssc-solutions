@@ -7,7 +7,7 @@ export default function PopularSubjects() {
   const popularSubjects = subjectsData.slice(0, 3)
 
   return (
-    <section className="relative bg-[#080c18] py-28 overflow-hidden">
+    <section className="relative bg-[#080c18] py-20 md:py-28 overflow-hidden">
 
       {/* Background atmosphere */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -34,7 +34,7 @@ export default function PopularSubjects() {
               <Sparkles className="h-3 w-3" />
               Most Accessed
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-3">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-3">
               Popular{' '}
               <span
                 className="bg-clip-text text-transparent"

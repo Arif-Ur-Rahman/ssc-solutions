@@ -105,7 +105,7 @@ export default function AuthShell({ badge, title, subtitle, children, footer }: 
             </Link>
 
             <div
-              className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-7 md:p-9 overflow-hidden"
+              className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-7 md:p-9 overflow-hidden"
               style={{ backdropFilter: 'blur(8px)' }}
             >
               <div

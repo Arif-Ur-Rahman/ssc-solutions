@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { BookOpen, Construction } from "lucide-react";
+import { BookOpen, Construction, PanelLeft } from "lucide-react";
 import "katex/dist/katex.min.css";
 import "./katex-overrides.css";
+import { useMobileNav } from "@/hooks/useMobileNav";
 import { chaptersData } from "./components/chaptersData";
 import Sidebar from "./components/Sidebar";
 import QuestionCard from "./components/QuestionCard";
@@ -20,6 +21,7 @@ export default function GeneralScience() {
     firstPopulated?.exercises[0]?.id ?? null
   );
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const mobileNav = useMobileNav();
 
   const chapter = chaptersData.find((c) => c.id === activeChapter);
   const exercise =
@@ -44,10 +46,28 @@ export default function GeneralScience() {
         onSelectExercise={setActiveExercise}
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
+        mobileOpen={mobileNav.open}
+        closeMobile={mobileNav.close}
       />
 
-      <main className="min-w-0 flex-1 px-6 py-10 md:px-10">
+      <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 md:px-10 md:py-10">
         <div className="mx-auto max-w-3xl">
+          {/* ── Chapter list opener, for the viewports where the sidebar is a
+              drawer rather than a rail ── */}
+          <button
+            type="button"
+            onClick={() => mobileNav.setOpen(true)}
+            className="sticky top-16 z-30 -mx-4 mb-6 flex w-[calc(100%+2rem)] items-center gap-2 border-b border-white/8 bg-[#0a0f1e]/90 px-4 py-3 text-sm font-medium text-slate-300 backdrop-blur transition-colors duration-200 hover:text-white sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:hidden"
+          >
+            <PanelLeft className="h-4 w-4 text-indigo-400" />
+            Chapters
+            {chapter && (
+              <span className="ml-auto min-w-0 truncate text-xs text-slate-500">
+                {chapter.title}
+              </span>
+            )}
+          </button>
+
           {/* ── Chapter header ── */}
           <div className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-indigo-400">
             <BookOpen className="h-3 w-3" />

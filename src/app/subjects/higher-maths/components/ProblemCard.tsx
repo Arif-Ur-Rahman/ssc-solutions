@@ -13,14 +13,14 @@ export default function ProblemCard({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mb-6 rounded-lg border bg-white p-6 shadow-sm">
+    <div className="mb-6 rounded-lg border bg-white p-4 shadow-sm sm:p-6">
       <div className="mb-3 text-xs font-mono uppercase tracking-widest text-yellow-600">
         Problem {index + 1}
       </div>
 
-      <p className="mb-4 text-lg leading-relaxed text-gray-800">
+      <div className="mb-4 overflow-x-auto text-base leading-relaxed text-gray-800 sm:text-lg">
         <MathText text={problem.question} />
-      </p>
+      </div>
 
       <button
         onClick={() => setOpen(!open)}
@@ -30,7 +30,7 @@ export default function ProblemCard({
       </button>
 
       {open && (
-        <div className="mt-5 rounded-r-lg border-l-4 border-pink-800 bg-gray-50 p-5">
+        <div className="mt-5 rounded-r-lg border-l-4 border-pink-800 bg-gray-50 p-4 sm:p-5">
           <div className="mb-3 text-xs font-mono uppercase tracking-widest text-pink-800">
             Solution
           </div>
@@ -38,19 +38,23 @@ export default function ProblemCard({
           <ol className="space-y-2 text-gray-700">
             {problem.solution.steps.map((step: string, i: number) => (
               <li key={i} className="flex gap-3">
-                <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-pink-100 text-xs text-pink-600">
+                <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-pink-100 text-xs text-pink-600">
                   {i + 1}
                 </span>
-                <MathText text={step} />
+                <span className="min-w-0 flex-1 overflow-x-auto">
+                  <MathText text={step} />
+                </span>
               </li>
             ))}
           </ol>
 
-          <div className="mt-4 rounded bg-pink-50 p-3 text-lg text-gray-900">
-            <span className="mr-2 font-mono text-xs uppercase text-yellow-600">
+          <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 rounded bg-pink-50 p-3 text-base text-gray-900 sm:text-lg">
+            <span className="font-mono text-xs uppercase text-yellow-600">
               Answer:
             </span>
-            <MathText text={problem.solution.answer} />
+            <span className="min-w-0 overflow-x-auto">
+              <MathText text={problem.solution.answer} />
+            </span>
           </div>
         </div>
       )}

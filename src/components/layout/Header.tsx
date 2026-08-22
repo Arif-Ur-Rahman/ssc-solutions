@@ -114,7 +114,7 @@ export default function Header() {
 
         {/* Panel */}
         <div
-          className={`absolute top-16 left-0 right-0 bg-[#0d1324]/95 border-b border-white/10 backdrop-blur-xl transition-transform duration-300 ${
+          className={`absolute top-16 left-0 right-0 max-h-[calc(100vh-4rem)] overflow-y-auto bg-[#0d1324]/95 border-b border-white/10 backdrop-blur-xl transition-transform duration-300 ${
             isMenuOpen ? 'translate-y-0' : '-translate-y-4'
           }`}
         >
