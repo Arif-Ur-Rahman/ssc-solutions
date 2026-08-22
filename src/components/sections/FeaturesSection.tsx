@@ -46,7 +46,7 @@ const accents = [
 
 export default function FeaturesSection() {
   return (
-    <section className="relative bg-[#0a0f1e] py-28 overflow-hidden">
+    <section className="relative bg-[#0a0f1e] py-20 md:py-28 overflow-hidden">
 
       {/* Background glow blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -72,7 +72,7 @@ export default function FeaturesSection() {
           <span className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-400/25 text-indigo-300 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
             Everything you need
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
             Why Choose{' '}
             <span
               className="bg-clip-text text-transparent"
@@ -94,7 +94,7 @@ export default function FeaturesSection() {
             return (
               <div
                 key={i}
-                className="group relative rounded-2xl border border-white/8 bg-white/[0.03] p-7 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300"
+                className="group relative rounded-2xl border border-white/8 bg-white/[0.03] p-6 sm:p-7 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300"
                 style={{ backdropFilter: 'blur(8px)' }}
               >
                 {/* Hover glow */}

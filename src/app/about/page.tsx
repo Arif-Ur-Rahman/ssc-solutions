@@ -169,7 +169,7 @@ export default function AboutPage() {
               </div>
 
               <h1
-                className="text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-4 animate-fade-in-up"
+                className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.08] tracking-tight mb-4 animate-fade-in-up"
                 style={{ animationDelay: '80ms' }}
               >
                 <span className="text-white">Hi, I&rsquo;m </span>
@@ -230,12 +230,14 @@ export default function AboutPage() {
                 {profile.stats.map((stat, i) => (
                   <div
                     key={stat.label}
-                    className={`flex flex-col items-center lg:items-start px-8 first:lg:pl-0 py-4 ${
+                    className={`flex flex-col items-center lg:items-start px-4 sm:px-8 first:lg:pl-0 py-4 ${
                       i !== profile.stats.length - 1 ? 'border-r border-white/10' : ''
                     }`}
                   >
-                    <span className="text-3xl font-bold text-white">{stat.value}</span>
-                    <span className="text-sm text-slate-500 mt-1">{stat.label}</span>
+                    <span className="text-2xl sm:text-3xl font-bold text-white">{stat.value}</span>
+                    <span className="text-xs sm:text-sm text-slate-500 mt-1 text-center lg:text-left">
+                      {stat.label}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -245,7 +247,7 @@ export default function AboutPage() {
       </section>
 
       {/* ──────────────────────────── STORY ──────────────────────────── */}
-      <section className="relative bg-[#080c18] py-24">
+      <section className="relative overflow-hidden bg-[#080c18] py-16 md:py-24">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
           <div className="absolute top-1/3 right-1/4 w-[420px] h-[420px] rounded-full bg-violet-700/10 blur-[120px]" />
@@ -295,7 +297,7 @@ export default function AboutPage() {
             </div>
 
             {/* At a glance */}
-            <aside className="relative rounded-2xl bg-white/[0.03] border border-white/10 p-7 backdrop-blur-sm">
+            <aside className="relative rounded-2xl bg-white/[0.03] border border-white/10 p-6 sm:p-7 backdrop-blur-sm">
               <div
                 aria-hidden
                 className="absolute -top-px left-6 right-6 h-px bg-gradient-to-r from-transparent via-indigo-400/50 to-transparent"
@@ -319,7 +321,7 @@ export default function AboutPage() {
       </section>
 
       {/* ──────────────────────────── TIMELINE ──────────────────────────── */}
-      <section className="relative bg-[#0a0f1e] py-24">
+      <section className="relative overflow-hidden bg-[#0a0f1e] py-16 md:py-24">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
           <div className="absolute bottom-0 left-1/4 w-[420px] h-[420px] rounded-full bg-indigo-700/10 blur-[120px]" />
@@ -370,7 +372,7 @@ export default function AboutPage() {
       </section>
 
       {/* ──────────────────────────── SKILLS ──────────────────────────── */}
-      <section className="relative bg-[#080c18] py-24">
+      <section className="relative overflow-hidden bg-[#080c18] py-16 md:py-24">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
           <div className="absolute top-1/4 right-0 w-[380px] h-[380px] rounded-full bg-sky-600/10 blur-[110px]" />
@@ -385,7 +387,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={group.category}
-                  className={`group rounded-2xl bg-white/[0.03] border border-white/10 ${a.softBorder} p-7 transition-all duration-300 hover:bg-white/[0.055] hover:-translate-y-1 ${a.glow}`}
+                  className={`group rounded-2xl bg-white/[0.03] border border-white/10 ${a.softBorder} p-6 sm:p-7 transition-all duration-300 hover:bg-white/[0.055] hover:-translate-y-1 ${a.glow}`}
                 >
                   <div className="flex items-center gap-2.5 mb-6">
                     <span className={`w-1.5 h-1.5 rounded-full ${a.dot} ${a.ring}`} />
@@ -411,7 +413,7 @@ export default function AboutPage() {
       </section>
 
       {/* ──────────────────────────── CONTACT ──────────────────────────── */}
-      <section className="relative bg-[#0a0f1e] py-24">
+      <section className="relative overflow-hidden bg-[#0a0f1e] py-16 md:py-24">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[640px] h-[340px] rounded-full bg-indigo-700/15 blur-[120px]" />
@@ -452,7 +454,7 @@ export default function AboutPage() {
           </div>
 
           {/* Closing CTA band */}
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-600/15 via-violet-600/10 to-sky-500/10 p-10 md:p-14 text-center">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-600/15 via-violet-600/10 to-sky-500/10 p-6 sm:p-10 md:p-14 text-center">
             <div
               aria-hidden
               className="absolute inset-0 opacity-[0.05]"

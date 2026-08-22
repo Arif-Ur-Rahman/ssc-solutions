@@ -42,7 +42,7 @@ export default function FaqAccordion() {
               type="button"
               onClick={() => setOpen(isOpen ? null : i)}
               aria-expanded={isOpen}
-              className="w-full flex items-center justify-between gap-4 text-left px-6 py-5"
+              className="w-full flex items-center justify-between gap-4 text-left px-5 sm:px-6 py-5"
             >
               <span className={`text-sm font-semibold tracking-tight transition-colors duration-200 ${isOpen ? 'text-white' : 'text-slate-300'}`}>
                 {faq.q}
@@ -62,7 +62,7 @@ export default function FaqAccordion() {
               style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
             >
               <div className="overflow-hidden">
-                <p className="px-6 pb-5 text-sm text-slate-400 leading-relaxed">{faq.a}</p>
+                <p className="px-5 sm:px-6 pb-5 text-sm text-slate-400 leading-relaxed">{faq.a}</p>
               </div>
             </div>
           </div>

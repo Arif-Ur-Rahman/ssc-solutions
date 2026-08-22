@@ -42,7 +42,7 @@ export default function QuestionCard({ question }: { question: Question }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mb-4 rounded-2xl border border-white/8 bg-white/[0.03] p-6 transition-colors duration-300 hover:border-white/15">
+    <div className="mb-4 rounded-2xl border border-white/8 bg-white/[0.03] p-4 transition-colors duration-300 hover:border-white/15 sm:p-6">
       <div className="mb-3 flex flex-wrap items-center gap-2 font-mono text-xs uppercase tracking-widest text-indigo-400">
         <span>Question {question.id}</span>
         <span className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-0.5 text-[10px] text-slate-400">
@@ -100,7 +100,7 @@ export default function QuestionCard({ question }: { question: Question }) {
       </button>
 
       {open && (
-        <div className="mt-5 rounded-xl border border-white/8 border-l-2 border-l-indigo-400/60 bg-white/[0.02] p-5">
+        <div className="mt-5 rounded-xl border border-white/8 border-l-2 border-l-indigo-400/60 bg-white/[0.02] p-4 sm:p-5">
           <div className="mb-4 font-mono text-xs uppercase tracking-widest text-indigo-400">
             Answer
           </div>

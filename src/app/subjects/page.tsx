@@ -30,7 +30,7 @@ export default function SubjectsPage() {
             <BookOpen className="h-3 w-3" />
             SSC Curriculum
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
             All{' '}
             <span
               className="bg-clip-text text-transparent"
@@ -51,7 +51,7 @@ export default function SubjectsPage() {
             <input
               type="text"
               placeholder="Search subjects…"
-              className="flex-1 bg-transparent text-white placeholder:text-slate-600 text-sm focus:outline-none"
+              className="flex-1 min-w-0 bg-transparent text-white placeholder:text-slate-600 text-base sm:text-sm focus:outline-none"
             />
           </div>
         </div>

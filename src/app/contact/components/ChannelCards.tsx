@@ -79,7 +79,7 @@ export default function ChannelCards() {
         return (
           <div
             key={channel.id}
-            className="group relative rounded-2xl border border-white/8 bg-white/[0.03] p-7 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300 animate-fade-in-up"
+            className="group relative rounded-2xl border border-white/8 bg-white/[0.03] p-6 sm:p-7 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300 animate-fade-in-up"
             style={{ backdropFilter: 'blur(8px)', animationDelay: `${120 + i * 90}ms` }}
           >
             {/* Hover glow */}

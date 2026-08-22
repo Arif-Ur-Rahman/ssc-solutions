@@ -60,7 +60,7 @@ export default function AuthField({
           aria-describedby={error ? `${id}-error` : undefined}
           className={`w-full bg-white/[0.04] border rounded-xl pl-11 ${
             revealable ? 'pr-11' : 'pr-4'
-          } py-3 text-sm text-white placeholder:text-slate-600 transition-all duration-200 focus:outline-none focus:bg-white/[0.06] ${
+          } py-3 text-base sm:text-sm text-white placeholder:text-slate-600 transition-all duration-200 focus:outline-none focus:bg-white/[0.06] ${
             error
               ? 'border-rose-500/50 focus:border-rose-400/70'
               : 'border-white/10 focus:border-indigo-500/60'

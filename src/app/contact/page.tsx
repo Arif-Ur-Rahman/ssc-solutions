@@ -65,7 +65,7 @@ export default function ContactPage() {
           </span>
 
           <h1
-            className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-5 animate-fade-in-up"
+            className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-5 animate-fade-in-up"
             style={{ animationDelay: '80ms' }}
           >
             <span className="text-white">Let&apos;s Talk About</span>
@@ -111,12 +111,12 @@ export default function ContactPage() {
         </section>
 
         {/* ── Channels ── */}
-        <section className="pb-24">
+        <section className="pb-16 md:pb-24">
           <ChannelCards />
         </section>
 
         {/* ── Behind the solutions ── */}
-        <section className="pb-24">
+        <section className="pb-16 md:pb-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Portrait */}
@@ -231,7 +231,7 @@ export default function ContactPage() {
         </section>
 
         {/* ── Form + info ── */}
-        <section className="grid grid-cols-1 lg:grid-cols-5 gap-6 pb-24">
+        <section className="grid grid-cols-1 lg:grid-cols-5 gap-6 pb-16 md:pb-24">
 
           <div className="lg:col-span-3">
             <ContactForm />
@@ -241,7 +241,7 @@ export default function ContactPage() {
 
             {/* Availability card */}
             <div
-              className="rounded-2xl border border-white/8 bg-white/[0.03] p-7"
+              className="rounded-2xl border border-white/8 bg-white/[0.03] p-6 sm:p-7"
               style={{ backdropFilter: 'blur(8px)' }}
             >
               <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-6">
@@ -288,7 +288,7 @@ export default function ContactPage() {
 
             {/* Highlights card */}
             <div
-              className="relative rounded-2xl border border-indigo-400/20 p-7 overflow-hidden"
+              className="relative rounded-2xl border border-indigo-400/20 p-6 sm:p-7 overflow-hidden"
               style={{
                 background:
                   'linear-gradient(140deg, rgba(99,102,241,0.14), rgba(167,139,250,0.06) 45%, rgba(56,189,248,0.08))',
@@ -317,7 +317,7 @@ export default function ContactPage() {
         </section>
 
         {/* ── FAQ ── */}
-        <section className="pb-24 max-w-3xl mx-auto">
+        <section className="pb-16 md:pb-24 max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-400/25 text-indigo-300 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
               Before you write
@@ -337,9 +337,9 @@ export default function ContactPage() {
         </section>
 
         {/* ── Closing CTA ── */}
-        <section className="pb-24">
+        <section className="pb-16 md:pb-24">
           <div
-            className="relative rounded-3xl border border-white/10 px-8 py-14 text-center overflow-hidden"
+            className="relative rounded-3xl border border-white/10 px-5 py-12 sm:px-8 sm:py-14 text-center overflow-hidden"
             style={{
               background:
                 'linear-gradient(140deg, rgba(99,102,241,0.16), rgba(167,139,250,0.08) 50%, rgba(56,189,248,0.10))',
