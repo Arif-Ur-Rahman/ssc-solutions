@@ -1,9 +1,57 @@
 "use client";
 
-import { HelpCircle } from "lucide-react";
-import type { Piece } from "./englishData";
+import { useState } from "react";
+import { BookOpen, ChevronDown, HelpCircle } from "lucide-react";
+import type { Piece, VocabEntry } from "./englishData";
+
+/* One labelled line inside a vocabulary card: "Syn — result, outcome". */
+function Detail({ label, value }: { label: string; value: string }) {
+  return (
+    <p className="flex gap-2 text-[0.8rem] leading-relaxed">
+      <span className="w-[3.2rem] shrink-0 font-mono text-[9px] uppercase tracking-wider text-slate-500">
+        {label}
+      </span>
+      <span className="min-w-0 flex-1 text-slate-400">{value}</span>
+    </p>
+  );
+}
+
+function VocabCard({ entry }: { entry: VocabEntry }) {
+  const forms = entry.forms?.map((f) => `${f.label}: ${f.word}`).join(", ");
+
+  return (
+    <li className="rounded-xl border border-white/8 bg-white/[0.02] px-3.5 py-3">
+      <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+        <span className="font-semibold text-slate-100">{entry.word}</span>
+        <span className="text-[0.95rem] text-emerald-300">{entry.bn}</span>
+        <span className="ml-auto rounded-md border border-amber-400/20 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-amber-300">
+          {entry.pos}
+        </span>
+      </div>
+
+      <div className="mt-2 space-y-1">
+        {entry.past && (
+          <Detail
+            label="Past"
+            value={`${entry.past} · ${entry.pastParticiple ?? entry.past}`}
+          />
+        )}
+        {forms && <Detail label="Forms" value={forms} />}
+        {entry.synonyms && (
+          <Detail label="Syn" value={entry.synonyms.join(", ")} />
+        )}
+        {entry.antonyms && (
+          <Detail label="Ant" value={entry.antonyms.join(", ")} />
+        )}
+      </div>
+    </li>
+  );
+}
 
 export default function PieceView({ piece }: { piece: Piece }) {
+  const [showVocab, setShowVocab] = useState(false);
+  const vocab = piece.vocab ?? [];
+
   return (
     <article>
       {/* The instruction and the hints, the way the question paper prints them */}
@@ -29,6 +77,48 @@ export default function PieceView({ piece }: { piece: Piece }) {
                 </li>
               ))}
             </ul>
+          )}
+        </div>
+      )}
+
+      {/* The hard words come before the writing, so the answer can be read
+          with the meanings already in hand. Folded away by default: a student
+          who knows the words should not have to scroll past them. */}
+      {vocab.length > 0 && (
+        <div className="mb-8 overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03]">
+          <button
+            type="button"
+            onClick={() => setShowVocab((open) => !open)}
+            aria-expanded={showVocab}
+            className="flex w-full items-center gap-2 px-4 py-4 text-left transition-colors hover:bg-white/[0.02] sm:px-6"
+          >
+            <BookOpen className="h-3 w-3 shrink-0 text-amber-400" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-amber-400">
+              {showVocab ? "Hide Synopsis" : "View Synopsis"}
+            </span>
+            <span className="text-[10px] text-slate-500">
+              {vocab.length} words
+            </span>
+            <ChevronDown
+              className={`ml-auto h-4 w-4 shrink-0 text-slate-500 transition-transform ${
+                showVocab ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {showVocab && (
+            <div className="border-t border-white/8 px-4 pb-5 pt-4 sm:px-6">
+              <p className="mb-4 text-xs leading-relaxed text-slate-500">
+                The harder words of this piece, with their Bangla meanings and
+                the forms the examiner asks for. Learn them first — the writing
+                will read much easier afterwards.
+              </p>
+              <ul className="grid gap-2.5 sm:grid-cols-2">
+                {vocab.map((entry) => (
+                  <VocabCard key={entry.word} entry={entry} />
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       )}
