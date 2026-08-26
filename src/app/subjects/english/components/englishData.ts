@@ -17,6 +17,22 @@ export type Block =
   // Called-out line such as the title or the moral of a story.
   | { type: "note"; label: string; text: string };
 
+// One hard word of a piece, noted down the way a student would note it before
+// writing: the meaning first, then the forms the exam actually asks for.
+export interface VocabEntry {
+  word: string;
+  // Bangla meaning.
+  bn: string;
+  pos: "Noun" | "Verb" | "Adjective" | "Adverb" | "Preposition" | "Phrase";
+  // Verbs only.
+  past?: string;
+  pastParticiple?: string;
+  // Other forms of the same word worth knowing: noun, adjective, adverb, verb.
+  forms?: { label: string; word: string }[];
+  synonyms?: string[];
+  antonyms?: string[];
+}
+
 export interface Piece {
   id: string;
   title: string;
@@ -24,6 +40,11 @@ export interface Piece {
   prompt?: string;
   // Guiding questions printed with the question.
   hints?: string[];
+  // The hard words of this piece, listed A to Z and shown before the writing
+  // behind the "View Synopsis" button. How many words a piece needs depends on
+  // the piece: a short letter may want five, a long composition twenty. Only
+  // words a class nine student would actually stumble on belong here.
+  vocab?: VocabEntry[];
   body: Block[];
 }
 
@@ -51,6 +72,17 @@ const paragraphs: Piece[] = [
       "How does it affect trade and industry?",
       "What should be done to solve the problem?",
     ],
+    vocab: [
+      { word: "beyond description", bn: "বর্ণনাতীত", pos: "Phrase", synonyms: ["indescribable", "beyond words"] },
+      { word: "consumer", bn: "ভোক্তা, ব্যবহারকারী", pos: "Noun", forms: [{ label: "verb", word: "consume" }, { label: "noun", word: "consumption" }], synonyms: ["user", "buyer"], antonyms: ["producer"] },
+      { word: "curse", bn: "অভিশাপ", pos: "Noun", forms: [{ label: "verb", word: "curse (cursed)" }, { label: "adj", word: "cursed" }], synonyms: ["bane", "evil"], antonyms: ["blessing", "boon"] },
+      { word: "demand", bn: "চাহিদা, দাবি", pos: "Noun", forms: [{ label: "verb", word: "demand" }, { label: "adj", word: "demanding" }], synonyms: ["requirement", "need"], antonyms: ["supply"] },
+      { word: "shortage", bn: "ঘাটতি, অভাব", pos: "Noun", forms: [{ label: "adj", word: "short" }], synonyms: ["scarcity", "lack"], antonyms: ["abundance", "plenty"] },
+      { word: "standstill", bn: "অচলাবস্থা, স্থবিরতা", pos: "Noun", synonyms: ["halt", "deadlock"], antonyms: ["movement", "progress"] },
+      { word: "suspension", bn: "স্থগিতকরণ, সাময়িক বন্ধ", pos: "Noun", forms: [{ label: "verb", word: "suspend" }, { label: "adj", word: "suspended" }], synonyms: ["stoppage", "halt"], antonyms: ["continuation"] },
+      { word: "unbearable", bn: "অসহনীয়", pos: "Adjective", forms: [{ label: "verb", word: "bear (bore, borne)" }], synonyms: ["intolerable", "unendurable"], antonyms: ["bearable", "tolerable"] },
+      { word: "unsolvable", bn: "সমাধান করা যায় না এমন", pos: "Adjective", forms: [{ label: "verb", word: "solve" }, { label: "noun", word: "solution" }], synonyms: ["insoluble"], antonyms: ["solvable"] },
+    ],
     body: [
       {
         type: "para",
@@ -69,6 +101,19 @@ const paragraphs: Piece[] = [
       "What causes them?",
       "What are the consequences?",
       "How can we check pollution?",
+    ],
+    vocab: [
+      { word: "alarming", bn: "উদ্বেগজনক, ভয়াবহ", pos: "Adjective", forms: [{ label: "noun", word: "alarm" }, { label: "verb", word: "alarm (alarmed)" }], synonyms: ["frightening", "startling"], antonyms: ["reassuring", "comforting"] },
+      { word: "awareness", bn: "সচেতনতা", pos: "Noun", forms: [{ label: "adj", word: "aware" }], synonyms: ["consciousness", "understanding"], antonyms: ["ignorance", "unawareness"] },
+      { word: "consequence", bn: "পরিণতি, ফলাফল", pos: "Noun", forms: [{ label: "adj", word: "consequent" }, { label: "adv", word: "consequently" }], synonyms: ["result", "outcome"], antonyms: ["cause", "origin"] },
+      { word: "contamination", bn: "দূষণ, কলুষিতকরণ", pos: "Noun", forms: [{ label: "verb", word: "contaminate" }, { label: "adj", word: "contaminated" }], synonyms: ["pollution", "defilement"], antonyms: ["purification"] },
+      { word: "fertiliser", bn: "রাসায়নিক সার", pos: "Noun", forms: [{ label: "adj", word: "fertile" }, { label: "verb", word: "fertilise" }], synonyms: ["manure"] },
+      { word: "insecticide", bn: "কীটনাশক", pos: "Noun", synonyms: ["pesticide"] },
+      { word: "kiln", bn: "ইটের ভাটা", pos: "Noun", synonyms: ["furnace", "oven"] },
+      { word: "substance", bn: "পদার্থ, বস্তু", pos: "Noun", forms: [{ label: "adj", word: "substantial" }], synonyms: ["material", "matter"] },
+      { word: "unfit", bn: "অনুপযুক্ত", pos: "Adjective", forms: [{ label: "noun", word: "unfitness" }, { label: "adj", word: "fit" }], synonyms: ["unsuitable", "improper"], antonyms: ["fit", "suitable"] },
+      { word: "untreated", bn: "অপরিশোধিত", pos: "Adjective", forms: [{ label: "verb", word: "treat" }, { label: "noun", word: "treatment" }], synonyms: ["raw", "unprocessed"], antonyms: ["treated", "purified"] },
+      { word: "yield", bn: "ফলন, উৎপাদন", pos: "Noun", forms: [{ label: "verb", word: "yield (yielded)" }], synonyms: ["produce", "output"] },
     ],
     body: [
       {
@@ -89,6 +134,17 @@ const paragraphs: Piece[] = [
       "How do people suffer from it?",
       "What can be done to reduce it?",
     ],
+    vocab: [
+      { word: "enforce", bn: "বলবৎ করা, কার্যকর করা", pos: "Verb", past: "enforced", pastParticiple: "enforced", forms: [{ label: "noun", word: "enforcement" }], synonyms: ["implement", "impose"], antonyms: ["neglect", "relax"] },
+      { word: "flyover", bn: "উড়ালসেতু", pos: "Noun", synonyms: ["overpass"], antonyms: ["subway", "underpass"] },
+      { word: "footpath", bn: "ফুটপাত", pos: "Noun", synonyms: ["pavement", "sidewalk"] },
+      { word: "overtake", bn: "পাশ কাটিয়ে এগিয়ে যাওয়া", pos: "Verb", past: "overtook", pastParticiple: "overtaken", synonyms: ["pass", "surpass"], antonyms: ["follow", "trail"] },
+      { word: "pedestrian", bn: "পথচারী", pos: "Noun", synonyms: ["walker", "foot-passenger"], antonyms: ["driver", "rider"] },
+      { word: "subway", bn: "পাতাল পথ", pos: "Noun", synonyms: ["underpass", "tunnel"], antonyms: ["flyover", "overpass"] },
+      { word: "unfit", bn: "অনুপযুক্ত, চলাচলের অযোগ্য", pos: "Adjective", forms: [{ label: "noun", word: "unfitness" }], synonyms: ["unsuitable", "unusable"], antonyms: ["fit", "roadworthy"] },
+      { word: "unlicensed", bn: "লাইসেন্সবিহীন", pos: "Adjective", forms: [{ label: "noun", word: "licence" }, { label: "verb", word: "license" }], synonyms: ["unauthorised", "illegal"], antonyms: ["licensed", "authorised"] },
+      { word: "widen", bn: "প্রশস্ত করা", pos: "Verb", past: "widened", pastParticiple: "widened", forms: [{ label: "adj", word: "wide" }, { label: "noun", word: "width" }], synonyms: ["broaden", "expand"], antonyms: ["narrow"] },
+    ],
     body: [
       {
         type: "para",
@@ -107,6 +163,17 @@ const paragraphs: Piece[] = [
       "What happens when trees are cut down?",
       "When and where should we plant trees?",
       "What should be done to encourage it?",
+    ],
+    vocab: [
+      { word: "compound", bn: "প্রাঙ্গণ, চত্বর", pos: "Noun", synonyms: ["premises", "yard"] },
+      { word: "drought", bn: "খরা, অনাবৃষ্টি", pos: "Noun", forms: [{ label: "adj", word: "dry" }], synonyms: ["dry spell", "water shortage"], antonyms: ["flood", "deluge"] },
+      { word: "erosion", bn: "ক্ষয়, ভাঙন", pos: "Noun", forms: [{ label: "verb", word: "erode (eroded)" }, { label: "adj", word: "erosive" }], synonyms: ["wearing away", "corrosion"], antonyms: ["deposition"] },
+      { word: "irregular", bn: "অনিয়মিত", pos: "Adjective", forms: [{ label: "noun", word: "irregularity" }, { label: "adv", word: "irregularly" }], synonyms: ["erratic", "uneven"], antonyms: ["regular", "steady"] },
+      { word: "plantation", bn: "বৃক্ষরোপণ; বাগান", pos: "Noun", forms: [{ label: "verb", word: "plant" }, { label: "noun", word: "planting" }], synonyms: ["grove", "orchard"] },
+      { word: "recklessly", bn: "বেপরোয়াভাবে", pos: "Adverb", forms: [{ label: "adj", word: "reckless" }, { label: "noun", word: "recklessness" }], synonyms: ["carelessly", "rashly"], antonyms: ["cautiously", "carefully"] },
+      { word: "sapling", bn: "চারাগাছ", pos: "Noun", synonyms: ["seedling", "young plant"], antonyms: ["mature tree"] },
+      { word: "timber", bn: "ইমারতি কাঠ", pos: "Noun", synonyms: ["wood", "lumber"] },
+      { word: "vacant", bn: "খালি, ফাঁকা", pos: "Adjective", forms: [{ label: "noun", word: "vacancy" }, { label: "verb", word: "vacate" }], synonyms: ["empty", "unoccupied"], antonyms: ["occupied", "filled"] },
     ],
     body: [
       {
@@ -127,6 +194,14 @@ const paragraphs: Piece[] = [
       "Who visits it?",
       "What is its importance?",
     ],
+    vocab: [
+      { word: "martyr", bn: "শহিদ", pos: "Noun", forms: [{ label: "noun", word: "martyrdom" }], synonyms: ["one who dies for a cause"] },
+      { word: "occasion", bn: "উপলক্ষ, সুযোগ", pos: "Noun", forms: [{ label: "adj", word: "occasional" }, { label: "adv", word: "occasionally" }], synonyms: ["event", "opportunity"] },
+      { word: "publisher", bn: "প্রকাশক", pos: "Noun", forms: [{ label: "verb", word: "publish (published)" }, { label: "noun", word: "publication" }], synonyms: ["book producer"], antonyms: ["reader"] },
+      { word: "stack", bn: "স্তূপ করে সাজানো", pos: "Verb", past: "stacked", pastParticiple: "stacked", forms: [{ label: "noun", word: "stack" }], synonyms: ["pile up", "heap"], antonyms: ["scatter"] },
+      { word: "stall", bn: "দোকানঘর, স্টল", pos: "Noun", synonyms: ["booth", "kiosk"] },
+      { word: "within the reach of", bn: "নাগালের মধ্যে", pos: "Phrase", synonyms: ["accessible to"], antonyms: ["beyond the reach of"] },
+    ],
     body: [
       {
         type: "para",
@@ -145,6 +220,17 @@ const paragraphs: Piece[] = [
       "How did you develop this hobby?",
       "How do you enjoy your hobby?",
       "What benefits do you get from it?",
+    ],
+    vocab: [
+      { word: "dignity", bn: "মর্যাদা", pos: "Noun", forms: [{ label: "adj", word: "dignified" }, { label: "verb", word: "dignify" }], synonyms: ["honour", "self-respect"], antonyms: ["disgrace", "shame"] },
+      { word: "keen", bn: "প্রবল, তীব্র", pos: "Adjective", forms: [{ label: "adv", word: "keenly" }, { label: "noun", word: "keenness" }], synonyms: ["eager", "intense"], antonyms: ["dull", "indifferent"] },
+      { word: "leisure", bn: "অবসর", pos: "Noun", forms: [{ label: "adj", word: "leisurely" }], synonyms: ["free time", "spare time"], antonyms: ["work", "business"] },
+      { word: "loosen", bn: "আলগা করা, ঝুরঝুরে করা", pos: "Verb", past: "loosened", pastParticiple: "loosened", forms: [{ label: "adj", word: "loose" }], synonyms: ["slacken", "soften"], antonyms: ["tighten", "harden"] },
+      { word: "patience", bn: "ধৈর্য", pos: "Noun", forms: [{ label: "adj", word: "patient" }, { label: "adv", word: "patiently" }], synonyms: ["endurance", "forbearance"], antonyms: ["impatience", "haste"] },
+      { word: "profession", bn: "পেশা", pos: "Noun", forms: [{ label: "adj", word: "professional" }], synonyms: ["occupation", "vocation"], antonyms: ["hobby", "pastime"] },
+      { word: "pursuit", bn: "চর্চা, অনুসরণ", pos: "Noun", forms: [{ label: "verb", word: "pursue (pursued)" }], synonyms: ["occupation", "engagement"] },
+      { word: "rear", bn: "পালন করা, লালন করা", pos: "Verb", past: "reared", pastParticiple: "reared", synonyms: ["raise", "breed"], antonyms: ["neglect", "abandon"] },
+      { word: "weed", bn: "আগাছা", pos: "Noun", forms: [{ label: "verb", word: "weed (weeded)" }], synonyms: ["wild growth"], antonyms: ["crop", "plant"] },
     ],
     body: [
       {
@@ -165,6 +251,20 @@ const paragraphs: Piece[] = [
       "How do you enjoy a rainy day?",
       "What are the good and bad sides of a rainy day?",
     ],
+    vocab: [
+      { word: "at a stretch", bn: "একটানা", pos: "Phrase", synonyms: ["continuously", "without a break"], antonyms: ["off and on"] },
+      { word: "deserted", bn: "জনশূন্য, পরিত্যক্ত", pos: "Adjective", forms: [{ label: "verb", word: "desert (deserted)" }, { label: "noun", word: "desertion" }], synonyms: ["empty", "abandoned"], antonyms: ["crowded", "busy"] },
+      { word: "drench", bn: "ভিজিয়ে দেওয়া", pos: "Verb", past: "drenched", pastParticiple: "drenched", forms: [{ label: "adj", word: "drenched" }], synonyms: ["soak", "wet"], antonyms: ["dry"] },
+      { word: "gloomy", bn: "বিষণ্ণ, অন্ধকারাচ্ছন্ন", pos: "Adjective", forms: [{ label: "noun", word: "gloom" }, { label: "adv", word: "gloomily" }], synonyms: ["dismal", "dull"], antonyms: ["cheerful", "bright"] },
+      { word: "hawker", bn: "ফেরিওয়ালা", pos: "Noun", forms: [{ label: "verb", word: "hawk (hawked)" }], synonyms: ["pedlar", "street seller"] },
+      { word: "labourer", bn: "শ্রমিক, দিনমজুর", pos: "Noun", forms: [{ label: "noun", word: "labour" }, { label: "adj", word: "laborious" }], synonyms: ["worker", "workman"], antonyms: ["employer", "master"] },
+      { word: "off and on", bn: "মাঝে মাঝে, থেমে থেমে", pos: "Phrase", synonyms: ["now and then", "intermittently"], antonyms: ["at a stretch"] },
+      { word: "overcast", bn: "মেঘাচ্ছন্ন", pos: "Adjective", past: "overcast", pastParticiple: "overcast", synonyms: ["cloudy", "clouded"], antonyms: ["clear", "bright"] },
+      { word: "slippery", bn: "পিচ্ছিল", pos: "Adjective", forms: [{ label: "verb", word: "slip (slipped)" }], synonyms: ["slick", "greasy"], antonyms: ["rough", "gripping"] },
+      { word: "starve", bn: "অনাহারে থাকা", pos: "Verb", past: "starved", pastParticiple: "starved", forms: [{ label: "noun", word: "starvation" }], synonyms: ["go hungry", "famish"], antonyms: ["feed", "eat well"] },
+      { word: "to one's heart's content", bn: "মনের সাধ মিটিয়ে", pos: "Phrase", synonyms: ["to full satisfaction"] },
+      { word: "water-borne", bn: "পানিবাহিত", pos: "Adjective", forms: [{ label: "verb", word: "bear (bore, borne)" }], synonyms: ["carried by water"], antonyms: ["airborne"] },
+    ],
     body: [
       {
         type: "para",
@@ -183,6 +283,19 @@ const paragraphs: Piece[] = [
       "What are its effects on nature and climate?",
       "How does it affect human life?",
       "What steps should be taken to stop it?",
+    ],
+    vocab: [
+      { word: "deforestation", bn: "বন উজাড়করণ", pos: "Noun", forms: [{ label: "verb", word: "deforest" }, { label: "noun", word: "forest" }], synonyms: ["clearing of forests"], antonyms: ["afforestation"] },
+      { word: "erosion", bn: "ক্ষয়, ভাঙন", pos: "Noun", forms: [{ label: "verb", word: "erode (eroded)" }, { label: "adj", word: "erosive" }], synonyms: ["wearing away"], antonyms: ["deposition"] },
+      { word: "exception", bn: "ব্যতিক্রম", pos: "Noun", forms: [{ label: "adj", word: "exceptional" }, { label: "adv", word: "exceptionally" }], synonyms: ["special case", "departure"], antonyms: ["rule", "norm"] },
+      { word: "fertile", bn: "উর্বর", pos: "Adjective", forms: [{ label: "noun", word: "fertility" }, { label: "verb", word: "fertilise" }], synonyms: ["productive", "rich"], antonyms: ["barren", "sterile"] },
+      { word: "frequent", bn: "ঘন ঘন ঘটে এমন", pos: "Adjective", forms: [{ label: "adv", word: "frequently" }, { label: "noun", word: "frequency" }], synonyms: ["repeated", "common"], antonyms: ["rare", "occasional"] },
+      { word: "offence", bn: "অপরাধ", pos: "Noun", forms: [{ label: "verb", word: "offend (offended)" }, { label: "adj", word: "offensive" }], synonyms: ["crime", "wrongdoing"], antonyms: ["good deed"] },
+      { word: "punishable", bn: "শাস্তিযোগ্য", pos: "Adjective", forms: [{ label: "verb", word: "punish (punished)" }, { label: "noun", word: "punishment" }], synonyms: ["culpable", "chargeable"], antonyms: ["pardonable", "lawful"] },
+      { word: "shelter", bn: "আশ্রয়", pos: "Noun", forms: [{ label: "verb", word: "shelter (sheltered)" }], synonyms: ["refuge", "protection"], antonyms: ["exposure"] },
+      { word: "species", bn: "প্রজাতি", pos: "Noun", synonyms: ["kind", "variety"] },
+      { word: "swallow", bn: "গ্রাস করা, গিলে ফেলা", pos: "Verb", past: "swallowed", pastParticiple: "swallowed", synonyms: ["engulf", "devour"], antonyms: ["eject", "spit out"] },
+      { word: "topsoil", bn: "উপরের উর্বর মাটি", pos: "Noun", synonyms: ["surface soil"], antonyms: ["subsoil"] },
     ],
     body: [
       {
@@ -203,6 +316,18 @@ const paragraphs: Piece[] = [
       "What are its effects on the world and on Bangladesh?",
       "What should we do to reduce it?",
     ],
+    vocab: [
+      { word: "atmosphere", bn: "বায়ুমণ্ডল", pos: "Noun", forms: [{ label: "adj", word: "atmospheric" }], synonyms: ["air", "sky"] },
+      { word: "coastal", bn: "উপকূলীয়", pos: "Adjective", forms: [{ label: "noun", word: "coast" }], synonyms: ["seaside", "shore"], antonyms: ["inland"] },
+      { word: "consume", bn: "শোষণ করা, গ্রহণ করা", pos: "Verb", past: "consumed", pastParticiple: "consumed", forms: [{ label: "noun", word: "consumption" }, { label: "noun", word: "consumer" }], synonyms: ["absorb", "use up"], antonyms: ["produce", "release"] },
+      { word: "emit", bn: "নির্গত করা", pos: "Verb", past: "emitted", pastParticiple: "emitted", forms: [{ label: "noun", word: "emission" }], synonyms: ["give off", "discharge"], antonyms: ["absorb", "take in"] },
+      { word: "fossil fuel", bn: "জীবাশ্ম জ্বালানি", pos: "Phrase", synonyms: ["coal, oil and gas"], antonyms: ["renewable energy"] },
+      { word: "gradual", bn: "ক্রমশ ঘটে এমন", pos: "Adjective", forms: [{ label: "adv", word: "gradually" }], synonyms: ["slow", "step-by-step"], antonyms: ["sudden", "abrupt"] },
+      { word: "ozone layer", bn: "ওজোন স্তর", pos: "Noun", synonyms: ["shield of the sky"] },
+      { word: "phenomenon", bn: "প্রাকৃতিক ঘটনা", pos: "Noun", forms: [{ label: "plural", word: "phenomena" }, { label: "adj", word: "phenomenal" }], synonyms: ["occurrence", "happening"] },
+      { word: "reckless", bn: "বেপরোয়া", pos: "Adjective", forms: [{ label: "adv", word: "recklessly" }, { label: "noun", word: "recklessness" }], synonyms: ["careless", "rash"], antonyms: ["cautious", "careful"] },
+      { word: "trap", bn: "আটকে ফেলা", pos: "Verb", past: "trapped", pastParticiple: "trapped", forms: [{ label: "noun", word: "trap" }], synonyms: ["catch", "hold back"], antonyms: ["release", "free"] },
+    ],
     body: [
       {
         type: "para",
@@ -222,6 +347,20 @@ const paragraphs: Piece[] = [
       "What are its bad sides?",
       "How should we use it?",
     ],
+    vocab: [
+      { word: "artificial", bn: "কৃত্রিম", pos: "Adjective", forms: [{ label: "noun", word: "artificiality" }, { label: "adv", word: "artificially" }], synonyms: ["man-made", "synthetic"], antonyms: ["natural", "real"] },
+      { word: "detect", bn: "শনাক্ত করা", pos: "Verb", past: "detected", pastParticiple: "detected", forms: [{ label: "noun", word: "detection" }, { label: "noun", word: "detective" }], synonyms: ["discover", "find out"], antonyms: ["overlook", "miss"] },
+      { word: "enable", bn: "সক্ষম করা", pos: "Verb", past: "enabled", pastParticiple: "enabled", forms: [{ label: "adj", word: "able" }, { label: "noun", word: "ability" }], synonyms: ["allow", "empower"], antonyms: ["prevent", "disable"] },
+      { word: "intelligence", bn: "বুদ্ধিমত্তা", pos: "Noun", forms: [{ label: "adj", word: "intelligent" }, { label: "adv", word: "intelligently" }], synonyms: ["intellect", "wisdom"], antonyms: ["stupidity", "dullness"] },
+      { word: "irrigate", bn: "সেচ দেওয়া", pos: "Verb", past: "irrigated", pastParticiple: "irrigated", forms: [{ label: "noun", word: "irrigation" }], synonyms: ["water", "supply water to"], antonyms: ["drain", "dry up"] },
+      { word: "privacy", bn: "গোপনীয়তা", pos: "Noun", forms: [{ label: "adj", word: "private" }, { label: "adv", word: "privately" }], synonyms: ["secrecy", "seclusion"], antonyms: ["publicity", "openness"] },
+      { word: "repetitive", bn: "পুনরাবৃত্তিমূলক, একঘেয়ে", pos: "Adjective", forms: [{ label: "verb", word: "repeat (repeated)" }, { label: "noun", word: "repetition" }], synonyms: ["monotonous", "routine"], antonyms: ["varied", "creative"] },
+      { word: "rumour", bn: "গুজব", pos: "Noun", forms: [{ label: "adj", word: "rumoured" }], synonyms: ["hearsay", "gossip"], antonyms: ["fact", "truth"] },
+      { word: "sow", bn: "বীজ বপন করা", pos: "Verb", past: "sowed", pastParticiple: "sown", forms: [{ label: "noun", word: "sowing" }], synonyms: ["plant", "scatter seed"], antonyms: ["reap", "harvest"] },
+      { word: "suspicious", bn: "সন্দেহজনক", pos: "Adjective", forms: [{ label: "noun", word: "suspicion" }, { label: "verb", word: "suspect (suspected)" }], synonyms: ["doubtful", "questionable"], antonyms: ["trustworthy", "reliable"] },
+      { word: "unskilled", bn: "অদক্ষ", pos: "Adjective", forms: [{ label: "noun", word: "skill" }, { label: "adj", word: "skilled" }], synonyms: ["untrained", "inexpert"], antonyms: ["skilled", "expert"] },
+      { word: "verify", bn: "যাচাই করা", pos: "Verb", past: "verified", pastParticiple: "verified", forms: [{ label: "noun", word: "verification" }], synonyms: ["check", "confirm"], antonyms: ["guess", "assume"] },
+    ],
     body: [
       {
         type: "para",
@@ -239,6 +378,21 @@ const stories: Piece[] = [
     title: "Where There Is a Will, There Is a Way",
     prompt:
       "Complete the story and give it a suitable title and a moral: 'Robert Bruce was the king of Scotland. He was defeated by the English army again and again …'",
+    vocab: [
+      { word: "attempt", bn: "প্রচেষ্টা", pos: "Noun", forms: [{ label: "verb", word: "attempt (attempted)" }], synonyms: ["try", "effort"], antonyms: ["inaction", "surrender"] },
+      { word: "curiosity", bn: "কৌতূহল", pos: "Noun", forms: [{ label: "adj", word: "curious" }, { label: "adv", word: "curiously" }], synonyms: ["inquisitiveness", "interest"], antonyms: ["indifference"] },
+      { word: "daunt", bn: "দমিয়ে দেওয়া, ভয় পাইয়ে দেওয়া", pos: "Verb", past: "daunted", pastParticiple: "daunted", forms: [{ label: "adj", word: "dauntless" }], synonyms: ["discourage", "dishearten"], antonyms: ["encourage", "embolden"] },
+      { word: "defeat", bn: "পরাজিত করা", pos: "Verb", past: "defeated", pastParticiple: "defeated", forms: [{ label: "noun", word: "defeat" }], synonyms: ["beat", "conquer"], antonyms: ["lose to", "surrender"] },
+      { word: "despair", bn: "হতাশা", pos: "Noun", forms: [{ label: "verb", word: "despair (despaired)" }, { label: "adj", word: "desperate" }], synonyms: ["hopelessness", "dejection"], antonyms: ["hope", "confidence"] },
+      { word: "flee", bn: "পালিয়ে যাওয়া", pos: "Verb", past: "fled", pastParticiple: "fled", synonyms: ["run away", "escape"], antonyms: ["face", "confront"] },
+      { word: "noble", bn: "অভিজাত ব্যক্তি, সভাসদ", pos: "Noun", forms: [{ label: "adj", word: "noble" }, { label: "noun", word: "nobility" }], synonyms: ["lord", "aristocrat"], antonyms: ["commoner"] },
+      { word: "pursue", bn: "ধাওয়া করা", pos: "Verb", past: "pursued", pastParticiple: "pursued", forms: [{ label: "noun", word: "pursuit" }], synonyms: ["chase", "follow"], antonyms: ["flee", "abandon"] },
+      { word: "scattered", bn: "ছড়িয়ে-ছিটিয়ে থাকা", pos: "Adjective", forms: [{ label: "verb", word: "scatter (scattered)" }], synonyms: ["dispersed", "strewn"], antonyms: ["gathered", "united"] },
+      { word: "slender", bn: "সরু, চিকন", pos: "Adjective", synonyms: ["thin", "slim"], antonyms: ["thick", "stout"] },
+      { word: "spring", bn: "লাফিয়ে ওঠা", pos: "Verb", past: "sprang", pastParticiple: "sprung", synonyms: ["leap", "jump up"], antonyms: ["sink", "settle"] },
+      { word: "victory", bn: "বিজয়", pos: "Noun", forms: [{ label: "adj", word: "victorious" }, { label: "noun", word: "victor" }], synonyms: ["triumph", "conquest"], antonyms: ["defeat", "loss"] },
+      { word: "weave", bn: "বোনা", pos: "Verb", past: "wove", pastParticiple: "woven", forms: [{ label: "noun", word: "weaver" }], synonyms: ["knit", "spin"], antonyms: ["unravel"] },
+    ],
     body: [
       {
         type: "para",
@@ -268,6 +422,19 @@ const stories: Piece[] = [
     title: "Honesty Is the Best Policy",
     prompt:
       "Complete the story and give it a suitable title and a moral: 'Once a poor woodcutter was cutting a tree on the bank of a river. Suddenly his axe slipped from his hand and fell into the water …'",
+    vocab: [
+      { word: "angel", bn: "ফেরেশতা, দেবদূত", pos: "Noun", forms: [{ label: "adj", word: "angelic" }], synonyms: ["heavenly messenger"], antonyms: ["devil", "demon"] },
+      { word: "anxious", bn: "উদ্বিগ্ন", pos: "Adjective", forms: [{ label: "noun", word: "anxiety" }, { label: "adv", word: "anxiously" }], synonyms: ["worried", "uneasy"], antonyms: ["calm", "carefree"] },
+      { word: "bitterly", bn: "করুণভাবে, তীব্রভাবে", pos: "Adverb", forms: [{ label: "adj", word: "bitter" }, { label: "noun", word: "bitterness" }], synonyms: ["sorrowfully", "intensely"], antonyms: ["cheerfully", "happily"] },
+      { word: "empty-handed", bn: "খালি হাতে", pos: "Adjective", synonyms: ["with nothing in hand"], antonyms: ["laden", "loaded"] },
+      { word: "falsehood", bn: "মিথ্যা", pos: "Noun", forms: [{ label: "adj", word: "false" }, { label: "adv", word: "falsely" }], synonyms: ["lie", "untruth"], antonyms: ["truth", "honesty"] },
+      { word: "greedy", bn: "লোভী", pos: "Adjective", forms: [{ label: "noun", word: "greed" }, { label: "adv", word: "greedily" }], synonyms: ["avaricious", "grasping"], antonyms: ["generous", "content"] },
+      { word: "on purpose", bn: "ইচ্ছাকৃতভাবে", pos: "Phrase", synonyms: ["deliberately", "intentionally"], antonyms: ["accidentally", "by chance"] },
+      { word: "reward", bn: "পুরস্কার", pos: "Noun", forms: [{ label: "verb", word: "reward (rewarded)" }, { label: "adj", word: "rewarding" }], synonyms: ["prize", "recompense"], antonyms: ["punishment", "penalty"] },
+      { word: "slip", bn: "পিছলে পড়ে যাওয়া", pos: "Verb", past: "slipped", pastParticiple: "slipped", forms: [{ label: "adj", word: "slippery" }], synonyms: ["slide", "glide"], antonyms: ["grip", "hold fast"] },
+      { word: "take pity on", bn: "দয়া করা", pos: "Phrase", forms: [{ label: "noun", word: "pity" }, { label: "adj", word: "pitiful" }], synonyms: ["have mercy on"], antonyms: ["be cruel to"] },
+      { word: "woodcutter", bn: "কাঠুরে", pos: "Noun", forms: [{ label: "verb", word: "cut (cut, cut)" }], synonyms: ["lumberjack"] },
+    ],
     body: [
       {
         type: "para",
@@ -301,6 +468,18 @@ const stories: Piece[] = [
     title: "Unity Is Strength",
     prompt:
       "Complete the story and give it a suitable title and a moral: 'An old farmer had four sons. They always quarrelled with one another …'",
+    vocab: [
+      { word: "ashamed", bn: "লজ্জিত", pos: "Adjective", forms: [{ label: "noun", word: "shame" }, { label: "adj", word: "shameful" }], synonyms: ["embarrassed", "abashed"], antonyms: ["proud", "shameless"] },
+      { word: "bundle", bn: "আঁটি, বান্ডিল", pos: "Noun", forms: [{ label: "verb", word: "bundle (bundled)" }], synonyms: ["bunch", "pack"], antonyms: ["single stick"] },
+      { word: "conduct", bn: "আচরণ", pos: "Noun", forms: [{ label: "verb", word: "conduct (conducted)" }], synonyms: ["behaviour", "manner"] },
+      { word: "eldest", bn: "সবচেয়ে বড়", pos: "Adjective", forms: [{ label: "adj", word: "old" }, { label: "adj", word: "elder" }], synonyms: ["oldest", "first-born"], antonyms: ["youngest"] },
+      { word: "fall on deaf ears", bn: "কর্ণপাত না করা", pos: "Phrase", synonyms: ["be ignored", "go unheeded"], antonyms: ["be listened to"] },
+      { word: "prosperous", bn: "সমৃদ্ধ, সচ্ছল", pos: "Adjective", forms: [{ label: "noun", word: "prosperity" }, { label: "verb", word: "prosper (prospered)" }], synonyms: ["thriving", "well-off"], antonyms: ["poor", "ruined"] },
+      { word: "quarrel", bn: "ঝগড়া করা", pos: "Verb", past: "quarrelled", pastParticiple: "quarrelled", forms: [{ label: "noun", word: "quarrel" }, { label: "adj", word: "quarrelsome" }], synonyms: ["dispute", "wrangle"], antonyms: ["agree", "make peace"] },
+      { word: "scold", bn: "বকাঝকা করা", pos: "Verb", past: "scolded", pastParticiple: "scolded", forms: [{ label: "noun", word: "scolding" }], synonyms: ["rebuke", "reprimand"], antonyms: ["praise", "applaud"] },
+      { word: "trifle", bn: "তুচ্ছ বিষয়", pos: "Noun", forms: [{ label: "adj", word: "trifling" }], synonyms: ["triviality", "small matter"], antonyms: ["matter of importance"] },
+      { word: "untie", bn: "বাঁধন খুলে দেওয়া", pos: "Verb", past: "untied", pastParticiple: "untied", forms: [{ label: "verb", word: "tie" }], synonyms: ["undo", "loosen"], antonyms: ["tie", "bind"] },
+    ],
     body: [
       {
         type: "para",
@@ -334,6 +513,18 @@ const stories: Piece[] = [
     title: "Dress Does Not Make a Man Great",
     prompt:
       "Complete the story and give it a suitable title and a moral: 'Sheikh Saadi was a great Persian poet. One day he was invited to a feast at the house of a rich man …'",
+    vocab: [
+      { word: "amazed", bn: "বিস্মিত", pos: "Adjective", forms: [{ label: "verb", word: "amaze (amazed)" }, { label: "noun", word: "amazement" }], synonyms: ["astonished", "struck with wonder"], antonyms: ["indifferent", "unmoved"] },
+      { word: "beggar", bn: "ভিখারি", pos: "Noun", forms: [{ label: "verb", word: "beg (begged)" }], synonyms: ["mendicant", "pauper"], antonyms: ["donor", "giver"] },
+      { word: "costly", bn: "দামি, মূল্যবান", pos: "Adjective", forms: [{ label: "noun", word: "cost" }, { label: "verb", word: "cost (cost, cost)" }], synonyms: ["expensive", "valuable"], antonyms: ["cheap", "worthless"] },
+      { word: "feast", bn: "ভোজ, ভোজসভা", pos: "Noun", forms: [{ label: "verb", word: "feast (feasted)" }], synonyms: ["banquet", "grand meal"], antonyms: ["fast", "famine"] },
+      { word: "host", bn: "নিমন্ত্রণকর্তা, গৃহকর্তা", pos: "Noun", forms: [{ label: "noun", word: "hostess" }], synonyms: ["entertainer"], antonyms: ["guest"] },
+      { word: "pardon", bn: "ক্ষমা", pos: "Noun", forms: [{ label: "verb", word: "pardon (pardoned)" }], synonyms: ["forgiveness", "mercy"], antonyms: ["punishment", "penalty"] },
+      { word: "refuse", bn: "অস্বীকার করা, প্রত্যাখ্যান করা", pos: "Verb", past: "refused", pastParticiple: "refused", forms: [{ label: "noun", word: "refusal" }], synonyms: ["deny", "decline"], antonyms: ["accept", "allow"] },
+      { word: "robe", bn: "লম্বা ঢিলা পোশাক, আলখাল্লা", pos: "Noun", synonyms: ["gown", "garment"] },
+      { word: "rudely", bn: "অভদ্রভাবে", pos: "Adverb", forms: [{ label: "adj", word: "rude" }, { label: "noun", word: "rudeness" }], synonyms: ["impolitely", "harshly"], antonyms: ["politely", "courteously"] },
+      { word: "turban", bn: "পাগড়ি", pos: "Noun", synonyms: ["headdress"] },
+    ],
     body: [
       {
         type: "para",
@@ -367,6 +558,18 @@ const stories: Piece[] = [
     title: "The Thirsty Crow",
     prompt:
       "Complete the story and give it a suitable title and a moral: 'It was a hot day in the middle of summer. A crow was flying here and there in search of water …'",
+    vocab: [
+      { word: "beak", bn: "পাখির ঠোঁট", pos: "Noun", synonyms: ["bill"] },
+      { word: "blazing", bn: "জ্বলন্ত, প্রখর", pos: "Adjective", forms: [{ label: "verb", word: "blaze (blazed)" }, { label: "noun", word: "blaze" }], synonyms: ["burning", "scorching"], antonyms: ["cool", "mild"] },
+      { word: "ditch", bn: "নালা, খানা", pos: "Noun", synonyms: ["trench", "drain"] },
+      { word: "parched", bn: "শুকিয়ে খটখটে", pos: "Adjective", forms: [{ label: "verb", word: "parch (parched)" }], synonyms: ["dried up", "scorched"], antonyms: ["moist", "wet"] },
+      { word: "patiently", bn: "ধৈর্যসহকারে", pos: "Adverb", forms: [{ label: "adj", word: "patient" }, { label: "noun", word: "patience" }], synonyms: ["calmly", "steadily"], antonyms: ["impatiently", "hastily"] },
+      { word: "pebble", bn: "নুড়ি পাথর", pos: "Noun", synonyms: ["small stone", "gravel"], antonyms: ["boulder"] },
+      { word: "pitcher", bn: "কলসি", pos: "Noun", synonyms: ["jug", "jar"] },
+      { word: "presence of mind", bn: "উপস্থিত বুদ্ধি", pos: "Phrase", synonyms: ["quick thinking"], antonyms: ["confusion", "panic"] },
+      { word: "refreshed", bn: "সতেজ, প্রাণবন্ত", pos: "Adjective", forms: [{ label: "verb", word: "refresh (refreshed)" }, { label: "noun", word: "refreshment" }], synonyms: ["revived", "renewed"], antonyms: ["exhausted", "worn out"] },
+      { word: "worn out", bn: "ক্লান্ত-পরিশ্রান্ত", pos: "Phrase", forms: [{ label: "verb", word: "wear out (wore out, worn out)" }], synonyms: ["exhausted", "tired out"], antonyms: ["fresh", "energetic"] },
+    ],
     body: [
       {
         type: "para",
@@ -405,6 +608,19 @@ const dialogues: Piece[] = [
     title: "The Bad Effects of Smoking",
     prompt:
       "Write a dialogue between two friends about the bad effects of smoking.",
+    vocab: [
+      { word: "bronchitis", bn: "শ্বাসনালীর প্রদাহ", pos: "Noun", synonyms: ["inflammation of the airways"] },
+      { word: "craving", bn: "তীব্র আকাঙ্ক্ষা, নেশার টান", pos: "Noun", forms: [{ label: "verb", word: "crave (craved)" }], synonyms: ["longing", "urge"], antonyms: ["aversion", "dislike"] },
+      { word: "excuse", bn: "অজুহাত", pos: "Noun", forms: [{ label: "verb", word: "excuse (excused)" }, { label: "adj", word: "excusable" }], synonyms: ["pretext", "plea"], antonyms: ["reason", "fact"] },
+      { word: "gastric ulcer", bn: "পাকস্থলীর ঘা", pos: "Phrase", synonyms: ["stomach sore"] },
+      { word: "nicotine", bn: "নিকোটিন (তামাকের বিষ)", pos: "Noun", synonyms: ["tobacco poison"] },
+      { word: "pale", bn: "ফ্যাকাশে", pos: "Adjective", forms: [{ label: "noun", word: "paleness" }, { label: "verb", word: "pale (paled)" }], synonyms: ["colourless", "wan"], antonyms: ["ruddy", "fresh"] },
+      { word: "passive smoking", bn: "পরোক্ষ ধূমপান", pos: "Phrase", synonyms: ["second-hand smoking"], antonyms: ["active smoking"] },
+      { word: "punishable", bn: "শাস্তিযোগ্য", pos: "Adjective", forms: [{ label: "verb", word: "punish (punished)" }, { label: "noun", word: "punishment" }], synonyms: ["culpable", "chargeable"], antonyms: ["pardonable", "lawful"] },
+      { word: "tar", bn: "আলকাতরা (তামাকের কালো আঠালো পদার্থ)", pos: "Noun", synonyms: ["black sticky residue"] },
+      { word: "tobacco", bn: "তামাক", pos: "Noun", synonyms: ["leaf used in cigarettes"] },
+      { word: "weaken", bn: "দুর্বল করা", pos: "Verb", past: "weakened", pastParticiple: "weakened", forms: [{ label: "adj", word: "weak" }, { label: "noun", word: "weakness" }], synonyms: ["enfeeble", "sap"], antonyms: ["strengthen", "fortify"] },
+    ],
     body: [
       { type: "dialogue", speaker: "Rifat", text: "Hello, Sabbir! You look rather pale today. What is the matter with you?" },
       { type: "dialogue", speaker: "Sabbir", text: "Nothing serious, I hope. I have been coughing for the last few days and I feel weak." },
@@ -444,6 +660,18 @@ const dialogues: Piece[] = [
     title: "The Importance of Learning English",
     prompt:
       "Write a dialogue between two friends about the importance of learning English.",
+    vocab: [
+      { word: "abroad", bn: "বিদেশে", pos: "Adverb", synonyms: ["overseas", "in a foreign land"], antonyms: ["at home"] },
+      { word: "attentively", bn: "মনোযোগ দিয়ে", pos: "Adverb", forms: [{ label: "adj", word: "attentive" }, { label: "noun", word: "attention" }], synonyms: ["carefully", "closely"], antonyms: ["carelessly", "absent-mindedly"] },
+      { word: "command", bn: "দখল, ভালো জ্ঞান", pos: "Noun", forms: [{ label: "verb", word: "command (commanded)" }], synonyms: ["mastery", "grasp"], antonyms: ["ignorance", "weakness"] },
+      { word: "convinced", bn: "নিশ্চিত, প্রত্যয়ী", pos: "Adjective", forms: [{ label: "verb", word: "convince (convinced)" }, { label: "noun", word: "conviction" }], synonyms: ["persuaded", "satisfied"], antonyms: ["doubtful", "unsure"] },
+      { word: "interview", bn: "সাক্ষাৎকার", pos: "Noun", forms: [{ label: "verb", word: "interview (interviewed)" }], synonyms: ["viva", "oral test"] },
+      { word: "mother tongue", bn: "মাতৃভাষা", pos: "Phrase", synonyms: ["native language", "first language"], antonyms: ["foreign language"] },
+      { word: "multinational", bn: "বহুজাতিক", pos: "Adjective", forms: [{ label: "noun", word: "nation" }], synonyms: ["international"], antonyms: ["local", "domestic"] },
+      { word: "practise", bn: "চর্চা করা", pos: "Verb", past: "practised", pastParticiple: "practised", forms: [{ label: "noun", word: "practice" }, { label: "adj", word: "practical" }], synonyms: ["exercise", "rehearse"], antonyms: ["neglect", "ignore"] },
+      { word: "subtitle", bn: "পর্দার নিচের লেখা, সাবটাইটেল", pos: "Noun", synonyms: ["caption"] },
+      { word: "talent", bn: "প্রতিভা", pos: "Noun", forms: [{ label: "adj", word: "talented" }], synonyms: ["gift", "aptitude"], antonyms: ["inability", "dullness"] },
+    ],
     body: [
       { type: "dialogue", speaker: "Nadia", text: "Hello, Tanha! What are you reading so attentively?" },
       { type: "dialogue", speaker: "Tanha", text: "Hello, Nadia. It is an English newspaper. I have made it a habit to read one page of it every morning." },
@@ -481,6 +709,18 @@ const dialogues: Piece[] = [
     title: "Preparation for the SSC Examination",
     prompt:
       "Write a dialogue between two friends about their preparation for the SSC examination.",
+    vocab: [
+      { word: "at a glance", bn: "এক নজরে", pos: "Phrase", forms: [{ label: "verb", word: "glance (glanced)" }], synonyms: ["at one look"] },
+      { word: "deserve", bn: "যোগ্য হওয়া, প্রাপ্য হওয়া", pos: "Verb", past: "deserved", pastParticiple: "deserved", forms: [{ label: "adj", word: "deserving" }], synonyms: ["merit", "be worthy of"], antonyms: ["be unworthy of"] },
+      { word: "examiner", bn: "পরীক্ষক", pos: "Noun", forms: [{ label: "verb", word: "examine (examined)" }, { label: "noun", word: "examination" }], synonyms: ["assessor"], antonyms: ["examinee", "candidate"] },
+      { word: "memorise", bn: "মুখস্থ করা", pos: "Verb", past: "memorised", pastParticiple: "memorised", forms: [{ label: "noun", word: "memory" }, { label: "adj", word: "memorable" }], synonyms: ["learn by heart"], antonyms: ["forget"] },
+      { word: "preparation", bn: "প্রস্তুতি", pos: "Noun", forms: [{ label: "verb", word: "prepare (prepared)" }, { label: "adj", word: "preparatory" }], synonyms: ["readiness", "arrangement"], antonyms: ["unpreparedness"] },
+      { word: "revise", bn: "পুনরালোচনা করা", pos: "Verb", past: "revised", pastParticiple: "revised", forms: [{ label: "noun", word: "revision" }], synonyms: ["go over again", "review"], antonyms: ["neglect", "skip"] },
+      { word: "ruin", bn: "নষ্ট করা", pos: "Verb", past: "ruined", pastParticiple: "ruined", forms: [{ label: "noun", word: "ruin" }, { label: "adj", word: "ruinous" }], synonyms: ["destroy", "spoil"], antonyms: ["build", "save"] },
+      { word: "strictly", bn: "কঠোরভাবে", pos: "Adverb", forms: [{ label: "adj", word: "strict" }, { label: "noun", word: "strictness" }], synonyms: ["rigidly", "firmly"], antonyms: ["loosely", "carelessly"] },
+      { word: "syllabus", bn: "পাঠ্যসূচি", pos: "Noun", forms: [{ label: "plural", word: "syllabuses / syllabi" }], synonyms: ["course of study", "curriculum"] },
+      { word: "theorem", bn: "উপপাদ্য", pos: "Noun", synonyms: ["proposition", "proved statement"] },
+    ],
     body: [
       { type: "dialogue", speaker: "Arif", text: "Hello, Sumon! I have not seen you for a long time. How is your preparation for the SSC examination going?" },
       { type: "dialogue", speaker: "Sumon", text: "Hello, Arif. Not bad on the whole, but I am rather worried about mathematics." },
@@ -519,6 +759,18 @@ const dialogues: Piece[] = [
     title: "The Prize-Giving Ceremony",
     prompt:
       "Write a dialogue between two friends about the prize-giving ceremony held in your school.",
+    vocab: [
+      { word: "annual", bn: "বার্ষিক", pos: "Adjective", forms: [{ label: "adv", word: "annually" }], synonyms: ["yearly", "once a year"], antonyms: ["monthly", "daily"] },
+      { word: "anthem", bn: "জাতীয় সঙ্গীত", pos: "Noun", synonyms: ["hymn", "national song"] },
+      { word: "ceremony", bn: "অনুষ্ঠান", pos: "Noun", forms: [{ label: "adj", word: "ceremonial" }, { label: "adv", word: "ceremonially" }], synonyms: ["function", "celebration"] },
+      { word: "certificate", bn: "সনদপত্র", pos: "Noun", forms: [{ label: "verb", word: "certify (certified)" }, { label: "noun", word: "certification" }], synonyms: ["testimonial", "diploma"] },
+      { word: "crest", bn: "ক্রেস্ট, সম্মাননা ফলক", pos: "Noun", synonyms: ["plaque", "emblem"] },
+      { word: "deputy commissioner", bn: "জেলা প্রশাসক", pos: "Phrase", synonyms: ["chief officer of a district"] },
+      { word: "function", bn: "অনুষ্ঠান", pos: "Noun", synonyms: ["ceremony", "programme"] },
+      { word: "managing committee", bn: "পরিচালনা পর্ষদ", pos: "Phrase", forms: [{ label: "verb", word: "manage (managed)" }], synonyms: ["governing body"] },
+      { word: "preside", bn: "সভাপতিত্ব করা", pos: "Verb", past: "presided", pastParticiple: "presided", forms: [{ label: "noun", word: "president" }], synonyms: ["chair", "head"], antonyms: ["attend as a guest"] },
+      { word: "recitation", bn: "আবৃত্তি", pos: "Noun", forms: [{ label: "verb", word: "recite (recited)" }], synonyms: ["rendering", "delivery"] },
+    ],
     body: [
       { type: "dialogue", speaker: "Mahin", text: "Good morning, Tanvir! You look very cheerful today. What is the matter?" },
       { type: "dialogue", speaker: "Tanvir", text: "Good morning, Mahin. I am coming straight from the school office. Our annual prize-giving ceremony will be held next Thursday." },
@@ -560,6 +812,16 @@ const dialogues: Piece[] = [
     title: "The Importance of Early Rising",
     prompt:
       "Write a dialogue between two friends about the importance of early rising.",
+    vocab: [
+      { word: "culprit", bn: "দোষী ব্যক্তি", pos: "Noun", synonyms: ["offender", "wrongdoer"], antonyms: ["innocent person"] },
+      { word: "digestion", bn: "হজম", pos: "Noun", forms: [{ label: "verb", word: "digest (digested)" }, { label: "adj", word: "digestive" }], synonyms: ["assimilation"], antonyms: ["indigestion"] },
+      { word: "early rising", bn: "ভোরে ঘুম থেকে ওঠা", pos: "Phrase", synonyms: ["rising with the sun"], antonyms: ["late rising"] },
+      { word: "fortune", bn: "ভাগ্য, সৌভাগ্য", pos: "Noun", forms: [{ label: "adj", word: "fortunate" }, { label: "adv", word: "fortunately" }], synonyms: ["luck", "destiny"], antonyms: ["misfortune", "ill luck"] },
+      { word: "out of breath", bn: "হাঁপাতে হাঁপাতে", pos: "Phrase", synonyms: ["breathless", "panting"], antonyms: ["at ease"] },
+      { word: "persuade", bn: "রাজি করানো", pos: "Verb", past: "persuaded", pastParticiple: "persuaded", forms: [{ label: "noun", word: "persuasion" }, { label: "adj", word: "persuasive" }], synonyms: ["convince", "induce"], antonyms: ["dissuade", "discourage"] },
+      { word: "proverb", bn: "প্রবাদ", pos: "Noun", forms: [{ label: "adj", word: "proverbial" }], synonyms: ["saying", "maxim"] },
+      { word: "the early bird catches the worm", bn: "যে আগে ওঠে, সে-ই লাভবান হয়", pos: "Phrase", synonyms: ["the early riser wins"] },
+    ],
     body: [
       { type: "dialogue", speaker: "Rakib", text: "Hello, Faisal! I called at your house at seven this morning, but your mother said you were still in bed." },
       { type: "dialogue", speaker: "Faisal", text: "Yes, I am afraid I got up rather late. I hardly ever rise before eight." },
@@ -600,6 +862,23 @@ const dialogues: Piece[] = [
     title: "How to Eradicate Illiteracy",
     prompt:
       "Write a dialogue between two friends about how to eradicate illiteracy.",
+    vocab: [
+      { word: "attitude", bn: "মনোভাব", pos: "Noun", synonyms: ["outlook", "mentality"] },
+      { word: "compulsory", bn: "বাধ্যতামূলক", pos: "Adjective", forms: [{ label: "verb", word: "compel (compelled)" }, { label: "noun", word: "compulsion" }], synonyms: ["obligatory", "mandatory"], antonyms: ["optional", "voluntary"] },
+      { word: "cunning", bn: "ধূর্ত, চতুর", pos: "Adjective", forms: [{ label: "noun", word: "cunning" }, { label: "adv", word: "cunningly" }], synonyms: ["crafty", "sly"], antonyms: ["simple", "straightforward"] },
+      { word: "eradicate", bn: "নির্মূল করা", pos: "Verb", past: "eradicated", pastParticiple: "eradicated", forms: [{ label: "noun", word: "eradication" }], synonyms: ["root out", "wipe out"], antonyms: ["establish", "spread"] },
+      { word: "ignorance", bn: "অজ্ঞতা", pos: "Noun", forms: [{ label: "adj", word: "ignorant" }, { label: "adv", word: "ignorantly" }], synonyms: ["unawareness", "illiteracy"], antonyms: ["knowledge", "learning"] },
+      { word: "illiterate", bn: "নিরক্ষর", pos: "Adjective", forms: [{ label: "noun", word: "illiteracy" }, { label: "adj", word: "literate" }], synonyms: ["unlettered", "uneducated"], antonyms: ["literate", "educated"] },
+      { word: "in earnest", bn: "আন্তরিকভাবে, পুরোদমে", pos: "Phrase", forms: [{ label: "adj", word: "earnest" }], synonyms: ["seriously", "wholeheartedly"], antonyms: ["half-heartedly"] },
+      { word: "literacy", bn: "সাক্ষরতা", pos: "Noun", forms: [{ label: "adj", word: "literate" }], synonyms: ["ability to read and write"], antonyms: ["illiteracy"] },
+      { word: "midday meal", bn: "দুপুরের খাবার", pos: "Phrase", synonyms: ["lunch"] },
+      { word: "midway", bn: "মাঝপথে", pos: "Adverb", synonyms: ["halfway", "in the middle"] },
+      { word: "obstacle", bn: "বাধা", pos: "Noun", synonyms: ["barrier", "hindrance"], antonyms: ["help", "aid"] },
+      { word: "prosper", bn: "উন্নতি করা", pos: "Verb", past: "prospered", pastParticiple: "prospered", forms: [{ label: "adj", word: "prosperous" }, { label: "noun", word: "prosperity" }], synonyms: ["thrive", "flourish"], antonyms: ["decline", "fail"] },
+      { word: "stipend", bn: "উপবৃত্তি", pos: "Noun", synonyms: ["allowance", "grant"] },
+      { word: "supervision", bn: "তদারকি, তত্ত্বাবধান", pos: "Noun", forms: [{ label: "verb", word: "supervise (supervised)" }, { label: "noun", word: "supervisor" }], synonyms: ["oversight", "control"], antonyms: ["neglect", "negligence"] },
+      { word: "vicious circle", bn: "দুষ্টচক্র", pos: "Phrase", synonyms: ["unending chain of evil"], antonyms: ["virtuous circle"] },
+    ],
     body: [
       { type: "dialogue", speaker: "Mizan", text: "Hello, Shakil! What are you doing with that pile of old books?" },
       { type: "dialogue", speaker: "Shakil", text: "Hello, Mizan. I am sorting them out. I shall give them to the night school our club has opened for the illiterate people of our village." },
@@ -644,6 +923,30 @@ const compositions: Piece[] = [
     id: "uses-and-abuses-of-mobile-phone",
     title: "Uses and Abuses of the Mobile Phone",
     prompt: "Write a composition on 'Uses and Abuses of the Mobile Phone'.",
+    vocab: [
+      { word: "addiction", bn: "আসক্তি, নেশা", pos: "Noun", forms: [{ label: "adj", word: "addicted" }, { label: "verb", word: "addict" }], synonyms: ["obsession", "dependence"], antonyms: ["detachment", "freedom"] },
+      { word: "afloat", bn: "ভাসমান, চালু", pos: "Adjective", synonyms: ["floating", "in circulation"], antonyms: ["sunk", "suppressed"] },
+      { word: "assuredly", bn: "নিশ্চিতভাবে", pos: "Adverb", forms: [{ label: "verb", word: "assure (assured)" }, { label: "adj", word: "assured" }], synonyms: ["certainly", "surely"], antonyms: ["doubtfully", "perhaps"] },
+      { word: "blackmail", bn: "ভয় দেখিয়ে আদায় করা", pos: "Verb", past: "blackmailed", pastParticiple: "blackmailed", forms: [{ label: "noun", word: "blackmail" }], synonyms: ["extort", "threaten"] },
+      { word: "conquer", bn: "জয় করা", pos: "Verb", past: "conquered", pastParticiple: "conquered", forms: [{ label: "noun", word: "conquest" }, { label: "noun", word: "conqueror" }], synonyms: ["defeat", "overcome"], antonyms: ["surrender", "yield"] },
+      { word: "double-edged weapon", bn: "দু'ধারী তলোয়ার", pos: "Phrase", synonyms: ["a thing with both good and bad sides"] },
+      { word: "eyesight", bn: "দৃষ্টিশক্তি", pos: "Noun", synonyms: ["vision", "sight"], antonyms: ["blindness"] },
+      { word: "global village", bn: "বিশ্বগ্রাম", pos: "Phrase", synonyms: ["the world as one community"] },
+      { word: "harassment", bn: "হয়রানি", pos: "Noun", forms: [{ label: "verb", word: "harass (harassed)" }], synonyms: ["tormenting", "annoyance"], antonyms: ["protection"] },
+      { word: "indecent", bn: "অশ্লীল, অশোভন", pos: "Adjective", forms: [{ label: "noun", word: "indecency" }, { label: "adv", word: "indecently" }], synonyms: ["obscene", "improper"], antonyms: ["decent", "proper"] },
+      { word: "inexpensive", bn: "সস্তা, কম খরচের", pos: "Adjective", forms: [{ label: "noun", word: "expense" }, { label: "adj", word: "expensive" }], synonyms: ["cheap", "affordable"], antonyms: ["costly", "expensive"] },
+      { word: "instant", bn: "তাৎক্ষণিক", pos: "Adjective", forms: [{ label: "adv", word: "instantly" }, { label: "noun", word: "instant" }], synonyms: ["immediate", "prompt"], antonyms: ["delayed", "slow"] },
+      { word: "luxury", bn: "বিলাসিতা", pos: "Noun", forms: [{ label: "adj", word: "luxurious" }, { label: "adv", word: "luxuriously" }], synonyms: ["extravagance", "comfort"], antonyms: ["necessity", "want"] },
+      { word: "moderation", bn: "পরিমিতি, সংযম", pos: "Noun", forms: [{ label: "adj", word: "moderate" }, { label: "adv", word: "moderately" }], synonyms: ["restraint", "balance"], antonyms: ["excess", "extravagance"] },
+      { word: "necessity", bn: "প্রয়োজনীয় বস্তু, অপরিহার্যতা", pos: "Noun", forms: [{ label: "adj", word: "necessary" }, { label: "adv", word: "necessarily" }], synonyms: ["need", "requirement"], antonyms: ["luxury", "surplus"] },
+      { word: "numberless", bn: "অগণিত", pos: "Adjective", forms: [{ label: "noun", word: "number" }], synonyms: ["countless", "innumerable"], antonyms: ["few", "limited"] },
+      { word: "possess", bn: "অধিকারে রাখা", pos: "Verb", past: "possessed", pastParticiple: "possessed", forms: [{ label: "noun", word: "possession" }, { label: "noun", word: "possessor" }], synonyms: ["own", "hold"], antonyms: ["lose", "lack"] },
+      { word: "ransom", bn: "মুক্তিপণ", pos: "Noun", forms: [{ label: "verb", word: "ransom (ransomed)" }], synonyms: ["release money"] },
+      { word: "shower", bn: "ঢেলে দেওয়া, বর্ষণ করা", pos: "Verb", past: "showered", pastParticiple: "showered", forms: [{ label: "noun", word: "shower" }], synonyms: ["pour", "lavish"], antonyms: ["withhold", "deny"] },
+      { word: "stoop", bn: "ঝুঁকে থাকা", pos: "Verb", past: "stooped", pastParticiple: "stooped", forms: [{ label: "noun", word: "stooping" }], synonyms: ["bend", "lean forward"], antonyms: ["stand straight"] },
+      { word: "torment", bn: "যন্ত্রণা দেওয়া", pos: "Verb", past: "tormented", pastParticiple: "tormented", forms: [{ label: "noun", word: "torment" }], synonyms: ["harass", "torture"], antonyms: ["comfort", "soothe"] },
+      { word: "transaction", bn: "লেনদেন", pos: "Noun", forms: [{ label: "verb", word: "transact (transacted)" }], synonyms: ["dealing", "business"] },
+    ],
     body: [
       {
         type: "para",
@@ -691,6 +994,28 @@ const compositions: Piece[] = [
     id: "duties-of-a-student",
     title: "The Duties of a Student",
     prompt: "Write a composition on 'The Duties of a Student'.",
+    vocab: [
+      { word: "acquire", bn: "অর্জন করা", pos: "Verb", past: "acquired", pastParticiple: "acquired", forms: [{ label: "noun", word: "acquisition" }], synonyms: ["gain", "obtain"], antonyms: ["lose", "forfeit"] },
+      { word: "boundless", bn: "সীমাহীন", pos: "Adjective", forms: [{ label: "noun", word: "bound" }, { label: "adj", word: "bounded" }], synonyms: ["limitless", "infinite"], antonyms: ["limited", "narrow"] },
+      { word: "burden", bn: "বোঝা", pos: "Noun", forms: [{ label: "verb", word: "burden (burdened)" }, { label: "adj", word: "burdensome" }], synonyms: ["load", "weight"], antonyms: ["relief", "help"] },
+      { word: "courteous", bn: "ভদ্র, নম্র", pos: "Adjective", forms: [{ label: "noun", word: "courtesy" }, { label: "adv", word: "courteously" }], synonyms: ["polite", "well-mannered"], antonyms: ["rude", "discourteous"] },
+      { word: "destiny", bn: "নিয়তি, ভাগ্য", pos: "Noun", forms: [{ label: "adj", word: "destined" }], synonyms: ["fate", "fortune"] },
+      { word: "discipline", bn: "শৃঙ্খলা", pos: "Noun", forms: [{ label: "adj", word: "disciplined" }, { label: "verb", word: "discipline (disciplined)" }], synonyms: ["order", "self-control"], antonyms: ["indiscipline", "disorder"] },
+      { word: "foremost", bn: "সর্বপ্রথম, প্রধান", pos: "Adjective", synonyms: ["chief", "leading"], antonyms: ["last", "least"] },
+      { word: "gratitude", bn: "কৃতজ্ঞতা", pos: "Noun", forms: [{ label: "adj", word: "grateful" }, { label: "adv", word: "gratefully" }], synonyms: ["thankfulness", "appreciation"], antonyms: ["ingratitude", "thanklessness"] },
+      { word: "idleness", bn: "অলসতা", pos: "Noun", forms: [{ label: "adj", word: "idle" }, { label: "adv", word: "idly" }], synonyms: ["laziness", "inactivity"], antonyms: ["industry", "diligence"] },
+      { word: "intoxication", bn: "নেশা, মাদকাসক্তি", pos: "Noun", forms: [{ label: "adj", word: "intoxicated" }, { label: "verb", word: "intoxicate" }], synonyms: ["drunkenness"], antonyms: ["sobriety"] },
+      { word: "maturity", bn: "পরিপক্বতা, পরিণত বয়স", pos: "Noun", forms: [{ label: "adj", word: "mature" }, { label: "verb", word: "mature (matured)" }], synonyms: ["ripeness", "adulthood"], antonyms: ["immaturity", "childhood"] },
+      { word: "neglect", bn: "অবহেলা করা", pos: "Verb", past: "neglected", pastParticiple: "neglected", forms: [{ label: "noun", word: "negligence" }, { label: "adj", word: "negligent" }], synonyms: ["ignore", "disregard"], antonyms: ["attend to", "care for"] },
+      { word: "obedience", bn: "আনুগত্য", pos: "Noun", forms: [{ label: "verb", word: "obey (obeyed)" }, { label: "adj", word: "obedient" }], synonyms: ["compliance", "submission"], antonyms: ["disobedience", "defiance"] },
+      { word: "punctuality", bn: "সময়ানুবর্তিতা", pos: "Noun", forms: [{ label: "adj", word: "punctual" }, { label: "adv", word: "punctually" }], synonyms: ["promptness", "timeliness"], antonyms: ["lateness", "delay"] },
+      { word: "repent", bn: "অনুতপ্ত হওয়া", pos: "Verb", past: "repented", pastParticiple: "repented", forms: [{ label: "noun", word: "repentance" }, { label: "adj", word: "repentant" }], synonyms: ["regret", "rue"], antonyms: ["rejoice", "be glad"] },
+      { word: "reproduce", bn: "হুবহু তুলে ধরা", pos: "Verb", past: "reproduced", pastParticiple: "reproduced", forms: [{ label: "noun", word: "reproduction" }], synonyms: ["copy", "repeat"], antonyms: ["create", "originate"] },
+      { word: "scrupulously", bn: "নিষ্ঠার সঙ্গে, সযত্নে", pos: "Adverb", forms: [{ label: "adj", word: "scrupulous" }], synonyms: ["strictly", "conscientiously"], antonyms: ["carelessly", "loosely"] },
+      { word: "solemn", bn: "গম্ভীর, পবিত্র", pos: "Adjective", forms: [{ label: "noun", word: "solemnity" }, { label: "adv", word: "solemnly" }], synonyms: ["serious", "grave"], antonyms: ["frivolous", "light"] },
+      { word: "squander", bn: "অপচয় করা", pos: "Verb", past: "squandered", pastParticiple: "squandered", synonyms: ["waste", "misspend"], antonyms: ["save", "economise"] },
+      { word: "wholesome", bn: "স্বাস্থ্যকর", pos: "Adjective", forms: [{ label: "noun", word: "wholesomeness" }], synonyms: ["healthy", "nourishing"], antonyms: ["harmful", "unwholesome"] },
+    ],
     body: [
       {
         type: "para",
@@ -744,6 +1069,14 @@ const letters: Piece[] = [
     title: "Application for a Seat in the School Hostel",
     prompt:
       "Write an application to the Headmaster of your school for a seat in the school hostel.",
+    vocab: [
+      { word: "afford", bn: "সামর্থ্য থাকা", pos: "Verb", past: "afforded", pastParticiple: "afforded", forms: [{ label: "adj", word: "affordable" }], synonyms: ["bear the cost of", "manage"], antonyms: ["be unable to pay"] },
+      { word: "bear", bn: "বহন করা, ধারণ করা", pos: "Verb", past: "bore", pastParticiple: "borne", forms: [{ label: "adj", word: "bearable" }], synonyms: ["carry", "hold"], antonyms: ["drop", "lay down"] },
+      { word: "hostel", bn: "ছাত্রাবাস", pos: "Noun", synonyms: ["dormitory", "boarding house"] },
+      { word: "obediently", bn: "অনুগতভাবে, বিনীতভাবে", pos: "Adverb", forms: [{ label: "adj", word: "obedient" }, { label: "noun", word: "obedience" }], synonyms: ["respectfully", "submissively"], antonyms: ["disobediently", "defiantly"] },
+      { word: "oblige", bn: "বাধিত করা, অনুগ্রহ করা", pos: "Verb", past: "obliged", pastParticiple: "obliged", forms: [{ label: "noun", word: "obligation" }, { label: "adj", word: "obliged" }], synonyms: ["favour", "gratify"], antonyms: ["refuse", "disoblige"] },
+      { word: "thereby", bn: "এর দ্বারা, তার ফলে", pos: "Adverb", synonyms: ["by that means", "thus"] },
+    ],
     body: [
       { type: "label", text: "16 August 2026" },
       { type: "label", text: "The Headmaster" },
@@ -773,6 +1106,13 @@ const letters: Piece[] = [
     title: "Application for a Transfer Certificate",
     prompt:
       "Write an application to the Headmaster of your school for a transfer certificate.",
+    vocab: [
+      { word: "gratitude", bn: "কৃতজ্ঞতা", pos: "Noun", forms: [{ label: "adj", word: "grateful" }, { label: "adv", word: "gratefully" }], synonyms: ["thankfulness"], antonyms: ["ingratitude"] },
+      { word: "obediently", bn: "অনুগতভাবে, বিনীতভাবে", pos: "Adverb", forms: [{ label: "adj", word: "obedient" }, { label: "noun", word: "obedience" }], synonyms: ["respectfully"], antonyms: ["disobediently"] },
+      { word: "respectfully", bn: "সবিনয়ে", pos: "Adverb", forms: [{ label: "adj", word: "respectful" }, { label: "noun", word: "respect" }], synonyms: ["humbly", "politely"], antonyms: ["rudely", "disrespectfully"] },
+      { word: "testimonial", bn: "প্রশংসাপত্র, চারিত্রিক সনদ", pos: "Noun", forms: [{ label: "verb", word: "testify (testified)" }], synonyms: ["recommendation", "character certificate"] },
+      { word: "transfer certificate", bn: "ছাড়পত্র", pos: "Phrase", forms: [{ label: "verb", word: "transfer (transferred)" }, { label: "adj", word: "transferable" }], synonyms: ["release paper"] },
+    ],
     body: [
       { type: "label", text: "16 August 2026" },
       { type: "label", text: "The Headmaster" },
@@ -801,6 +1141,13 @@ const letters: Piece[] = [
     id: "letter-about-aim-in-life",
     title: "Letter to a Friend about Your Aim in Life",
     prompt: "Write a letter to your friend telling him about your aim in life.",
+    vocab: [
+      { word: "aim", bn: "লক্ষ্য, উদ্দেশ্য", pos: "Noun", forms: [{ label: "verb", word: "aim (aimed)" }, { label: "adj", word: "aimless" }], synonyms: ["goal", "object"], antonyms: ["aimlessness", "drift"] },
+      { word: "chamber", bn: "চেম্বার, রোগী দেখার কক্ষ", pos: "Noun", synonyms: ["consulting room", "office"] },
+      { word: "charge", bn: "ফি, মূল্য", pos: "Noun", forms: [{ label: "verb", word: "charge (charged)" }, { label: "adj", word: "chargeable" }], synonyms: ["fee", "price"], antonyms: ["free service"] },
+      { word: "population", bn: "জনসংখ্যা", pos: "Noun", forms: [{ label: "adj", word: "populous" }, { label: "verb", word: "populate" }], synonyms: ["inhabitants", "people"] },
+      { word: "qualified", bn: "যোগ্যতাসম্পন্ন, সনদপ্রাপ্ত", pos: "Adjective", forms: [{ label: "verb", word: "qualify (qualified)" }, { label: "noun", word: "qualification" }], synonyms: ["trained", "competent"], antonyms: ["unqualified", "untrained"] },
+    ],
     body: [
       { type: "label", text: "Kushtia" },
       { type: "label", text: "16 August 2026" },
@@ -835,6 +1182,18 @@ const emails: Piece[] = [
     title: "Email about the Importance of Reading Newspapers",
     prompt:
       "Write an email to your friend about the importance of reading newspapers.",
+    vocab: [
+      { word: "calamity", bn: "দুর্যোগ, বিপর্যয়", pos: "Noun", forms: [{ label: "adj", word: "calamitous" }], synonyms: ["disaster", "catastrophe"], antonyms: ["blessing", "boon"] },
+      { word: "commerce", bn: "বাণিজ্য", pos: "Noun", forms: [{ label: "adj", word: "commercial" }, { label: "adv", word: "commercially" }], synonyms: ["trade", "business"] },
+      { word: "doorstep", bn: "দোরগোড়া", pos: "Noun", synonyms: ["threshold", "entrance"] },
+      { word: "editorial", bn: "সম্পাদকীয়", pos: "Noun", forms: [{ label: "noun", word: "editor" }, { label: "verb", word: "edit (edited)" }], synonyms: ["leading article"] },
+      { word: "price hike", bn: "দ্রব্যমূল্যের ঊর্ধ্বগতি", pos: "Phrase", synonyms: ["rise in prices"], antonyms: ["fall in prices"] },
+      { word: "reconsider", bn: "পুনর্বিবেচনা করা", pos: "Verb", past: "reconsidered", pastParticiple: "reconsidered", forms: [{ label: "noun", word: "reconsideration" }, { label: "verb", word: "consider" }], synonyms: ["rethink", "review"], antonyms: ["stick to", "persist in"] },
+      { word: "rumour", bn: "গুজব", pos: "Noun", forms: [{ label: "adj", word: "rumoured" }], synonyms: ["hearsay", "gossip"], antonyms: ["fact", "truth"] },
+      { word: "storehouse", bn: "ভাণ্ডার", pos: "Noun", forms: [{ label: "verb", word: "store (stored)" }], synonyms: ["treasury", "repository"] },
+      { word: "verify", bn: "যাচাই করা", pos: "Verb", past: "verified", pastParticiple: "verified", forms: [{ label: "noun", word: "verification" }, { label: "adj", word: "verifiable" }], synonyms: ["check", "confirm"], antonyms: ["guess", "assume"] },
+      { word: "vocabulary", bn: "শব্দভাণ্ডার", pos: "Noun", synonyms: ["word stock", "stock of words"] },
+    ],
     body: [
       { type: "label", text: "From: farhana.rahman09@gmail.com" },
       { type: "label", text: "To: nusrat.jahan24@gmail.com" },
@@ -873,6 +1232,15 @@ const emails: Piece[] = [
     title: "Email to Your Father about Your Studies",
     prompt:
       "Write an email to your father telling him about your preparation for the coming examination.",
+    vocab: [
+      { word: "coaching", bn: "কোচিং, বিশেষ প্রশিক্ষণ", pos: "Noun", forms: [{ label: "verb", word: "coach (coached)" }, { label: "noun", word: "coach" }], synonyms: ["tutoring", "training"] },
+      { word: "give an account of", bn: "বিবরণ দেওয়া", pos: "Phrase", synonyms: ["describe", "report on"] },
+      { word: "practical", bn: "ব্যবহারিক", pos: "Adjective", forms: [{ label: "noun", word: "practice" }, { label: "adv", word: "practically" }], synonyms: ["applied", "hands-on"], antonyms: ["theoretical"] },
+      { word: "preparation", bn: "প্রস্তুতি", pos: "Noun", forms: [{ label: "verb", word: "prepare (prepared)" }, { label: "adj", word: "preparatory" }], synonyms: ["readiness", "arrangement"], antonyms: ["unpreparedness"] },
+      { word: "revise", bn: "পুনরালোচনা করা", pos: "Verb", past: "revised", pastParticiple: "revised", forms: [{ label: "noun", word: "revision" }], synonyms: ["go over again", "review"], antonyms: ["neglect", "skip"] },
+      { word: "strictly", bn: "কঠোরভাবে", pos: "Adverb", forms: [{ label: "adj", word: "strict" }, { label: "noun", word: "strictness" }], synonyms: ["rigidly", "firmly"], antonyms: ["loosely", "carelessly"] },
+      { word: "trigonometry", bn: "ত্রিকোণমিতি", pos: "Noun", forms: [{ label: "adj", word: "trigonometric" }], synonyms: ["branch of maths on triangles"] },
+    ],
     body: [
       { type: "label", text: "From: sakib.hasan.ssc@gmail.com" },
       { type: "label", text: "To: kamrul.hasan@yahoo.com" },
