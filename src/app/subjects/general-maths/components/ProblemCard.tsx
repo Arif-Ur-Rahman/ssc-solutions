@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import MathText from "./MathText";
 import type { Problem, Solution } from "./chaptersData";
+import { toBn } from "./bn";
 
 function SolutionBody({ solution }: { solution: Solution }) {
   return (
@@ -17,8 +18,8 @@ function SolutionBody({ solution }: { solution: Solution }) {
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-emerald-400/20 bg-emerald-500/[0.07] px-4 py-3 text-slate-100">
-        <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-400">
-          Answer
+        <span className="text-[11px] font-semibold tracking-wide text-emerald-400">
+          উত্তর
         </span>
         <span className="min-w-0 overflow-x-auto">
           <MathText text={solution.answer} />
@@ -28,13 +29,21 @@ function SolutionBody({ solution }: { solution: Solution }) {
   );
 }
 
-export default function ProblemCard({ problem }: { problem: Problem }) {
+// `label` names what the card holds — a problem from the exercise, or one of
+// the book's worked examples, which are the same shape.
+export default function ProblemCard({
+  problem,
+  label = "প্রশ্ন",
+}: {
+  problem: Problem;
+  label?: string;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="mb-4 rounded-2xl border border-white/8 bg-white/[0.03] p-4 transition-colors duration-300 hover:border-white/15 sm:p-6">
-      <div className="mb-3 font-mono text-xs uppercase tracking-widest text-indigo-400">
-        Problem {problem.id}
+      <div className="mb-3 text-xs font-semibold tracking-wide text-indigo-400">
+        {label} {toBn(problem.id)}
       </div>
 
       <div className="mb-5 overflow-x-auto leading-relaxed text-slate-200">
@@ -60,7 +69,7 @@ export default function ProblemCard({ problem }: { problem: Problem }) {
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 rounded-lg border border-indigo-400/30 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-indigo-300 transition-colors duration-200 hover:border-indigo-400/50 hover:bg-indigo-500/20 hover:text-indigo-200"
       >
-        {open ? "Hide Solution" : "Show Solution"}
+        {open ? "সমাধান লুকাও" : "সমাধান দেখাও"}
         <ChevronDown
           className={`h-3.5 w-3.5 transition-transform duration-200 ${
             open ? "rotate-180" : ""
@@ -70,8 +79,8 @@ export default function ProblemCard({ problem }: { problem: Problem }) {
 
       {open && (
         <div className="mt-5 rounded-xl border border-white/8 border-l-2 border-l-indigo-400/60 bg-white/[0.02] p-4 sm:p-5">
-          <div className="mb-4 font-mono text-xs uppercase tracking-widest text-indigo-400">
-            Solution
+          <div className="mb-4 text-xs font-semibold tracking-wide text-indigo-400">
+            সমাধান
           </div>
 
           {problem.solution && <SolutionBody solution={problem.solution} />}

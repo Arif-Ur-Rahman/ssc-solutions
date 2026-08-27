@@ -2,6 +2,7 @@
 
 import { ChevronLeft, ChevronRight, Calculator, X } from "lucide-react";
 import type { Chapter } from "./chaptersData";
+import { toBn } from "./bn";
 
 interface SidebarProps {
   chapters: Chapter[];
@@ -54,11 +55,11 @@ export default function Sidebar({
           <span
             className={`min-w-0 flex-1 truncate font-semibold tracking-tight text-white ${labelled}`}
           >
-            General Math
+            সাধারণ গণিত
           </span>
           <button
             onClick={closeMobile}
-            aria-label="Close chapter list"
+            aria-label="অধ্যায় তালিকা বন্ধ করো"
             className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition-colors duration-200 hover:bg-white/[0.06] hover:text-white md:hidden"
           >
             <X className="h-4 w-4" />
@@ -66,9 +67,9 @@ export default function Sidebar({
         </div>
 
         <div
-          className={`px-5 pt-5 text-[10px] font-semibold uppercase tracking-widest text-slate-600 ${labelled}`}
+          className={`px-5 pt-5 text-[11px] font-semibold tracking-wide text-slate-600 ${labelled}`}
         >
-          Chapters
+          অধ্যায়সমূহ
         </div>
 
         <nav className="mt-2 flex-1 space-y-0.5 overflow-y-auto px-2 pb-4">
@@ -93,15 +94,15 @@ export default function Sidebar({
                         : "bg-white/[0.05] text-slate-500"
                     }`}
                   >
-                    {ch.id}
+                    {toBn(ch.id)}
                   </span>
                   <span
                     className={`flex min-w-0 flex-1 items-center gap-2 ${labelled}`}
                   >
                     <span className="flex-1 truncate">{ch.title}</span>
                     {!hasContent && (
-                      <span className="shrink-0 text-[9px] font-semibold uppercase tracking-wider text-slate-600">
-                        soon
+                      <span className="shrink-0 text-[10px] font-semibold text-slate-600">
+                        শীঘ্রই
                       </span>
                     )}
                   </span>
@@ -124,8 +125,7 @@ export default function Sidebar({
                             : "text-slate-500 hover:bg-white/[0.04] hover:text-slate-300"
                         }`}
                       >
-                        <span className="font-mono">{ex.id}</span>
-                        <span className="ml-2 text-slate-500">{ex.bnId}</span>
+                        <span>{ex.bnId}</span>
                       </button>
                     ))}
                   </div>
@@ -138,7 +138,7 @@ export default function Sidebar({
         <div className="border-t border-white/8 p-3">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+            aria-label={sidebarOpen ? "তালিকা সংকুচিত করো" : "তালিকা প্রসারিত করো"}
             className="hidden w-full items-center justify-center rounded-lg bg-white/[0.04] py-1.5 text-slate-400 transition-colors duration-200 hover:bg-white/[0.08] hover:text-slate-200 md:flex"
           >
             {sidebarOpen ? (
@@ -152,7 +152,7 @@ export default function Sidebar({
             className="flex w-full items-center justify-center gap-2 rounded-lg bg-white/[0.04] py-2.5 text-sm font-medium text-slate-300 transition-colors duration-200 hover:bg-white/[0.08] hover:text-white md:hidden"
           >
             <X className="h-4 w-4" />
-            Close
+            বন্ধ করো
           </button>
         </div>
       </aside>
