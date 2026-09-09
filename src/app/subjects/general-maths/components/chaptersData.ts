@@ -5,6 +5,8 @@
 // অনুশীলনী ৪.২ (book page ৮৬).
 // Chapter 9 "ত্রিকোণমিতিক অনুপাত": অনুশীলনী ৯.১ (book pages ১৮৪-১৮৬) and
 // অনুশীলনী ৯.২ (book pages ১৯৪-১৯৫).
+// Chapter 16 "পরিমিতি": অনুশীলনী ১৬.১ (book pages ৩০০-৩০১) and
+// অনুশীলনী ১৬.২ (book pages ৩১০-৩১২).
 //
 // Each exercise opens with the rules it rests on (`formulas`), taken from the
 // theory pages before the exercise, so the derivations below can lean on them
@@ -1294,7 +1296,7 @@ const exercise91: Exercise = {
         },
         {
           statement: String.raw`$$\tan\theta=\frac{\sin\theta}{\cos\theta}$$`,
-          note: "$\frac{p}{b}$-এর লব ও হরকে অতিভুজ $h$ দিয়ে ভাগ করলেই এটি পাওয়া যায়।",
+          note: String.raw`$\frac{p}{b}$-এর লব ও হরকে অতিভুজ $h$ দিয়ে ভাগ করলেই এটি পাওয়া যায়।`,
         },
         {
           statement: String.raw`$$\cot\theta=\frac{\cos\theta}{\sin\theta}$$`,
@@ -1483,6 +1485,1225 @@ const exercise92: Exercise = {
   problems: [],
 };
 
+const exercise161: Exercise = {
+  id: "16.1",
+  bnId: "অনুশীলনী ১৬.১",
+  title: "ত্রিভুজক্ষেত্রের ক্ষেত্রফল",
+  bookPages: "৩০০ – ৩০১",
+  formulas: [
+    {
+      title: "ত্রিভুজক্ষেত্রের ক্ষেত্রফল",
+      formulas: [
+        {
+          statement: String.raw`$$A=\frac{1}{2}\,b\,h$$`,
+          note: String.raw`ভূমি $b$ ও উচ্চতা $h$ জানা থাকলে। নিচের বাকি সূত্রগুলো এই একটি থেকেই আসে — প্রতিবার কেবল উচ্চতাটিকে দেওয়া রাশি দিয়ে লিখে নেওয়া হয়।`,
+        },
+        {
+          statement: String.raw`$$A=\frac{1}{2}\,a\,b$$`,
+          note: String.raw`সমকোণী ত্রিভুজের সমকোণ সংলগ্ন বাহু দুটি $a$ ও $b$ হলে; এখানে এক বাহুই অন্যটির উচ্চতা, তাই আলাদা করে উচ্চতা আঁকতে হয় না।`,
+        },
+        {
+          statement: String.raw`$$A=\frac{1}{2}ab\sin C=\frac{1}{2}bc\sin A=\frac{1}{2}ca\sin B$$`,
+          note: String.raw`দুই বাহু ও এদের অন্তর্ভুক্ত কোণ জানা থাকলে। কোণটি যে দুই বাহুর মাঝে, ক্ষেত্রফলে সেই দুই বাহুই গুণ হয়।`,
+        },
+        {
+          statement: String.raw`$$A=\sqrt{s(s-a)(s-b)(s-c)}$$`,
+          note: String.raw`তিন বাহু $a,\,b,\,c$ জানা থাকলে, যেখানে অর্ধপরিসীমা $s=\dfrac{a+b+c}{2}$। একে হিরনের সূত্র বলা হয়।`,
+        },
+        {
+          statement: String.raw`$$A=\frac{\sqrt{3}}{4}a^{2}$$`,
+          note: String.raw`সমবাহু ত্রিভুজের প্রতি বাহু $a$ হলে। এর উচ্চতা $h=\dfrac{\sqrt{3}}{2}a$ — শীর্ষ থেকে ভূমির উপর লম্ব টানলে ভূমি সমদ্বিখণ্ডিত হয় বলেই এটি পাওয়া যায়।`,
+        },
+        {
+          statement: String.raw`$$A=\frac{b}{4}\sqrt{4a^{2}-b^{2}}$$`,
+          note: String.raw`সমদ্বিবাহু ত্রিভুজের সমান বাহু $a$ ও ভূমি $b$ হলে; এর উচ্চতা $h=\dfrac{\sqrt{4a^{2}-b^{2}}}{2}$।`,
+        },
+      ],
+    },
+    {
+      title: "যে সম্পর্কগুলো বারবার লাগে",
+      formulas: [
+        {
+          statement: String.raw`$$h^{2}=p^{2}+b^{2}$$`,
+          note: String.raw`পিথাগোরাসের সূত্র। এই অনুশীলনীতে ঢোকার পথও প্রায়ই এটিই — অতিভুজ ও এক বাহু জানা থাকলে তৃতীয় বাহুটি সঙ্গে সঙ্গেই পাওয়া যায়।`,
+        },
+        {
+          statement: String.raw`$$\sin 30^{\circ}=\frac{1}{2},\qquad \sin 45^{\circ}=\frac{1}{\sqrt{2}},\qquad \sin 60^{\circ}=\frac{\sqrt{3}}{2}$$`,
+          note: String.raw`অন্তর্ভুক্ত কোণের সূত্রে বসানোর জন্য। সঙ্গে $\cos 45^{\circ}=\dfrac{1}{\sqrt{2}}$ ও $\cos 60^{\circ}=\dfrac{1}{2}$।`,
+        },
+        {
+          statement: String.raw`$$\theta>90^{\circ}\;\Rightarrow\;180^{\circ}-\theta<90^{\circ}$$`,
+          note: String.raw`অন্তর্ভুক্ত কোণ $\theta$ স্থূলকোণ হলে একটি বাহুকে বাড়িয়ে তার উপর লম্ব টানা হয়; লম্বপাদের পাশে তখন সূক্ষ্মকোণ $180^{\circ}-\theta$ পাওয়া যায় এবং সমকোণী ত্রিভুজেই কাজ চলে।`,
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১ — book page ২৯৭.
+    {
+      id: 1,
+      question: String.raw`একটি সমকোণী ত্রিভুজের সমকোণ সংলগ্ন বাহুদ্বয়ের দৈর্ঘ্য যথাক্রমে $6$ সে.মি. ও $8$ সে.মি. হলে এর ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমকোণী ত্রিভুজের সমকোণ সংলগ্ন বাহুদ্বয় $a=6$ সে.মি. এবং $b=8$ সে.মি.।`,
+          String.raw`$$A=\frac{1}{2}ab=\frac{1}{2}\times 6\times 8=24$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $24$ বর্গ সে.মি.।`,
+        ],
+        answer: String.raw`$24$ বর্গ সে.মি.`,
+      },
+    },
+    // উদাহরণ ২ — book page ২৯৭.
+    {
+      id: 2,
+      question: String.raw`কোনো ত্রিভুজের দুই বাহুর দৈর্ঘ্য যথাক্রমে $9$ সে.মি. ও $10$ সে.মি. এবং এদের অন্তর্ভুক্ত কোণ $60^{\circ}$। ত্রিভুজটির ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, বাহুদ্বয় $a=9$ সে.মি. ও $b=10$ সে.মি. এবং এদের অন্তর্ভুক্ত কোণ $\theta=60^{\circ}$।`,
+          String.raw`$$A=\frac{1}{2}ab\sin\theta$$`,
+          String.raw`$$=\frac{1}{2}\times 9\times 10\times\sin 60^{\circ}$$`,
+          String.raw`$$=\frac{1}{2}\times 9\times 10\times\frac{\sqrt{3}}{2}=\frac{45\sqrt{3}}{2}=38.97$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $38.97$ বর্গ সে.মি. (প্রায়)।`,
+        ],
+        answer: String.raw`$38.97$ বর্গ সে.মি. (প্রায়)`,
+      },
+    },
+    // উদাহরণ ৩ — book pages ২৯৭-২৯৮.
+    {
+      id: 3,
+      question: String.raw`একটি ত্রিভুজের তিনটি বাহুর দৈর্ঘ্য যথাক্রমে $7$ সে.মি., $8$ সে.মি. ও $9$ সে.মি.। এর ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $a=7$ সে.মি., $b=8$ সে.মি. ও $c=9$ সে.মি.।`,
+          String.raw`$$s=\frac{a+b+c}{2}=\frac{7+8+9}{2}=12$$`,
+          String.raw`$$A=\sqrt{s(s-a)(s-b)(s-c)}$$`,
+          String.raw`$$=\sqrt{12(12-7)(12-8)(12-9)}$$`,
+          String.raw`$$=\sqrt{12\times 5\times 4\times 3}=\sqrt{720}=26.83$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $26.83$ বর্গ সে.মি. (প্রায়)।`,
+        ],
+        answer: String.raw`$26.83$ বর্গ সে.মি. (প্রায়)`,
+      },
+    },
+    // উদাহরণ ৪ — book page ২৯৮.
+    {
+      id: 4,
+      question: String.raw`একটি সমবাহু ত্রিভুজের প্রত্যেক বাহুর দৈর্ঘ্য $1$ মিটার বাড়ালে ক্ষেত্রফল $3\sqrt{3}$ বর্গমিটার বেড়ে যায়। ত্রিভুজটির বাহুর দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমবাহু ত্রিভুজের প্রত্যেক বাহুর দৈর্ঘ্য $a$ মিটার।`,
+          String.raw`তাহলে ত্রিভুজটির ক্ষেত্রফল $\dfrac{\sqrt{3}}{4}a^{2}$ বর্গমিটার।`,
+          String.raw`প্রত্যেক বাহুর দৈর্ঘ্য $1$ মিটার বাড়ালে ক্ষেত্রফল দাঁড়ায় $\dfrac{\sqrt{3}}{4}(a+1)^{2}$ বর্গমিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$\frac{\sqrt{3}}{4}(a+1)^{2}-\frac{\sqrt{3}}{4}a^{2}=3\sqrt{3}$$`,
+          String.raw`$$\text{or, }(a+1)^{2}-a^{2}=12$$`,
+          String.raw`[উভয় পক্ষকে $\dfrac{\sqrt{3}}{4}$ দ্বারা ভাগ করে]`,
+          String.raw`$$\text{or, } a^{2}+2a+1-a^{2}=12$$`,
+          String.raw`$$\text{or, } 2a=11$$`,
+          String.raw`$$\therefore\; a=5.5$$`,
+          String.raw`নির্ণেয় বাহুর দৈর্ঘ্য $5.5$ মিটার।`,
+        ],
+        answer: String.raw`$5.5$ মিটার`,
+      },
+    },
+    // উদাহরণ ৫ — book pages ২৯৮-২৯৯.
+    {
+      id: 5,
+      question: String.raw`একটি সমদ্বিবাহু ত্রিভুজের ভূমির দৈর্ঘ্য $60$ সে.মি.। এর ক্ষেত্রফল $1200$ বর্গ সে.মি. হলে সমান সমান বাহুর দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমদ্বিবাহু ত্রিভুজের ভূমি $b=60$ সে.মি. এবং সমান সমান বাহুর দৈর্ঘ্য $a$ সে.মি.।`,
+          String.raw`ত্রিভুজটির ক্ষেত্রফল $\dfrac{b}{4}\sqrt{4a^{2}-b^{2}}$ বর্গ সে.মি.।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$\frac{b}{4}\sqrt{4a^{2}-b^{2}}=1200$$`,
+          String.raw`$$\text{or, }\frac{60}{4}\sqrt{4a^{2}-(60)^{2}}=1200$$`,
+          String.raw`$$\text{or, } 15\sqrt{4a^{2}-3600}=1200$$`,
+          String.raw`$$\text{or, }\sqrt{4a^{2}-3600}=80$$`,
+          String.raw`$$\text{or, } 4a^{2}-3600=6400$$`,
+          String.raw`[বর্গ করে]`,
+          String.raw`$$\text{or, } 4a^{2}=10000$$`,
+          String.raw`$$\text{or, } a^{2}=2500$$`,
+          String.raw`$$\therefore\; a=50$$`,
+          String.raw`ত্রিভুজটির সমান বাহুর দৈর্ঘ্য $50$ সে.মি.।`,
+        ],
+        answer: String.raw`$50$ সে.মি.`,
+      },
+    },
+    // উদাহরণ ৬ — book page ২৯৯.
+    {
+      id: 6,
+      question: String.raw`একটি নির্দিষ্ট স্থান থেকে দুইটি রাস্তা $120^{\circ}$ কোণে চলে গেছে। দুই জন লোক ঐ নির্দিষ্ট স্থান থেকে যথাক্রমে ঘণ্টায় $10$ কিলোমিটার ও ঘণ্টায় $8$ কিলোমিটার বেগে বিপরীত দিকে রওনা হলো। $5$ ঘণ্টা পরে তাদের মধ্যে সরাসরি দূরত্ব নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $A$ স্থান থেকে রওনা হয়ে $5$ ঘণ্টা পর তারা যথাক্রমে $B$ ও $C$ স্থানে পৌঁছালো; তাহলে নির্ণেয় দূরত্ব $BC$।`,
+          String.raw`$C$ থেকে $BA$-এর বর্ধিতাংশের উপর $CD$ লম্ব টানি।`,
+          String.raw`$$AB=5\times 10=50,\qquad AC=5\times 8=40,\qquad\angle BAC=120^{\circ}$$`,
+          String.raw`$$\therefore\;\angle DAC=180^{\circ}-120^{\circ}=60^{\circ}$$`,
+          String.raw`সমকোণী $\triangle ACD$ থেকে পাই,`,
+          String.raw`$$CD=AC\sin 60^{\circ}=40\times\frac{\sqrt{3}}{2}=20\sqrt{3}$$`,
+          String.raw`$$AD=AC\cos 60^{\circ}=40\times\frac{1}{2}=20$$`,
+          String.raw`আবার, সমকোণী $\triangle BCD$ থেকে পাই,`,
+          String.raw`$$BC^{2}=BD^{2}+CD^{2}=(BA+AD)^{2}+CD^{2}$$`,
+          String.raw`$$=(50+20)^{2}+\left(20\sqrt{3}\right)^{2}=4900+1200=6100$$`,
+          String.raw`$$\therefore\; BC=78.1$$`,
+          String.raw`নির্ণেয় দূরত্ব $78.1$ কিলোমিটার (প্রায়)।`,
+        ],
+        answer: String.raw`$78.1$ কিলোমিটার (প্রায়)`,
+      },
+    },
+    // উদাহরণ ৭ — book pages ২৯৯-৩০০.
+    {
+      id: 7,
+      question: String.raw`চিত্রে $\triangle ABC$-এ $\angle ABC=90^{\circ}$, $AB=15$ সে.মি., $AC=25$ সে.মি. এবং $B$ থেকে $AC$-এর উপর $BD$ লম্ব।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$BC$ বাহুর দৈর্ঘ্য নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$AB=15,\qquad AC=25$$`,
+              String.raw`$$BC=\sqrt{AC^{2}-AB^{2}}=\sqrt{(25)^{2}-(15)^{2}}$$`,
+              String.raw`$$=\sqrt{625-225}=\sqrt{400}=20$$`,
+            ],
+            answer: String.raw`$BC=20$ সে.মি.`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$BD$ এর মান নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$\triangle ABC$-এর ক্ষেত্রফল দুইভাবে লেখা যায় — একবার $BC$-কে ভূমি ধরে, একবার $AC$-কে ভূমি ধরে।`,
+              String.raw`$$\frac{1}{2}BC\cdot AB=\frac{1}{2}AC\cdot BD$$`,
+              String.raw`$$\text{or, } 25\times BD=20\times 15$$`,
+              String.raw`$$\therefore\; BD=12$$`,
+            ],
+            answer: String.raw`$BD=12$ সে.মি.`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$\triangle ABD$ ও $\triangle BCD$ এর ক্ষেত্রফলদ্বয়ের অনুপাত নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`সমকোণী $\triangle ABD$ থেকে পাই,`,
+              String.raw`$$AD^{2}+BD^{2}=AB^{2}$$`,
+              String.raw`$$\text{or, } AD^{2}+(12)^{2}=(15)^{2}$$`,
+              String.raw`$$\text{or, } AD^{2}=225-144=81$$`,
+              String.raw`$$\therefore\; AD=9\qquad\text{and}\qquad CD=AC-AD=25-9=16$$`,
+              String.raw`$\triangle ABD$ ও $\triangle BCD$ উভয়ের উচ্চতা $BD$, তাই ক্ষেত্রফলের অনুপাত ভূমির অনুপাতেই দাঁড়ায়।`,
+              String.raw`$$\frac{\triangle ABD}{\triangle BCD}=\frac{\frac{1}{2}BD\cdot AD}{\frac{1}{2}BD\cdot CD}=\frac{9}{16}$$`,
+            ],
+            answer: String.raw`$\triangle ABD:\triangle BCD=9:16$`,
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    {
+      id: 1,
+      question: String.raw`একটি সমকোণী ত্রিভুজের অতিভুজ $25$ মিটার। এর অপর বাহুদ্বয়ের একটি বাহু অপরটির $\dfrac{3}{4}$ অংশ হলে, বাহু দুইটির দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমকোণ সংলগ্ন বড় বাহুর দৈর্ঘ্য $x$ মিটার; তাহলে অপর বাহুর দৈর্ঘ্য $\dfrac{3}{4}x$ মিটার।`,
+          String.raw`পিথাগোরাসের সূত্রানুসারে,`,
+          String.raw`$$x^{2}+\left(\frac{3}{4}x\right)^{2}=(25)^{2}$$`,
+          String.raw`$$\text{or, } x^{2}+\frac{9}{16}x^{2}=625$$`,
+          String.raw`$$\text{or, }\frac{25}{16}x^{2}=625$$`,
+          String.raw`$$\text{or, } x^{2}=400$$`,
+          String.raw`$$\therefore\; x=20$$`,
+          String.raw`[দৈর্ঘ্য ঋণাত্মক হতে পারে না]`,
+          String.raw`$$\therefore\;\frac{3}{4}x=\frac{3}{4}\times 20=15$$`,
+          String.raw`অতএব বাহু দুইটির দৈর্ঘ্য $20$ মিটার ও $15$ মিটার।`,
+        ],
+        answer: String.raw`$20$ মিটার ও $15$ মিটার`,
+      },
+    },
+    {
+      id: 2,
+      question: String.raw`$20$ মিটার লম্বা একটি মই দেওয়ালের সাথে খাড়াভাবে আছে। মইটির গোড়া দেওয়াল থেকে কত দূরে সরালে ওপরের প্রান্ত $4$ মিটার নিচে নামবে।`,
+      solution: {
+        steps: [
+          String.raw`মই খাড়াভাবে আছে, তাই এর ওপরের প্রান্ত দেওয়াল বরাবর ভূমি থেকে $20$ মিটার উঁচুতে।`,
+          String.raw`প্রান্তটি $4$ মিটার নেমে এলে তার উচ্চতা দাঁড়ায় $20-4=16$ মিটার।`,
+          String.raw`মইয়ের দৈর্ঘ্য বদলায় না, তাই দেওয়াল, মই ও মেঝে মিলে একটি সমকোণী ত্রিভুজ তৈরি হয় যার অতিভুজ $20$ মিটার এবং লম্ব $16$ মিটার।`,
+          String.raw`মনে করি, তখন মইয়ের গোড়া দেওয়াল থেকে $x$ মিটার দূরে।`,
+          String.raw`$$x^{2}=(20)^{2}-(16)^{2}$$`,
+          String.raw`$$=400-256=144$$`,
+          String.raw`$$\therefore\; x=12$$`,
+          String.raw`মইয়ের গোড়া প্রথমে দেওয়াল ঘেঁষে ছিল, তাই একে $12$ মিটার সরাতে হবে।`,
+        ],
+        answer: String.raw`$12$ মিটার`,
+      },
+    },
+    {
+      id: 3,
+      question: String.raw`একটি সমদ্বিবাহু ত্রিভুজের পরিসীমা $16$ মিটার। এর সমান সমান বাহুর দৈর্ঘ্য ভূমির $\dfrac{5}{6}$ অংশ হলে, ত্রিভুজটির ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ভূমির দৈর্ঘ্য $b$ মিটার এবং সমান সমান বাহুর দৈর্ঘ্য $a=\dfrac{5}{6}b$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$2a+b=16$$`,
+          String.raw`$$\text{or, } 2\times\frac{5}{6}b+b=16$$`,
+          String.raw`$$\text{or, }\frac{5b}{3}+b=16$$`,
+          String.raw`$$\text{or, }\frac{8b}{3}=16$$`,
+          String.raw`$$\therefore\; b=6$$`,
+          String.raw`$$\therefore\; a=\frac{5}{6}\times 6=5$$`,
+          String.raw`$$A=\frac{b}{4}\sqrt{4a^{2}-b^{2}}=\frac{6}{4}\sqrt{4(5)^{2}-(6)^{2}}$$`,
+          String.raw`$$=\frac{3}{2}\sqrt{100-36}=\frac{3}{2}\times 8=12$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $12$ বর্গমিটার।`,
+        ],
+        answer: String.raw`$12$ বর্গমিটার`,
+      },
+    },
+    {
+      id: 4,
+      question: String.raw`একটি ত্রিভুজের দুইটি বাহুর দৈর্ঘ্য $25$ সে.মি., $27$ সে.মি. এবং পরিসীমা $84$ সে.মি.। ত্রিভুজটির ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $a=25$ সে.মি., $b=27$ সে.মি. এবং তৃতীয় বাহু $c$ সে.মি.।`,
+          String.raw`$$a+b+c=84$$`,
+          String.raw`$$\text{or, } c=84-(25+27)=32$$`,
+          String.raw`$$s=\frac{a+b+c}{2}=\frac{84}{2}=42$$`,
+          String.raw`$$A=\sqrt{s(s-a)(s-b)(s-c)}$$`,
+          String.raw`$$=\sqrt{42(42-25)(42-27)(42-32)}$$`,
+          String.raw`$$=\sqrt{42\times 17\times 15\times 10}=\sqrt{107100}$$`,
+          String.raw`$$=30\sqrt{119}=327.26$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $327.26$ বর্গ সে.মি. (প্রায়)।`,
+        ],
+        answer: String.raw`$327.26$ বর্গ সে.মি. (প্রায়)`,
+      },
+    },
+    {
+      id: 5,
+      question: String.raw`একটি সমবাহু ত্রিভুজের প্রত্যেক বাহুর দৈর্ঘ্য $2$ মিটার বাড়ালে এর ক্ষেত্রফল $6\sqrt{3}$ বর্গমিটার বেড়ে যায়। ত্রিভুজটির বাহুর দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমবাহু ত্রিভুজের প্রত্যেক বাহুর দৈর্ঘ্য $a$ মিটার।`,
+          String.raw`তাহলে ক্ষেত্রফল $\dfrac{\sqrt{3}}{4}a^{2}$ বর্গমিটার, আর বাহু $2$ মিটার বাড়ালে ক্ষেত্রফল $\dfrac{\sqrt{3}}{4}(a+2)^{2}$ বর্গমিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$\frac{\sqrt{3}}{4}(a+2)^{2}-\frac{\sqrt{3}}{4}a^{2}=6\sqrt{3}$$`,
+          String.raw`$$\text{or, }(a+2)^{2}-a^{2}=24$$`,
+          String.raw`[উভয় পক্ষকে $\dfrac{\sqrt{3}}{4}$ দ্বারা ভাগ করে]`,
+          String.raw`$$\text{or, } a^{2}+4a+4-a^{2}=24$$`,
+          String.raw`$$\text{or, } 4a=20$$`,
+          String.raw`$$\therefore\; a=5$$`,
+          String.raw`নির্ণেয় বাহুর দৈর্ঘ্য $5$ মিটার।`,
+        ],
+        answer: String.raw`$5$ মিটার`,
+      },
+    },
+    {
+      id: 6,
+      question: String.raw`একটি ত্রিভুজের দুই বাহুর দৈর্ঘ্য যথাক্রমে $26$ মিটার, $28$ মিটার এবং ক্ষেত্রফল $182$ বর্গমিটার হলে, বাহুদ্বয়ের অন্তর্ভুক্ত কোণ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, বাহুদ্বয় $a=26$ মিটার ও $b=28$ মিটার এবং এদের অন্তর্ভুক্ত কোণ $\theta$।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$\frac{1}{2}ab\sin\theta=182$$`,
+          String.raw`$$\text{or, }\frac{1}{2}\times 26\times 28\times\sin\theta=182$$`,
+          String.raw`$$\text{or, } 364\sin\theta=182$$`,
+          String.raw`$$\text{or, }\sin\theta=\frac{182}{364}=\frac{1}{2}$$`,
+          String.raw`$$\therefore\;\theta=30^{\circ}$$`,
+          String.raw`নির্ণেয় অন্তর্ভুক্ত কোণ $30^{\circ}$।`,
+        ],
+        answer: String.raw`$30^{\circ}$`,
+      },
+    },
+    {
+      id: 7,
+      question: String.raw`একটি সমদ্বিবাহু ত্রিভুজের সমান সমান বাহুর দৈর্ঘ্য $10$ মিটার এবং ক্ষেত্রফল $48$ বর্গমিটার হলে, ভূমির দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমান সমান বাহুর দৈর্ঘ্য $a=10$ মিটার এবং ভূমির দৈর্ঘ্য $b$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$\frac{b}{4}\sqrt{4a^{2}-b^{2}}=48$$`,
+          String.raw`$$\text{or, }\frac{b}{4}\sqrt{4(10)^{2}-b^{2}}=48$$`,
+          String.raw`$$\text{or, } b\sqrt{400-b^{2}}=192$$`,
+          String.raw`$$\text{or, } b^{2}\left(400-b^{2}\right)=36864$$`,
+          String.raw`[বর্গ করে]`,
+          String.raw`$$\text{or, }\left(b^{2}\right)^{2}-400b^{2}+36864=0$$`,
+          String.raw`$$\text{or, }\left(b^{2}\right)^{2}-256b^{2}-144b^{2}+36864=0$$`,
+          String.raw`$$\text{or, }\left(b^{2}-256\right)\left(b^{2}-144\right)=0$$`,
+          String.raw`$$\therefore\; b^{2}=256\qquad\text{or}\qquad b^{2}=144$$`,
+          String.raw`$$\therefore\; b=16\qquad\text{or}\qquad b=12$$`,
+          String.raw`দুইটি মানই গ্রহণযোগ্য, কারণ উভয় ক্ষেত্রেই $b<2a$ — অর্থাৎ ত্রিভুজটি গঠিত হয়।`,
+          String.raw`নির্ণেয় ভূমির দৈর্ঘ্য $12$ মিটার বা $16$ মিটার।`,
+        ],
+        answer: String.raw`$12$ মিটার বা $16$ মিটার`,
+      },
+    },
+    {
+      id: 8,
+      question: String.raw`একটি নির্দিষ্ট স্থান থেকে দুইটি রাস্তা পরস্পর $135^{\circ}$ কোণ করে দুই দিকে চলে গেছে। দুই জন লোক ঐ নির্দিষ্ট স্থান থেকে যথাক্রমে ঘণ্টায় $7$ কিলোমিটার ও ঘণ্টায় $5$ কিলোমিটার বেগে বিপরীত মুখে রওনা হলো। $4$ ঘণ্টা পর তাদের মধ্যে সরাসরি দূরত্ব নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $A$ স্থান থেকে রওনা হয়ে $4$ ঘণ্টা পর তারা যথাক্রমে $B$ ও $C$ স্থানে পৌঁছালো; তাহলে নির্ণেয় দূরত্ব $BC$।`,
+          String.raw`$C$ থেকে $BA$-এর বর্ধিতাংশের উপর $CD$ লম্ব টানি।`,
+          String.raw`$$AB=4\times 7=28,\qquad AC=4\times 5=20,\qquad\angle BAC=135^{\circ}$$`,
+          String.raw`$$\therefore\;\angle DAC=180^{\circ}-135^{\circ}=45^{\circ}$$`,
+          String.raw`সমকোণী $\triangle ACD$ থেকে পাই,`,
+          String.raw`$$CD=AC\sin 45^{\circ}=20\times\frac{1}{\sqrt{2}}=10\sqrt{2}$$`,
+          String.raw`$$AD=AC\cos 45^{\circ}=20\times\frac{1}{\sqrt{2}}=10\sqrt{2}$$`,
+          String.raw`আবার, সমকোণী $\triangle BCD$ থেকে পাই,`,
+          String.raw`$$BC^{2}=BD^{2}+CD^{2}=(BA+AD)^{2}+CD^{2}$$`,
+          String.raw`$$=\left(28+10\sqrt{2}\right)^{2}+\left(10\sqrt{2}\right)^{2}$$`,
+          String.raw`$$=784+560\sqrt{2}+200+200$$`,
+          String.raw`$$=1184+560\sqrt{2}=1975.96$$`,
+          String.raw`$$\therefore\; BC=44.45$$`,
+          String.raw`নির্ণেয় দূরত্ব $44.45$ কিলোমিটার (প্রায়)।`,
+          String.raw`[বইয়ের উত্তরপত্রে $44.44$ কিলোমিটার ছাপা হয়েছে; মধ্যবর্তী ধাপে বেশি দশমিক ঘর রাখলে সঠিক মান দাঁড়ায় $44.45$ কিলোমিটার।]`,
+        ],
+        answer: String.raw`$44.45$ কিলোমিটার (প্রায়)`,
+      },
+    },
+    {
+      id: 9,
+      question: String.raw`একটি সমবাহু ত্রিভুজের অভ্যন্তরস্থ একটি বিন্দু থেকে তিনটি বাহুর উপর অঙ্কিত লম্বের দৈর্ঘ্য যথাক্রমে $6$ সে.মি., $7$ সে.মি. ও $8$ সে.মি.। ত্রিভুজটির বাহুর দৈর্ঘ্য ও ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমবাহু ত্রিভুজের প্রত্যেক বাহুর দৈর্ঘ্য $a$ সে.মি. এবং ক্ষেত্রফল $A$ বর্গ সে.মি.।`,
+          String.raw`অভ্যন্তরস্থ বিন্দুটিকে তিনটি শীর্ষের সঙ্গে যোগ করলে ত্রিভুজটি তিনটি ত্রিভুজে বিভক্ত হয়, যাদের ভূমি প্রতিটি $a$ এবং উচ্চতা যথাক্রমে $6$, $7$ ও $8$ সে.মি.।`,
+          String.raw`$$A=\frac{1}{2}a\cdot 6+\frac{1}{2}a\cdot 7+\frac{1}{2}a\cdot 8$$`,
+          String.raw`$$=\frac{1}{2}a(6+7+8)=\frac{21a}{2}$$`,
+          String.raw`আবার, সমবাহু ত্রিভুজের ক্ষেত্রফলের সূত্র থেকে পাই,`,
+          String.raw`$$A=\frac{\sqrt{3}}{4}a^{2}$$`,
+          String.raw`$$\therefore\;\frac{\sqrt{3}}{4}a^{2}=\frac{21a}{2}$$`,
+          String.raw`$$\text{or, }\frac{\sqrt{3}}{4}a=\frac{21}{2}$$`,
+          String.raw`$$\text{or, } a=\frac{42}{\sqrt{3}}=14\sqrt{3}=24.249$$`,
+          String.raw`$$A=\frac{\sqrt{3}}{4}\left(14\sqrt{3}\right)^{2}=\frac{\sqrt{3}}{4}\times 588=147\sqrt{3}=254.611$$`,
+          String.raw`নির্ণেয় বাহুর দৈর্ঘ্য $24.249$ সে.মি. (প্রায়) এবং ক্ষেত্রফল $254.611$ বর্গ সে.মি. (প্রায়)।`,
+        ],
+        answer: String.raw`বাহু $24.249$ সে.মি. (প্রায়), ক্ষেত্রফল $254.611$ বর্গ সে.মি. (প্রায়)`,
+      },
+    },
+    {
+      id: 10,
+      question: String.raw`একটি সমকোণী ত্রিভুজের লম্ব ভূমির $\dfrac{11}{12}$ অংশ থেকে $6$ সে.মি. কম এবং অতিভুজ ভূমির $\dfrac{4}{3}$ অংশ থেকে $3$ সে.মি. কম।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`ভূমি $x$ হলে ত্রিভুজটির ক্ষেত্রফল $x$ এর মাধ্যমে প্রকাশ করো।`,
+          solution: {
+            steps: [
+              String.raw`ভূমি $x$ সে.মি. ধরলে প্রশ্নানুসারে লম্ব $\left(\dfrac{11}{12}x-6\right)$ সে.মি.।`,
+              String.raw`সমকোণী ত্রিভুজে লম্ব ও ভূমিই সমকোণ সংলগ্ন বাহুদ্বয়, তাই এদের একটিকে ভূমি ধরলে অন্যটিই উচ্চতা।`,
+              String.raw`$$A=\frac{1}{2}\times x\times\left(\frac{11}{12}x-6\right)$$`,
+              String.raw`$$=\frac{11x^{2}}{24}-3x$$`,
+              String.raw`নির্ণেয় ক্ষেত্রফল $\left(\dfrac{11x^{2}}{24}-3x\right)$ বর্গ সে.মি.।`,
+            ],
+            answer: String.raw`$A=\dfrac{11x^{2}}{24}-3x$ বর্গ সে.মি.`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`ভূমির দৈর্ঘ্য নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`ভূমি $x$, লম্ব $\dfrac{11}{12}x-6$ এবং অতিভুজ $\dfrac{4}{3}x-3$।`,
+              String.raw`পিথাগোরাসের সূত্রানুসারে,`,
+              String.raw`$$x^{2}+\left(\frac{11}{12}x-6\right)^{2}=\left(\frac{4}{3}x-3\right)^{2}$$`,
+              String.raw`$$\text{or, } x^{2}+\frac{121}{144}x^{2}-11x+36=\frac{16}{9}x^{2}-8x+9$$`,
+              String.raw`$$\text{or, } 144x^{2}+121x^{2}-1584x+5184=256x^{2}-1152x+1296$$`,
+              String.raw`[উভয় পক্ষকে $144$ দ্বারা গুণ করে]`,
+              String.raw`$$\text{or, } 9x^{2}-432x+3888=0$$`,
+              String.raw`$$\text{or, } x^{2}-48x+432=0$$`,
+              String.raw`$$\text{or, } x^{2}-36x-12x+432=0$$`,
+              String.raw`$$\text{or, }(x-36)(x-12)=0$$`,
+              String.raw`$$\therefore\; x=36\qquad\text{or}\qquad x=12$$`,
+              String.raw`যাচাই: $x=36$ হলে লম্ব $27$, অতিভুজ $45$ এবং $(36)^{2}+(27)^{2}=(45)^{2}$; আবার $x=12$ হলে লম্ব $5$, অতিভুজ $13$ এবং $(12)^{2}+(5)^{2}=(13)^{2}$।`,
+              String.raw`তাই দুইটি মানই গ্রহণযোগ্য।`,
+            ],
+            answer: String.raw`ভূমি $12$ সে.মি. অথবা $36$ সে.মি.`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`ত্রিভুজটির ভূমি $12$ সে.মি. হলে এর পরিসীমার সমান পরিসীমাবিশিষ্ট সমবাহু ত্রিভুজের ক্ষেত্রফল নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`ভূমি $12$ সে.মি. হলে,`,
+              String.raw`$$p=\frac{11}{12}\times 12-6=5,\qquad h=\frac{4}{3}\times 12-3=13$$`,
+              String.raw`এখানে $p$ লম্ব ও $h$ অতিভুজ, তাই ত্রিভুজটির পরিসীমা,`,
+              String.raw`$$12+5+13=30$$`,
+              String.raw`মনে করি, সমবাহু ত্রিভুজটির প্রত্যেক বাহুর দৈর্ঘ্য $a$ সে.মি.।`,
+              String.raw`$$3a=30$$`,
+              String.raw`$$\therefore\; a=10$$`,
+              String.raw`$$A=\frac{\sqrt{3}}{4}a^{2}=\frac{\sqrt{3}}{4}\times 100=25\sqrt{3}=43.30$$`,
+              String.raw`নির্ণেয় ক্ষেত্রফল $25\sqrt{3}$ অর্থাৎ $43.30$ বর্গ সে.মি. (প্রায়)।`,
+            ],
+            answer: String.raw`$25\sqrt{3}\approx 43.30$ বর্গ সে.মি. (প্রায়)`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const exercise162: Exercise = {
+  id: "16.2",
+  bnId: "অনুশীলনী ১৬.২",
+  title: "চতুর্ভুজ ও সুষম বহুভুজক্ষেত্রের ক্ষেত্রফল",
+  bookPages: "৩১০ – ৩১২",
+  formulas: [
+    {
+      title: "আয়ত ও বর্গক্ষেত্র",
+      formulas: [
+        {
+          statement: String.raw`$$A=ab,\qquad s=2(a+b),\qquad d=\sqrt{a^{2}+b^{2}}$$`,
+          note: String.raw`আয়তক্ষেত্রের দৈর্ঘ্য $a$ ও প্রস্থ $b$ হলে। কর্ণ আয়তক্ষেত্রটিকে দুইটি সমান সমকোণী ত্রিভুজে ভাগ করে বলেই $d$-এর সূত্রটি পিথাগোরাস থেকে আসে।`,
+        },
+        {
+          statement: String.raw`$$A=a^{2},\qquad s=4a,\qquad d=\sqrt{2}\,a$$`,
+          note: String.raw`বর্গক্ষেত্রের প্রতি বাহু $a$ হলে — আয়তক্ষেত্রের সূত্রগুলোতেই $b=a$ বসানো।`,
+        },
+      ],
+    },
+    {
+      title: "সামান্তরিক, রম্বস ও ট্রাপিজিয়াম",
+      formulas: [
+        {
+          statement: String.raw`$$A=bh$$`,
+          note: String.raw`সামান্তরিকক্ষেত্রের ভূমি $b$ ও উচ্চতা $h$ হলে। কর্ণ একে দুইটি সর্বসম ত্রিভুজে ভাগ করে, তাই $A=2\times\frac{1}{2}bh$।`,
+        },
+        {
+          statement: String.raw`$$A=dh$$`,
+          note: String.raw`সামান্তরিকের একটি কর্ণ $d$ এবং সেই কর্ণের বিপরীত কৌণিক বিন্দু থেকে কর্ণের উপর অঙ্কিত লম্ব $h$ হলে।`,
+        },
+        {
+          statement: String.raw`$$A=\frac{1}{2}d_{1}d_{2}$$`,
+          note: String.raw`রম্বসের কর্ণদ্বয় $d_{1}$ ও $d_{2}$ হলে। রম্বসের কর্ণদ্বয় পরস্পরকে সমকোণে সমদ্বিখণ্ডিত করে, তাই বাহু $a=\sqrt{\left(\frac{d_{1}}{2}\right)^{2}+\left(\frac{d_{2}}{2}\right)^{2}}$।`,
+        },
+        {
+          statement: String.raw`$$A=\frac{h(a+b)}{2}$$`,
+          note: String.raw`ট্রাপিজিয়ামের সমান্তরাল বাহু দুইটি $a$ ও $b$ এবং এদের মধ্যবর্তী লম্ব দূরত্ব $h$ হলে।`,
+        },
+      ],
+    },
+    {
+      title: "সুষম বহুভুজ",
+      formulas: [
+        {
+          statement: String.raw`$$A=\frac{na^{2}}{4}\cot\frac{180^{\circ}}{n}$$`,
+          note: String.raw`$n$ সংখ্যক বাহুবিশিষ্ট সুষম বহুভুজের প্রতি বাহু $a$ হলে। কেন্দ্র থেকে শীর্ষগুলো যোগ করলে $n$ টি সর্বসম সমদ্বিবাহু ত্রিভুজ পাওয়া যায় — সূত্রটি তারই যোগফল।`,
+        },
+        {
+          statement: String.raw`$$A=\frac{n}{2}R^{2}\sin\frac{360^{\circ}}{n}$$`,
+          note: String.raw`একই বহুভুজের কেন্দ্র থেকে কৌণিক বিন্দুর দূরত্ব $R$ দেওয়া থাকলে। প্রতিটি ত্রিভুজের দুই বাহু $R$ ও অন্তর্ভুক্ত কোণ $\dfrac{360^{\circ}}{n}$, তাই $\frac{1}{2}R^{2}\sin\frac{360^{\circ}}{n}$।`,
+        },
+      ],
+    },
+    {
+      title: "পাড় ও রাস্তার সমস্যা",
+      formulas: [
+        {
+          statement: String.raw`$$A_{\text{road}}=A_{\text{outer}}-A_{\text{inner}}$$`,
+          note: String.raw`রাস্তা বা পাড় সব সময় দুইটি আয়ত/বর্গক্ষেত্রের ক্ষেত্রফলের অন্তর। রাস্তা ভিতরে হলে ভিতরের বাহু $=$ বাহু $-\,2\times$ প্রস্থ; বাইরে হলে বাইরের বাহু $=$ বাহু $+\,2\times$ প্রস্থ।`,
+        },
+        {
+          statement: String.raw`$$1\ \text{hectare}=10000\ \text{m}^{2}$$`,
+          note: String.raw`অর্থাৎ $1$ হেক্টর $=10000$ বর্গমিটার।`,
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ৮ — book page ৩০৩.
+    {
+      id: 8,
+      question: String.raw`একটি আয়তাকার ঘরের দৈর্ঘ্য প্রস্থের $\dfrac{3}{2}$ গুণ। এর ক্ষেত্রফল $384$ বর্গমিটার হলে, পরিসীমা ও কর্ণের দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, আয়তাকার ঘরের প্রস্থ $x$ মিটার।`,
+          String.raw`তাহলে ঘরের দৈর্ঘ্য $\dfrac{3}{2}x$ মিটার এবং ক্ষেত্রফল $\dfrac{3}{2}x\times x=\dfrac{3}{2}x^{2}$ বর্গমিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$\frac{3}{2}x^{2}=384$$`,
+          String.raw`$$\text{or, } 3x^{2}=768$$`,
+          String.raw`$$\text{or, } x^{2}=256$$`,
+          String.raw`$$\therefore\; x=16$$`,
+          String.raw`অর্থাৎ ঘরের দৈর্ঘ্য $\dfrac{3}{2}\times 16=24$ মিটার এবং প্রস্থ $16$ মিটার।`,
+          String.raw`$$s=2(24+16)=80$$`,
+          String.raw`$$d=\sqrt{(24)^{2}+(16)^{2}}=\sqrt{832}=28.84$$`,
+          String.raw`নির্ণেয় পরিসীমা $80$ মিটার এবং কর্ণের দৈর্ঘ্য $28.84$ মিটার (প্রায়)।`,
+        ],
+        answer: String.raw`পরিসীমা $80$ মিটার, কর্ণ $28.84$ মিটার (প্রায়)`,
+      },
+    },
+    // উদাহরণ ৯ — book pages ৩০৩-৩০৪.
+    {
+      id: 9,
+      question: String.raw`একটি আয়তক্ষেত্রের ক্ষেত্রফল $2000$ বর্গমিটার। যদি এর দৈর্ঘ্য $10$ মিটার কম হতো তাহলে এটি একটি বর্গক্ষেত্র হতো। আয়তক্ষেত্রটির দৈর্ঘ্য ও প্রস্থ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, আয়তক্ষেত্রটির দৈর্ঘ্য $x$ মিটার এবং প্রস্থ $y$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$xy=2000\qquad\cdots(1)$$`,
+          String.raw`$$x-10=y\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$-এ $y=x-10$ বসিয়ে পাই,`,
+          String.raw`$$x(x-10)=2000$$`,
+          String.raw`$$\text{or, } x^{2}-10x-2000=0$$`,
+          String.raw`$$\text{or, } x^{2}-50x+40x-2000=0$$`,
+          String.raw`$$\text{or, }(x-50)(x+40)=0$$`,
+          String.raw`$$\therefore\; x=50\qquad\text{or}\qquad x=-40$$`,
+          String.raw`দৈর্ঘ্য ঋণাত্মক হতে পারে না, তাই $x=50$।`,
+          String.raw`$$\therefore\; y=50-10=40$$`,
+          String.raw`আয়তক্ষেত্রটির দৈর্ঘ্য $50$ মিটার এবং প্রস্থ $40$ মিটার।`,
+        ],
+        answer: String.raw`দৈর্ঘ্য $50$ মিটার, প্রস্থ $40$ মিটার`,
+      },
+    },
+    // উদাহরণ ১০ — book page ৩০৪.
+    {
+      id: 10,
+      question: String.raw`বর্গাকার একটি মাঠের ভিতরে চারদিকে $4$ মিটার চওড়া একটি রাস্তা আছে। যদি রাস্তার ক্ষেত্রফল $1$ হেক্টর হয়, তবে রাস্তা বাদে মাঠের ভিতরের ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, বর্গাকার মাঠের বাহুর দৈর্ঘ্য $x$ মিটার; তাহলে এর ক্ষেত্রফল $x^{2}$ বর্গমিটার।`,
+          String.raw`রাস্তাটি ভিতরে চারদিকে $4$ মিটার চওড়া, তাই রাস্তা বাদে ভিতরের বর্গের বাহু $(x-2\times 4)$ অর্থাৎ $(x-8)$ মিটার।`,
+          String.raw`সুতরাং রাস্তার ক্ষেত্রফল,`,
+          String.raw`$$A_{r}=x^{2}-(x-8)^{2}$$`,
+          String.raw`আমরা জানি, $1$ হেক্টর $=10000$ বর্গমিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$x^{2}-(x-8)^{2}=10000$$`,
+          String.raw`$$\text{or, } x^{2}-x^{2}+16x-64=10000$$`,
+          String.raw`$$\text{or, } 16x=10064$$`,
+          String.raw`$$\therefore\; x=629$$`,
+          String.raw`$$\therefore\;(x-8)^{2}=(629-8)^{2}=(621)^{2}=385641$$`,
+          String.raw`অর্থাৎ রাস্তা বাদে ভিতরের ক্ষেত্রফল $385641$ বর্গমিটার $=38.56$ হেক্টর (প্রায়)।`,
+        ],
+        answer: String.raw`$385641$ বর্গমিটার অর্থাৎ $38.56$ হেক্টর (প্রায়)`,
+      },
+    },
+    // উদাহরণ ১১ — book page ৩০৪.
+    {
+      id: 11,
+      question: String.raw`একটি সামান্তরিকক্ষেত্রের ক্ষেত্রফল $120$ বর্গ সে.মি. এবং একটি কর্ণ $24$ সে.মি.। কর্ণটির বিপরীত কৌণিক বিন্দু থেকে উক্ত কর্ণের উপর অঙ্কিত লম্বের দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সামান্তরিকক্ষেত্রের একটি কর্ণ $d=24$ সে.মি. এবং এর বিপরীত কৌণিক বিন্দু থেকে কর্ণের উপর অঙ্কিত লম্বের দৈর্ঘ্য $h$ সে.মি.।`,
+          String.raw`তাহলে সামান্তরিকক্ষেত্রটির ক্ষেত্রফল $dh$ বর্গ সে.মি.।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$dh=120$$`,
+          String.raw`$$\text{or, } h=\frac{120}{d}=\frac{120}{24}=5$$`,
+          String.raw`নির্ণেয় লম্বের দৈর্ঘ্য $5$ সে.মি.।`,
+        ],
+        answer: String.raw`$5$ সে.মি.`,
+      },
+    },
+    // উদাহরণ ১২ — book pages ৩০৪-৩০৫.
+    {
+      id: 12,
+      question: String.raw`একটি সামান্তরিকের বাহুর দৈর্ঘ্য $12$ মিটার ও $8$ মিটার এবং ক্ষুদ্রতম কর্ণটি $10$ মিটার হলে, অপর কর্ণটির দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $ABCD$ সামান্তরিকের $AB=a=12$ মিটার, $AD=c=8$ মিটার এবং কর্ণ $BD=b=10$ মিটার।`,
+          String.raw`$D$ ও $C$ থেকে $AB$-এর উপর এবং $AB$-এর বর্ধিতাংশের উপর যথাক্রমে $DF$ ও $CE$ লম্ব টানি।`,
+          String.raw`$\triangle ABD$-এর অর্ধপরিসীমা,`,
+          String.raw`$$s=\frac{12+10+8}{2}=15$$`,
+          String.raw`$$\triangle ABD=\sqrt{s(s-a)(s-b)(s-c)}=\sqrt{15(15-12)(15-10)(15-8)}$$`,
+          String.raw`$$=\sqrt{15\times 3\times 5\times 7}=\sqrt{1575}=39.68$$`,
+          String.raw`আবার, $\triangle ABD$-এর ক্ষেত্রফল $\dfrac{1}{2}AB\times DF$।`,
+          String.raw`$$\text{or, } 39.68=\frac{1}{2}\times 12\times DF$$`,
+          String.raw`$$\therefore\; DF=6.61$$`,
+          String.raw`এখন $\triangle BCE$ সমকোণী এবং $BC=AD$, $CE=DF$।`,
+          String.raw`$$BE^{2}=BC^{2}-CE^{2}=(8)^{2}-(6.61)^{2}=20.31$$`,
+          String.raw`$$\therefore\; BE=4.5$$`,
+          String.raw`$$\therefore\; AE=AB+BE=12+4.5=16.5$$`,
+          String.raw`সমকোণী $\triangle ACE$ থেকে পাই,`,
+          String.raw`$$AC^{2}=AE^{2}+CE^{2}=(16.5)^{2}+(6.61)^{2}=315.94$$`,
+          String.raw`$$\therefore\; AC=17.77$$`,
+          String.raw`নির্ণেয় কর্ণের দৈর্ঘ্য $17.77$ মিটার (প্রায়)।`,
+        ],
+        answer: String.raw`$17.77$ মিটার (প্রায়)`,
+      },
+    },
+    // উদাহরণ ১৩ — book pages ৩০৫-৩০৬.
+    {
+      id: 13,
+      question: String.raw`একটি রম্বসের একটি কর্ণ $10$ মিটার এবং ক্ষেত্রফল $120$ বর্গমিটার হলে, অপর কর্ণ এবং পরিসীমা নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $ABCD$ রম্বসের কর্ণ $BD=d_{1}=10$ মিটার এবং অপর কর্ণ $AC=d_{2}$ মিটার।`,
+          String.raw`রম্বসটির ক্ষেত্রফল $\dfrac{1}{2}d_{1}d_{2}$ বর্গমিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$\frac{1}{2}d_{1}d_{2}=120$$`,
+          String.raw`$$\text{or, } d_{2}=\frac{120\times 2}{10}=24$$`,
+          String.raw`আমরা জানি, রম্বসের কর্ণদ্বয় পরস্পরকে সমকোণে সমদ্বিখণ্ডিত করে।`,
+          String.raw`$$\therefore\; OD=OB=\frac{10}{2}=5,\qquad OA=OC=\frac{24}{2}=12$$`,
+          String.raw`সমকোণী $\triangle AOD$ থেকে পাই,`,
+          String.raw`$$AD^{2}=OA^{2}+OD^{2}=(12)^{2}+(5)^{2}=169$$`,
+          String.raw`$$\therefore\; AD=13$$`,
+          String.raw`সুতরাং রম্বসের পরিসীমা,`,
+          String.raw`$$s=4\times 13=52$$`,
+          String.raw`নির্ণেয় কর্ণের দৈর্ঘ্য $24$ মিটার এবং পরিসীমা $52$ মিটার।`,
+        ],
+        answer: String.raw`কর্ণ $24$ মিটার, পরিসীমা $52$ মিটার`,
+      },
+    },
+    // উদাহরণ ১৪ — book page ৩০৬.
+    {
+      id: 14,
+      question: String.raw`একটি ট্রাপিজিয়ামের সমান্তরাল বাহুদ্বয়ের দৈর্ঘ্য যথাক্রমে $91$ সে.মি. ও $51$ সে.মি. এবং অপর বাহু দুইটির দৈর্ঘ্য যথাক্রমে $37$ সে.মি. ও $13$ সে.মি.। ট্রাপিজিয়ামটির ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $ABCD$ ট্রাপিজিয়ামের $AB=91$ সে.মি., $CD=51$ সে.মি., $AD=13$ সে.মি. ও $BC=37$ সে.মি.।`,
+          String.raw`$D$ ও $C$ থেকে $AB$-এর উপর যথাক্রমে $DE$ ও $CF$ লম্ব টানি; তাহলে $CDEF$ একটি আয়তক্ষেত্র এবং $EF=CD=51$ সে.মি.।`,
+          String.raw`ধরি, $AE=x$ এবং $DE=CF=h$।`,
+          String.raw`$$\therefore\; BF=AB-(AE+EF)=91-(x+51)=40-x$$`,
+          String.raw`সমকোণী $\triangle ADE$ থেকে পাই,`,
+          String.raw`$$x^{2}+h^{2}=(13)^{2}=169\qquad\cdots(1)$$`,
+          String.raw`আবার, সমকোণী $\triangle BCF$ থেকে পাই,`,
+          String.raw`$$(40-x)^{2}+h^{2}=(37)^{2}$$`,
+          String.raw`$$\text{or, } 1600-80x+x^{2}+h^{2}=1369$$`,
+          String.raw`$$\text{or, } 1600-80x+169=1369$$`,
+          String.raw`$$\text{or, } 80x=400$$`,
+          String.raw`$$\therefore\; x=5$$`,
+          String.raw`সমীকরণ $(1)$-এ $x$-এর মান বসিয়ে পাই,`,
+          String.raw`$$(5)^{2}+h^{2}=169$$`,
+          String.raw`$$\text{or, } h^{2}=144$$`,
+          String.raw`$$\therefore\; h=12$$`,
+          String.raw`$$A=\frac{1}{2}(AB+CD)\cdot h=\frac{1}{2}(91+51)\times 12=71\times 12=852$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $852$ বর্গ সে.মি.।`,
+        ],
+        answer: String.raw`$852$ বর্গ সে.মি.`,
+      },
+    },
+    // উদাহরণ ১৫ — book page ৩০৮.
+    {
+      id: 15,
+      question: String.raw`একটি সুষম পঞ্চভুজের প্রতিবাহুর দৈর্ঘ্য $4$ সে.মি. হলে, এর ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সুষম পঞ্চভুজের বাহুর দৈর্ঘ্য $a=4$ সে.মি. এবং বাহুর সংখ্যা $n=5$।`,
+          String.raw`$$A=\frac{na^{2}}{4}\cot\frac{180^{\circ}}{n}$$`,
+          String.raw`$$=\frac{5\times (4)^{2}}{4}\cot\frac{180^{\circ}}{5}$$`,
+          String.raw`$$=20\cot 36^{\circ}$$`,
+          String.raw`$$=20\times 1.376=27.528$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $27.528$ বর্গ সে.মি. (প্রায়)।`,
+        ],
+        answer: String.raw`$27.528$ বর্গ সে.মি. (প্রায়)`,
+      },
+    },
+    // উদাহরণ ১৬ — book page ৩০৮.
+    {
+      id: 16,
+      question: String.raw`একটি সুষম ষড়ভুজের কেন্দ্র থেকে কৌণিক বিন্দুর দূরত্ব $4$ মিটার হলে, এর ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $ABCDEF$ একটি সুষম ষড়ভুজ। এর কেন্দ্র $O$ থেকে শীর্ষবিন্দুগুলো যোগ করলে $6$ টি সমান ক্ষেত্রবিশিষ্ট ত্রিভুজ উৎপন্ন হয়।`,
+          String.raw`$$\therefore\;\angle COD=\frac{360^{\circ}}{6}=60^{\circ}$$`,
+          String.raw`কেন্দ্র থেকে শীর্ষবিন্দুর দূরত্ব $a=4$ মিটার।`,
+          String.raw`$$\triangle COD=\frac{1}{2}\cdot a\cdot a\sin 60^{\circ}=\frac{\sqrt{3}}{4}\times (4)^{2}=4\sqrt{3}$$`,
+          String.raw`$$A=6\times\triangle COD=6\times 4\sqrt{3}=24\sqrt{3}$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $24\sqrt{3}$ বর্গমিটার।`,
+        ],
+        answer: String.raw`$24\sqrt{3}$ বর্গমিটার`,
+      },
+    },
+    // উদাহরণ ১৭ — book pages ৩০৯-৩১০.
+    {
+      id: 17,
+      question: String.raw`চিত্রে ক্ষেত্রটি $ABCD$ আয়তক্ষেত্র ও $ADE$ সমদ্বিবাহু ত্রিভুজক্ষেত্রে বিভক্ত, যেখানে $BC=50$ সে.মি., $AB=14$ সে.মি., $AD=AE=50$ সে.মি. এবং $\angle DAE=73.74^{\circ}$।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`আয়তক্ষেত্রটির কর্ণের দৈর্ঘ্য নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`চিত্র অনুসারে $ABCD$ আয়তক্ষেত্রের দৈর্ঘ্য $50$ সে.মি. ও প্রস্থ $14$ সে.মি.।`,
+              String.raw`$$d=\sqrt{(50)^{2}+(14)^{2}}=\sqrt{2500+196}=\sqrt{2696}=51.92$$`,
+              String.raw`নির্ণেয় কর্ণের দৈর্ঘ্য $51.92$ সে.মি. (প্রায়)।`,
+            ],
+            answer: String.raw`$51.92$ সে.মি. (প্রায়)`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`ক্ষেত্রটির ক্ষেত্রফল পূর্ণসংখ্যায় নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$ABCD=50\times 14=700$$`,
+              String.raw`$$\triangle ADE=\frac{1}{2}AD\cdot AE\cdot\sin\angle DAE=\frac{1}{2}\times 50\times 50\times\sin 73.74^{\circ}$$`,
+              String.raw`$$=25\times 50\times 0.960001=1200$$`,
+              String.raw`$$\therefore\;\text{total}=700+1200=1900$$`,
+              String.raw`সম্পূর্ণ ক্ষেত্রের ক্ষেত্রফল $1900$ বর্গ সে.মি.।`,
+            ],
+            answer: String.raw`$1900$ বর্গ সে.মি.`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`সমদ্বিবাহু ত্রিভুজের গ্রহণযোগ্য পরিসীমা নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$\triangle ADE$-এ $AD=AE=50$ সে.মি. $=a$ (ধরি) এবং $DE=b$ (ধরি)।`,
+              String.raw`$$\therefore\;\triangle ADE=\frac{b}{4}\sqrt{4a^{2}-b^{2}}$$`,
+              String.raw`প্রশ্নানুসারে,`,
+              String.raw`$$\frac{b}{4}\sqrt{4a^{2}-b^{2}}=1200$$`,
+              String.raw`$$\text{or, } b\sqrt{4(50)^{2}-b^{2}}=4800$$`,
+              String.raw`$$\text{or, } b^{2}\left(10000-b^{2}\right)=23040000$$`,
+              String.raw`[বর্গ করে]`,
+              String.raw`$$\text{or, } b^{4}-10000b^{2}+23040000=0$$`,
+              String.raw`$$\text{or, } b^{4}-6400b^{2}-3600b^{2}+23040000=0$$`,
+              String.raw`$$\text{or, }\left(b^{2}-6400\right)\left(b^{2}-3600\right)=0$$`,
+              String.raw`$$\therefore\; b=80\qquad\text{or}\qquad b=60$$`,
+              String.raw`$b=80$ হলে $\dfrac{1}{2}\times 50\times 80\times\sin\angle ADE=1200$, অর্থাৎ $\sin\angle ADE=0.6$ এবং $\angle ADE=36.87^{\circ}$ (প্রায়)।`,
+              String.raw`তখন $\triangle ADE$-এর তিন কোণের সমষ্টি $73.74^{\circ}+36.87^{\circ}+36.87^{\circ}=147.48^{\circ}$, যা $180^{\circ}$ নয়। সুতরাং $b\neq 80$।`,
+              String.raw`$b=60$ হলে $\dfrac{1}{2}\times 50\times 60\times\sin\angle ADE=1200$, অর্থাৎ $\sin\angle ADE=0.8$ এবং $\angle ADE=53.13^{\circ}$ (প্রায়)।`,
+              String.raw`তখন তিন কোণের সমষ্টি $73.74^{\circ}+53.13^{\circ}+53.13^{\circ}=180^{\circ}$। সুতরাং $b=60$।`,
+              String.raw`$$\therefore\;\text{perimeter}=50+50+60=160$$`,
+              String.raw`নির্ণেয় পরিসীমা $160$ সে.মি.।`,
+            ],
+            answer: String.raw`$160$ সে.মি.`,
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    {
+      id: 1,
+      question: String.raw`একটি আয়তাকারক্ষেত্রের দৈর্ঘ্য বিস্তারের দ্বিগুণ। এর ক্ষেত্রফল $512$ বর্গমিটার হলে, পরিসীমা নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, আয়তাকারক্ষেত্রের বিস্তার (প্রস্থ) $x$ মিটার; তাহলে দৈর্ঘ্য $2x$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$2x\times x=512$$`,
+          String.raw`$$\text{or, } 2x^{2}=512$$`,
+          String.raw`$$\text{or, } x^{2}=256$$`,
+          String.raw`$$\therefore\; x=16$$`,
+          String.raw`অর্থাৎ প্রস্থ $16$ মিটার এবং দৈর্ঘ্য $2\times 16=32$ মিটার।`,
+          String.raw`$$s=2(32+16)=2\times 48=96$$`,
+          String.raw`নির্ণেয় পরিসীমা $96$ মিটার।`,
+        ],
+        answer: String.raw`$96$ মিটার`,
+      },
+    },
+    {
+      id: 2,
+      question: String.raw`একটি জমির দৈর্ঘ্য $80$ মিটার এবং প্রস্থ $60$ মিটার। ঐ জমির মাঝে একটি পুকুর খনন করা হলো। যদি পুকুরের প্রত্যেক পাড়ের বিস্তার $4$ মিটার হয়, তবে পুকুরের পাড়ের ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`জমির ক্ষেত্রফল $=80\times 60=4800$ বর্গমিটার।`,
+          String.raw`পাড় চারদিকে $4$ মিটার চওড়া, তাই পুকুরের দৈর্ঘ্য $(80-2\times 4)=72$ মিটার এবং প্রস্থ $(60-2\times 4)=52$ মিটার।`,
+          String.raw`$$\therefore\;\text{pond}=72\times 52=3744$$`,
+          String.raw`পাড়ের ক্ষেত্রফল $=$ জমির ক্ষেত্রফল $-$ পুকুরের ক্ষেত্রফল।`,
+          String.raw`$$=4800-3744=1056$$`,
+          String.raw`নির্ণেয় পাড়ের ক্ষেত্রফল $1056$ বর্গমিটার।`,
+        ],
+        answer: String.raw`$1056$ বর্গমিটার`,
+      },
+    },
+    {
+      id: 3,
+      question: String.raw`একটি বাগানের দৈর্ঘ্য $40$ মিটার এবং প্রস্থ $30$ মিটার। বাগানের ভিতরে সমান পাড় বিশিষ্ট একটি পুকুর আছে। পুকুরের ক্ষেত্রফল বাগানের ক্ষেত্রফলের $\dfrac{1}{2}$ অংশ হলে, পুকুরের দৈর্ঘ্য ও প্রস্থ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`বাগানের ক্ষেত্রফল $=40\times 30=1200$ বর্গমিটার।`,
+          String.raw`$$\therefore\;\text{pond}=\frac{1}{2}\times 1200=600$$`,
+          String.raw`মনে করি, পাড়ের বিস্তার $x$ মিটার; তাহলে পুকুরের দৈর্ঘ্য $(40-2x)$ মিটার ও প্রস্থ $(30-2x)$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$(40-2x)(30-2x)=600$$`,
+          String.raw`$$\text{or, } 1200-80x-60x+4x^{2}=600$$`,
+          String.raw`$$\text{or, } 4x^{2}-140x+600=0$$`,
+          String.raw`$$\text{or, } x^{2}-35x+150=0$$`,
+          String.raw`$$\text{or, } x^{2}-30x-5x+150=0$$`,
+          String.raw`$$\text{or, }(x-30)(x-5)=0$$`,
+          String.raw`$$\therefore\; x=30\qquad\text{or}\qquad x=5$$`,
+          String.raw`$x=30$ হলে পুকুরের প্রস্থ $30-60<0$ হয়, যা অসম্ভব। তাই $x=5$।`,
+          String.raw`$$\therefore\;\text{length}=40-2\times 5=30,\qquad \text{width}=30-2\times 5=20$$`,
+          String.raw`নির্ণেয় পুকুরের দৈর্ঘ্য $30$ মিটার এবং প্রস্থ $20$ মিটার।`,
+        ],
+        answer: String.raw`দৈর্ঘ্য $30$ মিটার এবং প্রস্থ $20$ মিটার`,
+      },
+    },
+    {
+      id: 4,
+      question: String.raw`একটি বর্গাকার মাঠের বাইরে চারদিকে $5$ মিটার চওড়া একটি রাস্তা আছে। রাস্তার ক্ষেত্রফল $500$ বর্গমিটার হলে, মাঠের ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, বর্গাকার মাঠের বাহুর দৈর্ঘ্য $x$ মিটার; তাহলে এর ক্ষেত্রফল $x^{2}$ বর্গমিটার।`,
+          String.raw`রাস্তা বাইরে চারদিকে $5$ মিটার চওড়া, তাই রাস্তাসহ বর্গের বাহু $(x+2\times 5)$ অর্থাৎ $(x+10)$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$(x+10)^{2}-x^{2}=500$$`,
+          String.raw`$$\text{or, } x^{2}+20x+100-x^{2}=500$$`,
+          String.raw`$$\text{or, } 20x=400$$`,
+          String.raw`$$\therefore\; x=20$$`,
+          String.raw`$$\therefore\; x^{2}=(20)^{2}=400$$`,
+          String.raw`নির্ণেয় মাঠের ক্ষেত্রফল $400$ বর্গমিটার।`,
+        ],
+        answer: String.raw`$400$ বর্গমিটার`,
+      },
+    },
+    {
+      id: 5,
+      question: String.raw`একটি বর্গক্ষেত্রের পরিসীমা একটি আয়তক্ষেত্রের পরিসীমার সমান। আয়তক্ষেত্রটির দৈর্ঘ্য প্রস্থের তিনগুণ এবং ক্ষেত্রফল $768$ বর্গমিটার। প্রতিটি $40$ সে.মি. বর্গাকার পাথর দিয়ে বর্গক্ষেত্রটি বাঁধতে মোট কতটি পাথর লাগবে?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, আয়তক্ষেত্রের প্রস্থ $x$ মিটার; তাহলে দৈর্ঘ্য $3x$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$3x\times x=768$$`,
+          String.raw`$$\text{or, } x^{2}=256$$`,
+          String.raw`$$\therefore\; x=16$$`,
+          String.raw`অর্থাৎ আয়তক্ষেত্রের দৈর্ঘ্য $48$ মিটার ও প্রস্থ $16$ মিটার।`,
+          String.raw`$$\therefore\;\text{perimeter}=2(48+16)=128$$`,
+          String.raw`মনে করি, বর্গক্ষেত্রের বাহুর দৈর্ঘ্য $a$ মিটার।`,
+          String.raw`$$4a=128$$`,
+          String.raw`$$\therefore\; a=32$$`,
+          String.raw`$$\therefore\;\text{area}=(32)^{2}=1024$$`,
+          String.raw`প্রতিটি পাথরের বাহু $40$ সে.মি. $=0.4$ মিটার, তাই একটি পাথরের ক্ষেত্রফল $(0.4)^{2}=0.16$ বর্গমিটার।`,
+          String.raw`$$\therefore\;\text{stones}=\frac{1024}{0.16}=6400$$`,
+          String.raw`নির্ণেয় পাথরের সংখ্যা $6400$ টি।`,
+        ],
+        answer: String.raw`$6400$ টি`,
+      },
+    },
+    {
+      id: 6,
+      question: String.raw`একটি আয়তাকারক্ষেত্রের ক্ষেত্রফল $160$ বর্গমিটার। যদি এর দৈর্ঘ্য $6$ মিটার কম হয়, তবে ক্ষেত্রটি বর্গাকার হয়। আয়তাকারক্ষেত্রের দৈর্ঘ্য ও প্রস্থ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, আয়তাকারক্ষেত্রের দৈর্ঘ্য $x$ মিটার এবং প্রস্থ $y$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$xy=160\qquad\cdots(1)$$`,
+          String.raw`$$x-6=y\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$-এ $y=x-6$ বসিয়ে পাই,`,
+          String.raw`$$x(x-6)=160$$`,
+          String.raw`$$\text{or, } x^{2}-6x-160=0$$`,
+          String.raw`$$\text{or, } x^{2}-16x+10x-160=0$$`,
+          String.raw`$$\text{or, }(x-16)(x+10)=0$$`,
+          String.raw`$$\therefore\; x=16\qquad\text{or}\qquad x=-10$$`,
+          String.raw`দৈর্ঘ্য ঋণাত্মক হতে পারে না, তাই $x=16$।`,
+          String.raw`$$\therefore\; y=16-6=10$$`,
+          String.raw`নির্ণেয় দৈর্ঘ্য $16$ মিটার এবং প্রস্থ $10$ মিটার।`,
+        ],
+        answer: String.raw`$16$ মিটার ও $10$ মিটার`,
+      },
+    },
+    {
+      id: 7,
+      question: String.raw`একটি সামান্তরিকের ভূমি উচ্চতার $\dfrac{3}{4}$ অংশ এবং ক্ষেত্রফল $363$ বর্গমিটার হলে, ক্ষেত্রটির ভূমি ও উচ্চতা নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সামান্তরিকের উচ্চতা $h$ মিটার; তাহলে ভূমি $b=\dfrac{3}{4}h$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$bh=363$$`,
+          String.raw`$$\text{or, }\frac{3}{4}h\times h=363$$`,
+          String.raw`$$\text{or, } 3h^{2}=1452$$`,
+          String.raw`$$\text{or, } h^{2}=484$$`,
+          String.raw`$$\therefore\; h=22$$`,
+          String.raw`$$\therefore\; b=\frac{3}{4}\times 22=16.5$$`,
+          String.raw`নির্ণেয় ভূমি $16.5$ মিটার এবং উচ্চতা $22$ মিটার।`,
+        ],
+        answer: String.raw`ভূমি $16.5$ মিটার, উচ্চতা $22$ মিটার`,
+      },
+    },
+    {
+      id: 8,
+      question: String.raw`একটি সামান্তরিকক্ষেত্রের ক্ষেত্রফল একটি বর্গক্ষেত্রের সমান। সামান্তরিকের ভূমি $125$ মিটার এবং উচ্চতা $5$ মিটার হলে, বর্গক্ষেত্রের কর্ণের দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`সামান্তরিকক্ষেত্রের ক্ষেত্রফল,`,
+          String.raw`$$bh=125\times 5=625$$`,
+          String.raw`মনে করি, বর্গক্ষেত্রের বাহুর দৈর্ঘ্য $a$ মিটার।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$a^{2}=625$$`,
+          String.raw`$$\therefore\; a=25$$`,
+          String.raw`$$d=\sqrt{2}\,a=\sqrt{2}\times 25=35.35$$`,
+          String.raw`নির্ণেয় কর্ণের দৈর্ঘ্য $35.35$ মিটার (প্রায়)।`,
+        ],
+        answer: String.raw`$35.35$ মিটার (প্রায়)`,
+      },
+    },
+    {
+      id: 9,
+      question: String.raw`একটি সামান্তরিকের বাহুর দৈর্ঘ্য $30$ সে.মি. এবং $26$ সে.মি.। এর ক্ষুদ্রতম কর্ণটি $28$ সে.মি. হলে অপর কর্ণের দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $ABCD$ সামান্তরিকের $AB=a=30$ সে.মি., $AD=c=26$ সে.মি. এবং কর্ণ $BD=b=28$ সে.মি.।`,
+          String.raw`$D$ ও $C$ থেকে $AB$-এর উপর এবং $AB$-এর বর্ধিতাংশের উপর যথাক্রমে $DF$ ও $CE$ লম্ব টানি।`,
+          String.raw`$\triangle ABD$-এর অর্ধপরিসীমা,`,
+          String.raw`$$s=\frac{30+28+26}{2}=42$$`,
+          String.raw`$$\triangle ABD=\sqrt{s(s-a)(s-b)(s-c)}=\sqrt{42(42-30)(42-28)(42-26)}$$`,
+          String.raw`$$=\sqrt{42\times 12\times 14\times 16}=\sqrt{112896}=336$$`,
+          String.raw`আবার, $\triangle ABD$-এর ক্ষেত্রফল $\dfrac{1}{2}AB\times DF$।`,
+          String.raw`$$\text{or, } 336=\frac{1}{2}\times 30\times DF$$`,
+          String.raw`$$\therefore\; DF=22.4$$`,
+          String.raw`এখন $\triangle BCE$ সমকোণী, যেখানে $BC=AD=26$ এবং $CE=DF=22.4$।`,
+          String.raw`$$BE^{2}=BC^{2}-CE^{2}=(26)^{2}-(22.4)^{2}=676-501.76=174.24$$`,
+          String.raw`$$\therefore\; BE=13.2$$`,
+          String.raw`$$\therefore\; AE=AB+BE=30+13.2=43.2$$`,
+          String.raw`সমকোণী $\triangle ACE$ থেকে পাই,`,
+          String.raw`$$AC^{2}=AE^{2}+CE^{2}=(43.2)^{2}+(22.4)^{2}$$`,
+          String.raw`$$=1866.24+501.76=2368$$`,
+          String.raw`$$\therefore\; AC=48.66$$`,
+          String.raw`নির্ণেয় কর্ণের দৈর্ঘ্য $48.66$ সে.মি. (প্রায়)।`,
+        ],
+        answer: String.raw`$48.66$ সে.মি. (প্রায়)`,
+      },
+    },
+    {
+      id: 10,
+      question: String.raw`একটি রম্বসের পরিসীমা $180$ সে.মি. এবং ক্ষুদ্রতম কর্ণটি $54$ সে.মি.। এর অপর কর্ণ এবং ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $ABCD$ রম্বসের প্রতি বাহুর দৈর্ঘ্য $a$ সে.মি. এবং কর্ণদ্বয় $O$ বিন্দুতে ছেদ করে।`,
+          String.raw`$$4a=180$$`,
+          String.raw`$$\therefore\; a=45$$`,
+          String.raw`আমরা জানি, রম্বসের কর্ণদ্বয় পরস্পরকে সমকোণে সমদ্বিখণ্ডিত করে।`,
+          String.raw`ধরি, $BD=d_{1}=54$ সে.মি. এবং $AC=d_{2}$ সে.মি.।`,
+          String.raw`$$\therefore\; OB=\frac{54}{2}=27,\qquad OA=\frac{d_{2}}{2}$$`,
+          String.raw`সমকোণী $\triangle AOB$ থেকে পাই,`,
+          String.raw`$$OA^{2}+OB^{2}=AB^{2}$$`,
+          String.raw`$$\text{or, } OA^{2}+(27)^{2}=(45)^{2}$$`,
+          String.raw`$$\text{or, } OA^{2}=2025-729=1296$$`,
+          String.raw`$$\therefore\; OA=36$$`,
+          String.raw`$$\therefore\; d_{2}=2\times 36=72$$`,
+          String.raw`$$A=\frac{1}{2}d_{1}d_{2}=\frac{1}{2}\times 54\times 72=1944$$`,
+          String.raw`নির্ণেয় অপর কর্ণ $72$ সে.মি. এবং ক্ষেত্রফল $1944$ বর্গ সে.মি.।`,
+        ],
+        answer: String.raw`কর্ণ $72$ সে.মি., ক্ষেত্রফল $1944$ বর্গ সে.মি.`,
+      },
+    },
+    {
+      id: 11,
+      question: String.raw`একটি ট্রাপিজিয়ামের সমান্তরাল বাহু দুইটির দৈর্ঘ্যের অন্তর $8$ সে.মি. এবং এদের লম্ব দূরত্ব $24$ সে.মি.। যদি ট্রাপিজিয়ামের ক্ষেত্রফল $312$ বর্গ সে.মি. হয় তবে বাহু দুইটির দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমান্তরাল বাহু দুইটির দৈর্ঘ্য $a$ সে.মি. ও $b$ সে.মি., যেখানে $a>b$ এবং লম্ব দূরত্ব $h=24$ সে.মি.।`,
+          String.raw`প্রশ্নানুসারে,`,
+          String.raw`$$\frac{h(a+b)}{2}=312$$`,
+          String.raw`$$\text{or, }\frac{24(a+b)}{2}=312$$`,
+          String.raw`$$\text{or, } 12(a+b)=312$$`,
+          String.raw`$$\therefore\; a+b=26\qquad\cdots(1)$$`,
+          String.raw`আবার প্রশ্নানুসারে,`,
+          String.raw`$$a-b=8\qquad\cdots(2)$$`,
+          String.raw`$(1)$ ও $(2)$ যোগ করে পাই,`,
+          String.raw`$$2a=34$$`,
+          String.raw`$$\therefore\; a=17$$`,
+          String.raw`$$\therefore\; b=26-17=9$$`,
+          String.raw`নির্ণেয় বাহু দুইটির দৈর্ঘ্য $17$ সে.মি. ও $9$ সে.মি.।`,
+        ],
+        answer: String.raw`$17$ সে.মি. ও $9$ সে.মি.`,
+      },
+    },
+    {
+      id: 12,
+      question: String.raw`একটি ট্রাপিজিয়ামের সমান্তরাল বাহুদ্বয়ের দৈর্ঘ্য যথাক্রমে $31$ সে.মি. ও $11$ সে.মি. এবং অপর বাহু দুইটির দৈর্ঘ্য যথাক্রমে $10$ সে.মি. ও $12$ সে.মি.। এর ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $ABCD$ ট্রাপিজিয়ামের $AB=31$ সে.মি., $CD=11$ সে.মি., $AD=10$ সে.মি. ও $BC=12$ সে.মি.।`,
+          String.raw`$D$ ও $C$ থেকে $AB$-এর উপর যথাক্রমে $DE$ ও $CF$ লম্ব টানি; তাহলে $CDEF$ একটি আয়তক্ষেত্র এবং $EF=CD=11$ সে.মি.।`,
+          String.raw`ধরি, $AE=x$ এবং $DE=CF=h$।`,
+          String.raw`$$\therefore\; BF=AB-(AE+EF)=31-(x+11)=20-x$$`,
+          String.raw`সমকোণী $\triangle ADE$ থেকে পাই,`,
+          String.raw`$$x^{2}+h^{2}=(10)^{2}=100\qquad\cdots(1)$$`,
+          String.raw`আবার, সমকোণী $\triangle BCF$ থেকে পাই,`,
+          String.raw`$$(20-x)^{2}+h^{2}=(12)^{2}$$`,
+          String.raw`$$\text{or, } 400-40x+x^{2}+h^{2}=144$$`,
+          String.raw`$$\text{or, } 400-40x+100=144$$`,
+          String.raw`$$\text{or, } 40x=356$$`,
+          String.raw`$$\therefore\; x=8.9$$`,
+          String.raw`সমীকরণ $(1)$-এ $x$-এর মান বসিয়ে পাই,`,
+          String.raw`$$(8.9)^{2}+h^{2}=100$$`,
+          String.raw`$$\text{or, } h^{2}=100-79.21=20.79$$`,
+          String.raw`$$\therefore\; h=4.56$$`,
+          String.raw`$$A=\frac{h(AB+CD)}{2}=\frac{4.56\times(31+11)}{2}=21\times 4.56=95.75$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $95.75$ বর্গ সে.মি. (প্রায়)।`,
+        ],
+        answer: String.raw`$95.75$ বর্গ সে.মি. (প্রায়)`,
+      },
+    },
+    {
+      id: 13,
+      question: String.raw`একটি সুষম অষ্টভুজের কেন্দ্র থেকে কৌণিক বিন্দুর দূরত্ব $1.5$ মিটার হলে, এর ক্ষেত্রফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সুষম অষ্টভুজের কেন্দ্র $O$ এবং কেন্দ্র থেকে কৌণিক বিন্দুর দূরত্ব $R=1.5$ মিটার, বাহুর সংখ্যা $n=8$।`,
+          String.raw`কেন্দ্র থেকে শীর্ষবিন্দুগুলো যোগ করলে $8$ টি সমান ক্ষেত্রবিশিষ্ট ত্রিভুজ উৎপন্ন হয়, যাদের প্রত্যেকটির দুই বাহু $R$ এবং অন্তর্ভুক্ত কোণ,`,
+          String.raw`$$\theta=\frac{360^{\circ}}{8}=45^{\circ}$$`,
+          String.raw`$$\therefore\;\text{one triangle}=\frac{1}{2}R^{2}\sin 45^{\circ}=\frac{1}{2}\times(1.5)^{2}\times\frac{1}{\sqrt{2}}$$`,
+          String.raw`$$A=8\times\frac{1}{2}\times(1.5)^{2}\times\frac{1}{\sqrt{2}}=4\times 2.25\times 0.7071=6.363$$`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $6.363$ বর্গমিটার (প্রায়)।`,
+        ],
+        answer: String.raw`$6.363$ বর্গমিটার (প্রায়)`,
+      },
+    },
+    {
+      id: 14,
+      question: String.raw`একটি আয়তাকার জমির দৈর্ঘ্য $150$ মিটার এবং ক্ষেত্রফল $15000$ বর্গমিটার। এর বাইরে চারদিকে $3$ মিটার চওড়া রাস্তা আছে। জমিটির মধ্যে এর দৈর্ঘ্যের সমান ভূমিবিশিষ্ট একটি সমদ্বিবাহু ত্রিভুজাকৃতির জমিতে সবজি চাষ করা হলো। ত্রিভুজাকৃতি জমির ক্ষেত্রফল আয়তাকার জমিটির ক্ষেত্রফলের অর্ধেক।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`একটি সুষম ষড়ভুজের বাহুর দৈর্ঘ্য $5$ সে.মি. হলে, এর ক্ষেত্রফল নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, সুষম ষড়ভুজের বাহুর দৈর্ঘ্য $a=5$ সে.মি. এবং বাহুর সংখ্যা $n=6$।`,
+              String.raw`$$A=\frac{na^{2}}{4}\cot\frac{180^{\circ}}{n}$$`,
+              String.raw`$$=\frac{6\times(5)^{2}}{4}\cot\frac{180^{\circ}}{6}$$`,
+              String.raw`$$=\frac{150}{4}\cot 30^{\circ}=37.5\sqrt{3}$$`,
+              String.raw`$$=64.95$$`,
+              String.raw`নির্ণেয় ক্ষেত্রফল $37.5\sqrt{3}$ অর্থাৎ $64.95$ বর্গ সে.মি. (প্রায়)।`,
+            ],
+            answer: String.raw`$37.5\sqrt{3}\approx 64.95$ বর্গ সে.মি. (প্রায়)`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`রাস্তাটির ক্ষেত্রফল নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, আয়তাকার জমির দৈর্ঘ্য $150$ মিটার এবং প্রস্থ $y$ মিটার।`,
+              String.raw`$$150y=15000$$`,
+              String.raw`$$\therefore\; y=100$$`,
+              String.raw`রাস্তা বাইরে চারদিকে $3$ মিটার চওড়া, তাই রাস্তাসহ ক্ষেত্রের দৈর্ঘ্য $(150+2\times 3)=156$ মিটার এবং প্রস্থ $(100+2\times 3)=106$ মিটার।`,
+              String.raw`$$\therefore\;\text{outer}=156\times 106=16536$$`,
+              String.raw`রাস্তার ক্ষেত্রফল $=$ রাস্তাসহ ক্ষেত্রফল $-$ জমির ক্ষেত্রফল।`,
+              String.raw`$$=16536-15000=1536$$`,
+              String.raw`নির্ণেয় রাস্তার ক্ষেত্রফল $1536$ বর্গমিটার।`,
+            ],
+            answer: String.raw`$1536$ বর্গমিটার`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`সবজি চাষের জমিটির পরিসীমা নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`সমদ্বিবাহু ত্রিভুজাকৃতি জমির ভূমি $b=150$ মিটার এবং সমান সমান বাহুর দৈর্ঘ্য $a$ মিটার ধরি।`,
+              String.raw`$$\text{area}=\frac{1}{2}\times 15000=7500$$`,
+              String.raw`প্রশ্নানুসারে,`,
+              String.raw`$$\frac{b}{4}\sqrt{4a^{2}-b^{2}}=7500$$`,
+              String.raw`$$\text{or, }\frac{150}{4}\sqrt{4a^{2}-(150)^{2}}=7500$$`,
+              String.raw`$$\text{or, }\sqrt{4a^{2}-22500}=200$$`,
+              String.raw`$$\text{or, } 4a^{2}-22500=40000$$`,
+              String.raw`[বর্গ করে]`,
+              String.raw`$$\text{or, } 4a^{2}=62500$$`,
+              String.raw`$$\text{or, } a^{2}=15625$$`,
+              String.raw`$$\therefore\; a=125$$`,
+              String.raw`$$\therefore\;\text{perimeter}=125+125+150=400$$`,
+              String.raw`নির্ণেয় পরিসীমা $400$ মিটার।`,
+            ],
+            answer: String.raw`$400$ মিটার`,
+          },
+        },
+      ],
+    },
+    {
+      id: 15,
+      question: String.raw`নিচের চিত্রের তথ্য থেকে বহুভুজের ক্ষেত্রফল নির্ণয় করো।
+চিত্রে $ABCD$ চতুর্ভুজের চার বাহুর মধ্যবিন্দু যোগ করে $22$ সে.মি. বাহুবিশিষ্ট একটি বর্গক্ষেত্র পাওয়া গেছে এবং শীর্ষ $A$ থেকে বর্গক্ষেত্রের নিকটতম বাহুর লম্ব দূরত্ব $12$ সে.মি.।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $ABCD$ চতুর্ভুজের $AB$, $AD$, $CD$ ও $CB$ বাহুর মধ্যবিন্দু যথাক্রমে $P$, $Q$, $R$ ও $S$, এবং $PQRS$ একটি বর্গক্ষেত্র যার প্রতি বাহু $22$ সে.মি.।`,
+          String.raw`$\triangle ABD$-এ $P$ ও $Q$ যথাক্রমে $AB$ ও $AD$-এর মধ্যবিন্দু, তাই $PQ$ মধ্যরেখা।`,
+          String.raw`$$\therefore\; PQ=\frac{1}{2}BD$$`,
+          String.raw`$$\text{or, } BD=2\times 22=44$$`,
+          String.raw`অনুরূপভাবে $\triangle ABC$-এ $PS$ মধ্যরেখা।`,
+          String.raw`$$\therefore\; PS=\frac{1}{2}AC$$`,
+          String.raw`$$\text{or, } AC=2\times 22=44$$`,
+          String.raw`আবার $PQ\parallel BD$ এবং $PS\parallel AC$; বর্গক্ষেত্রে $PQ\perp PS$, সুতরাং $AC\perp BD$।`,
+          String.raw`মধ্যরেখা $PQ$, $BD$ থেকে $A$-এর দূরত্বকে সমদ্বিখণ্ডিত করে। তাই $BD$ থেকে $A$-এর লম্ব দূরত্ব,`,
+          String.raw`$$h_{1}=2\times 12=24$$`,
+          String.raw`$$\therefore\; h_{2}=AC-h_{1}=44-24=20$$`,
+          String.raw`কর্ণ $BD$ চতুর্ভুজটিকে $\triangle ABD$ ও $\triangle BCD$-এ ভাগ করে।`,
+          String.raw`$$\triangle ABD=\frac{1}{2}\times BD\times h_{1}=\frac{1}{2}\times 44\times 24=528$$`,
+          String.raw`$$\triangle BCD=\frac{1}{2}\times BD\times h_{2}=\frac{1}{2}\times 44\times 20=440$$`,
+          String.raw`$$\therefore\; ABCD=528+440=968$$`,
+          String.raw`[যাচাই: কর্ণদ্বয় পরস্পর লম্ব বলে $ABCD=\frac{1}{2}\times AC\times BD=\frac{1}{2}\times 44\times 44=968$]`,
+          String.raw`নির্ণেয় ক্ষেত্রফল $968$ বর্গ সে.মি.।`,
+        ],
+        answer: String.raw`$968$ বর্গ সে.মি.`,
+      },
+    },
+    {
+      id: 16,
+      question: String.raw`নিচের চিত্রের তথ্য থেকে বহুভুজসমূহের ক্ষেত্রফল নির্ণয় করো।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$ABCD$ চতুর্ভুজে $\angle A=90^{\circ}$, $AB=4$ সে.মি., $AD=2$ সে.মি., $DC=1.5$ সে.মি. এবং $CB=3$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`কর্ণ $BD$ টানি; এতে চতুর্ভুজটি $\triangle ABD$ ও $\triangle BCD$-এ বিভক্ত হয়।`,
+              String.raw`$\triangle ABD$-এ $\angle A=90^{\circ}$, তাই`,
+              String.raw`$$\triangle ABD=\frac{1}{2}\times AB\times AD=\frac{1}{2}\times 4\times 2=4$$`,
+              String.raw`$$BD=\sqrt{AB^{2}+AD^{2}}=\sqrt{16+4}=\sqrt{20}=4.472$$`,
+              String.raw`এখন $\triangle BCD$-এর তিন বাহু $BD=4.472$, $DC=1.5$ ও $CB=3$ সে.মি.।`,
+              String.raw`$$s=\frac{4.472+1.5+3}{2}=4.486$$`,
+              String.raw`$$\triangle BCD=\sqrt{s(s-BD)(s-DC)(s-CB)}$$`,
+              String.raw`$$=\sqrt{4.486\times 0.014\times 2.986\times 1.486}=\sqrt{0.277}=0.527$$`,
+              String.raw`$$\therefore\; ABCD=4+0.527=4.527$$`,
+              String.raw`নির্ণেয় ক্ষেত্রফল $4.53$ বর্গ সে.মি. (প্রায়)।`,
+            ],
+            answer: String.raw`$4.53$ বর্গ সে.মি. (প্রায়)`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$ABCD$ চতুর্ভুজে $\angle A=90^{\circ}$, $AB=18$ সে.মি., $AD=10$ সে.মি., $DC=12$ সে.মি. এবং $CB=AD=10$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`কর্ণ $BD$ টানি; এতে চতুর্ভুজটি $\triangle ABD$ ও $\triangle BCD$-এ বিভক্ত হয়।`,
+              String.raw`$\triangle ABD$-এ $\angle A=90^{\circ}$, তাই`,
+              String.raw`$$\triangle ABD=\frac{1}{2}\times AB\times AD=\frac{1}{2}\times 18\times 10=90$$`,
+              String.raw`$$BD=\sqrt{AB^{2}+AD^{2}}=\sqrt{324+100}=\sqrt{424}=20.591$$`,
+              String.raw`এখন $\triangle BCD$-এর তিন বাহু $BD=20.591$, $DC=12$ ও $CB=10$ সে.মি.।`,
+              String.raw`$$s=\frac{20.591+12+10}{2}=21.296$$`,
+              String.raw`$$\triangle BCD=\sqrt{s(s-BD)(s-DC)(s-CB)}$$`,
+              String.raw`$$=\sqrt{21.296\times 0.705\times 9.296\times 11.296}=\sqrt{1574.88}=39.685$$`,
+              String.raw`$$\therefore\; ABCD=90+39.685=129.685$$`,
+              String.raw`নির্ণেয় ক্ষেত্রফল $129.68$ বর্গ সে.মি. (প্রায়)।`,
+            ],
+            answer: String.raw`$129.68$ বর্গ সে.মি. (প্রায়)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$ABCDE$ বহুভুজে $\angle ACB=\angle ADC=\angle AED=90^{\circ}$, $\angle ABC=60^{\circ}$, $\angle CAD=\angle DAE=30^{\circ}$ এবং $BC=\sqrt{2}$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`$A$ থেকে $C$ ও $D$ যোগ করলে বহুভুজটি $\triangle ABC$, $\triangle ACD$ ও $\triangle ADE$-এ বিভক্ত হয়।`,
+              String.raw`সমকোণী $\triangle ABC$-এ $\angle ACB=90^{\circ}$ ও $\angle ABC=60^{\circ}$।`,
+              String.raw`$$AC=BC\tan 60^{\circ}=\sqrt{2}\times\sqrt{3}=\sqrt{6}$$`,
+              String.raw`$$\triangle ABC=\frac{1}{2}\times BC\times AC=\frac{1}{2}\times\sqrt{2}\times\sqrt{6}=\sqrt{3}$$`,
+              String.raw`সমকোণী $\triangle ACD$-এ $\angle ADC=90^{\circ}$ ও $\angle CAD=30^{\circ}$।`,
+              String.raw`$$AD=AC\cos 30^{\circ}=\sqrt{6}\times\frac{\sqrt{3}}{2}=\frac{3\sqrt{2}}{2}$$`,
+              String.raw`$$CD=AC\sin 30^{\circ}=\frac{\sqrt{6}}{2}$$`,
+              String.raw`$$\triangle ACD=\frac{1}{2}\times CD\times AD=\frac{1}{2}\times\frac{\sqrt{6}}{2}\times\frac{3\sqrt{2}}{2}=\frac{3\sqrt{3}}{4}$$`,
+              String.raw`সমকোণী $\triangle ADE$-এ $\angle AED=90^{\circ}$ ও $\angle DAE=30^{\circ}$।`,
+              String.raw`$$AE=AD\cos 30^{\circ}=\frac{3\sqrt{2}}{2}\times\frac{\sqrt{3}}{2}=\frac{3\sqrt{6}}{4}$$`,
+              String.raw`$$DE=AD\sin 30^{\circ}=\frac{3\sqrt{2}}{4}$$`,
+              String.raw`$$\triangle ADE=\frac{1}{2}\times DE\times AE=\frac{1}{2}\times\frac{3\sqrt{2}}{4}\times\frac{3\sqrt{6}}{4}=\frac{9\sqrt{3}}{16}$$`,
+              String.raw`$$\therefore\; ABCDE=\sqrt{3}+\frac{3\sqrt{3}}{4}+\frac{9\sqrt{3}}{16}=\frac{37\sqrt{3}}{16}=4.005$$`,
+              String.raw`নির্ণেয় ক্ষেত্রফল $\dfrac{37\sqrt{3}}{16}$ অর্থাৎ $4.01$ বর্গ সে.মি. (প্রায়)।`,
+            ],
+            answer: String.raw`$\dfrac{37\sqrt{3}}{16}\approx 4.01$ বর্গ সে.মি. (প্রায়)`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$ABCD$ চতুর্ভুজের চার বাহুর মধ্যবিন্দু যোগ করে $25$ সে.মি. বাহুবিশিষ্ট একটি বর্গক্ষেত্র পাওয়া গেছে।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, $ABCD$ চতুর্ভুজের $AB$, $AD$, $CD$ ও $CB$ বাহুর মধ্যবিন্দু যথাক্রমে $P$, $Q$, $R$ ও $S$, এবং $PQRS$ একটি বর্গক্ষেত্র যার প্রতি বাহু $25$ সে.মি.।`,
+              String.raw`$\triangle ABD$-এ $PQ$ মধ্যরেখা, তাই`,
+              String.raw`$$PQ=\frac{1}{2}BD$$`,
+              String.raw`$$\text{or, } BD=2\times 25=50$$`,
+              String.raw`অনুরূপভাবে $\triangle ABC$-এ $PS$ মধ্যরেখা, তাই`,
+              String.raw`$$AC=2\times 25=50$$`,
+              String.raw`আবার $PQ\parallel BD$, $PS\parallel AC$ এবং বর্গক্ষেত্রে $PQ\perp PS$; সুতরাং $AC\perp BD$।`,
+              String.raw`কর্ণদ্বয় পরস্পর লম্ব হলে চতুর্ভুজের ক্ষেত্রফল,`,
+              String.raw`$$ABCD=\frac{1}{2}\times AC\times BD=\frac{1}{2}\times 50\times 50=1250$$`,
+              String.raw`নির্ণেয় ক্ষেত্রফল $1250$ বর্গ সে.মি.।`,
+            ],
+            answer: String.raw`$1250$ বর্গ সে.মি.`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export const chaptersData: Chapter[] = [
   { id: 1, title: "বাস্তব সংখ্যা", exercises: [] },
   { id: 2, title: "সেট ও ফাংশন", exercises: [] },
@@ -1543,6 +2764,10 @@ export const chaptersData: Chapter[] = [
     title: "ক্ষেত্রফল সম্পর্কিত উপপাদ্য ও সম্পাদ্য",
     exercises: [],
   },
-  { id: 16, title: "পরিমিতি", exercises: [] },
+  {
+    id: 16,
+    title: "পরিমিতি",
+    exercises: [exercise161, exercise162],
+  },
   { id: 17, title: "পরিসংখ্যান", exercises: [] },
 ];
