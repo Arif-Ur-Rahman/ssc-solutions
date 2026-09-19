@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import MathText from "./MathText";
+import Figure from "./figures/Figure";
 import type { Problem, Solution } from "./chaptersData";
 import { toBn } from "./bn";
 
@@ -50,6 +51,10 @@ export default function ProblemCard({
         <MathText text={problem.question} />
       </div>
 
+      {/* The book prints a figure with the question, not with the answer, so
+          it sits above the solution toggle where a reader can work from it. */}
+      {problem.figure && <Figure name={problem.figure} />}
+
       {problem.parts && (
         <ol className="mb-5 space-y-3">
           {problem.parts.map((part) => (
@@ -57,9 +62,16 @@ export default function ProblemCard({
               <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gold/25 bg-gold/10 text-[11px] font-semibold text-gold-soft">
                 {part.label}
               </span>
-              <span className="min-w-0 flex-1 overflow-x-auto text-sm text-muted">
-                <MathText text={part.question} />
-              </span>
+              <div className="min-w-0 flex-1 text-sm text-muted">
+                <div className="overflow-x-auto">
+                  <MathText text={part.question} />
+                </div>
+                {part.figure && (
+                  <div className="mt-3">
+                    <Figure name={part.figure} />
+                  </div>
+                )}
+              </div>
             </li>
           ))}
         </ol>
