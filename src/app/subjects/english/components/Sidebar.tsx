@@ -65,30 +65,30 @@ export default function Sidebar({
       />
 
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r border-white/8 bg-[#0d1120] transition-transform duration-300 md:sticky md:top-16 md:bottom-auto md:z-30 md:h-[calc(100vh-4rem)] md:max-w-none md:shrink-0 md:translate-x-0 md:transition-all ${
+        className={`fixed top-0 bottom-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r border-gold/8 bg-surface transition-transform duration-300 md:sticky md:top-16 md:bottom-auto md:z-30 md:h-[calc(100vh-4rem)] md:max-w-none md:shrink-0 md:translate-x-0 md:transition-all ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         } ${sidebarOpen ? "md:w-64" : "md:w-16"}`}
       >
-        <div className="flex items-center gap-2.5 border-b border-white/8 p-5">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-sky-400/25 bg-sky-500/15">
-            <Languages className="h-4 w-4 text-sky-300" />
+        <div className="flex items-center gap-2.5 border-b border-gold/8 p-5">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gold/25 bg-gold/15">
+            <Languages className="h-4 w-4 text-gold-soft" />
           </div>
           <span
-            className={`min-w-0 flex-1 truncate font-semibold tracking-tight text-white ${labelled}`}
+            className={`min-w-0 flex-1 truncate font-semibold tracking-tight text-parchment ${labelled}`}
           >
             English
           </span>
           <button
             onClick={closeMobile}
             aria-label="Close writing types"
-            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition-colors duration-200 hover:bg-white/[0.06] hover:text-white md:hidden"
+            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted transition-colors duration-200 hover:bg-parchment/[0.06] hover:text-parchment md:hidden"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
         <div
-          className={`px-5 pt-5 text-[10px] font-semibold uppercase tracking-widest text-slate-600 ${labelled}`}
+          className={`px-5 pt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-faint ${labelled}`}
         >
           Writing Types
         </div>
@@ -105,13 +105,13 @@ export default function Sidebar({
                   aria-expanded={isOpen}
                   className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors duration-200 ${
                     isOpen
-                      ? "bg-sky-500/15 text-sky-200"
-                      : "text-slate-400 hover:bg-white/[0.04] hover:text-slate-200"
+                      ? "bg-gold/15 text-gold-soft"
+                      : "text-muted hover:bg-parchment/[0.04] hover:text-parchment"
                   }`}
                 >
                   <span
                     className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${
-                      isOpen ? "bg-sky-500/25 text-sky-200" : "bg-white/[0.05] text-slate-500"
+                      isOpen ? "bg-gold/25 text-gold-soft" : "bg-parchment/[0.05] text-faint"
                     }`}
                   >
                     <Icon className="h-3.5 w-3.5" />
@@ -120,7 +120,7 @@ export default function Sidebar({
                     className={`flex min-w-0 flex-1 items-center gap-2 ${labelled}`}
                   >
                     <span className="flex-1 truncate">{category.title}</span>
-                    <span className="shrink-0 text-[10px] font-semibold text-slate-600">
+                    <span className="shrink-0 text-[10px] font-semibold text-faint">
                       {category.pieces.length}
                     </span>
                     <ChevronDown
@@ -133,7 +133,7 @@ export default function Sidebar({
 
                 {isOpen && (
                   <div
-                    className={`mb-1 ml-[19px] space-y-0.5 border-l border-white/8 pl-3 pt-1 ${labelled}`}
+                    className={`mb-1 ml-[19px] space-y-0.5 border-l border-gold/8 pl-3 pt-1 ${labelled}`}
                   >
                     {category.pieces.map((piece) => (
                       <button
@@ -144,8 +144,8 @@ export default function Sidebar({
                         }}
                         className={`block w-full rounded-md px-2.5 py-1.5 text-left text-xs leading-snug transition-colors duration-200 ${
                           activePiece === piece.id
-                            ? "bg-white/[0.06] text-sky-300"
-                            : "text-slate-500 hover:bg-white/[0.04] hover:text-slate-300"
+                            ? "bg-parchment/[0.06] text-gold-soft"
+                            : "text-faint hover:bg-parchment/[0.04] hover:text-muted"
                         }`}
                       >
                         {piece.title}
@@ -158,11 +158,11 @@ export default function Sidebar({
           })}
         </nav>
 
-        <div className="border-t border-white/8 p-3">
+        <div className="border-t border-gold/8 p-3">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
-            className="hidden w-full items-center justify-center rounded-lg bg-white/[0.04] py-1.5 text-slate-400 transition-colors duration-200 hover:bg-white/[0.08] hover:text-slate-200 md:flex"
+            className="hidden w-full items-center justify-center rounded-lg bg-parchment/[0.04] py-1.5 text-muted transition-colors duration-200 hover:bg-parchment/[0.08] hover:text-parchment md:flex"
           >
             {sidebarOpen ? (
               <ChevronLeft className="h-4 w-4" />
@@ -172,7 +172,7 @@ export default function Sidebar({
           </button>
           <button
             onClick={closeMobile}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-white/[0.04] py-2.5 text-sm font-medium text-slate-300 transition-colors duration-200 hover:bg-white/[0.08] hover:text-white md:hidden"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-parchment/[0.04] py-2.5 text-sm font-medium text-muted transition-colors duration-200 hover:bg-parchment/[0.08] hover:text-parchment md:hidden"
           >
             <X className="h-4 w-4" />
             Close

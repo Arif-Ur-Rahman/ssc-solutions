@@ -13,32 +13,32 @@ export default function ProblemCard({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mb-6 rounded-lg border bg-white p-4 shadow-sm sm:p-6">
-      <div className="mb-3 text-xs font-mono uppercase tracking-widest text-yellow-600">
+    <div className="mb-4 rounded-2xl border border-gold/8 bg-parchment/[0.03] p-4 transition-colors duration-300 hover:border-gold/15 sm:p-6">
+      <div className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
         Problem {index + 1}
       </div>
 
-      <div className="mb-4 overflow-x-auto text-base leading-relaxed text-gray-800 sm:text-lg">
+      <div className="mb-4 overflow-x-auto text-base leading-relaxed text-parchment sm:text-lg">
         <MathText text={problem.question} />
       </div>
 
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 rounded border border-pink-800 px-4 py-2 text-sm text-pink-800 transition hover:bg-pink-800 hover:text-white"
+        className="flex items-center gap-2 rounded-lg border border-gold/30 bg-gold/10 px-4 py-2 text-sm font-medium text-gold-soft transition-colors duration-200 hover:border-gold/50 hover:bg-gold/20"
       >
         {open ? "Hide Solution" : "Show Solution"}
       </button>
 
       {open && (
-        <div className="mt-5 rounded-r-lg border-l-4 border-pink-800 bg-gray-50 p-4 sm:p-5">
-          <div className="mb-3 text-xs font-mono uppercase tracking-widest text-pink-800">
+        <div className="mt-5 rounded-r-lg border-l-2 border-gold/60 bg-parchment/[0.03] p-4 sm:p-5">
+          <div className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
             Solution
           </div>
 
-          <ol className="space-y-2 text-gray-700">
+          <ol className="space-y-2 text-muted">
             {problem.solution.steps.map((step: string, i: number) => (
               <li key={i} className="flex gap-3">
-                <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-pink-100 text-xs text-pink-600">
+                <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/15 text-xs text-gold">
                   {i + 1}
                 </span>
                 <span className="min-w-0 flex-1 overflow-x-auto">
@@ -48,8 +48,8 @@ export default function ProblemCard({
             ))}
           </ol>
 
-          <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 rounded bg-pink-50 p-3 text-base text-gray-900 sm:text-lg">
-            <span className="font-mono text-xs uppercase text-yellow-600">
+          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-gold/20 bg-gold/[0.07] px-4 py-3 text-base text-parchment sm:text-lg">
+            <span className="text-[11px] font-semibold tracking-wide text-gold">
               Answer:
             </span>
             <span className="min-w-0 overflow-x-auto">

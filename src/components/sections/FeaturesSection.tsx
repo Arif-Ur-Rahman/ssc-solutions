@@ -36,22 +36,22 @@ const features: Feature[] = [
 
 // Each card gets a unique accent colour from the Hero palette
 const accents = [
-  { bg: 'rgba(99,102,241,0.12)', border: 'rgba(99,102,241,0.3)', icon: '#818cf8' },   // indigo
-  { bg: 'rgba(56,189,248,0.10)', border: 'rgba(56,189,248,0.25)', icon: '#38bdf8' },   // sky
-  { bg: 'rgba(167,139,250,0.12)', border: 'rgba(167,139,250,0.3)', icon: '#a78bfa' },  // violet
-  { bg: 'rgba(99,102,241,0.12)', border: 'rgba(99,102,241,0.3)', icon: '#818cf8' },
-  { bg: 'rgba(56,189,248,0.10)', border: 'rgba(56,189,248,0.25)', icon: '#38bdf8' },
-  { bg: 'rgba(167,139,250,0.12)', border: 'rgba(167,139,250,0.3)', icon: '#a78bfa' },
+  { bg: 'rgba(220,202,135,0.12)', border: 'rgba(220,202,135,0.3)', icon: '#dcca87' },   // indigo
+  { bg: 'rgba(232,220,174,0.10)', border: 'rgba(232,220,174,0.25)', icon: '#e8dcae' },   // sky
+  { bg: 'rgba(184,164,106,0.12)', border: 'rgba(184,164,106,0.3)', icon: '#b8a46a' },  // violet
+  { bg: 'rgba(220,202,135,0.12)', border: 'rgba(220,202,135,0.3)', icon: '#dcca87' },
+  { bg: 'rgba(232,220,174,0.10)', border: 'rgba(232,220,174,0.25)', icon: '#e8dcae' },
+  { bg: 'rgba(184,164,106,0.12)', border: 'rgba(184,164,106,0.3)', icon: '#b8a46a' },
 ]
 
 export default function FeaturesSection() {
   return (
-    <section className="relative bg-[#0a0f1e] py-20 md:py-28 overflow-hidden">
+    <section className="textured relative bg-ink py-20 md:py-28 overflow-hidden">
 
       {/* Background glow blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-indigo-700/10 blur-[100px]" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-violet-600/10 blur-[90px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-gold-deep/10 blur-[100px]" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-gold-deep/10 blur-[90px]" />
         {/* Dot grid */}
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -61,27 +61,28 @@ export default function FeaturesSection() {
           }}
         />
         {/* Section divider lines */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-400/40 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-400/20 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
 
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-400/25 text-indigo-300 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
+          <span className="inline-flex items-center gap-2 bg-gold/10 border border-gold/25 text-gold-soft text-xs font-semibold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-5">
             Everything you need
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+          <div className="spoon-divider mx-auto mb-5" aria-hidden />
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-medium text-parchment mb-4">
             Why Choose{' '}
             <span
               className="bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #38bdf8 100%)' }}
+              style={{ backgroundImage: 'linear-gradient(135deg, #dcca87 0%, #f5efdb 50%, #b8a46a 100%)' }}
             >
               SSC Solutions?
             </span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-xl mx-auto">
+          <p className="text-muted text-lg max-w-xl mx-auto">
             A complete toolkit designed to help every SSC student study smarter and score higher.
           </p>
         </div>
@@ -94,7 +95,7 @@ export default function FeaturesSection() {
             return (
               <div
                 key={i}
-                className="group relative rounded-2xl border border-white/8 bg-white/[0.03] p-6 sm:p-7 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300"
+                className="group relative rounded-2xl border border-gold/8 bg-parchment/[0.03] p-6 sm:p-7 hover:bg-parchment/[0.06] hover:border-gold/15 transition-all duration-300"
                 style={{ backdropFilter: 'blur(8px)' }}
               >
                 {/* Hover glow */}
@@ -115,10 +116,10 @@ export default function FeaturesSection() {
                   <IconComponent className="h-5 w-5 text-current" /> {/* Uses parent's color */}
                 </div>
 
-                <h3 className="text-lg font-semibold text-white mb-2 tracking-tight">
+                <h3 className="text-lg font-semibold text-parchment mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-muted text-sm leading-relaxed">
                   {feature.description}
                 </p>
 

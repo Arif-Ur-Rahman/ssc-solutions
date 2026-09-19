@@ -25,11 +25,11 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="relative bg-[#060912] overflow-hidden">
+    <footer className="textured relative bg-ink-deep overflow-hidden">
 
       {/* Background atmosphere */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full bg-indigo-700/10 blur-[100px]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full bg-gold-deep/10 blur-[100px]" />
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -38,7 +38,7 @@ export default function Footer() {
           }}
         />
         {/* Top divider beam */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-400/40 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-16 pb-8">
@@ -49,26 +49,26 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2.5 group mb-5">
-              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-indigo-600/20 border border-indigo-400/30 group-hover:bg-indigo-600/30 transition-colors duration-200">
-                <BookOpen className="h-5 w-5 text-indigo-400" />
+              <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gold-deep/20 border border-gold/30 group-hover:bg-gold-deep/30 transition-colors duration-200">
+                <BookOpen className="h-5 w-5 text-gold" />
               </div>
-              <span className="text-lg font-bold text-white tracking-tight">
+              <span className="text-lg font-bold text-parchment tracking-tight">
                 SSC{' '}
                 <span
                   className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: 'linear-gradient(135deg, #818cf8, #38bdf8)' }}
+                  style={{ backgroundImage: 'linear-gradient(135deg, #dcca87, #b8a46a)' }}
                 >
                   Solutions
                 </span>
               </span>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+            <p className="text-muted text-sm leading-relaxed mb-6">
               Your complete study companion for SSC examination success — solutions, materials, and community, all in one place.
             </p>
             {/* CTA nudge */}
             <Link
               href="/subjects"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/15 border border-indigo-400/25 hover:border-indigo-400/40 px-4 py-2 rounded-lg transition-all duration-200"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-gold hover:text-gold-soft bg-gold/10 hover:bg-gold/15 border border-gold/25 hover:border-gold/40 px-4 py-2 rounded-lg transition-all duration-200"
             >
               Browse Subjects
               <ArrowUpRight className="h-3 w-3" />
@@ -77,7 +77,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
+            <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-faint mb-5">
               Quick Links
             </h4>
             <ul className="space-y-3">
@@ -85,9 +85,9 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-sm text-muted hover:text-parchment transition-colors duration-200 flex items-center gap-1.5 group"
                   >
-                    <span className="inline-block w-1 h-1 rounded-full bg-indigo-500/50 group-hover:bg-indigo-400 transition-colors duration-200" />
+                    <span className="inline-block w-1 h-1 rounded-full bg-gold/50 group-hover:bg-gold transition-colors duration-200" />
                     {link.label}
                   </Link>
                 </li>
@@ -97,7 +97,7 @@ export default function Footer() {
 
           {/* Subjects */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
+            <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-faint mb-5">
               Subjects
             </h4>
             <ul className="space-y-3">
@@ -105,9 +105,9 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-sm text-muted hover:text-parchment transition-colors duration-200 flex items-center gap-1.5 group"
                   >
-                    <span className="inline-block w-1 h-1 rounded-full bg-sky-500/50 group-hover:bg-sky-400 transition-colors duration-200" />
+                    <span className="inline-block w-1 h-1 rounded-full bg-gold/50 group-hover:bg-gold transition-colors duration-200" />
                     {link.label}
                   </Link>
                 </li>
@@ -117,17 +117,17 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-5">
+            <h4 className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-faint mb-5">
               Contact
             </h4>
             <ul className="space-y-4">
               <li>
                 <a
                   href={`mailto:${contactInfo.email}`}
-                  className="flex items-start gap-3 text-sm text-slate-400 hover:text-white transition-colors duration-200 group"
+                  className="flex items-start gap-3 text-sm text-muted hover:text-parchment transition-colors duration-200 group"
                 >
-                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-400/20 group-hover:bg-indigo-500/20 transition-colors shrink-0">
-                    <Mail className="h-3.5 w-3.5 text-indigo-400" />
+                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-gold/10 border border-gold/20 group-hover:bg-gold/20 transition-colors shrink-0">
+                    <Mail className="h-3.5 w-3.5 text-gold" />
                   </span>
                   <span className="break-all">{contactInfo.email}</span>
                 </a>
@@ -135,10 +135,10 @@ export default function Footer() {
               <li>
                 <a
                   href={`tel:${contactInfo.phoneTel}`}
-                  className="flex items-start gap-3 text-sm text-slate-400 hover:text-white transition-colors duration-200 group"
+                  className="flex items-start gap-3 text-sm text-muted hover:text-parchment transition-colors duration-200 group"
                 >
-                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-sky-500/10 border border-sky-400/20 group-hover:bg-sky-500/20 transition-colors shrink-0">
-                    <Phone className="h-3.5 w-3.5 text-sky-400" />
+                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-gold/10 border border-gold/20 group-hover:bg-gold/20 transition-colors shrink-0">
+                    <Phone className="h-3.5 w-3.5 text-gold" />
                   </span>
                   {contactInfo.phoneDisplay}
                 </a>
@@ -148,18 +148,18 @@ export default function Footer() {
                   href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-3 text-sm text-slate-400 hover:text-white transition-colors duration-200 group"
+                  className="flex items-start gap-3 text-sm text-muted hover:text-parchment transition-colors duration-200 group"
                 >
-                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-400/20 group-hover:bg-emerald-500/20 transition-colors shrink-0">
-                    <MessageCircle className="h-3.5 w-3.5 text-emerald-400" />
+                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-gold/10 border border-gold/20 group-hover:bg-gold/20 transition-colors shrink-0">
+                    <MessageCircle className="h-3.5 w-3.5 text-gold" />
                   </span>
                   WhatsApp us
                 </a>
               </li>
               <li>
-                <div className="flex items-start gap-3 text-sm text-slate-400">
-                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-violet-500/10 border border-violet-400/20 shrink-0">
-                    <MapPin className="h-3.5 w-3.5 text-violet-400" />
+                <div className="flex items-start gap-3 text-sm text-muted">
+                  <span className="mt-0.5 flex items-center justify-center w-7 h-7 rounded-lg bg-gold/10 border border-gold/20 shrink-0">
+                    <MapPin className="h-3.5 w-3.5 text-gold" />
                   </span>
                   {contactInfo.location}
                 </div>
@@ -169,11 +169,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/8 pt-7 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-600">
+        <div className="border-t border-gold/8 pt-7 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-faint">
             &copy; {currentYear} SSC Solutions. All rights reserved.
           </p>
-          <p className="text-xs text-slate-700">
+          <p className="text-xs text-faint">
             Built for students, by educators.
           </p>
         </div>

@@ -36,13 +36,13 @@ const highlights = [
 
 export default function ContactPage() {
   return (
-    <div className="relative min-h-screen bg-[#0a0f1e] overflow-hidden">
+    <div className="textured relative min-h-screen bg-ink overflow-hidden">
 
       {/* ── Background atmosphere ── */}
       <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-indigo-700/18 blur-[130px]" />
-        <div className="absolute top-1/3 right-0 w-[450px] h-[450px] rounded-full bg-violet-600/12 blur-[110px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-sky-500/10 blur-[100px]" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-gold-deep/18 blur-[130px]" />
+        <div className="absolute top-1/3 right-0 w-[450px] h-[450px] rounded-full bg-gold-deep/12 blur-[110px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-gold/10 blur-[100px]" />
         <div
           className="absolute inset-0 opacity-[0.05]"
           style={{
@@ -50,7 +50,7 @@ export default function ContactPage() {
             backgroundSize: '32px 32px',
           }}
         />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
@@ -58,28 +58,30 @@ export default function ContactPage() {
         {/* ── Hero ── */}
         <section className="pt-20 pb-14 text-center">
           <span
-            className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-400/25 text-indigo-300 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 animate-fade-in"
+            className="inline-flex items-center gap-2 bg-gold/10 border border-gold/25 text-gold-soft text-xs font-semibold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-6 animate-fade-in"
           >
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
             We usually reply within hours
           </span>
 
+          <div className="spoon-divider mx-auto mb-5" aria-hidden />
+
           <h1
-            className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-5 animate-fade-in-up"
+            className="text-4xl sm:text-5xl md:text-6xl font-medium leading-[1.1] mb-5 animate-fade-in-up"
             style={{ animationDelay: '80ms' }}
           >
-            <span className="text-white">Let&apos;s Talk About</span>
+            <span className="text-parchment">Let&apos;s Talk About</span>
             <br />
             <span
               className="bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #38bdf8 100%)' }}
+              style={{ backgroundImage: 'linear-gradient(135deg, #dcca87 0%, #f5efdb 50%, #b8a46a 100%)' }}
             >
               Your Next Exam
             </span>
           </h1>
 
           <p
-            className="text-lg text-slate-400 max-w-xl mx-auto mb-10 animate-fade-in-up"
+            className="text-lg text-muted max-w-xl mx-auto mb-10 animate-fade-in-up"
             style={{ animationDelay: '160ms' }}
           >
             Stuck on a problem, spotted a mistake, or want a chapter added? Pick whichever way is
@@ -94,7 +96,7 @@ export default function ContactPage() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-[#052e1c] font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 active:scale-95 shadow-lg shadow-emerald-600/25"
+              className="group inline-flex items-center gap-2 bg-gold hover:bg-gold text-[#0c0c0c] font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 active:scale-95 shadow-lg shadow-gold-deep/25"
             >
               <MessageCircle className="h-4 w-4" />
               Chat on WhatsApp
@@ -102,7 +104,7 @@ export default function ContactPage() {
             </a>
             <a
               href={`mailto:${contactInfo.email}`}
-              className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 active:scale-95"
+              className="inline-flex items-center gap-2 bg-parchment/5 hover:bg-parchment/10 border border-gold/10 hover:border-gold/20 text-parchment font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 active:scale-95"
             >
               <Mail className="h-4 w-4" />
               Email us
@@ -124,17 +126,17 @@ export default function ContactPage() {
               {/* Glow behind the frame */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute -inset-8 rounded-[2.5rem] bg-indigo-600/20 blur-[70px]"
+                className="pointer-events-none absolute -inset-8 rounded-[2.5rem] bg-gold-deep/20 blur-[70px]"
               />
               {/* Gradient frame */}
               <div
                 className="relative rounded-[1.75rem] p-px"
                 style={{
                   background:
-                    'linear-gradient(150deg, rgba(129,140,248,0.55), rgba(167,139,250,0.18) 45%, rgba(56,189,248,0.45))',
+                    'linear-gradient(150deg, rgba(220,202,135,0.55), rgba(184,164,106,0.18) 45%, rgba(232,220,174,0.45))',
                 }}
               >
-                <div className="relative rounded-[1.7rem] overflow-hidden bg-[#0d1324]">
+                <div className="relative rounded-[1.7rem] overflow-hidden bg-surface">
                   <Image
                     src="/arif-ur-rahman.png"
                     alt="Arif Ur Rahman, who writes and replies to messages at SSC Solutions"
@@ -147,17 +149,17 @@ export default function ContactPage() {
                   <div
                     aria-hidden
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
-                    style={{ background: 'linear-gradient(to top, rgba(10,15,30,0.92), transparent)' }}
+                    style={{ background: 'linear-gradient(to top, rgba(12,12,12,0.92), transparent)' }}
                   />
                   {/* Floating status badge */}
-                  <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3 rounded-2xl border border-white/12 bg-[#0a0f1e]/70 px-4 py-3 backdrop-blur-md">
+                  <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3 rounded-2xl border border-gold/12 bg-ink/70 px-4 py-3 backdrop-blur-md">
                     <span className="relative flex h-2.5 w-2.5 shrink-0">
-                      <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400/70 animate-ping" />
-                      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-gold/70 animate-ping" />
+                      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
                     </span>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-white leading-tight">Arif Ur Rahman</p>
-                      <p className="text-[11px] text-slate-400 leading-tight mt-0.5">
+                      <p className="text-sm font-semibold text-parchment leading-tight">Arif Ur Rahman</p>
+                      <p className="text-[11px] text-muted leading-tight mt-0.5">
                         Usually replies within hours
                       </p>
                     </div>
@@ -168,25 +170,27 @@ export default function ContactPage() {
 
             {/* Copy */}
             <div className="text-center lg:text-left">
-              <span className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-400/25 text-indigo-300 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+              <span className="inline-flex items-center gap-2 bg-gold/10 border border-gold/25 text-gold-soft text-xs font-semibold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-6">
                 Behind the solutions
               </span>
 
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-[1.15] mb-5">
+              <div className="spoon-divider mx-auto mb-5" aria-hidden />
+
+              <h2 className="text-4xl md:text-5xl font-medium text-parchment leading-[1.15] mb-5">
                 You&apos;re messaging a person,{' '}
                 <span
                   className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #38bdf8 100%)' }}
+                  style={{ backgroundImage: 'linear-gradient(135deg, #dcca87 0%, #f5efdb 50%, #b8a46a 100%)' }}
                 >
                   not a helpdesk
                 </span>
               </h2>
 
-              <p className="text-slate-400 leading-relaxed mb-4">
+              <p className="text-muted leading-relaxed mb-4">
                 The solutions on this site are written, checked, and published by hand — so when you
                 send a message, it goes straight to the person who can actually answer it or fix it.
               </p>
-              <p className="text-slate-400 leading-relaxed mb-8">
+              <p className="text-muted leading-relaxed mb-8">
                 Any subject, any chapter, any exercise. If something is unclear or wrong, say so —
                 that feedback is what keeps the site accurate.
               </p>
@@ -200,9 +204,9 @@ export default function ContactPage() {
                 ].map(({ icon: Icon, text }) => (
                   <span
                     key={text}
-                    className="inline-flex items-center gap-2 text-xs font-medium text-slate-300 bg-white/[0.04] border border-white/10 px-3.5 py-2 rounded-lg"
+                    className="inline-flex items-center gap-2 text-xs font-medium text-muted bg-parchment/[0.04] border border-gold/10 px-3.5 py-2 rounded-lg"
                   >
-                    <Icon className="h-3.5 w-3.5 text-indigo-400 shrink-0" />
+                    <Icon className="h-3.5 w-3.5 text-gold shrink-0" />
                     {text}
                   </span>
                 ))}
@@ -213,14 +217,14 @@ export default function ContactPage() {
                   href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/15 border border-emerald-400/30 hover:border-emerald-400/50 text-emerald-300 font-semibold px-6 py-3 rounded-xl transition-all duration-200 active:scale-95"
+                  className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/15 border border-gold/30 hover:border-gold/50 text-gold-soft font-semibold px-6 py-3 rounded-xl transition-all duration-200 active:scale-95"
                 >
                   <MessageCircle className="h-4 w-4" />
                   Message directly
                 </a>
                 <a
                   href={`tel:${contactInfo.phoneTel}`}
-                  className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 active:scale-95"
+                  className="inline-flex items-center gap-2 bg-parchment/5 hover:bg-parchment/10 border border-gold/10 hover:border-gold/20 text-parchment font-semibold px-6 py-3 rounded-xl transition-all duration-200 active:scale-95"
                 >
                   <Phone className="h-4 w-4" />
                   {contactInfo.phoneDisplay}
@@ -241,44 +245,44 @@ export default function ContactPage() {
 
             {/* Availability card */}
             <div
-              className="rounded-2xl border border-white/8 bg-white/[0.03] p-6 sm:p-7"
+              className="rounded-2xl border border-gold/8 bg-parchment/[0.03] p-6 sm:p-7"
               style={{ backdropFilter: 'blur(8px)' }}
             >
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-6">
+              <h3 className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-faint mb-6">
                 Reach us
               </h3>
               <ul className="space-y-5">
                 <InfoRow
                   icon={<Phone className="h-3.5 w-3.5" />}
-                  accent="#38bdf8"
+                  accent="#e8dcae"
                   label="Phone & WhatsApp"
                 >
-                  <a href={`tel:${contactInfo.phoneTel}`} className="hover:text-white transition-colors duration-200">
+                  <a href={`tel:${contactInfo.phoneTel}`} className="hover:text-parchment transition-colors duration-200">
                     {contactInfo.phoneDisplay}
                   </a>
                 </InfoRow>
                 <InfoRow
                   icon={<Mail className="h-3.5 w-3.5" />}
-                  accent="#818cf8"
+                  accent="#dcca87"
                   label="Email"
                 >
                   <a
                     href={`mailto:${contactInfo.email}`}
-                    className="hover:text-white transition-colors duration-200 break-all"
+                    className="hover:text-parchment transition-colors duration-200 break-all"
                   >
                     {contactInfo.email}
                   </a>
                 </InfoRow>
                 <InfoRow
                   icon={<Clock className="h-3.5 w-3.5" />}
-                  accent="#a78bfa"
+                  accent="#b8a46a"
                   label="Hours"
                 >
                   {contactInfo.hours}
                 </InfoRow>
                 <InfoRow
                   icon={<MapPin className="h-3.5 w-3.5" />}
-                  accent="#34d399"
+                  accent="#dcca87"
                   label="Based in"
                 >
                   {contactInfo.location}
@@ -288,26 +292,26 @@ export default function ContactPage() {
 
             {/* Highlights card */}
             <div
-              className="relative rounded-2xl border border-indigo-400/20 p-6 sm:p-7 overflow-hidden"
+              className="relative rounded-2xl border border-gold/20 p-6 sm:p-7 overflow-hidden"
               style={{
                 background:
-                  'linear-gradient(140deg, rgba(99,102,241,0.14), rgba(167,139,250,0.06) 45%, rgba(56,189,248,0.08))',
+                  'linear-gradient(140deg, rgba(220,202,135,0.14), rgba(184,164,106,0.06) 45%, rgba(232,220,174,0.08))',
                 backdropFilter: 'blur(8px)',
               }}
             >
               <div
                 aria-hidden
-                className="pointer-events-none absolute -bottom-16 -left-10 w-[240px] h-[240px] rounded-full bg-indigo-500/20 blur-[70px]"
+                className="pointer-events-none absolute -bottom-16 -left-10 w-[240px] h-[240px] rounded-full bg-gold/20 blur-[70px]"
               />
               <div className="relative z-10 space-y-6">
                 {highlights.map(({ icon: Icon, title, text }) => (
                   <div key={title} className="flex items-start gap-3.5">
-                    <span className="mt-0.5 flex items-center justify-center w-8 h-8 rounded-lg bg-white/8 border border-white/15 text-indigo-200 shrink-0">
+                    <span className="mt-0.5 flex items-center justify-center w-8 h-8 rounded-lg bg-parchment/8 border border-gold/15 text-gold-soft shrink-0">
                       <Icon className="h-4 w-4" />
                     </span>
                     <div>
-                      <p className="text-sm font-semibold text-white mb-1">{title}</p>
-                      <p className="text-xs text-slate-400 leading-relaxed">{text}</p>
+                      <p className="text-sm font-semibold text-parchment mb-1">{title}</p>
+                      <p className="text-xs text-muted leading-relaxed">{text}</p>
                     </div>
                   </div>
                 ))}
@@ -319,19 +323,20 @@ export default function ContactPage() {
         {/* ── FAQ ── */}
         <section className="pb-16 md:pb-24 max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-400/25 text-indigo-300 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
+            <span className="inline-flex items-center gap-2 bg-gold/10 border border-gold/25 text-gold-soft text-xs font-semibold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-5">
               Before you write
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">
+            <div className="spoon-divider mx-auto mb-5" aria-hidden />
+            <h2 className="text-4xl md:text-5xl font-medium text-parchment mb-3">
               Common{' '}
               <span
                 className="bg-clip-text text-transparent"
-                style={{ backgroundImage: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #38bdf8 100%)' }}
+                style={{ backgroundImage: 'linear-gradient(135deg, #dcca87 0%, #f5efdb 50%, #b8a46a 100%)' }}
               >
                 questions
               </span>
             </h2>
-            <p className="text-slate-400">Chances are someone has already asked this one.</p>
+            <p className="text-muted">Chances are someone has already asked this one.</p>
           </div>
           <FaqAccordion />
         </section>
@@ -339,28 +344,28 @@ export default function ContactPage() {
         {/* ── Closing CTA ── */}
         <section className="pb-16 md:pb-24">
           <div
-            className="relative rounded-3xl border border-white/10 px-5 py-12 sm:px-8 sm:py-14 text-center overflow-hidden"
+            className="relative rounded-3xl border border-gold/10 px-5 py-12 sm:px-8 sm:py-14 text-center overflow-hidden"
             style={{
               background:
-                'linear-gradient(140deg, rgba(99,102,241,0.16), rgba(167,139,250,0.08) 50%, rgba(56,189,248,0.10))',
+                'linear-gradient(140deg, rgba(220,202,135,0.16), rgba(184,164,106,0.08) 50%, rgba(232,220,174,0.10))',
             }}
           >
             <div aria-hidden className="pointer-events-none absolute inset-0">
-              <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-indigo-500/20 blur-[90px]" />
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+              <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gold/20 blur-[90px]" />
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
             </div>
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
+              <h2 className="text-4xl md:text-5xl font-medium text-parchment mb-4">
                 Don&apos;t wait until exam night
               </h2>
-              <p className="text-slate-300/80 max-w-lg mx-auto mb-8">
+              <p className="text-muted/80 max-w-lg mx-auto mb-8">
                 Browse the solutions already waiting for you — and message us the moment something
                 doesn&apos;t click.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 <Link
                   href="/subjects"
-                  className="group inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 active:scale-95 shadow-lg shadow-indigo-700/40"
+                  className="group inline-flex items-center gap-2 bg-gold-deep hover:bg-gold text-ink font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 active:scale-95 shadow-lg shadow-gold-deep/40"
                 >
                   Browse Subjects
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
@@ -369,7 +374,7 @@ export default function ContactPage() {
                   href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/8 hover:bg-white/15 border border-white/15 hover:border-white/25 text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 active:scale-95"
+                  className="inline-flex items-center gap-2 bg-parchment/8 hover:bg-parchment/15 border border-gold/15 hover:border-gold/25 text-parchment font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 active:scale-95"
                 >
                   <MessageCircle className="h-4 w-4" />
                   Message on WhatsApp
@@ -416,8 +421,8 @@ function InfoRow({
         {icon}
       </span>
       <div className="min-w-0">
-        <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-600 mb-1">{label}</p>
-        <div className="text-sm text-slate-300">{children}</div>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-faint mb-1">{label}</p>
+        <div className="text-sm text-muted">{children}</div>
       </div>
     </li>
   )

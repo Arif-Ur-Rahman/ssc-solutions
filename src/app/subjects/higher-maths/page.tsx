@@ -18,7 +18,7 @@ export default function HigherMaths() {
   );
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="textured flex min-h-screen bg-ink">
       <Sidebar
         chapters={chaptersData}
         activeChapter={activeChapter}
@@ -35,26 +35,26 @@ export default function HigherMaths() {
         <button
           type="button"
           onClick={() => mobileNav.setOpen(true)}
-          className="sticky top-16 z-30 -mx-4 mb-6 flex w-[calc(100%+2rem)] items-center gap-2 border-b border-gray-200 bg-gray-50/90 px-4 py-3 text-sm font-medium text-gray-700 backdrop-blur transition-colors duration-200 hover:text-gray-900 sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:hidden"
+          className="sticky top-16 z-30 -mx-4 mb-6 flex w-[calc(100%+2rem)] items-center gap-2 border-b border-gold/8 bg-ink/90 px-4 py-3 text-sm font-medium text-muted backdrop-blur transition-colors duration-200 hover:text-parchment sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:hidden"
         >
-          <PanelLeft className="h-4 w-4 text-pink-800" />
+          <PanelLeft className="h-4 w-4 text-gold" />
           Chapters
           {chapter && (
-            <span className="ml-auto min-w-0 truncate text-xs text-gray-500">
+            <span className="ml-auto min-w-0 truncate text-xs text-faint">
               {chapter.title}
             </span>
           )}
         </button>
 
-        <div className="mb-2 text-xs font-mono uppercase tracking-widest text-pink-800">
+        <div className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
           Chapter {chapter?.id}
         </div>
 
-        <h1 className="mb-6 text-3xl font-light text-gray-900 md:text-4xl">
+        <h1 className="mb-6 font-display text-5xl font-medium text-gold md:text-6xl">
           {chapter?.title}
         </h1>
 
-        <div className="mb-8 h-[2px] w-16 bg-pink-800" />
+        <div className="mb-8 h-px w-16 bg-gold/60" />
 
         {chapter?.problems.map((prob, i) => (
           <ProblemCard key={prob.id} problem={prob} index={i} />

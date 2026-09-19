@@ -7,6 +7,7 @@ import "./katex-overrides.css";
 import { useMobileNav } from "@/hooks/useMobileNav";
 import { chaptersData } from "./components/chaptersData";
 import Sidebar from "./components/Sidebar";
+import MathFit from "@/components/ui/MathFit";
 import QuestionCard from "./components/QuestionCard";
 
 // The first chapter that actually has answers written up.
@@ -37,7 +38,7 @@ export default function GeneralScience() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#0a0f1e]">
+    <div className="textured flex min-h-screen bg-ink">
       <Sidebar
         chapters={chaptersData}
         activeChapter={activeChapter}
@@ -50,53 +51,54 @@ export default function GeneralScience() {
         closeMobile={mobileNav.close}
       />
 
-      <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 md:px-10 md:py-10">
+      <main className="min-w-0 flex-1 px-3 py-6 sm:px-6 md:px-10 md:py-10">
+        <MathFit>
         <div className="mx-auto max-w-3xl">
           {/* ── Chapter list opener, for the viewports where the sidebar is a
               drawer rather than a rail ── */}
           <button
             type="button"
             onClick={() => mobileNav.setOpen(true)}
-            className="sticky top-16 z-30 -mx-4 mb-6 flex w-[calc(100%+2rem)] items-center gap-2 border-b border-white/8 bg-[#0a0f1e]/90 px-4 py-3 text-sm font-medium text-slate-300 backdrop-blur transition-colors duration-200 hover:text-white sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:hidden"
+            className="sticky top-16 z-30 -mx-4 mb-6 flex w-[calc(100%+2rem)] items-center gap-2 border-b border-gold/8 bg-ink/90 px-4 py-3 text-sm font-medium text-muted backdrop-blur transition-colors duration-200 hover:text-parchment sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:hidden"
           >
-            <PanelLeft className="h-4 w-4 text-indigo-400" />
+            <PanelLeft className="h-4 w-4 text-gold" />
             Chapters
             {chapter && (
-              <span className="ml-auto min-w-0 truncate text-xs text-slate-500">
+              <span className="ml-auto min-w-0 truncate text-xs text-faint">
                 {chapter.title}
               </span>
             )}
           </button>
 
           {/* ── Chapter header ── */}
-          <div className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-indigo-400">
+          <div className="mb-2 flex items-center gap-2 font-sans font-semibold text-xs uppercase tracking-[0.2em] text-gold">
             <BookOpen className="h-3 w-3" />
             {chapter ? `Chapter ${chapter.id}` : "General Science"}
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+          <h1 className="text-4xl font-medium text-parchment md:text-5xl">
             {chapter?.title ?? "General Science"}
           </h1>
-          <p className="mt-1 text-lg text-slate-400">
+          <p className="mt-1 text-lg text-muted">
             {chapter?.bnTitle ?? "সাধারণ বিজ্ঞান"}
           </p>
 
           {exercise && (
-            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-400">
-              <span className="rounded-md border border-indigo-400/25 bg-indigo-500/10 px-2.5 py-1 text-indigo-300">
+            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted">
+              <span className="rounded-md border border-gold/25 bg-gold/10 px-2.5 py-1 text-gold-soft">
                 {exercise.bnId}
               </span>
               <span>{exercise.title}</span>
-              <span className="text-slate-700">·</span>
+              <span className="text-faint">·</span>
               <span>{exercise.questions.length} questions</span>
-              <span className="text-slate-700">·</span>
-              <span className="text-slate-500">
+              <span className="text-faint">·</span>
+              <span className="text-faint">
                 Book pages {exercise.bookPages}
               </span>
             </div>
           )}
 
-          <div className="my-8 h-px w-full bg-gradient-to-r from-indigo-500/40 via-white/8 to-transparent" />
+          <div className="my-8 h-px w-full bg-gradient-to-r from-gold/40 via-gold/8 to-transparent" />
 
           {/* ── Questions, with a heading whenever the book's group changes ── */}
           {exercise ? (
@@ -104,7 +106,7 @@ export default function GeneralScience() {
               <div key={question.id}>
                 {question.group &&
                   question.group !== exercise.questions[i - 1]?.group && (
-                    <h2 className="mt-8 mb-4 text-sm font-semibold uppercase tracking-widest text-slate-500 first:mt-0">
+                    <h2 className="font-sans mt-8 mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-faint first:mt-0">
                       {question.group}
                     </h2>
                   )}
@@ -112,17 +114,18 @@ export default function GeneralScience() {
               </div>
             ))
           ) : (
-            <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.02] px-6 py-16 text-center">
-              <Construction className="mx-auto mb-4 h-8 w-8 text-slate-600" />
-              <p className="font-medium text-slate-300">
+            <div className="rounded-2xl border border-dashed border-gold/10 bg-parchment/[0.02] px-6 py-16 text-center">
+              <Construction className="mx-auto mb-4 h-8 w-8 text-faint" />
+              <p className="font-medium text-muted">
                 Answers for this chapter are on the way.
               </p>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-faint">
                 Pick another chapter from the sidebar in the meantime.
               </p>
             </div>
           )}
         </div>
+        </MathFit>
       </main>
     </div>
   );
