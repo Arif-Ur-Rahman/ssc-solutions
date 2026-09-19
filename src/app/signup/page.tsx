@@ -32,11 +32,11 @@ function scorePassword(password: string) {
 }
 
 const strengthMeta = [
-  { label: 'Too short', color: 'bg-slate-600', text: 'text-slate-500' },
-  { label: 'Weak', color: 'bg-rose-500', text: 'text-rose-400' },
-  { label: 'Fair', color: 'bg-amber-500', text: 'text-amber-400' },
-  { label: 'Good', color: 'bg-sky-500', text: 'text-sky-400' },
-  { label: 'Strong', color: 'bg-emerald-500', text: 'text-emerald-400' },
+  { label: 'Too short', color: 'bg-faint', text: 'text-faint' },
+  { label: 'Weak', color: 'bg-crimson', text: 'text-crimson' },
+  { label: 'Fair', color: 'bg-gold', text: 'text-gold' },
+  { label: 'Good', color: 'bg-gold', text: 'text-gold' },
+  { label: 'Strong', color: 'bg-gold', text: 'text-gold' },
 ]
 
 export default function SignupPage() {
@@ -99,7 +99,7 @@ export default function SignupPage() {
                 setAccepted(false)
                 setDone(false)
               }}
-              className="text-indigo-400 hover:text-indigo-300 font-semibold"
+              className="text-gold hover:text-gold-soft font-semibold"
             >
               Start over
             </button>
@@ -107,17 +107,17 @@ export default function SignupPage() {
         }
       >
         <div className="text-center py-2">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-500/12 border border-emerald-400/30 text-emerald-400 mb-5">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gold/12 border border-gold/30 text-gold mb-5">
             <CheckCircle2 className="h-6 w-6" />
           </div>
-          <p className="text-sm text-slate-400 leading-relaxed mb-7">
+          <p className="text-sm text-muted leading-relaxed mb-7">
             We&apos;ll send a confirmation to{' '}
-            <span className="text-white font-medium break-all">{form.email}</span>. Meanwhile, your solutions are
+            <span className="text-parchment font-medium break-all">{form.email}</span>. Meanwhile, your solutions are
             ready to browse.
           </p>
           <Link
             href="/subjects"
-            className="group inline-flex items-center justify-center gap-2 w-full bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-sm font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-700/30"
+            className="group inline-flex items-center justify-center gap-2 w-full bg-gold-deep hover:bg-gold active:scale-95 text-ink text-sm font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-gold-deep/30"
           >
             Start studying
             <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" />
@@ -135,7 +135,7 @@ export default function SignupPage() {
       footer={
         <>
           Already have an account?{' '}
-          <Link href="/login" className="text-indigo-400 hover:text-indigo-300 font-semibold">
+          <Link href="/login" className="text-gold hover:text-gold-soft font-semibold">
             Log in
           </Link>
         </>
@@ -166,7 +166,7 @@ export default function SignupPage() {
         />
 
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-slate-500 mb-2">
+          <label className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-faint mb-2">
             <GraduationCap className="h-3.5 w-3.5" />
             I am studying in
           </label>
@@ -181,8 +181,8 @@ export default function SignupPage() {
                   aria-pressed={active}
                   className={`text-xs font-medium px-3.5 py-2 rounded-lg border transition-all duration-200 ${
                     active
-                      ? 'bg-indigo-500/15 border-indigo-400/45 text-indigo-300'
-                      : 'bg-white/[0.03] border-white/10 text-slate-400 hover:text-white hover:bg-white/[0.07] hover:border-white/20'
+                      ? 'bg-gold/15 border-gold/45 text-gold-soft'
+                      : 'bg-parchment/[0.03] border-gold/10 text-muted hover:text-parchment hover:bg-parchment/[0.07] hover:border-gold/20'
                   }`}
                 >
                   {option}
@@ -212,7 +212,7 @@ export default function SignupPage() {
                   <span
                     key={step}
                     className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
-                      step <= strength ? strengthMeta[strength].color : 'bg-white/10'
+                      step <= strength ? strengthMeta[strength].color : 'bg-parchment/10'
                     }`}
                   />
                 ))}
@@ -246,22 +246,22 @@ export default function SignupPage() {
                 setAccepted(e.target.checked)
                 setErrors(prev => ({ ...prev, terms: undefined }))
               }}
-              className="h-4 w-4 mt-0.5 shrink-0 rounded border-white/20 bg-white/[0.06] accent-indigo-500 cursor-pointer"
+              className="h-4 w-4 mt-0.5 shrink-0 rounded border-gold/20 bg-parchment/[0.06] accent-gold cursor-pointer"
             />
-            <span className="text-sm text-slate-400 leading-relaxed">
+            <span className="text-sm text-muted leading-relaxed">
               I agree to the{' '}
-              <Link href="/terms" className="text-indigo-400 hover:text-indigo-300">
+              <Link href="/terms" className="text-gold hover:text-gold-soft">
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link href="/privacy" className="text-indigo-400 hover:text-indigo-300">
+              <Link href="/privacy" className="text-gold hover:text-gold-soft">
                 Privacy Policy
               </Link>
               .
             </span>
           </label>
           {errors.terms && (
-            <p className="flex items-center gap-1.5 text-xs text-rose-400 mt-2">
+            <p className="flex items-center gap-1.5 text-xs text-crimson mt-2">
               <AlertCircle className="h-3 w-3 shrink-0" />
               {errors.terms}
             </p>
@@ -271,7 +271,7 @@ export default function SignupPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="group inline-flex items-center justify-center gap-2 w-full bg-indigo-600 hover:bg-indigo-500 active:scale-95 disabled:opacity-60 disabled:active:scale-100 text-white text-sm font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-indigo-700/30"
+          className="group inline-flex items-center justify-center gap-2 w-full bg-gold-deep hover:bg-gold active:scale-95 disabled:opacity-60 disabled:active:scale-100 text-ink text-sm font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-gold-deep/30"
         >
           {submitting ? (
             <>

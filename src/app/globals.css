@@ -3,15 +3,50 @@
 /* The site is dark end-to-end; the sticky header is transparent at scroll-top,
    so the body must match the page shell rather than default to white. */
 :root {
-  --background: #0a0f1e;
-  --foreground: #ededed;
+  --background: #0c0c0c;
+  --foreground: #f5efdb;
+}
+
+/*
+ * Theme tokens. Colours are named for the role they play, not the hue they
+ * happen to be, so a future re-theme is a change here rather than a sweep
+ * through every component.
+ *
+ * Two accents carry the whole palette: gold for anything positive, active or
+ * emphasised, and crimson for anything that went wrong. There is deliberately
+ * no separate success/warning hue: a warning reads as gold, an error as crimson.
+ */
+@theme {
+  /* Surfaces, darkest first. `ink` is the page; `surface` is a card on it. */
+  --color-ink: #0c0c0c;
+  --color-ink-deep: #070707;
+  --color-surface: #202320;
+  --color-raised: #363333;
+
+  /* Primary accent. `soft` lifts on hover, `deep` recedes for borders/fills. */
+  --color-gold: #dcca87;
+  --color-gold-soft: #e8dcae;
+  --color-gold-deep: #b8a46a;
+
+  /* Secondary accent, and the only "something is wrong" colour. */
+  --color-crimson: #f15f2a;
+  --color-crimson-deep: #c7481a;
+
+  /* Text, brightest first. `parchment` is body copy on a dark surface. */
+  --color-parchment: #f5efdb;
+  --color-muted: #aaaaaa;
+  --color-faint: #6e6a63;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display-serif), var(--font-bengali-serif), ui-serif,
+    Georgia, serif;
+  --font-sans: var(--font-body-sans), var(--font-bengali-sans), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-script: var(--font-script-cursive), ui-rounded, cursive;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   /* Enables the `font-hand` utility, used for handwritten model answers. */
   --font-hand: var(--font-handwriting), ui-rounded, cursive;
 }
@@ -19,5 +54,120 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* `@theme inline` substitutes these into utilities without emitting them as
+     custom properties, so plain CSS has to name the next/font variable. */
+  font-family: var(--font-body-sans), var(--font-bengali-sans), ui-sans-serif,
+    system-ui, sans-serif;
+}
+
+/*
+ * Headings carry the display serif by default, so a new section is on-theme
+ * without having to remember the utility. Override with `font-sans` where a
+ * heading is really UI chrome — an eyebrow label, a sidebar title.
+ *
+ * Cormorant Upright wants the opposite of what the previous sans headings were
+ * set for. It is a high-contrast serif with a small x-height, so a heavy weight
+ * clogs its thin strokes and tight tracking closes up the counters. Medium
+ * weight and slightly open tracking let it breathe; utilities still override.
+ */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display-serif), var(--font-bengali-serif), ui-serif,
+    Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.012em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+/* Small headings are set a step heavier — at card-title sizes the serif's thin
+   strokes start to disappear against a dark surface. */
+h3,
+h4 {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/*
+ * The small tracked-out label that sits above a section heading. Always the
+ * body face: uppercase Cormorant at 11px is unreadable.
+ */
+.eyebrow {
+  font-family: var(--font-body-sans), var(--font-bengali-sans), ui-sans-serif,
+    system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/*
+ * The spoon ornament from the reference design, drawn as a mask so it takes a
+ * theme colour rather than whatever fill the SVG shipped with (it ships with
+ * `fill="none"`, so painting it directly renders nothing).
+ */
+.spoon-divider {
+  height: 0.625rem;
+  background-color: var(--color-gold-deep);
+  -webkit-mask: url("/theme/spoon.svg") center / auto 100% no-repeat;
+  mask: url("/theme/spoon.svg") center / auto 100% no-repeat;
+}
+
+/* Selection picks up the accent rather than the browser's blue. */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/*
+ * The scratched-plate texture the reference design sits its sections on.
+ * Only `background-image` is set here, so the element keeps whatever
+ * `bg-ink` / `bg-ink-deep` it already carries as the base colour underneath —
+ * the dark overlay stops the grain from competing with body copy. Lower the
+ * overlay alpha to let more of the plate through.
+ */
+.textured {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("/theme/texture-dark.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/*
+ * A step that still has to scroll gets a thin gold bar. The browser default
+ * is a heavy grey rule that sits directly under an equation and reads as a
+ * fraction line — actively misleading in a maths solution.
+ */
+.math-scroll {
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold-deep) transparent;
+}
+
+.math-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.math-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.math-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-gold-deep);
+  border-radius: 999px;
+}
+
+/* A step's trailing justification is an aside, so it is set smaller and
+   quieter than the equation it explains. */
+.math-note {
+  color: var(--color-muted);
+}
+
+.math-note .katex {
+  font-size: 0.86em;
 }

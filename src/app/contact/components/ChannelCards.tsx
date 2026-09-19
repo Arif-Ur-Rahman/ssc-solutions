@@ -28,8 +28,8 @@ const channels: Channel[] = [
     copyValue: contactInfo.phoneTel,
     href: whatsappLink(),
     cta: 'Start a chat',
-    accent: '#34d399',
-    glow: 'rgba(52,211,153,0.15)',
+    accent: '#dcca87',
+    glow: 'rgba(220,202,135,0.15)',
   },
   {
     id: 'phone',
@@ -40,8 +40,8 @@ const channels: Channel[] = [
     copyValue: contactInfo.phoneTel,
     href: `tel:${contactInfo.phoneTel}`,
     cta: 'Place a call',
-    accent: '#38bdf8',
-    glow: 'rgba(56,189,248,0.15)',
+    accent: '#e8dcae',
+    glow: 'rgba(232,220,174,0.15)',
   },
   {
     id: 'email',
@@ -52,8 +52,8 @@ const channels: Channel[] = [
     copyValue: contactInfo.email,
     href: `mailto:${contactInfo.email}`,
     cta: 'Write an email',
-    accent: '#818cf8',
-    glow: 'rgba(129,140,248,0.15)',
+    accent: '#dcca87',
+    glow: 'rgba(241,95,42,0.15)',
   },
 ]
 
@@ -79,7 +79,7 @@ export default function ChannelCards() {
         return (
           <div
             key={channel.id}
-            className="group relative rounded-2xl border border-white/8 bg-white/[0.03] p-6 sm:p-7 hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300 animate-fade-in-up"
+            className="group relative rounded-2xl border border-gold/8 bg-parchment/[0.03] p-6 sm:p-7 hover:bg-parchment/[0.06] hover:border-gold/15 transition-all duration-300 animate-fade-in-up"
             style={{ backdropFilter: 'blur(8px)', animationDelay: `${120 + i * 90}ms` }}
           >
             {/* Hover glow */}
@@ -100,7 +100,7 @@ export default function ChannelCards() {
                 <Icon className="h-5 w-5 text-current" />
               </div>
               <span
-                className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full"
+                className="text-[10px] font-semibold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full"
                 style={{
                   background: `${channel.accent}14`,
                   border: `1px solid ${channel.accent}33`,
@@ -111,10 +111,10 @@ export default function ChannelCards() {
               </span>
             </div>
 
-            <h3 className="text-lg font-semibold text-white tracking-tight mb-1.5">
+            <h3 className="text-lg font-semibold text-parchment mb-1.5">
               {channel.title}
             </h3>
-            <p className="text-sm text-slate-400 mb-6 break-all">{channel.value}</p>
+            <p className="text-sm text-muted mb-6 break-all">{channel.value}</p>
 
             <div className="flex items-center gap-2">
               <a
@@ -135,9 +135,9 @@ export default function ChannelCards() {
                 type="button"
                 onClick={() => copy(channel)}
                 aria-label={`Copy ${channel.title} details`}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white bg-white/[0.04] hover:bg-white/10 border border-white/10 px-3 py-2 rounded-lg transition-all duration-200"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-muted hover:text-parchment bg-parchment/[0.04] hover:bg-parchment/10 border border-gold/10 px-3 py-2 rounded-lg transition-all duration-200"
               >
-                {copied ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
+                {copied ? <Check className="h-3 w-3 text-gold" /> : <Copy className="h-3 w-3" />}
                 {copied ? 'Copied' : 'Copy'}
               </button>
             </div>

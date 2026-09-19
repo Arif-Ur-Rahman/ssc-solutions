@@ -27,12 +27,12 @@ export default function Sidebar({
       />
 
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 flex w-64 max-w-[85vw] flex-col bg-gray-900 text-gray-100 transition-transform duration-300 md:sticky md:top-16 md:bottom-auto md:z-30 md:h-[calc(100vh-4rem)] md:max-w-none md:shrink-0 md:translate-x-0 md:transition-all ${
+        className={`fixed top-0 bottom-0 left-0 z-50 flex w-64 max-w-[85vw] flex-col border-r border-gold/8 bg-surface text-parchment transition-transform duration-300 md:sticky md:top-16 md:bottom-auto md:z-30 md:h-[calc(100vh-4rem)] md:max-w-none md:shrink-0 md:translate-x-0 md:transition-all ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         } ${sidebarOpen ? "md:w-60" : "md:w-14"}`}
       >
-        <div className="flex items-center gap-2 border-b border-gray-700 p-5">
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-pink-800 font-mono text-sm">
+        <div className="flex items-center gap-2 border-b border-gold/10 p-5">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-gold font-mono text-sm text-ink">
             ∑
           </div>
           <span className={`min-w-0 flex-1 truncate font-semibold tracking-wide ${labelled}`}>
@@ -41,14 +41,14 @@ export default function Sidebar({
           <button
             onClick={closeMobile}
             aria-label="Close chapter list"
-            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded text-gray-400 transition hover:bg-gray-800 hover:text-white md:hidden"
+            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded text-muted transition hover:bg-parchment/10 hover:text-parchment md:hidden"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
         <div
-          className={`px-5 pt-5 text-xs uppercase tracking-widest text-gray-400 ${labelled}`}
+          className={`px-5 pt-5 text-xs uppercase tracking-[0.2em] text-faint ${labelled}`}
         >
           Chapters
         </div>
@@ -63,11 +63,11 @@ export default function Sidebar({
               }}
               className={`flex w-full items-center gap-3 rounded px-3 py-2 text-left text-sm transition ${
                 activeChapter === ch.id
-                  ? "bg-pink-800 text-white"
-                  : "text-gray-300 hover:bg-gray-800"
+                  ? "bg-gold/15 text-gold-soft"
+                  : "text-muted hover:bg-parchment/[0.06] hover:text-parchment"
               }`}
             >
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-700 text-xs">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-parchment/10 text-xs">
                 {ch.id}
               </span>
               <span className={`min-w-0 flex-1 truncate ${labelled}`}>{ch.title}</span>
@@ -75,17 +75,17 @@ export default function Sidebar({
           ))}
         </nav>
 
-        <div className="border-t border-gray-700 p-4">
+        <div className="border-t border-gold/10 p-4">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
-            className="hidden w-full items-center justify-center rounded bg-gray-800 px-3 py-1 text-sm transition hover:bg-gray-700 md:flex"
+            className="hidden w-full items-center justify-center rounded bg-parchment/[0.06] px-3 py-1 text-sm transition hover:bg-parchment/10 md:flex"
           >
             {sidebarOpen ? "‹" : "›"}
           </button>
           <button
             onClick={closeMobile}
-            className="flex w-full items-center justify-center gap-2 rounded bg-gray-800 px-3 py-2.5 text-sm transition hover:bg-gray-700 md:hidden"
+            className="flex w-full items-center justify-center gap-2 rounded bg-parchment/[0.06] px-3 py-2.5 text-sm transition hover:bg-parchment/10 md:hidden"
           >
             <X className="h-4 w-4" />
             Close

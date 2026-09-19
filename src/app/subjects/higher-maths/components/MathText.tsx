@@ -10,7 +10,7 @@ export default function MathText({ text }: { text: string }) {
           return (
             <div
               key={i}
-              className="my-3 rounded bg-gray-100 p-2 text-center italic text-lg"
+              className="my-3 rounded-lg border border-gold/10 bg-parchment/[0.04] p-2 text-center italic text-lg text-parchment"
             >
               {part.slice(2, -2)}
             </div>
@@ -19,7 +19,7 @@ export default function MathText({ text }: { text: string }) {
 
         if (part.startsWith("$") && part.endsWith("$")) {
           return (
-            <em key={i} className="italic text-gray-700">
+            <em key={i} className="italic text-gold-soft">
               {part.slice(1, -1)}
             </em>
           );

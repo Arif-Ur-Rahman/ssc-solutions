@@ -37,14 +37,14 @@ export default function AuthField({
   return (
     <div>
       <div className="flex items-baseline justify-between mb-2">
-        <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-widest text-slate-500">
+        <label htmlFor={id} className="block text-xs font-semibold uppercase tracking-[0.2em] text-faint">
           {label}
         </label>
         {hint}
       </div>
 
       <div className="relative">
-        <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 [&>svg]:h-4 [&>svg]:w-4">
+        <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-faint [&>svg]:h-4 [&>svg]:w-4">
           {icon}
         </span>
 
@@ -58,12 +58,12 @@ export default function AuthField({
           autoComplete={autoComplete}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${id}-error` : undefined}
-          className={`w-full bg-white/[0.04] border rounded-xl pl-11 ${
+          className={`w-full bg-parchment/[0.04] border rounded-xl pl-11 ${
             revealable ? 'pr-11' : 'pr-4'
-          } py-3 text-base sm:text-sm text-white placeholder:text-slate-600 transition-all duration-200 focus:outline-none focus:bg-white/[0.06] ${
+          } py-3 text-base sm:text-sm text-parchment placeholder:text-faint transition-all duration-200 focus:outline-none focus:bg-parchment/[0.06] ${
             error
-              ? 'border-rose-500/50 focus:border-rose-400/70'
-              : 'border-white/10 focus:border-indigo-500/60'
+              ? 'border-crimson/50 focus:border-crimson/70'
+              : 'border-gold/10 focus:border-gold/60'
           }`}
         />
 
@@ -72,7 +72,7 @@ export default function AuthField({
             type="button"
             onClick={() => setRevealed(r => !r)}
             aria-label={revealed ? 'Hide password' : 'Show password'}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 p-1 rounded-md transition-colors duration-200"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-faint hover:text-muted p-1 rounded-md transition-colors duration-200"
           >
             {revealed ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
@@ -80,7 +80,7 @@ export default function AuthField({
       </div>
 
       {error && (
-        <p id={`${id}-error`} className="flex items-center gap-1.5 text-xs text-rose-400 mt-2">
+        <p id={`${id}-error`} className="flex items-center gap-1.5 text-xs text-crimson mt-2">
           <AlertCircle className="h-3 w-3 shrink-0" />
           {error}
         </p>

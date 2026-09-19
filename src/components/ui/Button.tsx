@@ -10,12 +10,12 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="bg-gradient-to-r from-primary-50 to-primary-100 py-20">
+    <section className="bg-ink textured py-20">
       <div className="container mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <h1 className="font-display text-5xl md:text-6xl font-medium text-gold mb-4">
           Your Complete SSC Study Companion
         </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-muted mb-8 max-w-2xl mx-auto">
           Access comprehensive solutions, study materials, and resources for all SSC subjects
         </p>
 
@@ -26,13 +26,13 @@ export default function HeroSection() {
         <div className="mt-12 flex justify-center space-x-4">
           <Link
             href="/subjects"
-            className="bg-primary-600 text-white px-8 py-3 rounded-lg hover:bg-primary-700 transition"
+            className="bg-gold text-ink px-8 py-3 rounded-lg hover:bg-gold-soft transition"
           >
             Browse Subjects
           </Link>
           <Link
             href="/about"
-            className="bg-white text-primary-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition"
+            className="border border-gold/40 text-gold px-8 py-3 rounded-lg hover:bg-gold/10 transition"
           >
             Learn More
           </Link>

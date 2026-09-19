@@ -11,28 +11,28 @@ export default function FormulaSheet({ groups }: { groups: FormulaGroup[] }) {
   const count = groups.reduce((n, g) => n + g.formulas.length, 0);
 
   return (
-    <div className="mb-8 overflow-hidden rounded-2xl border border-amber-400/15 bg-amber-500/[0.04]">
+    <div className="mb-8 overflow-hidden rounded-2xl border border-gold/15 bg-gold/[0.04]">
       <button
         type="button"
         onClick={() => setOpen((shown) => !shown)}
         aria-expanded={open}
-        className="flex w-full items-center gap-2 px-4 py-4 text-left transition-colors duration-200 hover:bg-amber-500/[0.06] sm:px-6"
+        className="flex w-full items-center gap-2 px-4 py-4 text-left transition-colors duration-200 hover:bg-gold/[0.06] sm:px-6"
       >
-        <Sigma className="h-3 w-3 shrink-0 text-amber-400" />
-        <span className="text-[11px] font-semibold tracking-wide text-amber-400">
+        <Sigma className="h-3 w-3 shrink-0 text-gold" />
+        <span className="text-[11px] font-semibold tracking-wide text-gold">
           {open ? "সূত্র লুকাও" : "সূত্র দেখাও"}
         </span>
-        <span className="text-[11px] text-slate-500">{toBn(count)}টি সূত্র</span>
+        <span className="text-[11px] text-faint">{toBn(count)}টি সূত্র</span>
         <ChevronDown
-          className={`ml-auto h-4 w-4 shrink-0 text-slate-500 transition-transform duration-200 ${
+          className={`ml-auto h-4 w-4 shrink-0 text-faint transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />
       </button>
 
       {open && (
-        <div className="border-t border-amber-400/15 px-4 pb-6 pt-4 sm:px-6">
-          <p className="mb-5 text-xs leading-relaxed text-slate-500">
+        <div className="border-t border-gold/15 px-4 pb-6 pt-4 sm:px-6">
+          <p className="mb-5 text-xs leading-relaxed text-faint">
             এই অনুশীলনীর আগে বইয়ের আলোচনায় যে সূত্রগুলো এসেছে, সেগুলো একসঙ্গে।
             নিচের সমাধানগুলোতে সূত্রগুলো প্রমাণ ছাড়াই ব্যবহার করা হয়েছে — আগে
             একবার পড়ে নিলে প্রতিটি ধাপ পরেরটির সঙ্গে আপনিই মিলে যাবে।
@@ -41,7 +41,7 @@ export default function FormulaSheet({ groups }: { groups: FormulaGroup[] }) {
           <div className="space-y-6">
             {groups.map((group) => (
               <section key={group.title}>
-                <h3 className="mb-3 text-sm font-semibold tracking-wide text-amber-300/80">
+                <h3 className="font-sans mb-3 text-sm font-semibold tracking-wide text-gold-soft/80">
                   {group.title}
                 </h3>
 
@@ -49,13 +49,13 @@ export default function FormulaSheet({ groups }: { groups: FormulaGroup[] }) {
                   {group.formulas.map((formula, i) => (
                     <li
                       key={i}
-                      className="rounded-xl border border-white/8 bg-white/[0.02] px-3.5 py-3"
+                      className="rounded-xl border border-gold/8 bg-parchment/[0.02] px-3.5 py-3"
                     >
-                      <div className="overflow-x-auto text-slate-100">
+                      <div className="overflow-x-auto text-parchment">
                         <MathText text={formula.statement} />
                       </div>
                       {formula.note && (
-                        <p className="mt-1 overflow-x-auto text-[0.8rem] leading-relaxed text-slate-400">
+                        <p className="mt-1 overflow-x-auto text-[0.8rem] leading-relaxed text-muted">
                           <MathText text={formula.note} />
                         </p>
                       )}

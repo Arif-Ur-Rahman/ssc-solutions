@@ -34,8 +34,8 @@ export default function FaqAccordion() {
             key={faq.q}
             className={`rounded-2xl border transition-all duration-300 ${
               isOpen
-                ? 'border-indigo-400/25 bg-white/[0.05]'
-                : 'border-white/8 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/15'
+                ? 'border-gold/25 bg-parchment/[0.05]'
+                : 'border-gold/8 bg-parchment/[0.02] hover:bg-parchment/[0.04] hover:border-gold/15'
             }`}
           >
             <button
@@ -44,14 +44,14 @@ export default function FaqAccordion() {
               aria-expanded={isOpen}
               className="w-full flex items-center justify-between gap-4 text-left px-5 sm:px-6 py-5"
             >
-              <span className={`text-sm font-semibold tracking-tight transition-colors duration-200 ${isOpen ? 'text-white' : 'text-slate-300'}`}>
+              <span className={`text-sm font-semibold tracking-tight transition-colors duration-200 ${isOpen ? 'text-parchment' : 'text-muted'}`}>
                 {faq.q}
               </span>
               <span
                 className={`shrink-0 flex items-center justify-center w-7 h-7 rounded-lg border transition-all duration-300 ${
                   isOpen
-                    ? 'bg-indigo-500/15 border-indigo-400/40 text-indigo-300 rotate-45'
-                    : 'bg-white/[0.04] border-white/10 text-slate-500'
+                    ? 'bg-gold/15 border-gold/40 text-gold-soft rotate-45'
+                    : 'bg-parchment/[0.04] border-gold/10 text-faint'
                 }`}
               >
                 <Plus className="h-3.5 w-3.5" />
@@ -62,7 +62,7 @@ export default function FaqAccordion() {
               style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
             >
               <div className="overflow-hidden">
-                <p className="px-5 sm:px-6 pb-5 text-sm text-slate-400 leading-relaxed">{faq.a}</p>
+                <p className="px-5 sm:px-6 pb-5 text-sm text-muted leading-relaxed">{faq.a}</p>
               </div>
             </div>
           </div>

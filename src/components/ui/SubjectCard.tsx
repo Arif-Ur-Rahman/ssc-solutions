@@ -11,10 +11,10 @@ interface SubjectCardProps {
 }
 
 const accents = [
-  { bg: 'rgba(99,102,241,0.12)',  border: 'rgba(99,102,241,0.25)',  text: '#818cf8', glow: 'rgba(99,102,241,0.15)'  },
-  { bg: 'rgba(56,189,248,0.10)',  border: 'rgba(56,189,248,0.22)',  text: '#38bdf8', glow: 'rgba(56,189,248,0.12)'  },
-  { bg: 'rgba(167,139,250,0.12)', border: 'rgba(167,139,250,0.25)', text: '#a78bfa', glow: 'rgba(167,139,250,0.15)' },
-  { bg: 'rgba(34,211,238,0.10)',  border: 'rgba(34,211,238,0.22)',  text: '#22d3ee', glow: 'rgba(34,211,238,0.12)'  },
+  { bg: 'rgba(220,202,135,0.12)',  border: 'rgba(220,202,135,0.25)',  text: '#dcca87', glow: 'rgba(220,202,135,0.15)'  },
+  { bg: 'rgba(232,220,174,0.10)',  border: 'rgba(232,220,174,0.22)',  text: '#e8dcae', glow: 'rgba(232,220,174,0.12)'  },
+  { bg: 'rgba(184,164,106,0.12)', border: 'rgba(184,164,106,0.25)', text: '#b8a46a', glow: 'rgba(184,164,106,0.15)' },
+  { bg: 'rgba(241,95,42,0.10)',  border: 'rgba(241,95,42,0.22)',  text: '#f15f2a', glow: 'rgba(241,95,42,0.12)'  },
 ]
 
 export default function SubjectCard({ subject, index = 0 }: SubjectCardProps) {
@@ -23,7 +23,7 @@ export default function SubjectCard({ subject, index = 0 }: SubjectCardProps) {
   return (
     <Link href={`/subjects/${subject.slug}`} className="group block">
       <div
-        className="relative flex rounded-2xl border border-white/8 bg-white/[0.03] overflow-hidden hover:bg-white/[0.06] hover:border-white/15 transition-all duration-300 min-h-[130px]"
+        className="relative flex rounded-2xl border border-gold/8 bg-parchment/[0.03] overflow-hidden hover:bg-parchment/[0.06] hover:border-gold/15 transition-all duration-300 min-h-[130px]"
         style={{ boxShadow: '0 0 0 0 transparent' }}
         onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 0 32px ${accent.glow}`)}
         onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 0 0 0 transparent')}
@@ -44,21 +44,21 @@ export default function SubjectCard({ subject, index = 0 }: SubjectCardProps) {
               style={{ background: accent.bg, borderRight: `1px solid ${accent.border}` }}
             >
               <BookOpen className="h-9 w-9" style={{ color: accent.text, opacity: 0.7 }} />
-              <span className="text-[9px] font-bold uppercase tracking-widest" style={{ color: accent.text, opacity: 0.45 }}>
+              <span className="text-[9px] font-bold uppercase tracking-[0.2em]" style={{ color: accent.text, opacity: 0.45 }}>
                 SSC
               </span>
             </div>
           )}
-          <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-r from-transparent to-[#0d1120]" />
+          <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-r from-transparent to-[#202320]" />
         </div>
 
         {/* Card body */}
         <div className="flex flex-col justify-between flex-1 px-4 py-4 min-w-0 sm:px-5">
           <div>
-            <h3 className="text-base font-bold text-white leading-snug mb-1.5 group-hover:text-indigo-200 transition-colors duration-200 truncate">
+            <h3 className="text-base font-medium text-parchment leading-snug mb-1.5 group-hover:text-gold-soft transition-colors duration-200 truncate">
               {subject.name}
             </h3>
-            <p className="text-slate-400 text-xs leading-relaxed line-clamp-2">
+            <p className="text-muted text-xs leading-relaxed line-clamp-2">
               {subject.description}
             </p>
           </div>
@@ -75,7 +75,7 @@ export default function SubjectCard({ subject, index = 0 }: SubjectCardProps) {
                 {subject.chapters} Chapters
               </span>
             </div>
-            <span className="flex items-center gap-1 text-xs text-slate-600 group-hover:text-slate-300 transition-colors duration-200">
+            <span className="flex items-center gap-1 text-xs text-faint group-hover:text-muted transition-colors duration-200">
               View
               <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform duration-200" />
             </span>

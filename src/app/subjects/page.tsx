@@ -7,12 +7,12 @@ import { BookOpen, Search } from 'lucide-react'
 
 export default function SubjectsPage() {
   return (
-    <div className="min-h-screen bg-[#0a0f1e]">
+    <div className="textured min-h-screen bg-ink">
 
       {/* ── Background atmosphere ── */}
       <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-indigo-700/10 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-violet-600/8 blur-[100px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-gold-deep/10 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-gold-deep/8 blur-[100px]" />
         <div
           className="absolute inset-0 opacity-[0.035]"
           style={{
@@ -26,38 +26,39 @@ export default function SubjectsPage() {
 
         {/* ── Page header ── */}
         <div className="mb-12 text-center">
-          <span className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-400/25 text-indigo-300 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
+          <span className="inline-flex items-center gap-2 bg-gold/10 border border-gold/25 text-gold-soft text-xs font-semibold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-5">
             <BookOpen className="h-3 w-3" />
             SSC Curriculum
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+          <div className="spoon-divider mx-auto mb-5" aria-hidden />
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-parchment mb-4">
             All{' '}
             <span
               className="bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #38bdf8 100%)' }}
+              style={{ backgroundImage: 'linear-gradient(135deg, #dcca87 0%, #f5efdb 50%, #b8a46a 100%)' }}
             >
               Subjects
             </span>
           </h1>
-          <p className="text-slate-400 text-lg max-w-xl mx-auto">
+          <p className="text-muted text-lg max-w-xl mx-auto">
             Choose a subject to explore chapter-wise solutions and study materials.
           </p>
         </div>
 
         {/* ── Search bar ── */}
         <div className="max-w-lg mx-auto mb-12">
-          <div className="flex items-center gap-3 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 focus-within:border-indigo-500/50 focus-within:bg-white/[0.06] transition-all duration-200">
-            <Search className="h-4 w-4 text-slate-500 shrink-0" />
+          <div className="flex items-center gap-3 bg-parchment/[0.04] border border-gold/10 rounded-xl px-4 py-3 focus-within:border-gold/50 focus-within:bg-parchment/[0.06] transition-all duration-200">
+            <Search className="h-4 w-4 text-faint shrink-0" />
             <input
               type="text"
               placeholder="Search subjects…"
-              className="flex-1 min-w-0 bg-transparent text-white placeholder:text-slate-600 text-base sm:text-sm focus:outline-none"
+              className="flex-1 min-w-0 bg-transparent text-parchment placeholder:text-faint text-base sm:text-sm focus:outline-none"
             />
           </div>
         </div>
 
         {/* ── Subject count ── */}
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-600 mb-6 text-center">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-faint mb-6 text-center">
           {subjectsData.length} subjects available
         </p>
 

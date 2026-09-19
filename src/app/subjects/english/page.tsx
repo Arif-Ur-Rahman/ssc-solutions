@@ -28,7 +28,7 @@ export default function English() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#0a0f1e]">
+    <div className="textured flex min-h-screen bg-ink">
       <Sidebar
         categories={categories}
         activeCategory={activeCategory}
@@ -48,39 +48,39 @@ export default function English() {
           <button
             type="button"
             onClick={() => mobileNav.setOpen(true)}
-            className="sticky top-16 z-30 -mx-4 mb-6 flex w-[calc(100%+2rem)] items-center gap-2 border-b border-white/8 bg-[#0a0f1e]/90 px-4 py-3 text-sm font-medium text-slate-300 backdrop-blur transition-colors duration-200 hover:text-white sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:hidden"
+            className="sticky top-16 z-30 -mx-4 mb-6 flex w-[calc(100%+2rem)] items-center gap-2 border-b border-gold/8 bg-ink/90 px-4 py-3 text-sm font-medium text-muted backdrop-blur transition-colors duration-200 hover:text-parchment sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:hidden"
           >
-            <PanelLeft className="h-4 w-4 text-sky-400" />
+            <PanelLeft className="h-4 w-4 text-gold" />
             Writing types
             {category && (
-              <span className="ml-auto min-w-0 truncate text-xs text-slate-500">
+              <span className="ml-auto min-w-0 truncate text-xs text-faint">
                 {category.title}
               </span>
             )}
           </button>
 
           {/* ── Header ── */}
-          <div className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-sky-400">
+          <div className="mb-2 flex items-center gap-2 font-sans font-semibold text-xs uppercase tracking-[0.2em] text-gold">
             <BookOpen className="h-3 w-3" />
             {category?.title}
           </div>
 
-          <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+          <h1 className="text-4xl font-medium text-parchment md:text-5xl">
             {piece?.title ?? category?.title}
           </h1>
-          <p className="mt-1 text-lg text-slate-400">{category?.description}</p>
+          <p className="mt-1 text-lg text-muted">{category?.description}</p>
 
-          <div className="my-8 h-px w-full bg-gradient-to-r from-sky-500/40 via-white/8 to-transparent" />
+          <div className="my-8 h-px w-full bg-gradient-to-r from-gold/40 via-gold/8 to-transparent" />
 
           {piece ? (
             <PieceView piece={piece} />
           ) : (
-            <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.02] px-6 py-16 text-center">
-              <Construction className="mx-auto mb-4 h-8 w-8 text-slate-600" />
-              <p className="font-medium text-slate-300">
+            <div className="rounded-2xl border border-dashed border-gold/10 bg-parchment/[0.02] px-6 py-16 text-center">
+              <Construction className="mx-auto mb-4 h-8 w-8 text-faint" />
+              <p className="font-medium text-muted">
                 Writing for this section is on the way.
               </p>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-faint">
                 Pick another type from the sidebar in the meantime.
               </p>
             </div>

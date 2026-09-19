@@ -22,8 +22,8 @@ export default function SearchBar({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2 bg-white rounded-lg shadow-md p-2">
-      <Search className="h-5 w-5 shrink-0 text-gray-400 ml-2" />
+    <form onSubmit={handleSubmit} className="flex items-center gap-2 bg-parchment rounded-lg shadow-md p-2">
+      <Search className="h-5 w-5 shrink-0 text-muted ml-2" />
       <input
         type="text"
         value={query}
@@ -36,7 +36,7 @@ export default function SearchBar({
       <button
         type="submit"
         aria-label="Search"
-        className="inline-flex shrink-0 items-center justify-center bg-indigo-600 text-white px-3 sm:px-6 py-2 rounded-lg hover:bg-indigo-500 transition"
+        className="inline-flex shrink-0 items-center justify-center bg-gold-deep text-ink px-3 sm:px-6 py-2 rounded-lg hover:bg-gold transition"
       >
         <Search className="h-4 w-4 sm:hidden" />
         <span className="hidden sm:inline">Search</span>
