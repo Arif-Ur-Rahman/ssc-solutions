@@ -5,9 +5,15 @@
 // downwards, and `P` is the one place the two meet. Text is never flipped,
 // which is the reason the conversion is a function rather than an SVG
 // transform on a group.
+//
+// A name that belongs to `charts.ts` instead is handed to `Chart.tsx`: a
+// statistical lekhachitra has no true shape to preserve, so it is scaled
+// separately along each axis and cannot share the machinery below.
 
 import type { Pt, Scene, Shape } from "./types";
 import { scenes } from "./scenes";
+import { charts } from "./charts";
+import ChartFigure from "./Chart";
 
 // px the longer side of the drawing occupies, and the margin kept clear
 // around it. Labels claim whatever extra room they need on top of this.
@@ -26,13 +32,45 @@ interface XY {
   y: number;
 }
 
+const arcPoint = (at: Pt, r: number, deg: number): Pt => [
+  at[0] + r * Math.cos((deg * Math.PI) / 180),
+  at[1] + r * Math.sin((deg * Math.PI) / 180),
+];
+
+// Degrees to turn anticlockwise from `from` to `to`, always in (0, 360].
+const turnOf = (from: number, to: number) => {
+  let t = to - from;
+  while (t <= 0) t += 360;
+  while (t > 360) t -= 360;
+  return t;
+};
+
 function shapePoints(s: Shape): Pt[] {
   switch (s.t) {
     case "poly":
       return s.pts;
     case "ring":
       return [...s.outer, ...s.inner];
+    case "circle":
+      return [
+        [s.at[0] - s.r, s.at[1] - s.r],
+        [s.at[0] + s.r, s.at[1] + s.r],
+      ];
+    // The box an arc really occupies, not the box of the whole circle: the
+    // endpoints, plus whichever of the four extreme points the sweep passes.
+    case "arc": {
+      const pts: Pt[] = [arcPoint(s.at, s.r, s.from), arcPoint(s.at, s.r, s.to)];
+      const lo = s.from;
+      const hi = s.from + turnOf(s.from, s.to);
+      for (let q = -720; q <= 720; q += 90) {
+        if (q >= Math.min(lo, hi) && q <= Math.max(lo, hi)) {
+          pts.push(arcPoint(s.at, s.r, q));
+        }
+      }
+      return pts;
+    }
     case "seg":
+    case "ray":
     case "len":
     case "dim":
     case "tick":
@@ -43,6 +81,11 @@ function shapePoints(s: Shape): Pt[] {
     case "pt":
     case "note":
       return [s.at];
+    case "axes":
+      return [
+        [s.x[0], s.y[0]],
+        [s.x[1], s.y[1]],
+      ];
   }
 }
 
@@ -64,6 +107,9 @@ function place(d: XY) {
 }
 
 export default function Figure({ name }: { name: string }) {
+  const chart = charts[name];
+  if (chart) return <ChartFigure chart={chart} />;
+
   const scene: Scene | undefined = scenes[name];
   if (!scene) return null;
 
@@ -150,8 +196,13 @@ export default function Figure({ name }: { name: string }) {
   const path = (list: Pt[]) =>
     list.map((p, i) => `${i === 0 ? "M" : "L"}${d(p)}`).join(" ") + "Z";
 
-  const arrow = `arrow-${name.replace(/[^a-zA-Z0-9]/g, "")}`;
+  const slug = name.replace(/[^a-zA-Z0-9]/g, "");
+  // Two arrowheads, because they say different things: the faint one closes a
+  // dimension line, the inked one is the রশ্মি's own "and on without end".
+  const arrow = `arrow-${slug}`;
+  const tip = `tip-${slug}`;
   const hasDim = scene.shapes.some((s) => s.t === "dim");
+  const hasRay = scene.shapes.some((s) => s.t === "ray");
 
   const drawn: { el: React.ReactNode; boxes: Box[] }[] = scene.shapes.map(
     (s, i): { el: React.ReactNode; boxes: Box[] } => {
@@ -191,6 +242,50 @@ export default function Figure({ name }: { name: string }) {
           ),
         };
 
+      case "circle": {
+        const c = P(s.at);
+        return {
+          boxes: [],
+          el: (
+            <circle
+              key={i}
+              cx={c.x}
+              cy={c.y}
+              r={s.r * k}
+              fill="none"
+              stroke={s.dash ? AID : INK}
+              strokeWidth={s.dash ? 1.2 : 1.6}
+              strokeDasharray={s.dash ? "5 4" : undefined}
+            />
+          ),
+        };
+      }
+
+      // Sampled rather than written as an SVG arc, so that `P` — and with it
+      // the scale and the y-flip — stays the only bridge between the two
+      // coordinate systems.
+      case "arc": {
+        const sweep = turnOf(s.from, s.to);
+        const steps = Math.max(8, Math.ceil(sweep / 3));
+        const pts = Array.from({ length: steps + 1 }, (_, j) =>
+          arcPoint(s.at, s.r, s.from + (sweep * j) / steps)
+        );
+        return {
+          boxes: [],
+          el: (
+            <path
+              key={i}
+              d={pts.map((p, j) => `${j === 0 ? "M" : "L"}${d(p)}`).join(" ")}
+              fill="none"
+              stroke={s.dash ? AID : s.mark ? MARK : INK}
+              strokeWidth={s.mark ? 3 : s.dash ? 1.2 : 1.6}
+              strokeDasharray={s.dash ? "5 4" : undefined}
+              strokeLinecap="round"
+            />
+          ),
+        };
+      }
+
       case "seg":
         return {
           boxes: [],
@@ -207,6 +302,37 @@ export default function Figure({ name }: { name: string }) {
           />
           ),
         };
+
+      // The head sits at the end of the line, so the line is pulled back by
+      // the head's own length — otherwise the point the scene named ends up
+      // inside the triangle rather than at its tip.
+      case "ray": {
+        const a = P(s.a);
+        const b = P(s.b);
+        const u = unit(sub(b, a));
+        const head = 8;
+        const from = s.both
+          ? { x: a.x + u.x * head, y: a.y + u.y * head }
+          : a;
+        const to = { x: b.x - u.x * head, y: b.y - u.y * head };
+        return {
+          boxes: [],
+          el: (
+            <line
+              key={i}
+              x1={from.x}
+              y1={from.y}
+              x2={to.x}
+              y2={to.y}
+              stroke={s.dash ? AID : INK}
+              strokeWidth={s.dash ? 1.2 : 1.6}
+              strokeDasharray={s.dash ? "5 4" : undefined}
+              markerEnd={`url(#${tip})`}
+              markerStart={s.both ? `url(#${tip})` : undefined}
+            />
+          ),
+        };
+      }
 
       case "pt": {
         const p = P(s.at);
@@ -293,6 +419,8 @@ export default function Figure({ name }: { name: string }) {
         let turn = a2 - a1;
         while (turn <= -Math.PI) turn += 2 * Math.PI;
         while (turn > Math.PI) turn -= 2 * Math.PI;
+        // The প্রবৃদ্ধ কোণ is the same pair of rays taken the long way round.
+        if (s.reflex) turn -= Math.sign(turn) * 2 * Math.PI;
         const r = s.r ?? 22;
         const from = { x: o.x + r * Math.cos(a1), y: o.y + r * Math.sin(a1) };
         const to = { x: o.x + r * Math.cos(a2), y: o.y + r * Math.sin(a2) };
@@ -307,9 +435,9 @@ export default function Figure({ name }: { name: string }) {
           el: (
           <g key={i}>
             <path
-              d={`M${from.x.toFixed(1)},${from.y.toFixed(1)} A${r},${r} 0 0 ${
-                turn > 0 ? 1 : 0
-              } ${to.x.toFixed(1)},${to.y.toFixed(1)}`}
+              d={`M${from.x.toFixed(1)},${from.y.toFixed(1)} A${r},${r} 0 ${
+                Math.abs(turn) > Math.PI ? 1 : 0
+              } ${turn > 0 ? 1 : 0} ${to.x.toFixed(1)},${to.y.toFixed(1)}`}
               fill="none"
               stroke={MARK}
               strokeWidth={1.2}
@@ -383,6 +511,136 @@ export default function Figure({ name }: { name: string }) {
         };
       }
 
+      case "axes": {
+        const [gx0, gx1] = s.x;
+        const [gy0, gy1] = s.y;
+        const step = s.step ?? 2;
+        const lines: React.ReactNode[] = [];
+        // The unit squares first, so the axes and the graphs sit on top.
+        for (let v = Math.ceil(gx0); v <= gx1; v++) {
+          const t = P([v, gy0]);
+          const u = P([v, gy1]);
+          lines.push(
+            <line
+              key={`v${v}`}
+              x1={t.x}
+              y1={t.y}
+              x2={u.x}
+              y2={u.y}
+              stroke={AID}
+              strokeWidth={0.6}
+              opacity={0.45}
+            />
+          );
+        }
+        for (let v = Math.ceil(gy0); v <= gy1; v++) {
+          const t = P([gx0, v]);
+          const u = P([gx1, v]);
+          lines.push(
+            <line
+              key={`h${v}`}
+              x1={t.x}
+              y1={t.y}
+              x2={u.x}
+              y2={u.y}
+              stroke={AID}
+              strokeWidth={0.6}
+              opacity={0.45}
+            />
+          );
+        }
+        const xa = P([gx0, 0]);
+        const xb = P([gx1, 0]);
+        const ya = P([0, gy0]);
+        const yb = P([0, gy1]);
+        const marks: React.ReactNode[] = [];
+        const boxes: Box[] = [];
+        // A number beside every step-th mark, below the x-axis and left of
+        // the y-axis, the way the book's ছক কাগজ is annotated.
+        for (let v = Math.ceil(gx0 / step) * step; v <= gx1; v += step) {
+          if (v === 0) continue;
+          const at = P([v, 0]);
+          marks.push(
+            <text
+              key={`nx${v}`}
+              x={at.x}
+              y={at.y + 11}
+              textAnchor="middle"
+              fill={TEXT}
+              fontFamily={FONT}
+              fontSize={9}
+            >
+              {v}
+            </text>
+          );
+        }
+        for (let v = Math.ceil(gy0 / step) * step; v <= gy1; v += step) {
+          if (v === 0) continue;
+          const at = P([0, v]);
+          marks.push(
+            <text
+              key={`ny${v}`}
+              x={at.x - 5}
+              y={at.y + 3}
+              textAnchor="end"
+              fill={TEXT}
+              fontFamily={FONT}
+              fontSize={9}
+            >
+              {v}
+            </text>
+          );
+        }
+        const letter = (at: XY, text: string, dx: number, dy: number) => {
+          const anchor = dx > 0 ? "start" : dx < 0 ? "end" : "middle";
+          boxes.push(boxOf({ x: at.x + dx, y: at.y + dy }, text, 12, anchor));
+          return (
+            <text
+              key={text}
+              x={at.x + dx}
+              y={at.y + dy}
+              textAnchor={anchor}
+              fill={NAME}
+              fontFamily={FONT}
+              fontSize={12}
+              fontStyle="italic"
+            >
+              {text}
+            </text>
+          );
+        };
+        return {
+          boxes,
+          el: (
+            <g key={i}>
+              {lines}
+              <line
+                x1={xa.x}
+                y1={xa.y}
+                x2={xb.x}
+                y2={xb.y}
+                stroke={INK}
+                strokeWidth={1.4}
+              />
+              <line
+                x1={ya.x}
+                y1={ya.y}
+                x2={yb.x}
+                y2={yb.y}
+                stroke={INK}
+                strokeWidth={1.4}
+              />
+              {marks}
+              {letter(xb, "X", 7, 4)}
+              {letter(xa, "X′", -7, 4)}
+              {letter(yb, "Y", 0, -7)}
+              {letter(ya, "Y′", 0, 15)}
+              {letter(P([0, 0]), "O", -6, 12)}
+            </g>
+          ),
+        };
+      }
+
       case "note": {
         const p = P(s.at);
         const dir = s.dir ? unit({ x: s.dir[0], y: -s.dir[1] }) : { x: 0, y: 0 };
@@ -427,19 +685,34 @@ export default function Figure({ name }: { name: string }) {
         aria-label={scene.caption ?? "চিত্র"}
         className="mx-auto block h-auto max-w-full"
       >
-        {hasDim && (
+        {(hasDim || hasRay) && (
           <defs>
-            <marker
-              id={arrow}
-              viewBox="0 0 8 8"
-              refX={7}
-              refY={4}
-              markerWidth={5}
-              markerHeight={5}
-              orient="auto-start-reverse"
-            >
-              <path d="M0,1 L7,4 L0,7 z" fill={AID} />
-            </marker>
+            {hasDim && (
+              <marker
+                id={arrow}
+                viewBox="0 0 8 8"
+                refX={7}
+                refY={4}
+                markerWidth={5}
+                markerHeight={5}
+                orient="auto-start-reverse"
+              >
+                <path d="M0,1 L7,4 L0,7 z" fill={AID} />
+              </marker>
+            )}
+            {hasRay && (
+              <marker
+                id={tip}
+                viewBox="0 0 8 8"
+                refX={0}
+                refY={4}
+                markerWidth={5}
+                markerHeight={5}
+                orient="auto-start-reverse"
+              >
+                <path d="M0,0.6 L7.5,4 L0,7.4 z" fill={INK} />
+              </marker>
+            )}
           </defs>
         )}
         {drawn.map((d) => d.el)}

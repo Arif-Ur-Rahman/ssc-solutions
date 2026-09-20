@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import MathText from "./MathText";
+// A question or a solution step is prose and maths, and in পরিসংখ্যান it may
+// carry a সারণি too; `Line` draws whichever it finds.
+import Line from "./Table";
 import Figure from "./figures/Figure";
 import type { Problem, Solution } from "./chaptersData";
 import { toBn } from "./bn";
@@ -13,7 +16,7 @@ function SolutionBody({ solution }: { solution: Solution }) {
       <div className="space-y-1 leading-relaxed text-parchment">
         {solution.steps.map((step, i) => (
           <div key={i} className="overflow-x-auto">
-            <MathText text={step} />
+            <Line text={step} />
           </div>
         ))}
       </div>
@@ -48,7 +51,7 @@ export default function ProblemCard({
       </div>
 
       <div className="mb-5 overflow-x-auto leading-relaxed text-parchment">
-        <MathText text={problem.question} />
+        <Line text={problem.question} />
       </div>
 
       {/* The book prints a figure with the question, not with the answer, so
@@ -64,7 +67,7 @@ export default function ProblemCard({
               </span>
               <div className="min-w-0 flex-1 text-sm text-muted">
                 <div className="overflow-x-auto">
-                  <MathText text={part.question} />
+                  <Line text={part.question} />
                 </div>
                 {part.figure && (
                   <div className="mt-3">
@@ -106,9 +109,9 @@ export default function ProblemCard({
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gold/25 bg-gold/10 text-[11px] font-semibold text-gold-soft">
                   {part.label}
                 </span>
-                <span className="min-w-0 flex-1 overflow-x-auto text-sm text-muted">
-                  <MathText text={part.question} />
-                </span>
+                <div className="min-w-0 flex-1 overflow-x-auto text-sm text-muted">
+                  <Line text={part.question} />
+                </div>
               </div>
               <SolutionBody solution={part.solution} />
             </div>

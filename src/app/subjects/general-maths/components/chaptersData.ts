@@ -10,14 +10,26 @@
 // Chapter 5 "এক চলকবিশিষ্ট সমীকরণ": অনুশীলনী ৫.১ (book pages ৯৯-১০১) and
 // অনুশীলনী ৫.২ (book pages ১০৭-১০৯), the latter followed by the chapter's
 // নমুনা প্রশ্ন (book pages ১০৯-১১০), numbered on from the exercise.
+// Chapter 6 "রেখা, কোণ ও ত্রিভুজ": অনুশীলনী ৬.১ (book page ১১৮), ৬.২ (book
+// page ১২৩) and ৬.৩ (book pages ১৩২-১৩৪), the last followed by the chapter's
+// নমুনা প্রশ্ন (book pages ১৩৪-১৩৫), numbered on from the exercise.
 // Chapter 9 "ত্রিকোণমিতিক অনুপাত": অনুশীলনী ৯.১ (book pages ১৮৪-১৮৬) and
 // অনুশীলনী ৯.২ (book pages ১৯৪-১৯৫).
+// Chapter 12 "দুই চলকবিশিষ্ট সরল সহসমীকরণ": অনুশীলনী ১২.১ (book pages ২২৮-২২৯),
+// ১২.২ (book page ২৩৬), ১২.৩ (book page ২৪২) and ১২.৪ (book pages ২৪৬-২৪৭),
+// the last followed by the chapter's নমুনা প্রশ্ন (book pages ২৪৭-২৪৮),
+// numbered on from the exercise.
 // Chapter 11 "বীজগাণিতিক অনুপাত ও সমানুপাত": অনুশীলনী ১১.১ (book pages ২১৬-২১৭)
 // and অনুশীলনী ১১.২ (book pages ২২১-২২২), the latter followed by the chapter's
 // নমুনা প্রশ্ন (book pages ২২২-২২৩), numbered on from the exercise.
 // Chapter 10 "দূরত্ব ও উচ্চতা": অনুশীলনী ১০ (book pages ২০২-২০৩).
+// Chapter 13 "সসীম ধারা": অনুশীলনী ১৩.১ (book pages ২৫৫-২৫৬) and
+// অনুশীলনী ১৩.২ (book page ২৬৪), the latter followed by the chapter's
+// নমুনা প্রশ্ন (book page ২৬৫), numbered on from the exercise.
 // Chapter 16 "পরিমিতি": অনুশীলনী ১৬.১ (book pages ৩০০-৩০১) and
 // অনুশীলনী ১৬.২ (book pages ৩১০-৩১২).
+// Chapter 17 "পরিসংখ্যান": অনুশীলনী ১৭ (book pages ৩৪২-৩৪৩), followed by the
+// chapter's নমুনা প্রশ্ন (book page ৩৪৪), numbered on from the exercise.
 //
 // Each exercise opens with the rules it rests on (`formulas`), taken from the
 // theory pages before the exercise, so the derivations below can lean on them
@@ -13351,6 +13363,5955 @@ $(i)$ $x=0$ অথবা $y=0$   $(ii)$ $x=0$, যখন $y\neq 0$   $(iii)$ $y=
   ],
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// অধ্যায় ১৩ — সসীম ধারা
+// ─────────────────────────────────────────────────────────────────────────────
+
+const SR_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৪)";
+const SR_TERM = "সাধারণ পদ ও পদসংখ্যা (৫ – ৮)";
+const SR_SUM = "ধারার সমষ্টি নির্ণয় (৯ – ১৪)";
+const SR_FIND = "সমষ্টি থেকে পদসংখ্যা ও ধারা (১৫ – ২০)";
+const SR_PROOF = "প্রমাণ ও প্রয়োগ (২১ – ২৪)";
+
+const exercise131: Exercise = {
+  id: "13.1",
+  bnId: "অনুশীলনী ১৩.১",
+  title: "সমান্তর ধারা",
+  bookPages: "২৫৫ – ২৫৬",
+  formulas: [
+    {
+      title: "অনুক্রম ও ধারা",
+      formulas: [
+        {
+          statement: String.raw`$$\{2n\}=2,\;4,\;6,\;8,\;\cdots$$`,
+          note: String.raw`কতগুলো রাশি একটি নির্দিষ্ট নিয়মে পরপর সাজানো হলে সেই সেটকে অনুক্রম বলে। নিয়মটি $f(n)$ আকারে লেখা হয় এবং $n$ তম রাশিটিই অনুক্রমের সাধারণ পদ।`,
+        },
+        {
+          statement: String.raw`$$1+3+5+7+\cdots$$`,
+          note: "অনুক্রমের পদগুলো পরপর যোগ চিহ্ন দিয়ে যুক্ত করলে ধারা পাওয়া যায়। পদসংখ্যা নির্দিষ্ট হলে সসীম ধারা, নির্দিষ্ট না হলে অসীম ধারা।",
+        },
+      ],
+    },
+    {
+      title: "সমান্তর ধারা",
+      formulas: [
+        {
+          statement: String.raw`$$a+(a+d)+(a+2d)+\cdots$$`,
+          note: String.raw`যেকোনো পাশাপাশি দুইটি পদের পার্থক্য সবসময় সমান হলে ধারাটি সমান্তর। এখানে $a$ প্রথম পদ ও $d$ সাধারণ অন্তর; $d$ ঋণাত্মকও হতে পারে।`,
+        },
+        {
+          statement: String.raw`$$a_{n}=a+(n-1)d$$`,
+          note: String.raw`সমান্তর ধারার $n$ তম পদ, অর্থাৎ সাধারণ পদ। শেষ পদ জানা থাকলে এই সমীকরণ থেকেই পদসংখ্যা $n$ বেরিয়ে আসে।`,
+        },
+        {
+          statement: String.raw`$$S_{n}=\frac{n}{2}(a+p)$$`,
+          note: String.raw`প্রথম পদ $a$, শেষ পদ $p$ ও পদসংখ্যা $n$ জানা থাকলে এই সূত্র সবচেয়ে সংক্ষিপ্ত।`,
+        },
+        {
+          statement: String.raw`$$S_{n}=\frac{n}{2}\{2a+(n-1)d\}$$`,
+          note: String.raw`প্রথম পদ $a$, সাধারণ অন্তর $d$ ও পদসংখ্যা $n$ জানা থাকলে। $p=a+(n-1)d$ বসালে উপরের সূত্র থেকেই এটি আসে।`,
+        },
+      ],
+    },
+    {
+      title: "স্বাভাবিক সংখ্যার সমষ্টি",
+      formulas: [
+        {
+          statement: String.raw`$$1+2+3+\cdots+n=\frac{n(n+1)}{2}$$`,
+          note: String.raw`প্রথম $n$ সংখ্যক স্বাভাবিক সংখ্যার সমষ্টি — সমান্তর ধারার সূত্রে $a=1,\;d=1$ বসালেই পাওয়া যায়।`,
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১ — book pages ২৫০-২৫১.
+    {
+      id: 1,
+      question: String.raw`দেখাও যে, $1+3+5+7+9+11$ একটি সমান্তর ধারা।`,
+      solution: {
+        steps: [
+          String.raw`ধারাটির প্রথম পদ $1$, দ্বিতীয় পদ $3$, তৃতীয় পদ $5$ ইত্যাদি।`,
+          String.raw`$$\text{দ্বিতীয় পদ}-\text{প্রথম পদ}=3-1=2$$`,
+          String.raw`$$\text{তৃতীয় পদ}-\text{দ্বিতীয় পদ}=5-3=2$$`,
+          String.raw`$$\text{চতুর্থ পদ}-\text{তৃতীয় পদ}=7-5=2$$`,
+          String.raw`$$\text{পঞ্চম পদ}-\text{চতুর্থ পদ}=9-7=2$$`,
+          String.raw`$$\text{ষষ্ঠ পদ}-\text{পঞ্চম পদ}=11-9=2$$`,
+          String.raw`পাশাপাশি দুইটি পদের পার্থক্য সর্বত্র $2$, তাই ধারাটি একটি সমান্তর ধারা এবং এর সাধারণ অন্তর $2$।`,
+          String.raw`পদসংখ্যা নির্দিষ্ট $(6)$ বলে এটি একটি সসীম ধারা।`,
+        ],
+        answer: String.raw`সাধারণ অন্তর $2$, ধারাটি সমান্তর`,
+      },
+    },
+    // উদাহরণ ২ — book pages ২৫১-২৫২.
+    {
+      id: 2,
+      question: String.raw`$5+8+11+14+\cdots$ ধারাটির কোন পদ $383$?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{ধারাটির প্রথম পদ }a=5,\;\text{সাধারণ অন্তর }d=8-5=11-8=14-11=3$$`,
+          String.raw`$\therefore$ এটি একটি সমান্তর ধারা।`,
+          String.raw`মনে করি, ধারাটির $n$ তম পদ $=383$`,
+          String.raw`$$\text{আমরা জানি, }a_{n}=a+(n-1)d$$`,
+          String.raw`$$\therefore\; a+(n-1)d=383$$`,
+          String.raw`$$\text{বা, }5+(n-1)3=383$$`,
+          String.raw`$$\text{বা, }5+3n-3=383$$`,
+          String.raw`$$\text{বা, }3n=383-5+3$$`,
+          String.raw`$$\text{বা, }3n=381$$`,
+          String.raw`$$\therefore\; n=\frac{381}{3}=127$$`,
+        ],
+        answer: String.raw`$127$ তম পদ`,
+      },
+    },
+    // উদাহরণ ৩ — book page ২৫৩.
+    {
+      id: 3,
+      question: String.raw`প্রথম $50$টি স্বাভাবিক সংখ্যার যোগফল নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{আমরা জানি, }1+2+3+\cdots+n=\frac{n(n+1)}{2}$$`,
+          String.raw`$$\therefore\; S_{50}=\frac{50(50+1)}{2}=25\times 51=1275$$`,
+        ],
+        answer: String.raw`$1275$`,
+      },
+    },
+    // উদাহরণ ৪ — book pages ২৫৩-২৫৪.
+    {
+      id: 4,
+      question: String.raw`$1+2+3+4+\cdots+99=$ কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{ধারাটির প্রথম পদ }a=1,\;\text{সাধারণ অন্তর }d=2-1=1,\;\text{শেষ পদ }p=99$$`,
+          String.raw`$\therefore$ এটি একটি সমান্তর ধারা।`,
+          String.raw`মনে করি, ধারাটির $n$ তম পদ $=99$`,
+          String.raw`$$\therefore\; a+(n-1)d=99$$`,
+          String.raw`$$\text{বা, }1+(n-1)1=99$$`,
+          String.raw`$$\text{বা, }1+n-1=99$$`,
+          String.raw`$$\therefore\; n=99$$`,
+          String.raw`$$S_{n}=\frac{n}{2}\{2a+(n-1)d\}$$`,
+          String.raw`$$\therefore\; S_{99}=\frac{99}{2}\{2\times 1+(99-1)\times 1\}=\frac{99}{2}(2+98)$$`,
+          String.raw`$$=\frac{99\times 100}{2}=99\times 50=4950$$`,
+          String.raw`বিকল্প পদ্ধতি — শেষ পদ জানা আছে বলে $S_{n}=\dfrac{n}{2}(a+p)$ সূত্রটিও খাটে।`,
+          String.raw`$$S_{99}=\frac{99}{2}(1+99)=\frac{99\times 100}{2}=4950$$`,
+        ],
+        answer: String.raw`$4950$`,
+      },
+    },
+    // উদাহরণ ৫ — book page ২৫৪.
+    {
+      id: 5,
+      question: String.raw`$7+12+17+\cdots$ ধারাটির প্রথম $30$টি পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{ধারাটির প্রথম পদ }a=7,\;\text{সাধারণ অন্তর }d=12-7=5$$`,
+          String.raw`$\therefore$ এটি একটি সমান্তর ধারা। এখানে পদসংখ্যা $n=30$।`,
+          String.raw`$$\text{আমরা জানি, }S_{n}=\frac{n}{2}\{2a+(n-1)d\}$$`,
+          String.raw`$$\therefore\; S_{30}=\frac{30}{2}\{2\times 7+(30-1)5\}=15(14+29\times 5)$$`,
+          String.raw`$$=15(14+145)=15\times 159=2385$$`,
+        ],
+        answer: String.raw`$2385$`,
+      },
+    },
+    // উদাহরণ ৬ — book pages ২৫৪-২৫৫.
+    {
+      id: 6,
+      question: String.raw`রশিদ তার বেতন থেকে প্রথম মাসে $1200$ টাকা সঞ্চয় করেন এবং পরবর্তী প্রতিমাসে এর পূর্ববর্তী মাসের তুলনায় $100$ টাকা বেশি সঞ্চয় করেন।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`সমস্যাটিকে $n$ সংখ্যক পদ পর্যন্ত ধারায় প্রকাশ করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{প্রশ্নানুসারে, ধারাটির প্রথম পদ }a=1200,\;\text{সাধারণ অন্তর }d=100$$`,
+              String.raw`$$\therefore\;\text{দ্বিতীয় পদ}=1200+100=1300$$`,
+              String.raw`$$\text{তৃতীয় পদ}=1300+100=1400$$`,
+              String.raw`$$\therefore\; a_{n}=a+(n-1)d=1200+(n-1)100=1100+100n$$`,
+              String.raw`$$\therefore\;\text{ধারাটি }1200+1300+1400+\cdots+(1100+100n)$$`,
+            ],
+            answer: String.raw`$1200+1300+1400+\cdots+(1100+100n)$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`তিনি $18$ তম মাসে কত টাকা এবং প্রথম $18$ মাসে মোট কত টাকা সঞ্চয় করেন?`,
+          solution: {
+            steps: [
+              String.raw`$$\text{আমরা জানি, }a_{n}=a+(n-1)d$$`,
+              String.raw`$$\therefore\;\text{18 তম মাসে সঞ্চয়}=1200+(18-1)\times 100=1200+1700=2900$$`,
+              String.raw`$$\text{আবার, }S_{n}=\frac{n}{2}\{2a+(n-1)d\}$$`,
+              String.raw`$$\therefore\;\text{প্রথম 18 মাসের সঞ্চয}=\frac{18}{2}\{2\times 1200+(18-1)\times 100\}$$`,
+              String.raw`$$=9(2400+1700)=9\times 4100=36900$$`,
+            ],
+            answer: String.raw`$18$ তম মাসে $2900$ টাকা, প্রথম $18$ মাসে $36900$ টাকা`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`তিনি কত বছরে মোট $106200$ টাকা সঞ্চয় করেন?`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, তিনি $n$ মাসে $106200$ টাকা সঞ্চয় করেন।`,
+              String.raw`$$\text{প্রশ্নানুসারে, }\frac{n}{2}\{2a+(n-1)d\}=106200$$`,
+              String.raw`$$\text{বা, }\frac{n}{2}\{2\times 1200+(n-1)\times 100\}=106200$$`,
+              String.raw`$$\text{বা, }n(2400+100n-100)=212400$$`,
+              String.raw`$$\text{বা, }100n^{2}+2300n-212400=0$$`,
+              String.raw`$$\text{বা, }n^{2}+23n-2124=0$$`,
+              String.raw`$$\text{বা, }n^{2}+59n-36n-2124=0$$`,
+              String.raw`$$\text{বা, }(n+59)(n-36)=0$$`,
+              String.raw`$$\therefore\; n=-59\ \text{অথবা}\ n=36$$`,
+              String.raw`মাস কখনো ঋণাত্মক হতে পারে না, তাই $n=36$।`,
+              String.raw`$$\therefore\;\text{নির্ণেয় সময়}=36\ \text{মাস}=3\ \text{বছর}$$`,
+            ],
+            answer: String.raw`$3$ বছর`,
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    // ─────────────── বহুনির্বাচনি প্রশ্ন (1 – 4) ───────────────
+    {
+      id: 1,
+      group: SR_MCQ,
+      question: String.raw`$13+20+27+34+\cdots+111$ ধারাটির পদ সংখ্যা কত?
+ক) $10$  খ) $13$  গ) $15$  ঘ) $20$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=13,\;\text{সাধারণ অন্তর }d=20-13=7,\;\text{শেষ পদ }p=111$$`,
+          String.raw`মনে করি, ধারাটির পদসংখ্যা $n$, অর্থাৎ $n$ তম পদ $=111$`,
+          String.raw`$$\therefore\; a+(n-1)d=111$$`,
+          String.raw`$$\text{বা, }13+(n-1)7=111$$`,
+          String.raw`$$\text{বা, }7(n-1)=98$$`,
+          String.raw`$$\text{বা, }n-1=14$$`,
+          String.raw`$$\therefore\; n=15$$`,
+        ],
+        answer: String.raw`গ) $15$`,
+      },
+    },
+    {
+      id: 2,
+      group: SR_MCQ,
+      question: String.raw`$5+8+11+14+\cdots+62$ ধারাটি —
+$(i)$ একটি সসীম ধারা   $(ii)$ একটি গুণোত্তর ধারা   $(iii)$ এর $19$ তম পদ $59$
+নিচের কোনটি সঠিক?
+ক) $i$ ও $ii$  খ) $i$ ও $iii$  গ) $ii$ ও $iii$  ঘ) $i,\,ii$ ও $iii$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=5,\;\text{সাধারণ অন্তর }d=8-5=11-8=14-11=3$$`,
+          String.raw`পাশাপাশি পদের পার্থক্য সমান, কিন্তু অনুপাত সমান নয় $\left(\dfrac{8}{5}\neq\dfrac{11}{8}\right)$; তাই ধারাটি সমান্তর, গুণোত্তর নয় — $(ii)$ ভুল।`,
+          String.raw`শেষ পদ $62$ হলে,`,
+          String.raw`$$5+(n-1)3=62$$`,
+          String.raw`$$\text{বা, }3(n-1)=57$$`,
+          String.raw`$$\therefore\; n=20$$`,
+          String.raw`পদসংখ্যা নির্দিষ্ট, তাই ধারাটি সসীম — $(i)$ সঠিক।`,
+          String.raw`$$\text{19 তম পদ}=a+(19-1)d=5+18\times 3=5+54=59$$`,
+          String.raw`সুতরাং $(iii)$ও সঠিক।`,
+        ],
+        answer: String.raw`খ) $i$ ও $iii$`,
+      },
+    },
+    {
+      id: 3,
+      group: SR_MCQ,
+      question: String.raw`$7+13+19+25+\cdots$ একটি ধারা। ধারাটির $15$ তম পদ কোনটি?
+ক) $85$  খ) $91$  গ) $97$  ঘ) $104$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=7,\;\text{সাধারণ অন্তর }d=13-7=6$$`,
+          String.raw`$$\text{আমরা জানি, }a_{n}=a+(n-1)d$$`,
+          String.raw`$$\therefore\; a_{15}=7+(15-1)\times 6=7+84=91$$`,
+        ],
+        answer: String.raw`খ) $91$`,
+      },
+    },
+    {
+      id: 4,
+      group: SR_MCQ,
+      question: String.raw`$7+13+19+25+\cdots$ ধারাটির প্রথম $20$টি পদের সমষ্টি কত?
+ক) $141$  খ) $1210$  গ) $1280$  ঘ) $2560$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{এখানে }a=7,\;d=6,\;n=20$$`,
+          String.raw`$$S_{n}=\frac{n}{2}\{2a+(n-1)d\}$$`,
+          String.raw`$$\therefore\; S_{20}=\frac{20}{2}\{2\times 7+(20-1)\times 6\}$$`,
+          String.raw`$$=10(14+114)=10\times 128=1280$$`,
+        ],
+        answer: String.raw`গ) $1280$`,
+      },
+    },
+
+    // ─────────────── সাধারণ পদ ও পদসংখ্যা (5 – 8) ───────────────
+    {
+      id: 5,
+      group: SR_TERM,
+      question: String.raw`$2-5-12-19-\cdots$ ধারাটির সাধারণ অন্তর এবং $12$ তম পদ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`ধারাটির পদগুলো $2,\;-5,\;-12,\;-19,\;\cdots$`,
+          String.raw`$$\text{সাধারণ অন্তর }d=-5-2=-12-(-5)=-19-(-12)=-7$$`,
+          String.raw`$\therefore$ ধারাটি একটি সমান্তর ধারা, যার প্রথম পদ $a=2$ ও $d=-7$।`,
+          String.raw`$$\text{আমরা জানি, }a_{n}=a+(n-1)d$$`,
+          String.raw`$$\therefore\; a_{12}=2+(12-1)\times(-7)=2-77=-75$$`,
+        ],
+        answer: String.raw`সাধারণ অন্তর $-7$ এবং $12$ তম পদ $-75$`,
+      },
+    },
+    {
+      id: 6,
+      group: SR_TERM,
+      question: String.raw`$8+11+14+17+\cdots$ ধারাটির কোন পদ $392$?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=8,\;\text{সাধারণ অন্তর }d=11-8=3$$`,
+          String.raw`মনে করি, ধারাটির $n$ তম পদ $=392$`,
+          String.raw`$$\therefore\; a+(n-1)d=392$$`,
+          String.raw`$$\text{বা, }8+(n-1)3=392$$`,
+          String.raw`$$\text{বা, }3(n-1)=384$$`,
+          String.raw`$$\text{বা, }n-1=128$$`,
+          String.raw`$$\therefore\; n=129$$`,
+        ],
+        answer: String.raw`$129$ তম পদ`,
+      },
+    },
+    {
+      id: 7,
+      group: SR_TERM,
+      question: String.raw`$4+7+10+13+\cdots$ ধারাটির কোন পদ $301$?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=4,\;\text{সাধারণ অন্তর }d=7-4=3$$`,
+          String.raw`মনে করি, ধারাটির $n$ তম পদ $=301$`,
+          String.raw`$$\therefore\; 4+(n-1)3=301$$`,
+          String.raw`$$\text{বা, }3(n-1)=297$$`,
+          String.raw`$$\text{বা, }n-1=99$$`,
+          String.raw`$$\therefore\; n=100$$`,
+        ],
+        answer: String.raw`$100$ তম পদ`,
+      },
+    },
+    {
+      id: 8,
+      group: SR_TERM,
+      question: String.raw`কোনো সমান্তর ধারার $m$ তম পদ $n$ এবং $n$ তম পদ $m$ হলে, ধারাটির $(m+n)$ তম পদ কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির প্রথম পদ $a$ এবং সাধারণ অন্তর $d$।`,
+          String.raw`$$\text{প্রশ্নানুসারে, }a+(m-1)d=n\qquad\cdots(1)$$`,
+          String.raw`$$a+(n-1)d=m\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে $(2)$ বিয়োগ করে পাই,`,
+          String.raw`$$(m-n)d=n-m$$`,
+          String.raw`$$\text{বা, }(m-n)d=-(m-n)$$`,
+          String.raw`$$\therefore\; d=-1\qquad\left[\,m\neq n\,\right]$$`,
+          String.raw`$d=-1$ সমীকরণ $(1)$-এ বসিয়ে পাই,`,
+          String.raw`$$a-(m-1)=n$$`,
+          String.raw`$$\therefore\; a=m+n-1$$`,
+          String.raw`$$\therefore\;\text{(m+n) তম পদ}=a+(m+n-1)d$$`,
+          String.raw`$$=(m+n-1)+(m+n-1)(-1)=(m+n-1)-(m+n-1)=0$$`,
+        ],
+        answer: String.raw`$0$`,
+      },
+    },
+
+    // ─────────────── ধারার সমষ্টি নির্ণয় (9 – 14) ───────────────
+    {
+      id: 9,
+      group: SR_SUM,
+      question: String.raw`$1+3+5+7+\cdots$ ধারাটির $n$ পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=1,\;\text{সাধারণ অন্তর }d=3-1=2$$`,
+          String.raw`$$\text{আমরা জানি, }S_{n}=\frac{n}{2}\{2a+(n-1)d\}$$`,
+          String.raw`$$\therefore\; S_{n}=\frac{n}{2}\{2\times 1+(n-1)\times 2\}$$`,
+          String.raw`$$=\frac{n}{2}(2+2n-2)=\frac{n}{2}\times 2n=n^{2}$$`,
+          String.raw`অর্থাৎ প্রথম $n$ সংখ্যক বিজোড় সংখ্যার সমষ্টি $n^{2}$।`,
+        ],
+        answer: String.raw`$n^{2}$`,
+      },
+    },
+    {
+      id: 10,
+      group: SR_SUM,
+      question: String.raw`$8+16+24+\cdots$ ধারাটির প্রথম $9$টি পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=8,\;\text{সাধারণ অন্তর }d=16-8=8,\;\text{পদসংখ্যা }n=9$$`,
+          String.raw`$$S_{n}=\frac{n}{2}\{2a+(n-1)d\}$$`,
+          String.raw`$$\therefore\; S_{9}=\frac{9}{2}\{2\times 8+(9-1)\times 8\}$$`,
+          String.raw`$$=\frac{9}{2}(16+64)=\frac{9}{2}\times 80=9\times 40=360$$`,
+        ],
+        answer: String.raw`$360$`,
+      },
+    },
+    {
+      id: 11,
+      group: SR_SUM,
+      question: String.raw`$5+11+17+23+\cdots+59=$ কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=5,\;\text{সাধারণ অন্তর }d=11-5=6,\;\text{শেষ পদ }p=59$$`,
+          String.raw`মনে করি, পদসংখ্যা $n$`,
+          String.raw`$$\therefore\; 5+(n-1)6=59$$`,
+          String.raw`$$\text{বা, }6(n-1)=54$$`,
+          String.raw`$$\therefore\; n=10$$`,
+          String.raw`$$\text{আমরা জানি, }S_{n}=\frac{n}{2}(a+p)$$`,
+          String.raw`$$\therefore\; S_{10}=\frac{10}{2}(5+59)=5\times 64=320$$`,
+        ],
+        answer: String.raw`$320$`,
+      },
+    },
+    {
+      id: 12,
+      group: SR_SUM,
+      question: String.raw`$29+25+21+\cdots-23=$ কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=29,\;\text{সাধারণ অন্তর }d=25-29=-4,\;\text{শেষ পদ }p=-23$$`,
+          String.raw`মনে করি, পদসংখ্যা $n$`,
+          String.raw`$$\therefore\; 29+(n-1)(-4)=-23$$`,
+          String.raw`$$\text{বা, }-4(n-1)=-52$$`,
+          String.raw`$$\text{বা, }n-1=13$$`,
+          String.raw`$$\therefore\; n=14$$`,
+          String.raw`$$\therefore\; S_{14}=\frac{14}{2}(29-23)=7\times 6=42$$`,
+        ],
+        answer: String.raw`$42$`,
+      },
+    },
+    {
+      id: 13,
+      group: SR_SUM,
+      question: String.raw`কোনো সমান্তর ধারার $12$ তম পদ $77$ হলে, এর প্রথম $23$টি পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির প্রথম পদ $a$ এবং সাধারণ অন্তর $d$।`,
+          String.raw`$$\text{প্রশ্নানুসারে, }a+(12-1)d=77$$`,
+          String.raw`$$\text{বা, }a+11d=77\qquad\cdots(1)$$`,
+          String.raw`$$\text{আবার, }S_{23}=\frac{23}{2}\{2a+(23-1)d\}=\frac{23}{2}(2a+22d)$$`,
+          String.raw`$$=23(a+11d)$$`,
+          String.raw`$$=23\times 77\qquad\left[\,\text{সমীকরণ }(1)\,\right]$$`,
+          String.raw`$$=1771$$`,
+          String.raw`লক্ষণীয় — প্রথম $(2k-1)$টি পদের সমষ্টি সবসময় $(2k-1)\times k$ তম পদ, তাই $a$ ও $d$ আলাদা করে বের করার দরকার হয় না।`,
+        ],
+        answer: String.raw`$1771$`,
+      },
+    },
+    {
+      id: 14,
+      group: SR_SUM,
+      question: String.raw`একটি সমান্তর ধারার $16$ তম পদ $-20$ হলে, এর প্রথম $31$টি পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির প্রথম পদ $a$ এবং সাধারণ অন্তর $d$।`,
+          String.raw`$$\text{প্রশ্নানুসারে, }a+(16-1)d=-20$$`,
+          String.raw`$$\text{বা, }a+15d=-20\qquad\cdots(1)$$`,
+          String.raw`$$\text{আবার, }S_{31}=\frac{31}{2}\{2a+(31-1)d\}=\frac{31}{2}(2a+30d)$$`,
+          String.raw`$$=31(a+15d)$$`,
+          String.raw`$$=31\times(-20)\qquad\left[\,\text{সমীকরণ }(1)\,\right]$$`,
+          String.raw`$$=-620$$`,
+        ],
+        answer: String.raw`$-620$`,
+      },
+    },
+
+    // ─────────────── সমষ্টি থেকে পদসংখ্যা ও ধারা (15 – 20) ───────────────
+    {
+      id: 15,
+      group: SR_FIND,
+      question: String.raw`$9+7+5+\cdots$ ধারাটির প্রথম $n$ সংখ্যক পদের যোগফল $-144$ হলে, $n$ এর মান নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=9,\;\text{সাধারণ অন্তর }d=7-9=-2$$`,
+          String.raw`$$\text{প্রশ্নানুসারে, }\frac{n}{2}\{2a+(n-1)d\}=-144$$`,
+          String.raw`$$\text{বা, }\frac{n}{2}\{18+(n-1)(-2)\}=-144$$`,
+          String.raw`$$\text{বা, }\frac{n}{2}(20-2n)=-144$$`,
+          String.raw`$$\text{বা, }n(10-n)=-144$$`,
+          String.raw`$$\text{বা, }n^{2}-10n-144=0$$`,
+          String.raw`$$\text{বা, }n^{2}-18n+8n-144=0$$`,
+          String.raw`$$\text{বা, }(n-18)(n+8)=0$$`,
+          String.raw`$$\therefore\; n=18\ \text{অথবা}\ n=-8$$`,
+          String.raw`পদসংখ্যা ঋণাত্মক হতে পারে না, তাই $n=18$।`,
+        ],
+        answer: String.raw`$n=18$`,
+      },
+    },
+    {
+      id: 16,
+      group: SR_FIND,
+      question: String.raw`$2+4+6+8+\cdots$ ধারাটির প্রথম $n$ সংখ্যক পদের সমষ্টি $2550$ হলে, $n$ এর মান নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=2,\;\text{সাধারণ অন্তর }d=4-2=2$$`,
+          String.raw`$$\text{প্রশ্নানুসারে, }\frac{n}{2}\{2\times 2+(n-1)\times 2\}=2550$$`,
+          String.raw`$$\text{বা, }\frac{n}{2}(2n+2)=2550$$`,
+          String.raw`$$\text{বা, }n(n+1)=2550$$`,
+          String.raw`$$\text{বা, }n^{2}+n-2550=0$$`,
+          String.raw`$$\text{বা, }n^{2}+51n-50n-2550=0$$`,
+          String.raw`$$\text{বা, }(n+51)(n-50)=0$$`,
+          String.raw`$$\therefore\; n=50\ \text{অথবা}\ n=-51$$`,
+          String.raw`পদসংখ্যা ঋণাত্মক হতে পারে না, তাই $n=50$।`,
+        ],
+        answer: String.raw`$n=50$`,
+      },
+    },
+    {
+      id: 17,
+      group: SR_FIND,
+      question: String.raw`কোনো ধারার প্রথম $n$ সংখ্যক পদের সমষ্টি $n(n+1)$ হলে, ধারাটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{দেওয়া আছে, }S_{n}=n(n+1)$$`,
+          String.raw`$$\therefore\; S_{n-1}=(n-1)\{(n-1)+1\}=(n-1)n$$`,
+          String.raw`$n$ তম পদ $=$ প্রথম $n$টি পদের সমষ্টি $-$ প্রথম $(n-1)$টি পদের সমষ্টি`,
+          String.raw`$$\therefore\; a_{n}=S_{n}-S_{n-1}=n(n+1)-(n-1)n$$`,
+          String.raw`$$=n\{(n+1)-(n-1)\}=n\times 2=2n$$`,
+          String.raw`$$\therefore\; a_{1}=2,\quad a_{2}=4,\quad a_{3}=6,\quad\cdots$$`,
+          String.raw`$$\therefore\;\text{নির্ণেয় ধারাটি }2+4+6+8+\cdots$$`,
+        ],
+        answer: String.raw`$2+4+6+8+\cdots$`,
+      },
+    },
+    {
+      id: 18,
+      group: SR_FIND,
+      question: String.raw`কোনো ধারার প্রথম $n$ সংখ্যক পদের সমষ্টি $n(n+1)$। ধারাটির $10$টি পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{দেওয়া আছে, }S_{n}=n(n+1)$$`,
+          String.raw`$$\therefore\; S_{10}=10\times(10+1)=10\times 11=110$$`,
+          String.raw`যাচাই — ১৭ নং প্রশ্ন থেকে ধারাটি $2+4+6+\cdots$, যার $a=2,\;d=2$`,
+          String.raw`$$S_{10}=\frac{10}{2}\{2\times 2+(10-1)\times 2\}=5(4+18)=5\times 22=110$$`,
+        ],
+        answer: String.raw`$110$`,
+      },
+    },
+    {
+      id: 19,
+      group: SR_FIND,
+      question: String.raw`একটি সমান্তর ধারার প্রথম $12$ পদের সমষ্টি $144$ এবং প্রথম $20$ পদের সমষ্টি $560$ হলে, এর প্রথম $6$ পদের সমষ্টি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির প্রথম পদ $a$ এবং সাধারণ অন্তর $d$।`,
+          String.raw`$$\text{প্রথম শর্তানুসারে, }\frac{12}{2}\{2a+(12-1)d\}=144$$`,
+          String.raw`$$\text{বা, }6(2a+11d)=144$$`,
+          String.raw`$$\text{বা, }2a+11d=24\qquad\cdots(1)$$`,
+          String.raw`$$\text{দ্বিতীয় শর্তানুসারে, }\frac{20}{2}\{2a+(20-1)d\}=560$$`,
+          String.raw`$$\text{বা, }10(2a+19d)=560$$`,
+          String.raw`$$\text{বা, }2a+19d=56\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(2)$ থেকে $(1)$ বিয়োগ করে পাই,`,
+          String.raw`$$8d=32$$`,
+          String.raw`$$\therefore\; d=4$$`,
+          String.raw`$d=4$ সমীকরণ $(1)$-এ বসিয়ে পাই,`,
+          String.raw`$$2a+44=24$$`,
+          String.raw`$$\text{বা, }2a=-20$$`,
+          String.raw`$$\therefore\; a=-10$$`,
+          String.raw`$$\therefore\; S_{6}=\frac{6}{2}\{2\times(-10)+(6-1)\times 4\}$$`,
+          String.raw`$$=3(-20+20)=3\times 0=0$$`,
+        ],
+        answer: String.raw`$0$`,
+      },
+    },
+    {
+      id: 20,
+      group: SR_FIND,
+      question: String.raw`কোনো সমান্তর ধারার প্রথম $m$ পদের সমষ্টি $n$ এবং প্রথম $n$ পদের সমষ্টি $m$ হলে, এর প্রথম $(m+n)$ পদের সমষ্টি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির প্রথম পদ $a$ এবং সাধারণ অন্তর $d$।`,
+          String.raw`$$\text{প্রশ্নানুসারে, }\frac{m}{2}\{2a+(m-1)d\}=n$$`,
+          String.raw`$$\text{বা, }m\{2a+(m-1)d\}=2n\qquad\cdots(1)$$`,
+          String.raw`$$\text{এবং }\frac{n}{2}\{2a+(n-1)d\}=m$$`,
+          String.raw`$$\text{বা, }n\{2a+(n-1)d\}=2m\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে $(2)$ বিয়োগ করে পাই,`,
+          String.raw`$$2a(m-n)+d\{m(m-1)-n(n-1)\}=2n-2m$$`,
+          String.raw`$$\text{এখানে, }m(m-1)-n(n-1)=m^{2}-n^{2}-(m-n)=(m-n)(m+n-1)$$`,
+          String.raw`$$\therefore\;(m-n)\{2a+(m+n-1)d\}=-2(m-n)$$`,
+          String.raw`$$\therefore\; 2a+(m+n-1)d=-2\qquad\left[\,m\neq n\,\right]$$`,
+          String.raw`$$\therefore\; S_{m+n}=\frac{m+n}{2}\{2a+(m+n-1)d\}$$`,
+          String.raw`$$=\frac{m+n}{2}\times(-2)=-(m+n)$$`,
+        ],
+        answer: String.raw`$-(m+n)$`,
+      },
+    },
+
+    // ─────────────── প্রমাণ ও প্রয়োগ (21 – 24) ───────────────
+    {
+      id: 21,
+      group: SR_PROOF,
+      question: String.raw`কোনো সমান্তর ধারায় $p$ তম, $q$ তম ও $r$ তম পদ যথাক্রমে $a,\,b,\,c$ হলে, দেখাও যে, $$a(q-r)+b(r-p)+c(p-q)=0$$`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির প্রথম পদ $A$ এবং সাধারণ অন্তর $D$।`,
+          String.raw`$$\therefore\; a=A+(p-1)D,\quad b=A+(q-1)D,\quad c=A+(r-1)D$$`,
+          String.raw`$$\text{L.H.S.}=a(q-r)+b(r-p)+c(p-q)$$`,
+          String.raw`$$=\{A+(p-1)D\}(q-r)+\{A+(q-1)D\}(r-p)+\{A+(r-1)D\}(p-q)$$`,
+          String.raw`$$=A\{(q-r)+(r-p)+(p-q)\}+D\{(p-1)(q-r)+(q-1)(r-p)+(r-1)(p-q)\}$$`,
+          String.raw`প্রথম বন্ধনীর ভিতরে,`,
+          String.raw`$$(q-r)+(r-p)+(p-q)=0$$`,
+          String.raw`দ্বিতীয় বন্ধনীর ভিতরে,`,
+          String.raw`$$(p-1)(q-r)+(q-1)(r-p)+(r-1)(p-q)$$`,
+          String.raw`$$=\{p(q-r)+q(r-p)+r(p-q)\}-\{(q-r)+(r-p)+(p-q)\}$$`,
+          String.raw`$$=(pq-pr+qr-pq+pr-qr)-0=0$$`,
+          String.raw`$$\therefore\;\text{L.H.S.}=A\times 0+D\times 0=0=\text{R.H.S.}$$`,
+        ],
+        answer: String.raw`দেখানো হলো`,
+      },
+    },
+    {
+      id: 22,
+      group: SR_PROOF,
+      question: String.raw`দেখাও যে, $$1+3+5+7+\cdots+125=169+171+173+\cdots+209$$`,
+      solution: {
+        steps: [
+          String.raw`বাম পক্ষের ধারাটির প্রথম পদ $a=1$, সাধারণ অন্তর $d=2$ এবং শেষ পদ $p=125$।`,
+          String.raw`মনে করি, পদসংখ্যা $n$`,
+          String.raw`$$\therefore\; 1+(n-1)2=125$$`,
+          String.raw`$$\text{বা, }2(n-1)=124$$`,
+          String.raw`$$\therefore\; n=63$$`,
+          String.raw`$$\therefore\;\text{L.H.S.}=\frac{63}{2}(1+125)=\frac{63}{2}\times 126=63\times 63=3969$$`,
+          String.raw`ডান পক্ষের ধারাটির প্রথম পদ $a=169$, সাধারণ অন্তর $d=171-169=2$ এবং শেষ পদ $p=209$।`,
+          String.raw`মনে করি, পদসংখ্যা $m$`,
+          String.raw`$$\therefore\; 169+(m-1)2=209$$`,
+          String.raw`$$\text{বা, }2(m-1)=40$$`,
+          String.raw`$$\therefore\; m=21$$`,
+          String.raw`$$\therefore\;\text{R.H.S.}=\frac{21}{2}(169+209)=\frac{21}{2}\times 378=21\times 189=3969$$`,
+          String.raw`$$\therefore\;\text{L.H.S.}=\text{R.H.S.}$$`,
+        ],
+        answer: String.raw`দেখানো হলো (উভয় পক্ষ $3969$)`,
+      },
+    },
+    {
+      id: 23,
+      group: SR_PROOF,
+      question: String.raw`এক ব্যক্তি $2500$ টাকার একটি ঋণ কিছুসংখ্যক কিস্তিতে পরিশোধ করতে রাজি হন। প্রত্যেক কিস্তি পূর্বের কিস্তি থেকে $2$ টাকা বেশি। যদি প্রথম কিস্তি $1$ টাকা হয়, তবে কতগুলো কিস্তিতে ঐ ব্যক্তি তার ঋণ শোধ করতে পারবেন?`,
+      solution: {
+        steps: [
+          String.raw`কিস্তিগুলো একটি সমান্তর ধারা গঠন করে, যার প্রথম পদ $a=1$ ও সাধারণ অন্তর $d=2$।`,
+          String.raw`মনে করি, কিস্তির সংখ্যা $n$।`,
+          String.raw`$$\text{প্রশ্নানুসারে, }\frac{n}{2}\{2a+(n-1)d\}=2500$$`,
+          String.raw`$$\text{বা, }\frac{n}{2}\{2\times 1+(n-1)\times 2\}=2500$$`,
+          String.raw`$$\text{বা, }\frac{n}{2}\times 2n=2500$$`,
+          String.raw`$$\text{বা, }n^{2}=2500$$`,
+          String.raw`$$\therefore\; n=\pm 50$$`,
+          String.raw`কিস্তির সংখ্যা ঋণাত্মক হতে পারে না, তাই $n=50$।`,
+        ],
+        answer: String.raw`$50$টি কিস্তিতে`,
+      },
+    },
+    {
+      id: 24,
+      group: SR_PROOF,
+      question: String.raw`কোন সমান্তর ধারার দুইটি নির্দিষ্ট পদ, $l$ তম পদ $l^{2}$ এবং $k$ তম পদ $k^{2}$।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`ধারাটির প্রথম পদ $a$ এবং সাধারণ অন্তর $d$ ধরে উদ্দীপকের আলোকে দুইটি সমীকরণ তৈরি করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{আমরা জানি, }a_{n}=a+(n-1)d$$`,
+              String.raw`$l$ তম পদ $l^{2}$ হওয়ায়,`,
+              String.raw`$$a+(l-1)d=l^{2}\qquad\cdots(1)$$`,
+              String.raw`$k$ তম পদ $k^{2}$ হওয়ায়,`,
+              String.raw`$$a+(k-1)d=k^{2}\qquad\cdots(2)$$`,
+            ],
+            answer: String.raw`$a+(l-1)d=l^{2}$ এবং $a+(k-1)d=k^{2}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$(l+k)$ তম পদ নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`সমীকরণ $(1)$ থেকে $(2)$ বিয়োগ করে পাই,`,
+              String.raw`$$(l-k)d=l^{2}-k^{2}=(l-k)(l+k)$$`,
+              String.raw`$$\therefore\; d=l+k\qquad\left[\,l\neq k\,\right]$$`,
+              String.raw`$d=l+k$ সমীকরণ $(1)$-এ বসিয়ে পাই,`,
+              String.raw`$$a=l^{2}-(l-1)(l+k)$$`,
+              String.raw`$$=l^{2}-\left(l^{2}+lk-l-k\right)$$`,
+              String.raw`$$=l+k-lk$$`,
+              String.raw`$$\therefore\;\text{(l+k) তম পদ}=a+(l+k-1)d$$`,
+              String.raw`$$=(l+k-lk)+(l+k-1)(l+k)$$`,
+              String.raw`$$=(l+k)-lk+(l+k)^{2}-(l+k)$$`,
+              String.raw`$$=(l+k)^{2}-lk=l^{2}+2lk+k^{2}-lk$$`,
+              String.raw`$$=l^{2}+lk+k^{2}$$`,
+            ],
+            answer: String.raw`$l^{2}+lk+k^{2}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`প্রমাণ করো, ধারাটির প্রথম $(l+k)$ সংখ্যক পদের সমষ্টি $$\frac{l+k}{2}\left(l^{2}+k^{2}+l+k\right)$$`,
+          solution: {
+            steps: [
+              String.raw`(খ) হতে পাই, $a=l+k-lk$ এবং $d=l+k$।`,
+              String.raw`$$\therefore\; S_{l+k}=\frac{l+k}{2}\{2a+(l+k-1)d\}$$`,
+              String.raw`$$=\frac{l+k}{2}\left\{2(l+k-lk)+(l+k-1)(l+k)\right\}$$`,
+              String.raw`$$=\frac{l+k}{2}\left\{2l+2k-2lk+(l+k)^{2}-(l+k)\right\}$$`,
+              String.raw`$$=\frac{l+k}{2}\left\{2l+2k-2lk+l^{2}+2lk+k^{2}-l-k\right\}$$`,
+              String.raw`$$=\frac{l+k}{2}\left(l^{2}+k^{2}+l+k\right)$$`,
+            ],
+            answer: String.raw`প্রমাণিত`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const GP_MCQ = "বহুনির্বাচনি প্রশ্ন (১)";
+const GP_TERM = "গুণোত্তর ধারার পদ (২ – ৮)";
+const GP_SUM = "গুণোত্তর ধারার সমষ্টি (৯ – ১৩)";
+const GP_POWER = "বর্গ ও ঘনের সমষ্টি (১৪ – ১৬)";
+const GP_CQ = "সৃজনশীল প্রশ্ন (১৭)";
+const GP_MODEL_MCQ = "নমুনা প্রশ্ন — বহুনির্বাচনি (১৮ – ২১)";
+const GP_MODEL_CQ = "নমুনা প্রশ্ন — সৃজনশীল ও সংক্ষিপ্ত-উত্তর (২২ – ২৩)";
+
+const exercise132: Exercise = {
+  id: "13.2",
+  bnId: "অনুশীলনী ১৩.২",
+  title: "গুণোত্তর ধারা, বর্গ ও ঘনের সমষ্টি",
+  bookPages: "২৬৪ – ২৬৫",
+  formulas: [
+    {
+      title: "ধারার বিভিন্ন সূত্র",
+      formulas: [
+        {
+          statement: String.raw`$$1+2+3+\cdots+n=\frac{n(n+1)}{2}$$`,
+          note: "প্রথম $n$ সংখ্যক স্বাভাবিক সংখ্যার সমষ্টি।",
+        },
+        {
+          statement: String.raw`$$1^{2}+2^{2}+3^{2}+\cdots+n^{2}=\frac{n(n+1)(2n+1)}{6}$$`,
+          note: String.raw`বর্গের সমষ্টি। $r^{3}-(r-1)^{3}=3r^{2}-3r+1$ অভেদে $r=1,2,\cdots,n$ বসিয়ে যোগ করলেই সূত্রটি পাওয়া যায়।`,
+        },
+        {
+          statement: String.raw`$$1^{3}+2^{3}+3^{3}+\cdots+n^{3}=\left\{\frac{n(n+1)}{2}\right\}^{2}$$`,
+          note: String.raw`ঘনের সমষ্টি, অর্থাৎ $\left(1+2+3+\cdots+n\right)^{2}$ — সংখ্যাগুলোর সমষ্টির বর্গ।`,
+        },
+      ],
+    },
+    {
+      title: "গুণোত্তর ধারা",
+      formulas: [
+        {
+          statement: String.raw`$$a+ar+ar^{2}+ar^{3}+\cdots$$`,
+          note: String.raw`যেকোনো পদ ও তার পূর্ববর্তী পদের অনুপাত সবসময় সমান হলে ধারাটি গুণোত্তর। এখানে $a$ প্রথম পদ ও $r$ সাধারণ অনুপাত।`,
+        },
+        {
+          statement: String.raw`$$a_{n}=ar^{n-1}$$`,
+          note: String.raw`গুণোত্তর ধারার $n$ তম পদ, অর্থাৎ সাধারণ পদ।`,
+        },
+        {
+          statement: String.raw`$$S_{n}=\frac{a\left(1-r^{n}\right)}{1-r}\qquad(r<1)$$`,
+          note: String.raw`সাধারণ অনুপাত $1$ অপেক্ষা ছোট হলে এই রূপটি ব্যবহার করলে হর ধনাত্মক থাকে।`,
+        },
+        {
+          statement: String.raw`$$S_{n}=\frac{a\left(r^{n}-1\right)}{r-1}\qquad(r>1)$$`,
+          note: String.raw`সাধারণ অনুপাত $1$ অপেক্ষা বড় হলে। দুইটি রূপ একই, কেবল লব ও হর উভয়ের চিহ্ন বদলানো।`,
+        },
+        {
+          statement: String.raw`$$r=1\;\Rightarrow\;S_{n}=an$$`,
+          note: "সাধারণ অনুপাত ১ হলে প্রত্যেক পদই $a$, ধারাটি তখন সমান্তর হয়ে যায় এবং উপরের সূত্র দুইটি অর্থহীন হয়ে পড়ে।",
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ৭ — book page ২৬০.
+    {
+      id: 7,
+      question: String.raw`$2+4+8+16+\cdots$ ধারাটির $10$ তম পদ কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{ধারাটির প্রথম পদ }a=2,\;\text{সাধারণ অনুপাত }r=\frac{4}{2}=2$$`,
+          String.raw`$\therefore$ প্রদত্ত ধারাটি একটি গুণোত্তর ধারা।`,
+          String.raw`$$\text{আমরা জানি, }a_{n}=ar^{n-1}$$`,
+          String.raw`$$\therefore\; a_{10}=2\times 2^{10-1}=2\times 2^{9}=2^{10}=1024$$`,
+        ],
+        answer: String.raw`$1024$`,
+      },
+    },
+    // উদাহরণ ৮ — book page ২৬০.
+    {
+      id: 8,
+      question: String.raw`$128+64+32+\cdots$ ধারাটির সাধারণ পদ কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রদত্ত ধারাটির প্রথম পদ }a=128,\;\text{সাধারণ অনুপাত }r=\frac{64}{128}=\frac{1}{2}$$`,
+          String.raw`$\therefore$ ইহা একটি গুণোত্তর ধারা।`,
+          String.raw`$$\text{আমরা জানি, সাধারণ পদ}=ar^{n-1}$$`,
+          String.raw`$$\therefore\; a_{n}=128\times\left(\frac{1}{2}\right)^{n-1}=\frac{2^{7}}{2^{n-1}}=\frac{1}{2^{n-1-7}}=\frac{1}{2^{n-8}}$$`,
+        ],
+        answer: String.raw`$\dfrac{1}{2^{n-8}}$`,
+      },
+    },
+    // উদাহরণ ৯ — book pages ২৬০-২৬১.
+    {
+      id: 9,
+      question: String.raw`একটি গুণোত্তর ধারার প্রথম ও দ্বিতীয় পদ যথাক্রমে $27$ এবং $9$ হলে, ধারাটির পঞ্চম পদ এবং দশম পদ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রদত্ত ধারাটির প্রথম পদ }a=27,\;\text{দ্বিতীয় পদ}=9$$`,
+          String.raw`$$\therefore\;\text{সাধারণ অনুপাত }r=\frac{9}{27}=\frac{1}{3}$$`,
+          String.raw`$$\therefore\;\text{পঞ্চম পদ}=ar^{5-1}=27\times\left(\frac{1}{3}\right)^{4}=\frac{27}{81}=\frac{1}{3}$$`,
+          String.raw`$$\text{এবং দশম পদ}=ar^{10-1}=27\times\left(\frac{1}{3}\right)^{9}=\frac{3^{3}}{3^{9}}=\frac{1}{3^{6}}=\frac{1}{729}$$`,
+        ],
+        answer: String.raw`পঞ্চম পদ $\dfrac{1}{3}$, দশম পদ $\dfrac{1}{729}$`,
+      },
+    },
+    // উদাহরণ ১০ — book pages ২৬১-২৬২.
+    {
+      id: 10,
+      question: String.raw`$12+24+48+\cdots+768$ ধারাটির সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রদত্ত ধারাটির প্রথম পদ }a=12,\;\text{সাধারণ অনুপাত }r=\frac{24}{12}=2>1$$`,
+          String.raw`$\therefore$ ধারাটি একটি গুণোত্তর ধারা।`,
+          String.raw`মনে করি, ধারাটির $n$ তম পদ $=768$`,
+          String.raw`$$\therefore\; ar^{n-1}=768$$`,
+          String.raw`$$\text{বা, }12\times 2^{n-1}=768$$`,
+          String.raw`$$\text{বা, }2^{n-1}=\frac{768}{12}=64=2^{6}$$`,
+          String.raw`$$\text{বা, }n-1=6$$`,
+          String.raw`$$\therefore\; n=7$$`,
+          String.raw`$$\therefore\; S_{7}=\frac{a\left(r^{n}-1\right)}{r-1}=\frac{12\left(2^{7}-1\right)}{2-1}$$`,
+          String.raw`$$=12\times(128-1)=12\times 127=1524$$`,
+        ],
+        answer: String.raw`$1524$`,
+      },
+    },
+    // উদাহরণ ১১ — book page ২৬২.
+    {
+      id: 11,
+      question: String.raw`$1+\dfrac{1}{2}+\dfrac{1}{4}+\dfrac{1}{8}+\cdots$ ধারাটির প্রথম আটটি পদের সমষ্টি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রদত্ত ধারাটির প্রথম পদ }a=1,\;\text{সাধারণ অনুপাত }r=\frac{1/2}{1}=\frac{1}{2}<1$$`,
+          String.raw`$\therefore$ ইহা একটি গুণোত্তর ধারা। এখানে পদসংখ্যা $n=8$।`,
+          String.raw`$$\text{আমরা জানি, }S_{n}=\frac{a\left(1-r^{n}\right)}{1-r}\qquad(r<1)$$`,
+          String.raw`$$\therefore\; S_{8}=\frac{1\times\left\{1-\left(\frac{1}{2}\right)^{8}\right\}}{1-\frac{1}{2}}=\frac{1-\frac{1}{256}}{\frac{1}{2}}$$`,
+          String.raw`$$=2\left(\frac{256-1}{256}\right)=\frac{255}{128}=1\frac{127}{128}$$`,
+        ],
+        answer: String.raw`$\dfrac{255}{128}=1\dfrac{127}{128}$`,
+      },
+    },
+    // উদাহরণ ১২ — book pages ২৬২-২৬৩.
+    {
+      id: 12,
+      question: String.raw`পলাশ সরকার $2005$ সালের জানুয়ারি মাসে বার্ষিক $120000$ টাকা বেতনে চাকরিতে যোগদান করলেন। তাঁর বেতন বৃদ্ধির পরিমাণ প্রতি বছর $5000$ টাকা। প্রতি বছর তাঁর বেতন থেকে $10\%$ ভবিষ্যতহবিল হিসেবে কর্তন করা হয়। তিনি বেতন থেকে বার্ষিক $12\%$ চক্রবৃদ্ধি মুনাফা হারে বছর শেষে একটি ব্যাংকে $12000$ টাকা জমা রাখেন। তিনি $2030$ সালের $31$ ডিসেম্বর চাকরি থেকে অবসরে যাবেন।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`পলাশ সরকারের মূল বেতন কোন ধারাকে সমর্থন করে? ধারাটি লিখ।`,
+          solution: {
+            steps: [
+              String.raw`পলাশ সরকারের মূল বেতন সমান্তর ধারা সমর্থন করে।`,
+              String.raw`$$\text{ধারাটির প্রথম পদ }a=120000\;\text{এবং সাধারণ অন্তর }d=5000$$`,
+              String.raw`$$\therefore\;\text{দ্বিতীয় পদ}=120000+5000=125000$$`,
+              String.raw`$$\text{তৃতীয় পদ}=125000+5000=130000$$`,
+              String.raw`$$\therefore\;\text{ধারাটি }120000+125000+130000+\cdots$$`,
+            ],
+            answer: String.raw`সমান্তর ধারা — $120000+125000+130000+\cdots$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`ভবিষ্যতহবিল ব্যতীত তিনি বেতন হিসেবে চাকরি জীবনে মোট কত টাকা পাবেন?`,
+          solution: {
+            steps: [
+              String.raw`$2005$ সালের জানুয়ারি থেকে $2030$ সালের $31$ ডিসেম্বর পর্যন্ত মোট $(2030-2005+1)$ বা $26$ বছর।`,
+              String.raw`ভবিষ্যতহবিল ব্যতীত প্রাপ্য বেতনের ধারাটি`,
+              String.raw`$$(120000-12000)+(125000-12500)+(130000-13000)+\cdots$$`,
+              String.raw`$$=108000+112500+117000+\cdots$$`,
+              String.raw`এক্ষেত্রে সৃষ্ট ধারাটি একটি সমান্তর ধারা, যার`,
+              String.raw`$$a=108000,\quad d=112500-108000=4500,\quad n=26$$`,
+              String.raw`$$\therefore\; S_{26}=\frac{26}{2}\{2\times 108000+(26-1)\times 4500\}$$`,
+              String.raw`$$=13(216000+112500)=13\times 328500=4270500$$`,
+            ],
+            answer: String.raw`$4270500$ টাকা`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$2031$ সালের $31$ ডিসেম্বর ঐ ব্যাংকে মুনাফাসহ তার মোট কত টাকা জমা হবে?`,
+          solution: {
+            steps: [
+              String.raw`$2005$ সাল থেকে $2031$ পর্যন্ত জমা করার মোট সময় $(2031-2005)$ বা $26$ বছর।`,
+              String.raw`$$12000\;\text{টাকার 1 বছর শেষে জমা}=12000\left(1+\frac{12}{100}\right)=12000\times 1.12$$`,
+              String.raw`$$12000\;\text{টাকার 2 বছর শেষে জমা}=12000\times(1.12)^{2}$$`,
+              String.raw`$$12000\;\text{টাকার 3 বছর শেষে জমা}=12000\times(1.12)^{3}$$`,
+              String.raw`$$\therefore\;\text{26 বছরে জমাকৃত মোট টাকা}=12000\left\{1.12+(1.12)^{2}+\cdots+(1.12)^{26}\right\}$$`,
+              String.raw`ভিতরের ধারাটি গুণোত্তর, যার $a=1.12$ ও $r=1.12>1$।`,
+              String.raw`$$=12000\times 1.12\times\frac{(1.12)^{26}-1}{1.12-1}=12000\times 1.12\times\frac{18.04}{0.12}$$`,
+              String.raw`$$=2020488\;\text{(প্রায়)}$$`,
+            ],
+            answer: String.raw`$2020488$ টাকা (প্রায়)`,
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    // ─────────────── বহুনির্বাচনি প্রশ্ন (1) ───────────────
+    {
+      id: 1,
+      group: GP_MCQ,
+      question: String.raw`$a,\,b,\,c$ ও $d$ সমান্তর ধারার চারটি ক্রমিক পদ হলে নিচের কোনটি সঠিক?
+ক) $b=\dfrac{c+d}{2}$  খ) $a=\dfrac{b+c}{2}$  গ) $c=\dfrac{b+d}{2}$  ঘ) $d=\dfrac{a+c}{2}$`,
+      solution: {
+        steps: [
+          String.raw`$a,\,b,\,c,\,d$ ক্রমিক পদ হওয়ায় পাশাপাশি পদের পার্থক্য সমান,`,
+          String.raw`$$b-a=c-b=d-c$$`,
+          String.raw`$$\text{এখন, }c-b=d-c$$`,
+          String.raw`$$\text{বা, }2c=b+d$$`,
+          String.raw`$$\therefore\; c=\frac{b+d}{2}$$`,
+          String.raw`অর্থাৎ সমান্তর ধারার যেকোনো পদ তার আগের ও পরের পদের গড় — এখানে $c$ হলো $b$ ও $d$-এর সমান্তর মধ্যক।`,
+        ],
+        answer: String.raw`গ) $c=\dfrac{b+d}{2}$`,
+      },
+    },
+
+    // ─────────────── গুণোত্তর ধারার পদ (2 – 8) ───────────────
+    {
+      id: 2,
+      group: GP_TERM,
+      question: String.raw`$64+32+16+8+\cdots$ ধারাটির অষ্টম পদ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=64,\;\text{সাধারণ অনুপাত }r=\frac{32}{64}=\frac{16}{32}=\frac{1}{2}$$`,
+          String.raw`$\therefore$ ধারাটি একটি গুণোত্তর ধারা।`,
+          String.raw`$$\text{আমরা জানি, }a_{n}=ar^{n-1}$$`,
+          String.raw`$$\therefore\; a_{8}=64\times\left(\frac{1}{2}\right)^{8-1}=\frac{2^{6}}{2^{7}}=\frac{1}{2}$$`,
+        ],
+        answer: String.raw`$\dfrac{1}{2}$`,
+      },
+    },
+    {
+      id: 3,
+      group: GP_TERM,
+      question: String.raw`$3+9+27+\cdots$ ধারাটির প্রথম চৌদ্দটি পদের সমষ্টি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=3,\;\text{সাধারণ অনুপাত }r=\frac{9}{3}=3>1$$`,
+          String.raw`$\therefore$ ধারাটি একটি গুণোত্তর ধারা। এখানে পদসংখ্যা $n=14$।`,
+          String.raw`$$\text{আমরা জানি, }S_{n}=\frac{a\left(r^{n}-1\right)}{r-1}\qquad(r>1)$$`,
+          String.raw`$$\therefore\; S_{14}=\frac{3\left(3^{14}-1\right)}{3-1}=\frac{3}{2}\left(3^{14}-1\right)$$`,
+        ],
+        answer: String.raw`$\dfrac{3}{2}\left(3^{14}-1\right)$`,
+      },
+    },
+    {
+      id: 4,
+      group: GP_TERM,
+      question: String.raw`$128+64+32+\cdots$ ধারাটির কোন পদ $\dfrac{1}{2}$?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=128=2^{7},\;\text{সাধারণ অনুপাত }r=\frac{64}{128}=\frac{1}{2}$$`,
+          String.raw`মনে করি, ধারাটির $n$ তম পদ $=\dfrac{1}{2}$`,
+          String.raw`$$\therefore\; ar^{n-1}=\frac{1}{2}$$`,
+          String.raw`$$\text{বা, }2^{7}\times\left(\frac{1}{2}\right)^{n-1}=2^{-1}$$`,
+          String.raw`$$\text{বা, }2^{7-(n-1)}=2^{-1}$$`,
+          String.raw`$$\text{বা, }8-n=-1$$`,
+          String.raw`$$\therefore\; n=9$$`,
+        ],
+        answer: String.raw`$9$ম পদ`,
+      },
+    },
+    {
+      id: 5,
+      group: GP_TERM,
+      question: String.raw`একটি গুণোত্তর ধারার পঞ্চম পদ $\dfrac{2\sqrt{3}}{9}$ এবং দশম পদ $\dfrac{8\sqrt{2}}{81}$ হলে, ধারাটির তৃতীয় পদ কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির প্রথম পদ $a$ এবং সাধারণ অনুপাত $r$।`,
+          String.raw`$$\text{প্রশ্নানুসারে, }ar^{4}=\frac{2\sqrt{3}}{9}\qquad\cdots(1)$$`,
+          String.raw`$$ar^{9}=\frac{8\sqrt{2}}{81}\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(2)$-কে $(1)$ দ্বারা ভাগ করে পাই,`,
+          String.raw`$$r^{5}=\frac{8\sqrt{2}}{81}\times\frac{9}{2\sqrt{3}}=\frac{4\sqrt{2}}{9\sqrt{3}}$$`,
+          String.raw`$$\text{এখন, }\left(\frac{\sqrt{2}}{\sqrt{3}}\right)^{5}=\frac{\left(\sqrt{2}\right)^{5}}{\left(\sqrt{3}\right)^{5}}=\frac{4\sqrt{2}}{9\sqrt{3}}$$`,
+          String.raw`$$\therefore\; r^{5}=\left(\frac{\sqrt{2}}{\sqrt{3}}\right)^{5}$$`,
+          String.raw`$$\therefore\; r=\frac{\sqrt{2}}{\sqrt{3}},\qquad\text{অর্থাৎ }r^{2}=\frac{2}{3}$$`,
+          String.raw`$$\therefore\;\text{তৃতীয় পদ}=ar^{2}=\frac{ar^{4}}{r^{2}}=\frac{2\sqrt{3}}{9}\div\frac{2}{3}$$`,
+          String.raw`$$=\frac{2\sqrt{3}}{9}\times\frac{3}{2}=\frac{\sqrt{3}}{3}=\frac{1}{\sqrt{3}}$$`,
+        ],
+        answer: String.raw`$\dfrac{1}{\sqrt{3}}$`,
+      },
+    },
+    {
+      id: 6,
+      group: GP_TERM,
+      question: String.raw`$\dfrac{1}{\sqrt{2}}-1+\sqrt{2}-\cdots$ ধারাটির কোন পদ $8\sqrt{2}$?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=\frac{1}{\sqrt{2}},\;\text{সাধারণ অনুপাত }r=\frac{-1}{\frac{1}{\sqrt{2}}}=-\sqrt{2}$$`,
+          String.raw`যাচাই — $(-1)\times\left(-\sqrt{2}\right)=\sqrt{2}$, তাই ধারাটি গুণোত্তর।`,
+          String.raw`মনে করি, ধারাটির $n$ তম পদ $=8\sqrt{2}$`,
+          String.raw`$$\therefore\;\frac{1}{\sqrt{2}}\times\left(-\sqrt{2}\right)^{n-1}=8\sqrt{2}$$`,
+          String.raw`$$\text{বা, }\left(-\sqrt{2}\right)^{n-1}=8\sqrt{2}\times\sqrt{2}=16$$`,
+          String.raw`ডান পক্ষ ধনাত্মক, তাই $(n-1)$ জোড় সংখ্যা এবং`,
+          String.raw`$$\left(\sqrt{2}\right)^{n-1}=16$$`,
+          String.raw`$$\text{বা, }2^{\frac{n-1}{2}}=2^{4}$$`,
+          String.raw`$$\text{বা, }\frac{n-1}{2}=4$$`,
+          String.raw`$$\text{বা, }n-1=8$$`,
+          String.raw`$$\therefore\; n=9$$`,
+        ],
+        answer: String.raw`$9$ম পদ`,
+      },
+    },
+    {
+      id: 7,
+      group: GP_TERM,
+      question: String.raw`$5+x+y+135$ গুণোত্তর ধারাভুক্ত হলে, $x$ এবং $y$ এর মান নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির সাধারণ অনুপাত $r$; এখানে প্রথম পদ $a=5$।`,
+          String.raw`$$\therefore\;\text{চতুর্থ পদ}=ar^{3}=135$$`,
+          String.raw`$$\text{বা, }5r^{3}=135$$`,
+          String.raw`$$\text{বা, }r^{3}=27=3^{3}$$`,
+          String.raw`$$\therefore\; r=3$$`,
+          String.raw`$$\therefore\; x=ar=5\times 3=15$$`,
+          String.raw`$$\text{এবং }y=ar^{2}=5\times 3^{2}=45$$`,
+        ],
+        answer: String.raw`$x=15$ এবং $y=45$`,
+      },
+    },
+    {
+      id: 8,
+      group: GP_TERM,
+      question: String.raw`$3+x+y+z+243$ গুণোত্তর ধারাভুক্ত হলে, $x,\,y$ এবং $z$ এর মান নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ধারাটির সাধারণ অনুপাত $r$; এখানে প্রথম পদ $a=3$।`,
+          String.raw`$$\therefore\;\text{পঞ্চম পদ}=ar^{4}=243$$`,
+          String.raw`$$\text{বা, }3r^{4}=243$$`,
+          String.raw`$$\text{বা, }r^{4}=81=3^{4}$$`,
+          String.raw`$$\therefore\; r=3$$`,
+          String.raw`$$\therefore\; x=ar=3\times 3=9$$`,
+          String.raw`$$y=ar^{2}=3\times 3^{2}=27$$`,
+          String.raw`$$z=ar^{3}=3\times 3^{3}=81$$`,
+          String.raw`উল্লেখ্য, $r^{4}=81$ থেকে $r=-3$ও আসে; তখন $x=-9,\;y=27,\;z=-81$ হয়, যা ধারাটিকে একান্তর চিহ্নের করে তোলে।`,
+        ],
+        answer: String.raw`$x=9,\;y=27,\;z=81$`,
+      },
+    },
+
+    // ─────────────── গুণোত্তর ধারার সমষ্টি (9 – 13) ───────────────
+    {
+      id: 9,
+      group: GP_SUM,
+      question: String.raw`$2-4+8-16+\cdots$ ধারাটির প্রথম সাতটি পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=2,\;\text{সাধারণ অনুপাত }r=\frac{-4}{2}=\frac{8}{-4}=-2$$`,
+          String.raw`$\therefore$ ধারাটি একটি গুণোত্তর ধারা। এখানে $r=-2<1$ এবং পদসংখ্যা $n=7$।`,
+          String.raw`$$\text{আমরা জানি, }S_{n}=\frac{a\left(1-r^{n}\right)}{1-r}\qquad(r<1)$$`,
+          String.raw`$$\therefore\; S_{7}=\frac{2\left\{1-(-2)^{7}\right\}}{1-(-2)}=\frac{2\{1-(-128)\}}{3}$$`,
+          String.raw`$$=\frac{2\times 129}{3}=\frac{258}{3}=86$$`,
+        ],
+        answer: String.raw`$86$`,
+      },
+    },
+    {
+      id: 10,
+      group: GP_SUM,
+      question: String.raw`$1-1+1-1+\cdots$ ধারাটির $(2n+1)$ সংখ্যক পদের সমষ্টি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=1,\;\text{সাধারণ অনুপাত }r=\frac{-1}{1}=-1<1$$`,
+          String.raw`এখানে পদসংখ্যা $(2n+1)$, যা একটি বিজোড় সংখ্যা।`,
+          String.raw`$$\therefore\; S_{2n+1}=\frac{a\left\{1-r^{2n+1}\right\}}{1-r}=\frac{1\times\left\{1-(-1)^{2n+1}\right\}}{1-(-1)}$$`,
+          String.raw`$$=\frac{1-(-1)}{2}=\frac{2}{2}=1\qquad\left[(-1)^{2n+1}=-1\right]$$`,
+          String.raw`সহজ ব্যাখ্যা — পদগুলোকে জোড়ায় জোড়ায় নিলে $(1-1)$ আকারের $n$টি জোড়া শূন্য হয়ে যায়, বাকি থাকে কেবল প্রথম পদ $1$।`,
+        ],
+        answer: String.raw`$1$`,
+      },
+    },
+    {
+      id: 11,
+      group: GP_SUM,
+      question: String.raw`$\log 2+\log 4+\log 8+\cdots$ ধারাটির প্রথম দশটি পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\log 4=\log 2^{2}=2\log 2,\qquad\log 8=\log 2^{3}=3\log 2$$`,
+          String.raw`$$\therefore\;\text{ধারাটি }\log 2+2\log 2+3\log 2+\cdots$$`,
+          String.raw`এখানে পাশাপাশি দুইটি পদের পার্থক্য সর্বত্র $\log 2$, তাই ধারাটি একটি সমান্তর ধারা।`,
+          String.raw`$$\text{প্রথম পদ }a=\log 2,\;\text{সাধারণ অন্তর }d=\log 2,\;\text{পদসংখ্যা }n=10$$`,
+          String.raw`$$\therefore\; S_{10}=\frac{10}{2}\{2\log 2+(10-1)\log 2\}$$`,
+          String.raw`$$=5(2\log 2+9\log 2)=5\times 11\log 2=55\log 2$$`,
+        ],
+        answer: String.raw`$55\log 2$`,
+      },
+    },
+    {
+      id: 12,
+      group: GP_SUM,
+      question: String.raw`$2+4+8+16+\cdots$ ধারাটির $n$ সংখ্যক পদের সমষ্টি $254$ হলে, $n$ এর মান কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=2,\;\text{সাধারণ অনুপাত }r=\frac{4}{2}=2>1$$`,
+          String.raw`$$\text{প্রশ্নানুসারে, }\frac{a\left(r^{n}-1\right)}{r-1}=254$$`,
+          String.raw`$$\text{বা, }\frac{2\left(2^{n}-1\right)}{2-1}=254$$`,
+          String.raw`$$\text{বা, }2^{n}-1=127$$`,
+          String.raw`$$\text{বা, }2^{n}=128=2^{7}$$`,
+          String.raw`$$\therefore\; n=7$$`,
+        ],
+        answer: String.raw`$n=7$`,
+      },
+    },
+    {
+      id: 13,
+      group: GP_SUM,
+      question: String.raw`$2-2+2-2+\cdots$ ধারাটির $(2n+2)$ সংখ্যক পদের সমষ্টি কত?`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=2,\;\text{সাধারণ অনুপাত }r=\frac{-2}{2}=-1<1$$`,
+          String.raw`এখানে পদসংখ্যা $(2n+2)$, যা একটি জোড় সংখ্যা।`,
+          String.raw`$$\therefore\; S_{2n+2}=\frac{2\left\{1-(-1)^{2n+2}\right\}}{1-(-1)}$$`,
+          String.raw`$$=\frac{2(1-1)}{2}=0\qquad\left[(-1)^{2n+2}=1\right]$$`,
+          String.raw`সহজ ব্যাখ্যা — $(2-2)$ আকারের $(n+1)$টি জোড়ায় সবগুলো পদ কাটাকাটি হয়ে যায়।`,
+        ],
+        answer: String.raw`$0$`,
+      },
+    },
+
+    // ─────────────── বর্গ ও ঘনের সমষ্টি (14 – 16) ───────────────
+    {
+      id: 14,
+      group: GP_POWER,
+      question: String.raw`প্রথম $n$ সংখ্যক স্বাভাবিক সংখ্যার ঘনের সমষ্টি $441$ হলে, $n$ এর মান নির্ণয় করো এবং ঐ সংখ্যাগুলোর সমষ্টি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\text{আমরা জানি, }1^{3}+2^{3}+\cdots+n^{3}=\left\{\frac{n(n+1)}{2}\right\}^{2}$$`,
+          String.raw`$$\text{প্রশ্নানুসারে, }\left\{\frac{n(n+1)}{2}\right\}^{2}=441=21^{2}$$`,
+          String.raw`$$\text{বা, }\frac{n(n+1)}{2}=21\qquad\left[\,n\ \text{ধনাত্মক}\,\right]$$`,
+          String.raw`$$\text{বা, }n(n+1)=42$$`,
+          String.raw`$$\text{বা, }n^{2}+n-42=0$$`,
+          String.raw`$$\text{বা, }n^{2}+7n-6n-42=0$$`,
+          String.raw`$$\text{বা, }(n+7)(n-6)=0$$`,
+          String.raw`$$\therefore\; n=6\qquad\left[\,n=-7\ \text{গ্রহণযোগ্য নয়}\,\right]$$`,
+          String.raw`$$\therefore\;\text{সংখ্যাগুলোর সমষ্টি}=\frac{n(n+1)}{2}=\frac{6\times 7}{2}=21$$`,
+        ],
+        answer: String.raw`$n=6$ এবং সংখ্যাগুলোর সমষ্টি $21$`,
+      },
+    },
+    {
+      id: 15,
+      group: GP_POWER,
+      question: String.raw`দেখাও যে, $$1^{3}+2^{3}+3^{3}+\cdots+10^{3}=(1+2+3+\cdots+10)^{2}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{আমরা জানি, }1^{3}+2^{3}+\cdots+n^{3}=\left\{\frac{n(n+1)}{2}\right\}^{2}$$`,
+          String.raw`$$\therefore\;\text{L.H.S.}=1^{3}+2^{3}+\cdots+10^{3}=\left\{\frac{10(10+1)}{2}\right\}^{2}$$`,
+          String.raw`$$=\left(\frac{10\times 11}{2}\right)^{2}=55^{2}=3025$$`,
+          String.raw`$$\text{আবার, }1+2+3+\cdots+n=\frac{n(n+1)}{2}$$`,
+          String.raw`$$\therefore\; 1+2+3+\cdots+10=\frac{10\times 11}{2}=55$$`,
+          String.raw`$$\therefore\;\text{R.H.S.}=(1+2+3+\cdots+10)^{2}=55^{2}=3025$$`,
+          String.raw`$$\therefore\;\text{L.H.S.}=\text{R.H.S.}$$`,
+        ],
+        answer: String.raw`দেখানো হলো (উভয় পক্ষ $3025$)`,
+      },
+    },
+    {
+      id: 16,
+      group: GP_POWER,
+      question: String.raw`$\dfrac{1^{3}+2^{3}+3^{3}+\cdots+n^{3}}{1+2+3+\cdots+n}=210$ হলে, $n$ এর মান কত?`,
+      solution: {
+        steps: [
+          String.raw`$$1^{3}+2^{3}+\cdots+n^{3}=\left\{\frac{n(n+1)}{2}\right\}^{2},\qquad 1+2+\cdots+n=\frac{n(n+1)}{2}$$`,
+          String.raw`$$\therefore\;\text{L.H.S.}=\left\{\frac{n(n+1)}{2}\right\}^{2}\div\frac{n(n+1)}{2}=\frac{n(n+1)}{2}$$`,
+          String.raw`$$\text{প্রশ্নানুসারে, }\frac{n(n+1)}{2}=210$$`,
+          String.raw`$$\text{বা, }n(n+1)=420$$`,
+          String.raw`$$\text{বা, }n^{2}+n-420=0$$`,
+          String.raw`$$\text{বা, }n^{2}+21n-20n-420=0$$`,
+          String.raw`$$\text{বা, }(n+21)(n-20)=0$$`,
+          String.raw`$$\therefore\; n=20\qquad\left[\,n=-21\ \text{গ্রহণযোগ্য নয়}\,\right]$$`,
+        ],
+        answer: String.raw`$n=20$`,
+      },
+    },
+
+    // ─────────────── সৃজনশীল প্রশ্ন (17) ───────────────
+    {
+      id: 17,
+      group: GP_CQ,
+      question: String.raw`দুপুর $1$টা $15$ মিনিটে $1$ জন এস.এস.সি পরীক্ষার ফলাফল জানতে পারল। $1$টা $20$ মিনিটে জানল $8$ জন, $1$টা $25$ মিনিটে জানল $27$ জন। এভাবে ফলাফল ছড়িয়ে পড়ল।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`উদ্দীপকের আলোকে প্যাটার্ন দুইটি লিখ।`,
+          solution: {
+            steps: [
+              String.raw`প্রথম প্যাটার্নটি সময়ের —`,
+              String.raw`$$1\text{টা }15,\quad 1\text{টা }20,\quad 1\text{টা }25,\quad\cdots$$`,
+              String.raw`প্রতিবার $5$ মিনিট করে বাড়ছে, তাই সময় একটি সমান্তর অনুক্রম গঠন করে এবং $n$ তম সময় $=1$টা $15$ মিনিট $+\,5(n-1)$ মিনিট।`,
+              String.raw`দ্বিতীয় প্যাটার্নটি জনসংখ্যার —`,
+              String.raw`$$1,\quad 8,\quad 27,\quad\cdots$$`,
+              String.raw`$$\text{অর্থাৎ }1^{3},\quad 2^{3},\quad 3^{3},\quad\cdots$$`,
+              String.raw`সুতরাং $n$ তম বারে ফলাফল জানবে $n^{3}$ জন।`,
+            ],
+            answer: String.raw`সময়: $5$ মিনিট অন্তর সমান্তর; জনসংখ্যা: $1^{3},\,2^{3},\,3^{3},\cdots$ অর্থাৎ $n$ তম পদ $n^{3}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`ঠিক $2$টা $10$ মিনিটে কত জন এবং $2$টা $10$ মিনিট পর্যন্ত মোট কত জন ফলাফল জানতে পারবে?`,
+          solution: {
+            steps: [
+              String.raw`$1$টা $15$ মিনিট থেকে $2$টা $10$ মিনিট পর্যন্ত সময় $55$ মিনিট।`,
+              String.raw`$$\therefore\; 5(n-1)=55$$`,
+              String.raw`$$\text{বা, }n-1=11$$`,
+              String.raw`$$\therefore\; n=12$$`,
+              String.raw`$$\therefore\;\text{ঠিক 2টা 10 মিনিটে জানবে}=12^{3}=1728\ \text{জন}$$`,
+              String.raw`$$\text{আবার, মোট}=1^{3}+2^{3}+3^{3}+\cdots+12^{3}=\left\{\frac{12(12+1)}{2}\right\}^{2}$$`,
+              String.raw`$$=\left(\frac{12\times 13}{2}\right)^{2}=78^{2}=6084$$`,
+            ],
+            answer: String.raw`ঠিক $2$টা $10$ মিনিটে $1728$ জন, মোট $6084$ জন`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`কয়টার সময় $6175225$ জন ফলাফল জানতে পারবে?`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, $n$ তম বার পর্যন্ত মোট $6175225$ জন ফলাফল জানতে পারবে।`,
+              String.raw`$$\text{প্রশ্নানুসারে, }1^{3}+2^{3}+\cdots+n^{3}=6175225$$`,
+              String.raw`$$\text{বা, }\left\{\frac{n(n+1)}{2}\right\}^{2}=6175225=(2485)^{2}$$`,
+              String.raw`$$\text{বা, }\frac{n(n+1)}{2}=2485$$`,
+              String.raw`$$\text{বা, }n(n+1)=4970$$`,
+              String.raw`$$\text{বা, }n^{2}+n-4970=0$$`,
+              String.raw`$$\text{বা, }n^{2}+71n-70n-4970=0$$`,
+              String.raw`$$\text{বা, }(n+71)(n-70)=0$$`,
+              String.raw`$$\therefore\; n=70\qquad\left[\,n=-71\ \text{গ্রহণযোগ্য নয়}\,\right]$$`,
+              String.raw`$$\therefore\;\text{অতিবাহিত সময়}=5(70-1)=345\ \text{মিনিট}=5\ \text{ঘণ্টা }45\ \text{মিনিট}$$`,
+              String.raw`$$\therefore\;\text{নির্ণেয় সময}=1\text{টা }15\ \text{মিনিট}+5\ \text{ঘণ্টা }45\ \text{মিনিট}=7\text{টা}$$`,
+            ],
+            answer: String.raw`সন্ধ্যা $7$টায়`,
+          },
+        },
+      ],
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — বহুনির্বাচনি (18 – 21) ───────────────
+    {
+      id: 18,
+      group: GP_MODEL_MCQ,
+      question: String.raw`$5,\,8,\,11,\,\ldots\ldots,\,99$ অনুক্রমটির সাধারণ পদ কোনটি?
+ক) $2n+1$  খ) $3n-1$  গ) $3n+1$  ঘ) $3n+2$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=5,\;\text{সাধারণ অন্তর }d=8-5=11-8=3$$`,
+          String.raw`$$\therefore\; a_{n}=a+(n-1)d=5+(n-1)3$$`,
+          String.raw`$$=5+3n-3=3n+2$$`,
+          String.raw`যাচাই — $n=1$ হলে $3+2=5$, $n=2$ হলে $6+2=8$।`,
+        ],
+        answer: String.raw`ঘ) $3n+2$`,
+      },
+    },
+    {
+      id: 19,
+      group: GP_MODEL_MCQ,
+      question: String.raw`$3+8+13+\cdots+73$ ধারাটি —
+$(i)$ একটি সসীম ধারা   $(ii)$ একটি সমান্তর ধারা   $(iii)$ এর $11$ তম পদ $53$
+নিচের কোনটি সঠিক?
+ক) $i$ ও $ii$  খ) $i$ ও $iii$  গ) $ii$ ও $iii$  ঘ) $i,\,ii$ ও $iii$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=3,\;\text{সাধারণ অন্তর }d=8-3=13-8=5$$`,
+          String.raw`পার্থক্য সমান, তাই ধারাটি সমান্তর — $(ii)$ সঠিক।`,
+          String.raw`শেষ পদ $73$ হলে,`,
+          String.raw`$$3+(n-1)5=73$$`,
+          String.raw`$$\text{বা, }5(n-1)=70$$`,
+          String.raw`$$\therefore\; n=15$$`,
+          String.raw`পদসংখ্যা নির্দিষ্ট, তাই ধারাটি সসীম — $(i)$ সঠিক।`,
+          String.raw`$$\text{11 তম পদ}=3+(11-1)\times 5=3+50=53$$`,
+          String.raw`সুতরাং $(iii)$ও সঠিক।`,
+        ],
+        answer: String.raw`ঘ) $i,\,ii$ ও $iii$`,
+      },
+    },
+    {
+      id: 20,
+      group: GP_MODEL_MCQ,
+      question: String.raw`$\log 2+\log 4+\log 8+\cdots$ ধারাটির সাধারণ অন্তর কোনটি?
+ক) $2$  খ) $4$  গ) $\log 2$  ঘ) $2\log 2$`,
+      solution: {
+        steps: [
+          String.raw`$$\log 4-\log 2=\log\frac{4}{2}=\log 2$$`,
+          String.raw`$$\log 8-\log 4=\log\frac{8}{4}=\log 2$$`,
+          String.raw`পাশাপাশি দুইটি পদের পার্থক্য সর্বত্র $\log 2$।`,
+        ],
+        answer: String.raw`গ) $\log 2$`,
+      },
+    },
+    {
+      id: 21,
+      group: GP_MODEL_MCQ,
+      question: String.raw`$\log 2+\log 4+\log 8+\cdots$ ধারাটির সপ্তম পদ কোনটি?
+ক) $\log 32$  খ) $\log 64$  গ) $\log 128$  ঘ) $\log 256$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{প্রথম পদ }a=\log 2,\;\text{সাধারণ অন্তর }d=\log 2$$`,
+          String.raw`$$\therefore\; a_{7}=a+(7-1)d=\log 2+6\log 2=7\log 2$$`,
+          String.raw`$$=\log 2^{7}=\log 128$$`,
+        ],
+        answer: String.raw`গ) $\log 128$`,
+      },
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — সৃজনশীল ও সংক্ষিপ্ত-উত্তর (22 – 23) ───────────────
+    {
+      id: 22,
+      group: GP_MODEL_CQ,
+      question: String.raw`কোনো শিক্ষার্থী প্রথম সপ্তাহে $10$ টাকা সঞ্চয় করে এবং পরবর্তী প্রত্যেক সপ্তাহে এর পূর্ববর্তী সপ্তাহের তুলনায় $5$ টাকা বেশি সঞ্চয় করে।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`প্রথম $20$টি স্বাভাবিক সংখ্যার সমষ্টি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{আমরা জানি, }1+2+3+\cdots+n=\frac{n(n+1)}{2}$$`,
+              String.raw`$$\therefore\; S_{20}=\frac{20(20+1)}{2}=10\times 21=210$$`,
+            ],
+            answer: String.raw`$210$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`শিক্ষার্থীর সঞ্চয়ের হিসাবটিকে $n$ সংখ্যক পদ পর্যন্ত ধারায় প্রকাশ করো এবং প্রথম $21$ সপ্তাহে সঞ্চিত টাকার পরিমাণ নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{প্রশ্নানুসারে, প্রথম পদ }a=10,\;\text{সাধারণ অন্তর }d=5$$`,
+              String.raw`$$\therefore\;\text{দ্বিতীয় পদ}=10+5=15,\qquad\text{তৃতীয় পদ}=15+5=20$$`,
+              String.raw`$$\therefore\; a_{n}=a+(n-1)d=10+(n-1)5=5n+5$$`,
+              String.raw`$$\therefore\;\text{ধারাটি }10+15+20+\cdots+(5n+5)$$`,
+              String.raw`$$\text{আবার, }S_{21}=\frac{21}{2}\{2\times 10+(21-1)\times 5\}$$`,
+              String.raw`$$=\frac{21}{2}(20+100)=\frac{21}{2}\times 120=21\times 60=1260$$`,
+            ],
+            answer: String.raw`ধারাটি $10+15+20+\cdots+(5n+5)$; $21$ সপ্তাহে $1260$ টাকা`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`শিক্ষার্থীর প্রথম সপ্তাহের সঞ্চিত টাকার পরিমাণকে ১ম পদ এবং সাধারণ অনুপাত $10$ ধরে একটি নতুন ধারা তৈরি করো এবং সূত্র প্রয়োগ করে ধারাটির প্রথম $4$টি পদের সমষ্টি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{নতুন ধারাটির প্রথম পদ }a=10,\;\text{সাধারণ অনুপাত }r=10$$`,
+              String.raw`$$\therefore\;\text{ধারাটি }10+100+1000+10000+\cdots$$`,
+              String.raw`এখানে $r=10>1$ এবং পদসংখ্যা $n=4$।`,
+              String.raw`$$\text{আমরা জানি, }S_{n}=\frac{a\left(r^{n}-1\right)}{r-1}\qquad(r>1)$$`,
+              String.raw`$$\therefore\; S_{4}=\frac{10\left(10^{4}-1\right)}{10-1}=\frac{10(10000-1)}{9}$$`,
+              String.raw`$$=\frac{10\times 9999}{9}=10\times 1111=11110$$`,
+            ],
+            answer: String.raw`ধারাটি $10+100+1000+10000$; সমষ্টি $11110$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 23,
+      group: GP_MODEL_CQ,
+      question: String.raw`সংক্ষিপ্ত-উত্তর প্রশ্ন:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$3+7+11+15+\cdots$ ধারার পদগুলো নিয়ে গঠিত অনুক্রমটির সাধারণ পদ নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{প্রথম পদ }a=3,\;\text{সাধারণ অন্তর }d=7-3=11-7=4$$`,
+              String.raw`$$\therefore\; a_{n}=a+(n-1)d=3+(n-1)4$$`,
+              String.raw`$$=3+4n-4=4n-1$$`,
+            ],
+            answer: String.raw`$4n-1$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$256+128+64+\cdots$ ধারাটির কোন পদ $\dfrac{1}{32}$ তা নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{প্রথম পদ }a=256=2^{8},\;\text{সাধারণ অনুপাত }r=\frac{128}{256}=\frac{1}{2}$$`,
+              String.raw`মনে করি, ধারাটির $n$ তম পদ $=\dfrac{1}{32}$`,
+              String.raw`$$\therefore\; 2^{8}\times\left(\frac{1}{2}\right)^{n-1}=\frac{1}{32}$$`,
+              String.raw`$$\text{বা, }2^{8-(n-1)}=2^{-5}$$`,
+              String.raw`$$\text{বা, }9-n=-5$$`,
+              String.raw`$$\therefore\; n=14$$`,
+            ],
+            answer: String.raw`$14$ তম পদ`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`সূত্র প্রয়োগ করে $8^{2}+9^{2}+10^{2}+\cdots+15^{2}$ ধারাটির সমষ্টি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{আমরা জানি, }1^{2}+2^{2}+\cdots+n^{2}=\frac{n(n+1)(2n+1)}{6}$$`,
+              String.raw`$$\therefore\; 8^{2}+9^{2}+\cdots+15^{2}=\left(1^{2}+2^{2}+\cdots+15^{2}\right)-\left(1^{2}+2^{2}+\cdots+7^{2}\right)$$`,
+              String.raw`$$=\frac{15\times 16\times 31}{6}-\frac{7\times 8\times 15}{6}$$`,
+              String.raw`$$=\frac{7440}{6}-\frac{840}{6}=1240-140=1100$$`,
+            ],
+            answer: String.raw`$1100$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`কোনো সমান্তর ধারার $17$ তম পদ $43$ হলে, এর প্রথম $33$টি পদের সমষ্টি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, ধারাটির প্রথম পদ $a$ এবং সাধারণ অন্তর $d$।`,
+              String.raw`$$\text{প্রশ্নানুসারে, }a+(17-1)d=43$$`,
+              String.raw`$$\text{বা, }a+16d=43\qquad\cdots(1)$$`,
+              String.raw`$$\text{আবার, }S_{33}=\frac{33}{2}\{2a+(33-1)d\}=\frac{33}{2}(2a+32d)$$`,
+              String.raw`$$=33(a+16d)=33\times 43=1419$$`,
+            ],
+            answer: String.raw`$1419$`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// অধ্যায় ১৭ · পরিসংখ্যান
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// অধ্যায়ের একটিমাত্র অনুশীলনী (বইয়ের পৃষ্ঠা ৩৪২-৩৪৩), তার সঙ্গে বইয়ের নমুনা
+// প্রশ্নগুলো (পৃষ্ঠা ৩৪৪) অনুশীলনীর নম্বর ধরে টেনে নেওয়া হয়েছে।
+//
+// পরিসংখ্যান সারণিতে লেখা হয়, বাক্যে নয় — তাই এখানে প্রশ্ন ও সমাধানের অনেক
+// ধাপ `[[table]]` দিয়ে শুরু হয় এবং `Table.tsx` সেগুলো সারণি হিসেবেই আঁকে।
+// আর লেখচিত্রগুলো — আয়তলেখ, গণসংখ্যা বহুভুজ ও অজিভ রেখা — `figures/charts17.ts`
+// এ আছে; জ্যামিতির `Scene` এদের ধরে না, কারণ চার্টের দুই অক্ষ আলাদা মাপে আঁকা।
+
+const STAT_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৪)";
+const STAT_WORK = "লেখচিত্র, মধ্যক ও গড় (৫ – ৮)";
+const STAT_MODEL_MCQ = "নমুনা প্রশ্ন — বহুনির্বাচনি (৯ – ১২)";
+const STAT_MODEL_CQ = "নমুনা প্রশ্ন — সৃজনশীল ও সংক্ষিপ্ত-উত্তর (১৩ – ১৪)";
+
+const exercise17: Exercise = {
+  id: "17",
+  bnId: "অনুশীলনী ১৭",
+  title: "পরিসংখ্যান",
+  bookPages: "৩৪২ – ৩৪৪",
+  formulas: [
+    {
+      title: "উপাত্ত সাজানো ও সারণি",
+      formulas: [
+        {
+          statement: String.raw`$$R=(x_{\max}-x_{\min})+1$$`,
+          note: String.raw`উপাত্তের পরিসর। অবিন্যস্ত উপাত্তকে শ্রেণিতে ভাগ করার আগে এটিই প্রথম কাজ — সবচেয়ে বড় ও সবচেয়ে ছোট মানের ব্যবধান, দুই প্রান্তের মান দুইটিকেও গুনে।`,
+        },
+        {
+          statement: String.raw`$$k=\frac{R}{h}$$`,
+          note: String.raw`শ্রেণি সংখ্যা, যেখানে $h$ শ্রেণি ব্যবধান। ভাগফলে দশমিক এলে পরবর্তী পূর্ণসংখ্যা নিতে হয়, নইলে শেষ কয়েকটি উপাত্ত কোনো শ্রেণিতেই পড়ে না।`,
+        },
+        {
+          statement: String.raw`$$x_i=\frac{L_i+U_i}{2}$$`,
+          note: String.raw`শ্রেণি মধ্যমান — শ্রেণির নিম্নমান $L_i$ ও ঊর্ধ্বমানের $U_i$ গড়। শ্রেণিবিন্যস্ত উপাত্তে প্রতিটি উপাত্তের বদলে এই মানটিই ব্যবহৃত হয়।`,
+        },
+        {
+          statement: String.raw`$$F_k=f_1+f_2+\dots+f_k$$`,
+          note: String.raw`$k$-তম শ্রেণির ক্রমযোজিত গণসংখ্যা — ঐ শ্রেণি পর্যন্ত মোট কতগুলো উপাত্ত পড়েছে। প্রথম শ্রেণিরটি তার নিজের গণসংখ্যাই।`,
+        },
+        {
+          statement: String.raw`$$U_i'=L_{i+1}'=\frac{U_i+L_{i+1}}{2}$$`,
+          note: String.raw`অবিচ্ছিন্ন শ্রেণিসীমা — এক শ্রেণির ঊর্ধ্বসীমা ও পরের শ্রেণির নিম্নসীমার মধ্যবিন্দু দুই শ্রেণিরই সীমা ধরা হয়, যাতে শ্রেণিগুলোর মাঝে কোনো ফাঁক না থাকে। আয়তলেখ আঁকার আগে এটি করে নিতে হয়।`,
+        },
+      ],
+    },
+    {
+      title: "লেখচিত্র",
+      formulas: [
+        {
+          statement: String.raw`$$[\,L_i',\;U_i'\,]\longmapsto f_i$$`,
+          note: String.raw`আয়তলেখ — অবিচ্ছিন্ন শ্রেণিসীমা $L_i'$ থেকে $U_i'$ পর্যন্ত ভূমির উপর $f_i$ উচ্চতার আয়ত। পাশাপাশি আয়তগুলোর মাঝে ফাঁক থাকে না।`,
+        },
+        {
+          statement: String.raw`$$(x_i,\;f_i)$$`,
+          note: String.raw`গণসংখ্যা বহুভুজ — শ্রেণি মধ্যমান বরাবর গণসংখ্যার বিন্দুগুলো পর্যায়ক্রমে রেখাংশ দিয়ে যোগ করা হয়। দুই প্রান্ত নামানো হয় আগের ও পরের কাল্পনিক শ্রেণির মধ্যমানে, যেখানে গণসংখ্যা শূন্য।`,
+        },
+        {
+          statement: String.raw`$$(U_i,\;F_i)$$`,
+          note: String.raw`অজিভ রেখা বা ক্রমযোজিত গণসংখ্যা লেখচিত্র — শ্রেণির ঊর্ধ্বসীমা বরাবর ক্রমযোজিত গণসংখ্যা। রেখাটি কখনো নামে না, কারণ ক্রমযোজিত গণসংখ্যা কমতে পারে না।`,
+        },
+      ],
+    },
+    {
+      title: "গাণিতিক গড়",
+      formulas: [
+        {
+          statement: String.raw`$$\bar{x}=\frac{1}{n}\sum_{i=1}^{k} f_i x_i$$`,
+          note: String.raw`শ্রেণিবিন্যস্ত উপাত্তের গড়, সরাসরি পদ্ধতিতে। $x_i$ শ্রেণি মধ্যমান, $f_i$ গণসংখ্যা এবং $n=\sum f_i$ মোট গণসংখ্যা।`,
+        },
+        {
+          statement: String.raw`$$\bar{x}=a+\frac{\sum_{i=1}^{k} f_i u_i}{n}\times h,\qquad u_i=\frac{x_i-a}{h}$$`,
+          note: String.raw`সংক্ষিপ্ত পদ্ধতি। মধ্যমানগুলোর সুবিধাজনক একটিকে আনুমানিক গড় $a$ ধরলে ধাপ বিচ্যুতি $u_i$ ছোট পূর্ণসংখ্যা হয়ে যায়, তাই গুণ-যোগের কাজ অনেক হালকা হয়। $h$ শ্রেণি ব্যাপ্তি।`,
+        },
+        {
+          statement: String.raw`$$\overline{x_w}=\frac{\sum_{i=1}^{n} x_i w_i}{\sum_{i=1}^{n} w_i}$$`,
+          note: String.raw`গুরুত্ব প্রদত্ত গড়। প্রতিটি মান $x_i$ এর নিজস্ব গুরুত্ব বা ভার $w_i$ থাকলে — যেমন কয়েকটি বিভাগের পাশের হারের ভার সেই বিভাগের শিক্ষার্থীর সংখ্যা।`,
+        },
+      ],
+    },
+    {
+      title: "মধ্যক",
+      formulas: [
+        {
+          statement: String.raw`$$M=\left(\frac{n+1}{2}\right)\text{-th}$$`,
+          note: String.raw`অবিন্যস্ত উপাত্তকে মানের ক্রমে সাজানোর পর, $n$ বিজোড় হলে মধ্যক ঠিক মাঝের পদটির মান।`,
+        },
+        {
+          statement: String.raw`$$M=\frac{1}{2}\left[\left(\frac{n}{2}\right)\text{-th}+\left(\frac{n}{2}+1\right)\text{-th}\right]$$`,
+          note: String.raw`$n$ জোড় হলে মাঝের পদ দুইটি, তাই মধ্যক তাদের সাংখ্যিক মানের গড়।`,
+        },
+        {
+          statement: String.raw`$$M=L+\left(\frac{n}{2}-F_c\right)\times\frac{h}{f_m}$$`,
+          note: String.raw`শ্রেণিবিন্যস্ত উপাত্তের মধ্যক। $\frac{n}{2}$-তম পদ যে শ্রেণিতে পড়ে সেটিই মধ্যক শ্রেণি; $L$ তার নিম্নসীমা, $F_c$ তার পূর্ববর্তী শ্রেণির ক্রমযোজিত গণসংখ্যা, $f_m$ তার নিজের গণসংখ্যা এবং $h$ শ্রেণি ব্যাপ্তি।`,
+        },
+      ],
+    },
+    {
+      title: "প্রচুরক",
+      formulas: [
+        {
+          statement: String.raw`$$M_o=L+\frac{f_1}{f_1+f_2}\times h$$`,
+          note: String.raw`যে শ্রেণির গণসংখ্যা সর্বাধিক সেটিই প্রচুরক শ্রেণি; $L$ তার নিম্নমান, $f_1=$ প্রচুরক শ্রেণির গণসংখ্যা $-$ পূর্ববর্তী শ্রেণির গণসংখ্যা, $f_2=$ প্রচুরক শ্রেণির গণসংখ্যা $-$ পরবর্তী শ্রেণির গণসংখ্যা এবং $h$ শ্রেণি ব্যাপ্তি।`,
+        },
+        {
+          statement: String.raw`$$f_{\text{prev}}=0\quad\text{বা}\quad f_{\text{next}}=0$$`,
+          note: String.raw`প্রথম শ্রেণিই প্রচুরক শ্রেণি হলে তার আগের শ্রেণির গণসংখ্যা শূন্য ধরতে হয়; শেষ শ্রেণি প্রচুরক শ্রেণি হলে তার পরের শ্রেণির গণসংখ্যা শূন্য ধরতে হয়।`,
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১ — book pages ৩২৬-৩২৭.
+    {
+      id: 1,
+      question: String.raw`কোনো এক শীত মৌসুমে শ্রীমঙ্গলে জানুয়ারি মাসের $31$ দিনের তাপমাত্রা ডিগ্রি সেলসিয়াসে নিচে দেওয়া হলো। সর্বনিম্ন তাপমাত্রার গণসংখ্যা নিবেশন সারণি তৈরি করো।
+$$14^{\circ},\,14^{\circ},\,14^{\circ},\,13^{\circ},\,12^{\circ},\,13^{\circ},\,10^{\circ},\,10^{\circ},\,11^{\circ},\,12^{\circ},\,11^{\circ},\,10^{\circ},\,9^{\circ},\,8^{\circ},\,9^{\circ},\,11^{\circ},$$
+$$10^{\circ},\,10^{\circ},\,8^{\circ},\,9^{\circ},\,7^{\circ},\,6^{\circ},\,6^{\circ},\,6^{\circ},\,6^{\circ},\,7^{\circ},\,8^{\circ},\,9^{\circ},\,9^{\circ},\,8^{\circ},\,7^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`এখানে তাপমাত্রা নির্দেশক উপাত্তের সবচেয়ে ছোট সংখ্যা $6$ এবং বড় সংখ্যা $14$।`,
+          String.raw`সুতরাং উপাত্তের পরিসর,`,
+          String.raw`$$R=(14-6)+1=9$$`,
+          String.raw`এখন শ্রেণি ব্যবধান যদি $3$ নেওয়া হয় তবে শ্রেণি সংখ্যা হবে,`,
+          String.raw`$$k=\frac{9}{3}=3$$`,
+          String.raw`শ্রেণি ব্যবধান $3$ নিয়ে তিন শ্রেণিতে উপাত্তসমূহ বিন্যাস করলে, ট্যালি চিহ্ন গুনে গণসংখ্যা নিবেশন সারণি হবে নিম্নরূপ:`,
+          String.raw`[[table]]
+তাপমাত্রা (সেলসিয়াস) | গণসংখ্যা বা ঘটন সংখ্যা
+$6^{\circ}-8^{\circ}$ | $11$
+$9^{\circ}-11^{\circ}$ | $13$
+$12^{\circ}-14^{\circ}$ | $7$
+মোট | $31$`,
+        ],
+        answer: String.raw`শ্রেণি তিনটির গণসংখ্যা যথাক্রমে $11$, $13$ ও $7$`,
+      },
+    },
+    // উদাহরণ ২ — book pages ৩২৭-৩২৮.
+    {
+      id: 2,
+      question: String.raw`নিচে $40$ জন শিক্ষার্থীর বার্ষিক পরীক্ষার ইংরেজীতে প্রাপ্ত নম্বর দেওয়া হলো (পূর্ণ নম্বর $100$)। প্রাপ্ত নম্বরের ক্রমযোজিত গণসংখ্যা সারণি তৈরি করো।
+$$70,\,40,\,35,\,60,\,55,\,58,\,45,\,60,\,65,\,80,\,70,\,46,\,50,\,60,\,65,\,70,\,58,\,60,\,48,\,70,$$
+$$36,\,85,\,60,\,50,\,46,\,65,\,55,\,61,\,72,\,85,\,90,\,68,\,65,\,50,\,40,\,56,\,60,\,65,\,46,\,76$$`,
+      solution: {
+        steps: [
+          String.raw`উপাত্তের সর্বনিম্ন মান $35$ এবং সর্বোচ্চ মান $90$।`,
+          String.raw`$$R=(90-35)+1=55+1=56$$`,
+          String.raw`শ্রেণি ব্যবধান যদি $5$ ধরা হয়, তবে শ্রেণি সংখ্যা,`,
+          String.raw`$$k=\frac{56}{5}=11.2\quad\text{or,}\quad 12\qquad\left[\,\text{decimal}\rightarrow\text{next integer}\,\right]$$`,
+          String.raw`সুতরাং শ্রেণি ব্যবধান $5$ ধরে ক্রমযোজিত গণসংখ্যা সারণি হবে নিম্নরূপ:`,
+          String.raw`[[table]]
+প্রাপ্ত নম্বর | গণসংখ্যা | ক্রমযোজিত গণসংখ্যা
+$35-39$ | $2$ | $2$
+$40-44$ | $2$ | $2+2=4$
+$45-49$ | $5$ | $5+4=9$
+$50-54$ | $3$ | $3+9=12$
+$55-59$ | $5$ | $5+12=17$
+$60-64$ | $7$ | $7+17=24$
+$65-69$ | $6$ | $6+24=30$
+$70-74$ | $5$ | $5+30=35$
+$75-79$ | $1$ | $1+35=36$
+$80-84$ | $1$ | $1+36=37$
+$85-89$ | $2$ | $2+37=39$
+$90-94$ | $1$ | $1+39=40$`,
+          String.raw`শেষ শ্রেণির ক্রমযোজিত গণসংখ্যা $40$, যা মোট শিক্ষার্থীর সংখ্যার সমান — সারণিটি ঠিক আছে।`,
+        ],
+        answer: String.raw`উপরের ক্রমযোজিত গণসংখ্যা সারণি, যার শেষ মান $40$`,
+      },
+    },
+    // উদাহরণ ৩ — book pages ৩২৯-৩৩০.
+    {
+      id: 3,
+      question: String.raw`কোনো স্কুলের ১০ম শ্রেণির $60$ জন শিক্ষার্থীর ওজনের গণসংখ্যা নিবেশন হলো নিম্নরূপ:
+[[table side]]
+ওজন (কিলোগ্রাম) | $46-50$ | $51-55$ | $56-60$ | $61-65$ | $66-70$
+গণসংখ্যা | $5$ | $10$ | $20$ | $15$ | $10$`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`গণসংখ্যা নিবেশনের আয়তলেখ আঁকো।`,
+          figure: "17-ex3a",
+          solution: {
+            steps: [
+              String.raw`প্রদত্ত সারণিতে উপাত্তের শ্রেণি ব্যবধান বিচ্ছিন্ন, তাই আয়তলেখ আঁকার আগে শ্রেণিসীমা অবিচ্ছিন্ন করে নিতে হবে।`,
+              String.raw`এক শ্রেণির ঊর্ধ্বসীমা ও পরের শ্রেণির নিম্নসীমার মধ্যবিন্দু নিলে সারণিটি হবে:`,
+              String.raw`[[table]]
+শ্রেণি ব্যবধান: ওজন (কিলোগ্রাম) | অবিচ্ছিন্ন শ্রেণিসীমা | শ্রেণি মধ্যবিন্দু | গণসংখ্যা
+$46-50$ | $45.5-50.5$ | $48$ | $5$
+$51-55$ | $50.5-55.5$ | $53$ | $10$
+$56-60$ | $55.5-60.5$ | $58$ | $20$
+$61-65$ | $60.5-65.5$ | $63$ | $15$
+$66-70$ | $65.5-70.5$ | $68$ | $10$`,
+              String.raw`ছক কাগজের প্রতি ঘরকে পাঁচ একক ধরে $x$-অক্ষ বরাবর শ্রেণিসীমা এবং $y$-অক্ষ বরাবর গণসংখ্যা নিয়ে উপরের আয়তলেখ আঁকা হয়েছে।`,
+              String.raw`$x$-অক্ষ বরাবর শ্রেণিসীমা $45.5$ থেকে আরম্ভ হয়েছে; মূলবিন্দু থেকে $45.5$ পর্যন্ত পূর্ববর্তী ঘরগুলো আছে বোঝাতে ছেদ চিহ্ন ব্যবহার করা হয়েছে।`,
+            ],
+            answer: String.raw`উপরের আয়তলেখ — পাঁচটি আয়তের উচ্চতা যথাক্রমে $5,\,10,\,20,\,15,\,10$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`আয়তলেখের গণসংখ্যা বহুভুজ আঁকো।`,
+          figure: "17-ex3b",
+          solution: {
+            steps: [
+              String.raw`আয়তলেখ হতে গণসংখ্যা বহুভুজ আঁকার জন্য আয়তলেখের আয়তসমূহের ভূমির সমান্তরাল বিপরীত বাহুর মধ্যবিন্দুসমূহ নির্ধারণ করা হয়েছে।`,
+              String.raw`বিন্দুগুলো যথাক্রমে $(48,5),\,(53,10),\,(58,20),\,(63,15),\,(68,10)$।`,
+              String.raw`চিহ্নিত মধ্যবিন্দুসমূহ রেখাংশ দ্বারা সংযুক্ত করে গণসংখ্যা বহুভুজ আঁকা হয়েছে।`,
+              String.raw`গণসংখ্যা বহুভুজ সুন্দর দেখানোর জন্য প্রথম ও শেষ আয়তের মধ্যবিন্দুর সংযোগ রেখাংশের প্রান্ত বিন্দুদ্বয় $x$-অক্ষের সাথে সংযুক্ত করা হয়েছে — অর্থাৎ আগের শ্রেণির মধ্যবিন্দু $43$ ও পরের শ্রেণির মধ্যবিন্দু $73$ বরাবর নামানো হয়েছে।`,
+            ],
+            answer: String.raw`উপরের গণসংখ্যা বহুভুজ — রেখাংশগুলো প্রতিটি শ্রেণির মধ্যবিন্দু বরাবর`,
+          },
+        },
+      ],
+    },
+    // উদাহরণ ৪ — book pages ৩৩০-৩৩১.
+    {
+      id: 4,
+      figure: "17-ex4",
+      question: String.raw`নিচের গণসংখ্যা নিবেশন সারণির বহুভুজ অঙ্কন করো।
+[[table side]]
+শ্রেণি ব্যবধান | $10-20$ | $20-30$ | $30-40$ | $40-50$ | $50-60$ | $60-70$ | $70-80$ | $80-90$
+মধ্যবিন্দু | $15$ | $25$ | $35$ | $45$ | $55$ | $65$ | $75$ | $85$
+গণসংখ্যা | $8$ | $10$ | $15$ | $30$ | $45$ | $41$ | $15$ | $7$`,
+      solution: {
+        steps: [
+          String.raw`এখানে শ্রেণি ব্যবধানগুলো আগে থেকেই অবিচ্ছিন্ন, তাই সরাসরি আয়তলেখ আঁকা যায়।`,
+          String.raw`$x$-অক্ষ বরাবর ছক কাগজের প্রতি ঘরকে $10$ একক ধরে এবং $y$-অক্ষ বরাবর প্রতি ঘরকে গণসংখ্যার $5$ একক ধরে প্রদত্ত গণসংখ্যা নিবেশনের আয়তলেখ আঁকা হলো।`,
+          String.raw`আয়তলেখের আয়তসমূহের ভূমির বিপরীত বাহুর মধ্যবিন্দু, যা শ্রেণির মধ্যবিন্দু, চিহ্নিত করি।`,
+          String.raw`এখন চিহ্নিত মধ্যবিন্দুসমূহ রেখাংশ দ্বারা সংযুক্ত করি।`,
+          String.raw`প্রথম শ্রেণির প্রান্তবিন্দু ও শেষ শ্রেণির প্রান্তবিন্দুদ্বয়কে $x$-অক্ষের সাথে সংযুক্ত করে গণসংখ্যা বহুভুজ অঙ্কন করা হলো।`,
+        ],
+        answer: String.raw`উপরের আয়তলেখ ও তার গণসংখ্যা বহুভুজ`,
+      },
+    },
+    // উদাহরণ ৫ — book pages ৩৩১-৩৩২.
+    {
+      id: 5,
+      figure: "17-ex5",
+      question: String.raw`১০ম শ্রেণির $50$ জন শিক্ষার্থীর বিজ্ঞান বিষয়ের প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি দেওয়া হলো। প্রদত্ত উপাত্তের গণসংখ্যা বহুভুজ আঁক (আয়তলেখ ব্যবহার না করে)।
+[[table side]]
+শ্রেণি ব্যবধান | $31-40$ | $41-50$ | $51-60$ | $61-70$ | $71-80$ | $81-90$ | $91-100$
+গণসংখ্যা | $6$ | $8$ | $10$ | $12$ | $5$ | $7$ | $2$`,
+      solution: {
+        steps: [
+          String.raw`এখানে প্রদত্ত উপাত্ত বিচ্ছিন্ন। এক্ষেত্রে শ্রেণি ব্যবধানের মধ্যবিন্দু বের করে সরাসরি গণসংখ্যা বহুভুজ আঁকা সুবিধাজনক।`,
+          String.raw`প্রথম শ্রেণি $(31-40)$ এর মধ্যবিন্দু,`,
+          String.raw`$$x_1=\frac{31+40}{2}=35.5$$`,
+          String.raw`একইভাবে বাকি শ্রেণিগুলোর মধ্যবিন্দু বসিয়ে সারণিটি হবে:`,
+          String.raw`[[table side]]
+শ্রেণি ব্যবধান | $31-40$ | $41-50$ | $51-60$ | $61-70$ | $71-80$ | $81-90$ | $91-100$
+শ্রেণি ব্যবধানের মধ্যবিন্দু | $35.5$ | $45.5$ | $55.5$ | $65.5$ | $75.5$ | $85.5$ | $95.5$
+গণসংখ্যা | $6$ | $8$ | $10$ | $12$ | $5$ | $7$ | $2$`,
+          String.raw`$x$-অক্ষ বরাবর ছক কাগজের প্রতি এক ঘরকে এক একক ধরে এবং $y$-অক্ষ বরাবর ছক কাগজের এক ঘরকে গণসংখ্যার দুই একক ধরে প্রদত্ত উপাত্তের গণসংখ্যা বহুভুজ আঁকা হলো।`,
+        ],
+        answer: String.raw`উপরের গণসংখ্যা বহুভুজ — বিন্দুগুলো $(35.5,6),\,(45.5,8),\,\dots,\,(95.5,2)$`,
+      },
+    },
+    // উদাহরণ ৬ — book pages ৩৩২-৩৩৩.
+    {
+      id: 6,
+      figure: "17-ex6",
+      question: String.raw`কোনো শ্রেণির ৬০ জন শিক্ষার্থীর ৫০ নম্বরের সাময়িকী পরীক্ষার প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি হলো। এই গণসংখ্যা নিবেশনের অজিভ রেখা আঁকো।
+[[table side]]
+প্রাপ্ত নম্বরের শ্রেণি ব্যবধান | $1-10$ | $11-20$ | $21-30$ | $31-40$ | $41-50$
+গণসংখ্যা | $8$ | $12$ | $15$ | $18$ | $7$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত উপাত্তের গণসংখ্যা নিবেশনের ক্রমযোজিত গণসংখ্যা সারণি হলো:`,
+          String.raw`[[table side]]
+প্রাপ্ত নম্বরের শ্রেণি ব্যবধান | $1-10$ | $11-20$ | $21-30$ | $31-40$ | $41-50$
+গণসংখ্যা | $8$ | $12$ | $15$ | $18$ | $7$
+ক্রমযোজিত গণসংখ্যা | $8$ | $8+12=20$ | $15+20=35$ | $18+35=53$ | $7+53=60$`,
+          String.raw`শ্রেণি ব্যবধানের উচ্চসীমা $x$-অক্ষ বরাবর এবং শ্রেণির ক্রমযোজিত গণসংখ্যা $y$-অক্ষ বরাবর স্থাপন করি।`,
+          String.raw`অর্থাৎ বিন্দুগুলো $(10,8),\,(20,20),\,(30,35),\,(40,53),\,(50,60)$।`,
+          String.raw`ছক কাগজের উভয় অক্ষে প্রতি এক ঘরকে দুই একক ধরে প্রদত্ত উপাত্তের ক্রমযোজিত গণসংখ্যার অজিভ রেখা আঁকা হলো।`,
+        ],
+        answer: String.raw`উপরের অজিভ রেখা — শেষ বিন্দু $(50,60)$`,
+      },
+    },
+    // উদাহরণ ৭ — book pages ৩৩৩-৩৩৪.
+    {
+      id: 7,
+      question: String.raw`নিচে কোনো একটি শ্রেণির শিক্ষার্থীদের গণিতে প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি দেওয়া হলো। প্রাপ্ত নম্বরের গাণিতিক গড় নির্ণয় করো।
+[[table side]]
+শ্রেণি ব্যাপ্তি | $25-34$ | $35-44$ | $45-54$ | $55-64$ | $65-74$ | $75-84$ | $85-94$
+গণসংখ্যা | $5$ | $10$ | $15$ | $20$ | $30$ | $16$ | $4$`,
+      solution: {
+        steps: [
+          String.raw`এখানে শ্রেণি ব্যাপ্তি দেওয়া আছে বিধায় শিক্ষার্থীদের ব্যক্তিগত নম্বর কত তা জানা যায় না। এ ক্ষেত্রে প্রত্যেক শ্রেণির শ্রেণি মধ্যমান নির্ণয় করার প্রয়োজন হয়।`,
+          String.raw`$$x_i=\frac{L_i+U_i}{2}$$`,
+          String.raw`প্রথম শ্রেণির মধ্যমান $\dfrac{25+34}{2}=29.5$; একইভাবে বাকিগুলো বসিয়ে মধ্যমান সংবলিত সারণি হবে নিম্নরূপ:`,
+          String.raw`[[table]]
+শ্রেণি ব্যাপ্তি | শ্রেণি মধ্যমান $(x_i)$ | গণসংখ্যা $(f_i)$ | $(f_ix_i)$
+$25-34$ | $29.5$ | $5$ | $147.5$
+$35-44$ | $39.5$ | $10$ | $395$
+$45-54$ | $49.5$ | $15$ | $742.5$
+$55-64$ | $59.5$ | $20$ | $1190$
+$65-74$ | $69.5$ | $30$ | $2085$
+$75-84$ | $79.5$ | $16$ | $1272$
+$85-94$ | $89.5$ | $4$ | $358$
+মোট | | $n=100$ | $6190.0$`,
+          String.raw`নির্ণেয় গাণিতিক গড়,`,
+          String.raw`$$\bar{x}=\frac{1}{n}\sum_{i=1}^{k} f_i x_i=\frac{1}{100}\times 6190=61.9$$`,
+        ],
+        answer: String.raw`$61.9$`,
+      },
+    },
+    // উদাহরণ ৮ — book page ৩৩৫.
+    {
+      id: 8,
+      question: String.raw`কোনো দ্রব্যের উৎপাদনে বিভিন্ন পর্যায়ে যে খরচসমূহ (শত টাকায়) হয় তা নিচের সারণিতে দেখানো হয়েছে। সংক্ষিপ্ত পদ্ধতিতে গড় খরচ নির্ণয় করো।
+[[table side]]
+উৎপাদন খরচ | $2-6$ | $6-10$ | $10-14$ | $14-18$ | $18-22$ | $22-26$ | $26-30$ | $30-34$
+গণসংখ্যা | $1$ | $9$ | $21$ | $47$ | $52$ | $36$ | $19$ | $3$`,
+      solution: {
+        steps: [
+          String.raw`শ্রেণিগুলো অবিচ্ছিন্ন, তাই শ্রেণি ব্যাপ্তি $h=6-2=4$।`,
+          String.raw`মধ্যমানগুলোর মধ্যে সুবিধাজনক $20$-কে আনুমানিক গড় ধরি, অর্থাৎ $a=20$।`,
+          String.raw`প্রতিটি শ্রেণির ধাপ বিচ্যুতি $u_i=\dfrac{x_i-a}{h}$ বের করে সংক্ষিপ্ত পদ্ধতিতে গড় নির্ণয়ের সারণি হবে নিম্নরূপ:`,
+          String.raw`[[table]]
+শ্রেণি ব্যাপ্তি | মধ্যমান $x_i$ | গণসংখ্যা $f_i$ | ধাপ বিচ্যুতি $u_i=\dfrac{x_i-a}{h}$ | $f_iu_i$
+$2-6$ | $4$ | $1$ | $-4$ | $-4$
+$6-10$ | $8$ | $9$ | $-3$ | $-27$
+$10-14$ | $12$ | $21$ | $-2$ | $-42$
+$14-18$ | $16$ | $47$ | $-1$ | $-47$
+$18-22$ | $20\leftarrow a$ | $52$ | $0$ | $0$
+$22-26$ | $24$ | $36$ | $1$ | $36$
+$26-30$ | $28$ | $19$ | $2$ | $38$
+$30-34$ | $32$ | $3$ | $3$ | $9$
+মোট | | $188$ | | $-37$`,
+          String.raw`নির্ণেয় গড়,`,
+          String.raw`$$\bar{x}=a+\frac{\sum f_iu_i}{n}\times h=20+\frac{-37}{188}\times 4$$`,
+          String.raw`$$=20-0.79=19.21$$`,
+          String.raw`$\therefore$ উৎপাদনে আনুমানিক গড় খরচ $19$ শত টাকা।`,
+        ],
+        answer: String.raw`$19.21$ শত টাকা, অর্থাৎ প্রায় $19$ শত টাকা`,
+      },
+    },
+    // উদাহরণ ৯ — book pages ৩৩৫-৩৩৬.
+    {
+      id: 9,
+      question: String.raw`কোনো বিশ্ববিদ্যালয়ের কয়েকটি বিভাগের স্নাতক সম্মান শ্রেণিতে পাশের হার ও শিক্ষার্থীর সংখ্যা নিচের সারণিতে উপস্থাপন করা হলো। উক্ত বিশ্ববিদ্যালয়ের ঐ কয়টি বিভাগের স্নাতক সম্মান শ্রেণিতে পাশের গড় হার নির্ণয় করো।
+[[table side]]
+বিভাগের নাম | গণিত | পরিসংখ্যান | ইংরেজি | বাংলা | প্রাণিবিদ্যা | রাষ্ট্রবিজ্ঞান
+পাশের হার (%) | $70$ | $80$ | $50$ | $90$ | $60$ | $85$
+শিক্ষার্থীর সংখ্যা | $80$ | $120$ | $100$ | $225$ | $135$ | $300$`,
+      solution: {
+        steps: [
+          String.raw`এখানে পাশের হার ও শিক্ষার্থীর সংখ্যা দেওয়া আছে। পাশের হারের ভার হলো শিক্ষার্থীর সংখ্যা।`,
+          String.raw`পাশের হারের চলক $x$ এবং শিক্ষার্থীর সংখ্যা চলক $w$ ধরলে গুরুত্ব প্রদত্ত গাণিতিক গড় নির্ণয়ের সারণি হবে নিম্নরূপ:`,
+          String.raw`[[table]]
+বিভাগের নাম | পাশের হার $x_i$ | শিক্ষার্থীর সংখ্যা $w_i$ | $x_iw_i$
+গণিত | $70$ | $80$ | $5600$
+পরিসংখ্যান | $80$ | $120$ | $9600$
+ইংরেজি | $50$ | $100$ | $5000$
+বাংলা | $90$ | $225$ | $20250$
+প্রাণিবিদ্যা | $60$ | $135$ | $8100$
+রাষ্ট্রবিজ্ঞান | $85$ | $300$ | $25500$
+মোট | | $960$ | $74050$`,
+          String.raw`$$\overline{x_w}=\frac{\sum_{i=1}^{6} x_iw_i}{\sum_{i=1}^{6} w_i}=\frac{74050}{960}=77.14$$`,
+          String.raw`$\therefore$ পাশের গড় হার $77.14$।`,
+        ],
+        answer: String.raw`$77.14\%$`,
+      },
+    },
+    // উদাহরণ ১০ — book pages ৩৩৬-৩৩৭.
+    {
+      id: 10,
+      question: String.raw`নিচের $51$ জন শিক্ষার্থীর উচ্চতার গণসংখ্যা নিবেশন সারণি দেওয়া হলো। মধ্যক নির্ণয় করো।
+[[table side]]
+উচ্চতা (সে.মি.) | $150$ | $155$ | $160$ | $165$ | $170$ | $175$
+গণসংখ্যা | $4$ | $6$ | $12$ | $16$ | $8$ | $5$`,
+      solution: {
+        steps: [
+          String.raw`মধ্যক নির্ণয়ের ক্রমযোজিত গণসংখ্যা সারণি:`,
+          String.raw`[[table side]]
+উচ্চতা (সে.মি.) | $150$ | $155$ | $160$ | $165$ | $170$ | $175$
+গণসংখ্যা | $4$ | $6$ | $12$ | $16$ | $8$ | $5$
+ক্রমযোজিত গণসংখ্যা | $4$ | $10$ | $22$ | $38$ | $46$ | $51$`,
+          String.raw`এখানে, $n=51$, যা বিজোড় সংখ্যা।`,
+          String.raw`$$\therefore\;M=\left(\frac{51+1}{2}\right)\text{-th}=26\text{-th}$$`,
+          String.raw`$23$ থেকে $38$ তম পদের মান $165$, সুতরাং $26$ তম পদের মান $165$।`,
+          String.raw`নির্ণেয় মধ্যক $165$ সে.মি.।`,
+        ],
+        answer: String.raw`$165$ সে.মি.`,
+      },
+    },
+    // উদাহরণ ১১ — book page ৩৩৭.
+    {
+      id: 11,
+      question: String.raw`নিচে $60$ জন শিক্ষার্থীর গণিতে প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি। মধ্যক নির্ণয় করো।
+[[table side]]
+প্রাপ্ত নম্বর | $40$ | $45$ | $50$ | $55$ | $60$ | $70$ | $80$ | $85$ | $90$ | $95$ | $100$
+গণসংখ্যা | $2$ | $4$ | $4$ | $3$ | $7$ | $10$ | $16$ | $6$ | $4$ | $3$ | $1$`,
+      solution: {
+        steps: [
+          String.raw`মধ্যক নির্ণয়ের ক্রমযোজিত গণসংখ্যা সারণি:`,
+          String.raw`[[table side]]
+প্রাপ্ত নম্বর | $40$ | $45$ | $50$ | $55$ | $60$ | $70$ | $80$ | $85$ | $90$ | $95$ | $100$
+গণসংখ্যা | $2$ | $4$ | $4$ | $3$ | $7$ | $10$ | $16$ | $6$ | $4$ | $3$ | $1$
+ক্রমযোজিত গণসংখ্যা | $2$ | $6$ | $10$ | $13$ | $20$ | $30$ | $46$ | $52$ | $56$ | $59$ | $60$`,
+          String.raw`এখানে, $n=60$, যা জোড় সংখ্যা।`,
+          String.raw`$$M=\frac{1}{2}\left[\left(\frac{60}{2}\right)\text{-th}+\left(\frac{60}{2}+1\right)\text{-th}\right]=\frac{30\text{-th}+31\text{-th}}{2}$$`,
+          String.raw`ক্রমযোজিত গণসংখ্যা থেকে দেখা যায় $30$ তম পদের মান $70$ এবং $31$ তম পদের মান $80$।`,
+          String.raw`$$\therefore\;M=\frac{70+80}{2}=75$$`,
+          String.raw`নির্ণেয় মধ্যক $75$।`,
+        ],
+        answer: String.raw`$75$`,
+      },
+    },
+    // উদাহরণ ১২ — book pages ৩৩৮-৩৩৯.
+    {
+      id: 12,
+      question: String.raw`নিচে একটি গণসংখ্যা নিবেশন সারণি দেওয়া আছে।
+[[table side]]
+সময় (সেকেন্ড) | $30-35$ | $36-41$ | $42-47$ | $48-53$ | $54-59$ | $60-65$
+গণসংখ্যা | $3$ | $10$ | $18$ | $25$ | $8$ | $6$`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`গণসংখ্যা নিবেশন সারণি বলতে কী বুঝ?`,
+          solution: {
+            steps: [
+              String.raw`প্রদত্ত উপাত্তসমূহকে নির্দিষ্ট শ্রেণি ব্যবধান ও শ্রেণি সংখ্যা নির্ধারণের মাধ্যমে বিন্যস্ত ও সারণিভুক্ত করাকে গণসংখ্যা সারণি বলে।`,
+            ],
+            answer: String.raw`নির্দিষ্ট শ্রেণি ব্যবধানে বিন্যস্ত ও সারণিভুক্ত উপাত্তের সারণি`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`উপরের গণসংখ্যা সারণি থেকে মধ্যক নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মধ্যক নির্ণয়ের জন্য গণসংখ্যা নিবেশন সারণি:`,
+              String.raw`[[table]]
+শ্রেণি ব্যাপ্তি | গণসংখ্যা | ক্রমযোজিত গণসংখ্যা
+$30-35$ | $3$ | $3$
+$36-41$ | $10$ | $13$
+$42-47$ | $18$ | $31$
+$48-53$ | $25$ | $56$
+$54-59$ | $8$ | $64$
+$60-65$ | $6$ | $70$
+মোট | $n=70$ |`,
+              String.raw`এখানে, $n=70$ এবং $\dfrac{n}{2}=\dfrac{70}{2}=35$।`,
+              String.raw`অতএব, মধ্যক $35$ তম পদ, যার অবস্থান $48-53$ শ্রেণিতে। অতএব মধ্যক শ্রেণি $48-53$।`,
+              String.raw`সুতরাং $L=48,\;F_c=31,\;f_m=25$ এবং $h=(53-48)+1=6$।`,
+              String.raw`$$M=L+\left(\frac{n}{2}-F_c\right)\times\frac{h}{f_m}=48+(35-31)\times\frac{6}{25}$$`,
+              String.raw`$$=48+4\times\frac{6}{25}=48+0.96=48.96$$`,
+              String.raw`নির্ণেয় মধ্যক $48.96$।`,
+            ],
+            answer: String.raw`$48.96$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`তারপর সারণিতে প্রদত্ত উপাত্তের বহুভুজ অঙ্কন করো।`,
+          figure: "17-ex12",
+          solution: {
+            steps: [
+              String.raw`বহুভুজ অঙ্কনের জন্য প্রতিটি শ্রেণির মধ্যমান নির্ণয় করি:`,
+              String.raw`[[table]]
+শ্রেণি ব্যাপ্তি | শ্রেণির মধ্যমান | গণসংখ্যা
+$30-35$ | $32.5$ | $3$
+$36-41$ | $38.5$ | $10$
+$42-47$ | $44.5$ | $18$
+$48-53$ | $50.5$ | $25$
+$54-59$ | $56.5$ | $8$
+$60-65$ | $62.5$ | $6$`,
+              String.raw`প্রথম শ্রেণির পূর্বের শ্রেণির মধ্যমান $26.5$ এবং শেষ শ্রেণির পরের শ্রেণির মধ্যমান $68.5$।`,
+              String.raw`$x$-অক্ষ বরাবর শ্রেণির মধ্যমান সুবিধাজনক এককে নিয়ে, যেখানে ছেদ চিহ্নটি $0$ থেকে $26.5$ বুঝায়, এবং $y$-অক্ষ বরাবর গণসংখ্যা প্রতি ক্ষুদ্রতম বর্গের বাহুর দৈর্ঘ্যকে $2$ ধরে গণসংখ্যা বহুভুজ অঙ্কন করা হলো।`,
+            ],
+            answer: String.raw`উপরের গণসংখ্যা বহুভুজ — শীর্ষবিন্দু $(50.5,\,25)$`,
+          },
+        },
+      ],
+    },
+    // উদাহরণ ১৩ — book pages ৩৩৯-৩৪১.
+    {
+      id: 13,
+      question: String.raw`নিচের সারণিটি লক্ষ করো।
+[[table side]]
+শ্রেণি ব্যাপ্তি | $31-40$ | $41-50$ | $51-60$ | $61-70$ | $71-80$ | $81-90$ | $91-100$
+গণসংখ্যা | $4$ | $6$ | $8$ | $12$ | $9$ | $7$ | $4$`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`কেন্দ্রীয় প্রবণতা কী?`,
+          solution: {
+            steps: [
+              String.raw`অবিন্যস্ত উপাত্তসমূহ মানের ক্রমানুসারে সাজালে, উপাত্তসমূহ মাঝামাঝি কোনো মানের কাছাকাছি পুঞ্জীভূত হয়।`,
+              String.raw`আবার উপাত্তসমূহ গণসংখ্যা নিবেশন সারণিতে উপস্থাপন করা হলে কোনো একটি শ্রেণিতে গণসংখ্যার প্রাচুর্য দেখা যায়।`,
+              String.raw`উপাত্তসমূহের কেন্দ্রীয় মানের দিকে পুঞ্জীভূত হওয়ার এই প্রবণতাকে কেন্দ্রীয় প্রবণতা বলে।`,
+            ],
+            answer: String.raw`উপাত্তের কেন্দ্রীয় মানের দিকে পুঞ্জীভূত হওয়ার প্রবণতা`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`প্রদত্ত সারণি থেকে প্রচুরক নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$M_o=L+\frac{f_1}{f_1+f_2}\times h$$`,
+              String.raw`এখানে, গণসংখ্যা সর্বাধিক $12$ আছে $61-70$ শ্রেণিতে।`,
+              String.raw`সুতরাং $L=61,\;f_1=12-8=4,\;f_2=12-9=3,\;h=10$।`,
+              String.raw`$$\therefore\;M_o=61+\frac{4}{4+3}\times 10=61+\frac{4}{7}\times 10$$`,
+              String.raw`$$=61+\frac{40}{7}=61+5.7=66.7$$`,
+              String.raw`নির্ণেয় প্রচুরক $66.7$।`,
+            ],
+            answer: String.raw`$66.7$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`উপাত্তের অজিভ রেখা অঙ্কন করো।`,
+          figure: "17-ex13",
+          solution: {
+            steps: [
+              String.raw`অজিভ রেখা অঙ্কনের জন্য শ্রেণিগুলো অবিচ্ছিন্ন করে ক্রমযোজিত গণসংখ্যা সারণি তৈরি করি:`,
+              String.raw`[[table]]
+শ্রেণি | অবিচ্ছিন্ন শ্রেণি ব্যাপ্তি | গণসংখ্যা | ক্রমযোজিত গণসংখ্যা
+$31-40$ | $30-40$ | $4$ | $4$
+$41-50$ | $40-50$ | $6$ | $10$
+$51-60$ | $50-60$ | $8$ | $18$
+$61-70$ | $60-70$ | $12$ | $30$
+$71-80$ | $70-80$ | $9$ | $39$
+$81-90$ | $80-90$ | $7$ | $46$
+$91-100$ | $90-100$ | $4$ | $50$`,
+              String.raw`$x$-অক্ষ বরাবর অবিচ্ছিন্ন শ্রেণি ব্যাপ্তি সুবিধাজনক একক নিয়ে, যেখানে ছেদ চিহ্নটি $0$ থেকে $30$ বুঝায়, এবং $y$-অক্ষ বরাবর ক্রমযোজিত গণসংখ্যা ক্ষুদ্রতম বর্গের প্রতি বাহুর দৈর্ঘ্যকে $5$ একক ধরে শ্রেণির ঊর্ধ্বসীমা বরাবর বিন্দুগুলো চিহ্নিত করি।`,
+              String.raw`অতঃপর $x$-অক্ষে $30$ থেকে চিহ্নিত বিন্দুগুলো সাবলীলভাবে যোগ করি। এটিই নির্ণেয় অজিভ রেখা।`,
+            ],
+            answer: String.raw`উপরের অজিভ রেখা — শেষ বিন্দু $(100,\,50)$`,
+          },
+        },
+      ],
+    },
+    // উদাহরণ ১৪ — book page ৩৪১.
+    {
+      id: 14,
+      question: String.raw`নিচের গণসংখ্যা নিবেশন সারণি থেকে প্রচুরক নির্ণয় করো:
+[[table side]]
+শ্রেণি | $41-50$ | $51-60$ | $61-70$ | $71-80$
+গণসংখ্যা | $25$ | $20$ | $15$ | $8$`,
+      solution: {
+        steps: [
+          String.raw`এখানে গণসংখ্যা সর্বাধিক $25$ বার আছে $(41-50)$ শ্রেণিতে। সুতরাং, প্রচুরক এই শ্রেণিতে আছে।`,
+          String.raw`আমরা জানি,`,
+          String.raw`$$M_o=L+\frac{f_1}{f_1+f_2}\times h$$`,
+          String.raw`প্রথম শ্রেণিতেই গণসংখ্যা বেশি হলে, পূর্ববর্তী শ্রেণির গণসংখ্যা শূন্য।`,
+          String.raw`এখানে, $L=41,\;f_1=25-0=25,\;f_2=25-20=5,\;h=10$।`,
+          String.raw`$$\therefore\;M_o=41+\frac{25}{25+5}\times 10=41+\frac{25}{30}\times 10$$`,
+          String.raw`$$=41+8.33=49.33$$`,
+          String.raw`নির্ণেয় প্রচুরক $49.33$।`,
+        ],
+        answer: String.raw`$49.33$`,
+      },
+    },
+    // উদাহরণ ১৫ — book page ৩৪১.
+    {
+      id: 15,
+      question: String.raw`নিচের গণসংখ্যা নিবেশন সারণি থেকে প্রচুরক নির্ণয় করো:
+[[table side]]
+শ্রেণি | $11-20$ | $21-30$ | $31-40$ | $41-50$
+গণসংখ্যা | $4$ | $16$ | $20$ | $25$`,
+      solution: {
+        steps: [
+          String.raw`এখানে গণসংখ্যা সর্বাধিক $25$ বার আছে $(41-50)$ শ্রেণিতে। এই শ্রেণিতে প্রচুরক বিদ্যমান।`,
+          String.raw`আমরা জানি,`,
+          String.raw`$$M_o=L+\frac{f_1}{f_1+f_2}\times h$$`,
+          String.raw`শেষ শ্রেণি প্রচুরক শ্রেণি হলে, পরবর্তী শ্রেণির ঘটন সংখ্যা শূন্য ধরা হয়।`,
+          String.raw`এখানে, $L=41,\;f_1=25-20=5,\;f_2=25-0=25,\;h=10$।`,
+          String.raw`$$\therefore\;M_o=41+\frac{5}{5+25}\times 10=41+\frac{5}{30}\times 10$$`,
+          String.raw`$$=41+\frac{5}{3}=41+1.67=42.67$$`,
+          String.raw`নির্ণেয় প্রচুরক $42.67$ (প্রায়)।`,
+        ],
+        answer: String.raw`$42.67$ (প্রায়)`,
+      },
+    },
+  ],
+  problems: [
+    {
+      id: 1,
+      group: STAT_MCQ,
+      question: String.raw`উপাত্তসমূহ সারণিভুক্ত করা হলে প্রতি শ্রেণিতে যতগুলো উপাত্ত অন্তর্ভুক্ত হয় তার নির্দেশক নিচের কোনটি?
+$$\text{ক) শ্রেণি সীমা}\qquad\text{খ) শ্রেণির মধ্যবিন্দু}\qquad\text{গ) শ্রেণি সংখ্যা}\qquad\text{ঘ) শ্রেণির গণসংখ্যা}$$`,
+      solution: {
+        steps: [
+          String.raw`শ্রেণি সীমা বলে শ্রেণিটি কোথা থেকে কোথা পর্যন্ত, শ্রেণির মধ্যবিন্দু তার ঠিক মাঝের মান, আর শ্রেণি সংখ্যা বলে সারণিতে মোট কয়টি শ্রেণি আছে।`,
+          String.raw`কোনো একটি শ্রেণিতে কতগুলো উপাত্ত পড়েছে — সেই গুনতিটিই ঐ শ্রেণির গণসংখ্যা বা ঘটন সংখ্যা।`,
+          String.raw`সুতরাং সঠিক উত্তর ঘ।`,
+        ],
+        answer: String.raw`ঘ) শ্রেণির গণসংখ্যা`,
+      },
+    },
+    {
+      id: 2,
+      group: STAT_MCQ,
+      question: String.raw`নিচের সারণিতে —
+[[table side]]
+তাপমাত্রা | $6^{\circ}-8^{\circ}$ | $8^{\circ}-10^{\circ}$ | $10^{\circ}-12^{\circ}$
+গণসংখ্যা | $5$ | $9$ | $4$
+
+$(i)$ শ্রেণিব্যাপ্তি $3$
+$(ii)$ মধ্যক শ্রেণি $8^{\circ}-10^{\circ}$
+$(iii)$ তাপমাত্রা অবিচ্ছিন্ন চলক
+নিচের কোনটি সঠিক?
+$$\text{ক) } i\text{ ও }ii\qquad\text{খ) } i\text{ ও }iii\qquad\text{গ) } ii\text{ ও }iii\qquad\text{ঘ) } i,\,ii\text{ ও }iii$$`,
+      solution: {
+        steps: [
+          String.raw`$(i)$ শ্রেণিব্যাপ্তি $=(\text{ঊর্ধ্বসীমা}-\text{নিম্নসীমা})+1=(8-6)+1=3$ — উদাহরণ ১-এ বইটি তাপমাত্রার শ্রেণিব্যাপ্তি এভাবেই গুনেছে। সুতরাং $(i)$ সত্য।`,
+          String.raw`$(ii)$ মোট গণসংখ্যা $n=5+9+4=18$, তাই $\dfrac{n}{2}=9$।`,
+          String.raw`ক্রমযোজিত গণসংখ্যা যথাক্রমে $5,\;14,\;18$; অর্থাৎ $9$ তম পদটি দ্বিতীয় শ্রেণিতে পড়ে।`,
+          String.raw`সুতরাং মধ্যক শ্রেণি $8^{\circ}-10^{\circ}$ — $(ii)$ সত্য।`,
+          String.raw`$(iii)$ তাপমাত্রার মান যেকোনো বাস্তব সংখ্যা হতে পারে — $9.4^{\circ}$ কিংবা $9.47^{\circ}$ও হতে পারে। তাই তাপমাত্রা অবিচ্ছিন্ন চলক, $(iii)$ সত্য।`,
+          String.raw`তিনটিই সঠিক, সুতরাং উত্তর ঘ।`,
+        ],
+        answer: String.raw`ঘ) $i,\,ii$ ও $iii$`,
+      },
+    },
+    {
+      id: 3,
+      group: STAT_MCQ,
+      question: String.raw`উপাত্তের ক্ষেত্রে প্রচুরক —
+$(i)$ কেন্দ্রীয় প্রবণতার পরিমাপ
+$(ii)$ সবচেয়ে বেশি বার উপস্থাপিত মান
+$(iii)$ সবক্ষেত্রে অনন্য নাও হতে পারে
+নিচের কোনটি সঠিক?
+$$\text{ক) } i\text{ ও }ii\qquad\text{খ) } i\text{ ও }iii\qquad\text{গ) } ii\text{ ও }iii\qquad\text{ঘ) } i,\,ii\text{ ও }iii$$`,
+      solution: {
+        steps: [
+          String.raw`$(i)$ কেন্দ্রীয় প্রবণতার পরিমাপ তিনটি — গাণিতিক গড়, মধ্যক ও প্রচুরক। সুতরাং $(i)$ সত্য।`,
+          String.raw`$(ii)$ কোনো উপাত্তে যে সংখ্যা সর্বাধিক বার উপস্থাপিত হয়, সেই সংখ্যাই প্রচুরক — $(ii)$ সত্য।`,
+          String.raw`$(iii)$ একটি উপাত্তের এক বা একাধিক প্রচুরক থাকতে পারে; আবার কোনো সংখ্যাই একাধিকবার না থাকলে সেই উপাত্তে প্রচুরক নেই। সুতরাং $(iii)$ সত্য।`,
+          String.raw`তিনটিই সঠিক, সুতরাং উত্তর ঘ।`,
+        ],
+        answer: String.raw`ঘ) $i,\,ii$ ও $iii$`,
+      },
+    },
+    {
+      id: 4,
+      group: STAT_MCQ,
+      question: String.raw`সারণিভুক্ত শ্রেণিবিন্যস্ত উপাত্তের সংখ্যা হলো $n$, মধ্যক শ্রেণির নিম্নসীমা $L$, মধ্যক শ্রেণির পূর্ববর্তী শ্রেণির ক্রমযোজিত গণসংখ্যা $F_c$, মধ্যক শ্রেণির গণসংখ্যা $F_m$ এবং শ্রেণিব্যাপ্তি $h$; এই তথ্যের আলোকে নিচের কোনটি মধ্যক নির্ণয়ের সূত্র?
+$$\text{ক) } L+\left(\frac{n}{2}-F_c\right)\times\frac{h}{F_m}\qquad\text{খ) } L+\left(\frac{n}{2}-F_m\right)\times\frac{h}{F_m}$$
+$$\text{গ) } L-\left(\frac{n}{2}-F_c\right)\times\frac{h}{F_m}\qquad\text{ঘ) } L-\left(\frac{n}{2}-F_m\right)\times\frac{h}{F_m}$$`,
+      solution: {
+        steps: [
+          String.raw`মধ্যক $\dfrac{n}{2}$ তম পদ। মধ্যক শ্রেণির নিম্নসীমা পর্যন্ত ইতিমধ্যেই $F_c$ টি পদ পেরিয়ে গেছে, তাই ঐ শ্রেণির ভিতরে আরও $\left(\dfrac{n}{2}-F_c\right)$ টি পদ এগোতে হবে।`,
+          String.raw`মধ্যক শ্রেণিতে $F_m$ টি পদ $h$ ব্যাপ্তিজুড়ে সমভাবে ছড়ানো ধরা হয়, অর্থাৎ প্রতি পদের জন্য $\dfrac{h}{F_m}$।`,
+          String.raw`সুতরাং নিম্নসীমার সাথে $\left(\dfrac{n}{2}-F_c\right)\times\dfrac{h}{F_m}$ যোগ করতে হবে:`,
+          String.raw`$$M=L+\left(\frac{n}{2}-F_c\right)\times\frac{h}{F_m}$$`,
+          String.raw`সুতরাং সঠিক উত্তর ক।`,
+        ],
+        answer: String.raw`ক) $L+\left(\dfrac{n}{2}-F_c\right)\times\dfrac{h}{F_m}$`,
+      },
+    },
+    {
+      id: 5,
+      group: STAT_WORK,
+      question: String.raw`১০ম শ্রেণির ৫০ জন শিক্ষার্থীর গণিত বিষয়ে প্রাপ্ত নম্বরের গণসংখ্যা নিবেশন সারণি দেওয়া হলো। প্রদত্ত উপাত্তের গণসংখ্যা বহুভুজ ও অজিভ রেখা আঁকো।
+[[table side]]
+শ্রেণিব্যাপ্তি | $31-40$ | $41-50$ | $51-60$ | $61-70$ | $71-80$ | $81-90$ | $91-100$
+গণসংখ্যা | $6$ | $8$ | $10$ | $12$ | $5$ | $7$ | $2$`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`গণসংখ্যা বহুভুজ আঁকো।`,
+          figure: "17-p5a",
+          solution: {
+            steps: [
+              String.raw`শ্রেণিগুলো বিচ্ছিন্ন, তাই আয়তলেখ না এঁকে সরাসরি শ্রেণি মধ্যমান বরাবর বহুভুজ আঁকা সুবিধাজনক।`,
+              String.raw`প্রথম শ্রেণি $(31-40)$ এর মধ্যমান $\dfrac{31+40}{2}=35.5$; একইভাবে বাকিগুলো বসিয়ে পাই:`,
+              String.raw`[[table side]]
+শ্রেণিব্যাপ্তি | $31-40$ | $41-50$ | $51-60$ | $61-70$ | $71-80$ | $81-90$ | $91-100$
+শ্রেণি মধ্যমান | $35.5$ | $45.5$ | $55.5$ | $65.5$ | $75.5$ | $85.5$ | $95.5$
+গণসংখ্যা | $6$ | $8$ | $10$ | $12$ | $5$ | $7$ | $2$`,
+              String.raw`$x$-অক্ষ বরাবর শ্রেণি মধ্যমান এবং $y$-অক্ষ বরাবর গণসংখ্যা নিয়ে বিন্দুগুলো চিহ্নিত করে রেখাংশ দ্বারা পর্যায়ক্রমে যোগ করি।`,
+              String.raw`প্রথম শ্রেণির পূর্বের শ্রেণির মধ্যমান $25.5$ এবং শেষ শ্রেণির পরের শ্রেণির মধ্যমান $105.5$ — দুই প্রান্ত সেখানে $x$-অক্ষ পর্যন্ত নামিয়ে বহুভুজটি বন্ধ করা হলো।`,
+            ],
+            answer: String.raw`উপরের গণসংখ্যা বহুভুজ — শীর্ষবিন্দু $(65.5,\,12)$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`অজিভ রেখা আঁকো।`,
+          figure: "17-p5b",
+          solution: {
+            steps: [
+              String.raw`অজিভ রেখা আঁকতে হলে শ্রেণিগুলো অবিচ্ছিন্ন করে ক্রমযোজিত গণসংখ্যা বের করতে হবে।`,
+              String.raw`[[table]]
+শ্রেণি | অবিচ্ছিন্ন শ্রেণি ব্যাপ্তি | গণসংখ্যা | ক্রমযোজিত গণসংখ্যা
+$31-40$ | $30-40$ | $6$ | $6$
+$41-50$ | $40-50$ | $8$ | $14$
+$51-60$ | $50-60$ | $10$ | $24$
+$61-70$ | $60-70$ | $12$ | $36$
+$71-80$ | $70-80$ | $5$ | $41$
+$81-90$ | $80-90$ | $7$ | $48$
+$91-100$ | $90-100$ | $2$ | $50$`,
+              String.raw`$x$-অক্ষ বরাবর শ্রেণির ঊর্ধ্বসীমা এবং $y$-অক্ষ বরাবর ক্রমযোজিত গণসংখ্যা নিয়ে বিন্দুগুলো চিহ্নিত করি: $(40,6),\,(50,14),\,(60,24),\,(70,36),\,(80,41),\,(90,48),\,(100,50)$।`,
+              String.raw`$x$-অক্ষে $30$ থেকে শুরু করে — যেখানে ক্রমযোজিত গণসংখ্যা এখনো শূন্য — বিন্দুগুলো সাবলীলভাবে যোগ করলেই নির্ণেয় অজিভ রেখা।`,
+              String.raw`শেষ বিন্দুর উচ্চতা $50$, যা মোট শিক্ষার্থীর সংখ্যার সমান — লেখচিত্রটি ঠিক আছে।`,
+            ],
+            answer: String.raw`উপরের অজিভ রেখা — শেষ বিন্দু $(100,\,50)$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 6,
+      group: STAT_WORK,
+      question: String.raw`নিচে ৫০ জন শিক্ষার্থীর ওজনের গণসংখ্যা নিবেশন সারণি দেওয়া হলো। মধ্যক নির্ণয় করো।
+[[table side]]
+ওজন (কেজি) | $45$ | $50$ | $55$ | $60$ | $65$ | $70$
+গণসংখ্যা | $2$ | $6$ | $8$ | $16$ | $12$ | $6$`,
+      solution: {
+        steps: [
+          String.raw`এখানে উপাত্ত শ্রেণিবিন্যস্ত নয় — প্রতিটি ওজনের বিপরীতে তার গণসংখ্যা দেওয়া আছে। তাই ক্রমযোজিত গণসংখ্যা সারণি তৈরি করি:`,
+          String.raw`[[table side]]
+ওজন (কেজি) | $45$ | $50$ | $55$ | $60$ | $65$ | $70$
+গণসংখ্যা | $2$ | $6$ | $8$ | $16$ | $12$ | $6$
+ক্রমযোজিত গণসংখ্যা | $2$ | $8$ | $16$ | $32$ | $44$ | $50$`,
+          String.raw`এখানে, $n=2+6+8+16+12+6=50$, যা জোড় সংখ্যা।`,
+          String.raw`$$M=\frac{1}{2}\left[\left(\frac{50}{2}\right)\text{-th}+\left(\frac{50}{2}+1\right)\text{-th}\right]=\frac{25\text{-th}+26\text{-th}}{2}$$`,
+          String.raw`ক্রমযোজিত গণসংখ্যা থেকে দেখা যায়, $17$ তম থেকে $32$ তম পদের মান $60$।`,
+          String.raw`সুতরাং $25$ তম ও $26$ তম উভয় পদের মানই $60$।`,
+          String.raw`$$\therefore\;M=\frac{60+60}{2}=60$$`,
+          String.raw`নির্ণেয় মধ্যক $60$ কেজি।`,
+        ],
+        answer: String.raw`$60$ কেজি`,
+      },
+    },
+    {
+      id: 7,
+      group: STAT_WORK,
+      question: String.raw`কোনো বিদ্যালয়ের বার্ষিক পরীক্ষায় ৯ম শ্রেণির ৫০ জন শিক্ষার্থীর গণিতে প্রাপ্ত নম্বরগুলো নিম্নরূপ:
+$$76,\,65,\,98,\,79,\,64,\,68,\,56,\,73,\,83,\,57,\,55,\,92,\,45,\,77,\,87,\,46,\,32,\,75,\,89,\,48,$$
+$$97,\,88,\,65,\,73,\,93,\,58,\,41,\,69,\,63,\,39,\,84,\,56,\,45,\,73,\,93,\,62,\,67,\,69,\,65,\,53,$$
+$$78,\,64,\,85,\,53,\,73,\,34,\,75,\,82,\,67,\,62$$`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`প্রদত্ত তথ্যটির ধরন কীরূপ? কোনো নিবেশনে একটি শ্রেণির গণসংখ্যা কী নির্দেশ করে?`,
+          solution: {
+            steps: [
+              String.raw`প্রাপ্ত নম্বরগুলো কোনো ক্রমে সাজানো নেই এবং শ্রেণিতেও ভাগ করা নেই — এগুলো পরিসংখ্যানের কাঁচামাল।`,
+              String.raw`সুতরাং প্রদত্ত তথ্যটি অবিন্যস্ত উপাত্ত।`,
+              String.raw`প্রাপ্ত নম্বর শুধুমাত্র পূর্ণসংখ্যা হয়, তাই এখানে ব্যবহৃত চলকটি বিচ্ছিন্ন চলক।`,
+              String.raw`আর কোনো নিবেশনে একটি শ্রেণির গণসংখ্যা নির্দেশ করে — ঐ শ্রেণির সীমার মধ্যে মোট কতগুলো উপাত্ত পড়েছে, অর্থাৎ ঐ শ্রেণিতে উপাত্তটি কতবার ঘটেছে।`,
+            ],
+            answer: String.raw`অবিন্যস্ত উপাত্ত; শ্রেণির গণসংখ্যা ঐ শ্রেণিতে পড়া উপাত্তের সংখ্যা নির্দেশ করে`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`উপযুক্ত শ্রেণিব্যাপ্তি নিয়ে গণসংখ্যা নিবেশন সারণি তৈরি করো।`,
+          solution: {
+            steps: [
+              String.raw`প্রদত্ত উপাত্তের সর্বনিম্ন মান $32$ এবং সর্বোচ্চ মান $98$।`,
+              String.raw`$$R=(98-32)+1=66+1=67$$`,
+              String.raw`শ্রেণিব্যাপ্তি $h=10$ ধরলে শ্রেণি সংখ্যা,`,
+              String.raw`$$k=\frac{67}{10}=6.7\quad\text{or,}\quad 7\qquad\left[\,\text{decimal}\rightarrow\text{next integer}\,\right]$$`,
+              String.raw`সুতরাং $31-40$ থেকে শুরু করে সাতটি শ্রেণি নিয়ে গণসংখ্যা নিবেশন সারণি হবে:`,
+              String.raw`[[table]]
+শ্রেণিব্যাপ্তি | গণসংখ্যা
+$31-40$ | $3$
+$41-50$ | $5$
+$51-60$ | $7$
+$61-70$ | $13$
+$71-80$ | $10$
+$81-90$ | $7$
+$91-100$ | $5$
+মোট | $n=50$`,
+              String.raw`গণসংখ্যাগুলোর যোগফল $50$, যা মোট শিক্ষার্থীর সংখ্যার সমান — সারণিটি ঠিক আছে।`,
+            ],
+            answer: String.raw`উপরের সারণি — গণসংখ্যা যথাক্রমে $3,\,5,\,7,\,13,\,10,\,7,\,5$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`সংক্ষিপ্ত পদ্ধতিতে প্রাপ্ত নম্বরের গড় নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`(খ)-এ পাওয়া সারণির প্রতিটি শ্রেণির মধ্যমান বের করি; শ্রেণিব্যাপ্তি $h=10$।`,
+              String.raw`মধ্যমানগুলোর মধ্যে মাঝামাঝি $65.5$-কে আনুমানিক গড় ধরি, অর্থাৎ $a=65.5$।`,
+              String.raw`[[table]]
+শ্রেণিব্যাপ্তি | মধ্যমান $x_i$ | গণসংখ্যা $f_i$ | $u_i=\dfrac{x_i-a}{h}$ | $f_iu_i$
+$31-40$ | $35.5$ | $3$ | $-3$ | $-9$
+$41-50$ | $45.5$ | $5$ | $-2$ | $-10$
+$51-60$ | $55.5$ | $7$ | $-1$ | $-7$
+$61-70$ | $65.5\leftarrow a$ | $13$ | $0$ | $0$
+$71-80$ | $75.5$ | $10$ | $1$ | $10$
+$81-90$ | $85.5$ | $7$ | $2$ | $14$
+$91-100$ | $95.5$ | $5$ | $3$ | $15$
+মোট | | $n=50$ | | $13$`,
+              String.raw`নির্ণেয় গড়,`,
+              String.raw`$$\bar{x}=a+\frac{\sum f_iu_i}{n}\times h=65.5+\frac{13}{50}\times 10$$`,
+              String.raw`$$=65.5+2.6=68.1$$`,
+              String.raw`নির্ণেয় গড় নম্বর $68.1$।`,
+            ],
+            answer: String.raw`$68.1$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 8,
+      group: STAT_WORK,
+      figure: "17-p8",
+      question: String.raw`নিচের লেখচিত্রটি একটি গণসংখ্যা নিবেশনের আয়তলেখ ও তার গণসংখ্যা বহুভুজ। চিত্র থেকে নিচের প্রশ্নগুলোর উত্তর দাও।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`চিত্রে প্রথম শ্রেণিটির শ্রেণি মধ্যমান ও শেষ শ্রেণিটির গণসংখ্যা কত?`,
+          solution: {
+            steps: [
+              String.raw`চিত্রে প্রথম আয়তটি দাঁড়িয়ে আছে $30$ থেকে $40$ পর্যন্ত ভূমির উপর।`,
+              String.raw`$$x_1=\frac{30+40}{2}=35$$`,
+              String.raw`শেষ আয়তটি $70$ থেকে $80$ পর্যন্ত এবং তার উচ্চতা $2$।`,
+              String.raw`সুতরাং প্রথম শ্রেণির শ্রেণি মধ্যমান $35$ এবং শেষ শ্রেণির গণসংখ্যা $2$।`,
+            ],
+            answer: String.raw`শ্রেণি মধ্যমান $35$, শেষ শ্রেণির গণসংখ্যা $2$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`চিত্রে প্রদর্শিত তথ্যটিকে ছকের মাধ্যমে প্রকাশ করো।`,
+          solution: {
+            steps: [
+              String.raw`প্রতিটি আয়তের ভূমি এক-একটি শ্রেণি এবং উচ্চতা সেই শ্রেণির গণসংখ্যা।`,
+              String.raw`চিত্র থেকে বহুভুজের বিন্দুগুলো $(35,3),\,(45,6),\,(55,11),\,(65,8),\,(75,2)$।`,
+              String.raw`সুতরাং নিবেশনটির ছক হবে:`,
+              String.raw`[[table]]
+শ্রেণি | গণসংখ্যা | ক্রমযোজিত গণসংখ্যা
+$30-40$ | $3$ | $3$
+$40-50$ | $6$ | $9$
+$50-60$ | $11$ | $20$
+$60-70$ | $8$ | $28$
+$70-80$ | $2$ | $30$
+মোট | $n=30$ |`,
+            ],
+            answer: String.raw`শ্রেণি $30-40,\,40-50,\,50-60,\,60-70,\,70-80$; গণসংখ্যা $3,\,6,\,11,\,8,\,2$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`উপরে প্রাপ্ত ছক থেকে নিবেশনটির মধ্যক নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`(খ)-এর ছক থেকে $n=30$, সুতরাং $\dfrac{n}{2}=\dfrac{30}{2}=15$।`,
+              String.raw`ক্রমযোজিত গণসংখ্যা $3,\,9,\,20,\,28,\,30$; অর্থাৎ $15$ তম পদটি $50-60$ শ্রেণিতে পড়ে।`,
+              String.raw`অতএব মধ্যক শ্রেণি $50-60$, এবং শ্রেণিগুলো অবিচ্ছিন্ন বলে $h=60-50=10$।`,
+              String.raw`সুতরাং $L=50,\;F_c=9,\;f_m=11,\;h=10$।`,
+              String.raw`$$M=L+\left(\frac{n}{2}-F_c\right)\times\frac{h}{f_m}=50+(15-9)\times\frac{10}{11}$$`,
+              String.raw`$$=50+6\times\frac{10}{11}=50+\frac{60}{11}$$`,
+              String.raw`$$=50+5.45=55.45$$`,
+              String.raw`নির্ণেয় মধ্যক $55.45$ (প্রায়)।`,
+            ],
+            answer: String.raw`$55.45$ (প্রায়)`,
+          },
+        },
+      ],
+    },
+    {
+      id: 9,
+      group: STAT_MODEL_MCQ,
+      question: String.raw`পরিসংখ্যানের অবিন্যস্ত উপাত্তসমূহ মানের ক্রমানুসারে সাজালে উপাত্তসমূহ মাঝামাঝি কোনো মানের কাছাকাছি পুঞ্জীভূত হয়। উপাত্তের এই প্রবণতাকে বলা হয় —
+$$\text{ক) প্রচুরক}\qquad\text{খ) কেন্দ্রীয় প্রবণতা}\qquad\text{গ) গড়}\qquad\text{ঘ) মধ্যক}$$`,
+      solution: {
+        steps: [
+          String.raw`গড়, মধ্যক ও প্রচুরক — এ তিনটি হলো সেই প্রবণতার পরিমাপ, প্রবণতাটি নয়।`,
+          String.raw`উপাত্তসমূহের কেন্দ্রীয় মানের দিকে পুঞ্জীভূত হওয়ার প্রবণতাটিরই নাম কেন্দ্রীয় প্রবণতা।`,
+          String.raw`সুতরাং সঠিক উত্তর খ।`,
+        ],
+        answer: String.raw`খ) কেন্দ্রীয় প্রবণতা`,
+      },
+    },
+    {
+      id: 10,
+      group: STAT_MODEL_MCQ,
+      question: String.raw`আয়তলেখ অঙ্কন করতে দরকার —
+$(i)$ $x$ অক্ষ বরাবর অবিচ্ছিন্ন শ্রেণিব্যাপ্তি
+$(ii)$ $y$ অক্ষ বরাবর গণসংখ্যা
+$(iii)$ শ্রেণির মধ্যমান
+নিচের কোনটি সঠিক?
+$$\text{ক) } i\text{ ও }ii\qquad\text{খ) } i\text{ ও }iii\qquad\text{গ) } ii\text{ ও }iii\qquad\text{ঘ) } i,\,ii\text{ ও }iii$$`,
+      solution: {
+        steps: [
+          String.raw`আয়তলেখের আয়তগুলো পাশাপাশি ফাঁক ছাড়া দাঁড়ায়, তাই ভূমি বরাবর শ্রেণিসীমা অবিচ্ছিন্ন হতেই হবে — $(i)$ সত্য।`,
+          String.raw`প্রতিটি আয়তের উচ্চতা সেই শ্রেণির গণসংখ্যা, তাই $y$ অক্ষ বরাবর গণসংখ্যা নিতে হয় — $(ii)$ সত্য।`,
+          String.raw`শ্রেণির মধ্যমান লাগে গণসংখ্যা বহুভুজ আঁকতে, আয়তলেখ আঁকতে নয় — $(iii)$ সত্য নয়।`,
+          String.raw`সুতরাং সঠিক উত্তর ক।`,
+        ],
+        answer: String.raw`ক) $i$ ও $ii$`,
+      },
+    },
+    {
+      id: 11,
+      group: STAT_MODEL_MCQ,
+      question: String.raw`শীতকালে বাংলাদেশের কোনো একটি অঞ্চলের $10$ দিনের তাপমাত্রার (সে.) পরিসংখ্যান হলো $10^{\circ},9^{\circ},8^{\circ},6^{\circ},11^{\circ},12^{\circ},7^{\circ},13^{\circ},14^{\circ},5^{\circ}$। উপরের সংখ্যাসূচক উপাত্তের গড় তাপমাত্রা কোনটি?
+$$\text{ক) } 8^{\circ}\qquad\text{খ) } 8.5^{\circ}\qquad\text{গ) } 9.5^{\circ}\qquad\text{ঘ) } 9^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`উপাত্তসমূহের সমষ্টি,`,
+          String.raw`$$10+9+8+6+11+12+7+13+14+5=95$$`,
+          String.raw`এখানে উপাত্তের সংখ্যা $n=10$।`,
+          String.raw`$$\bar{x}=\frac{95}{10}=9.5$$`,
+          String.raw`সুতরাং গড় তাপমাত্রা $9.5^{\circ}$, উত্তর গ।`,
+        ],
+        answer: String.raw`গ) $9.5^{\circ}$`,
+      },
+    },
+    {
+      id: 12,
+      group: STAT_MODEL_MCQ,
+      question: String.raw`উপরের উপাত্তসমূহের মধ্যক কোনটি?
+$$\text{ক) } 9.5^{\circ}\qquad\text{খ) } 9^{\circ}\qquad\text{গ) } 8.5^{\circ}\qquad\text{ঘ) } 8^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`উপাত্তসমূহ মানের ক্রমানুসারে সাজিয়ে পাই,`,
+          String.raw`$$5^{\circ},\,6^{\circ},\,7^{\circ},\,8^{\circ},\,9^{\circ},\,10^{\circ},\,11^{\circ},\,12^{\circ},\,13^{\circ},\,14^{\circ}$$`,
+          String.raw`এখানে $n=10$, যা জোড় সংখ্যা।`,
+          String.raw`$$M=\frac{1}{2}\left[\left(\frac{10}{2}\right)\text{-th}+\left(\frac{10}{2}+1\right)\text{-th}\right]=\frac{5\text{-th}+6\text{-th}}{2}$$`,
+          String.raw`$$=\frac{9+10}{2}=9.5$$`,
+          String.raw`সুতরাং মধ্যক $9.5^{\circ}$, উত্তর ক।`,
+        ],
+        answer: String.raw`ক) $9.5^{\circ}$`,
+      },
+    },
+    {
+      id: 13,
+      group: STAT_MODEL_CQ,
+      question: String.raw`কোনো শ্রেণির ৬০ জন শিক্ষার্থীর ওজনের (কেজি) গণসংখ্যা নিবেশন সারণি নিম্নরূপ:
+[[table side]]
+শ্রেণিব্যাপ্তি | $45-49$ | $50-54$ | $55-59$ | $60-64$ | $65-69$ | $70-74$
+গণসংখ্যা | $4$ | $8$ | $10$ | $20$ | $12$ | $6$`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`উপাত্তের মধ্যক শ্রেণি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`ক্রমযোজিত গণসংখ্যা সারণি:`,
+              String.raw`[[table side]]
+শ্রেণিব্যাপ্তি | $45-49$ | $50-54$ | $55-59$ | $60-64$ | $65-69$ | $70-74$
+গণসংখ্যা | $4$ | $8$ | $10$ | $20$ | $12$ | $6$
+ক্রমযোজিত গণসংখ্যা | $4$ | $12$ | $22$ | $42$ | $54$ | $60$`,
+              String.raw`এখানে, $n=60$ এবং $\dfrac{n}{2}=\dfrac{60}{2}=30$।`,
+              String.raw`ক্রমযোজিত গণসংখ্যায় $22<30\le 42$, অর্থাৎ $30$ তম পদটি চতুর্থ শ্রেণিতে পড়ে।`,
+              String.raw`সুতরাং নির্ণেয় মধ্যক শ্রেণি $60-64$।`,
+            ],
+            answer: String.raw`$60-64$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`প্রদত্ত তথ্য থেকে প্রচুরক নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`এখানে গণসংখ্যা সর্বাধিক $20$ আছে $60-64$ শ্রেণিতে, সুতরাং এটিই প্রচুরক শ্রেণি।`,
+              String.raw`শ্রেণিগুলো বিচ্ছিন্ন, তাই শ্রেণিব্যাপ্তি $h=(49-45)+1=5$।`,
+              String.raw`সুতরাং $L=60,\;f_1=20-10=10,\;f_2=20-12=8,\;h=5$।`,
+              String.raw`$$M_o=L+\frac{f_1}{f_1+f_2}\times h=60+\frac{10}{10+8}\times 5$$`,
+              String.raw`$$=60+\frac{10}{18}\times 5=60+\frac{50}{18}$$`,
+              String.raw`$$=60+2.78=62.78$$`,
+              String.raw`নির্ণেয় প্রচুরক $62.78$ (প্রায়)।`,
+            ],
+            answer: String.raw`$62.78$ (প্রায়)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`বিবরণসহ উপাত্তের গণসংখ্যা বহুভুজ অঙ্কন করো।`,
+          figure: "17-p13",
+          solution: {
+            steps: [
+              String.raw`শ্রেণিগুলো বিচ্ছিন্ন, তাই প্রতিটি শ্রেণির মধ্যমান বের করে সরাসরি বহুভুজ আঁকি।`,
+              String.raw`প্রথম শ্রেণি $(45-49)$ এর মধ্যমান $\dfrac{45+49}{2}=47$; একইভাবে বাকিগুলো বসিয়ে পাই:`,
+              String.raw`[[table side]]
+শ্রেণিব্যাপ্তি | $45-49$ | $50-54$ | $55-59$ | $60-64$ | $65-69$ | $70-74$
+শ্রেণি মধ্যমান | $47$ | $52$ | $57$ | $62$ | $67$ | $72$
+গণসংখ্যা | $4$ | $8$ | $10$ | $20$ | $12$ | $6$`,
+              String.raw`$x$-অক্ষ বরাবর শ্রেণি মধ্যমান — যেখানে ছেদ চিহ্নটি $0$ থেকে $42$ বুঝায় — এবং $y$-অক্ষ বরাবর গণসংখ্যা নিয়ে বিন্দুগুলো চিহ্নিত করি।`,
+              String.raw`বিন্দুগুলো $(47,4),\,(52,8),\,(57,10),\,(62,20),\,(67,12),\,(72,6)$ পর্যায়ক্রমে রেখাংশ দ্বারা যোগ করি।`,
+              String.raw`প্রথম শ্রেণির পূর্বের শ্রেণির মধ্যমান $42$ এবং শেষ শ্রেণির পরের শ্রেণির মধ্যমান $77$ — দুই প্রান্ত সেখানে $x$-অক্ষ পর্যন্ত নামিয়ে বহুভুজটি বন্ধ করা হলো।`,
+            ],
+            answer: String.raw`উপরের গণসংখ্যা বহুভুজ — শীর্ষবিন্দু $(62,\,20)$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 14,
+      group: STAT_MODEL_CQ,
+      question: String.raw`নিচের প্রশ্নগুলোর উত্তর দাও।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`উপাত্তের পরিসর $42$ এবং সর্বোচ্চ মান $79$ হলে, সর্বনিম্ন মান নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`আমরা জানি,`,
+              String.raw`$$R=(x_{\max}-x_{\min})+1$$`,
+              String.raw`প্রশ্নানুসারে,`,
+              String.raw`$$42=(79-x_{\min})+1$$`,
+              String.raw`$$\text{or, } 42=80-x_{\min}$$`,
+              String.raw`$$\therefore\; x_{\min}=80-42=38$$`,
+              String.raw`নির্ণেয় সর্বনিম্ন মান $38$।`,
+            ],
+            answer: String.raw`$38$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`কোনো শ্রেণিব্যাপ্তির নিম্নসীমা $a$ এবং শ্রেণি মধ্যমান $c$ হলে, এর ঊর্ধ্বসীমা নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, শ্রেণিটির ঊর্ধ্বসীমা $b$।`,
+              String.raw`আমরা জানি, শ্রেণি মধ্যমান শ্রেণির নিম্নসীমা ও ঊর্ধ্বসীমার গড়।`,
+              String.raw`$$c=\frac{a+b}{2}$$`,
+              String.raw`$$\text{or, } a+b=2c$$`,
+              String.raw`$$\therefore\; b=2c-a$$`,
+              String.raw`নির্ণেয় ঊর্ধ্বসীমা $2c-a$।`,
+            ],
+            answer: String.raw`$2c-a$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`প্রচুরক নির্ণয়ের ক্ষেত্রে, $L=40$, $f_1=3$, $f_2=5$ এবং $h=8$ হলে, প্রচুরক নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`আমরা জানি,`,
+              String.raw`$$M_o=L+\frac{f_1}{f_1+f_2}\times h$$`,
+              String.raw`প্রদত্ত মানগুলো বসিয়ে পাই,`,
+              String.raw`$$M_o=40+\frac{3}{3+5}\times 8=40+\frac{3}{8}\times 8$$`,
+              String.raw`$$=40+3=43$$`,
+              String.raw`নির্ণেয় প্রচুরক $43$।`,
+            ],
+            answer: String.raw`$43$`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+
+// ─────────────── অধ্যায় ১২ · দুই চলকবিশিষ্ট সরল সহসমীকরণ ───────────────
+//
+// বইয়ের চারটি অনুশীলনী: ১২.১-এ সমাধান যোগ্যতা যাচাই, ১২.২-এ প্রতিস্থাপন,
+// অপনয়ন ও আড়গুণন পদ্ধতি, ১২.৩-এ লেখিক পদ্ধতি এবং ১২.৪-এ বাস্তবভিত্তিক
+// সমস্যা। শেষেরটির সঙ্গে অধ্যায়ের নমুনা প্রশ্নগুলো অনুশীলনীর নম্বর ধরে টেনে
+// নেওয়া হয়েছে।
+//
+// ১২.৩-এর প্রতিটি প্রশ্নে ছক কাগজের ছবি (`figures/scenes12.ts`) বসানো হলো —
+// লেখিক পদ্ধতির উত্তরটাই আসলে দুই রেখার ছেদবিন্দু, আর ছেদবিন্দু বাক্যে যত
+// ধীরে বোঝা যায়, ছবিতে তত দ্রুত।
+
+const SIM_TEST = "সমঞ্জস্য ও নির্ভরশীলতা যাচাই, সমাধানের সংখ্যা (১ – ১০)";
+
+const exercise121: Exercise = {
+  id: "12.1",
+  bnId: "অনুশীলনী ১২.১",
+  title: "সহসমীকরণের সমাধান যোগ্যতা",
+  bookPages: "২২৮ – ২২৯",
+  formulas: [
+    {
+      title: "সরল সহসমীকরণ কাকে বলে",
+      formulas: [
+        {
+          statement: String.raw`$$\begin{aligned}a_{1}x+b_{1}y&=c_{1}\\ a_{2}x+b_{2}y&=c_{2}\end{aligned}$$`,
+          note: "দুই চলকবিশিষ্ট দুইটি সরল সমীকরণকে একত্রে উপস্থাপন করা হলে, এবং চলক দুইটি একই বৈশিষ্ট্যের হলে, তাকে সরল সহসমীকরণ বা সমীকরণজোট বলে।",
+        },
+        {
+          statement: String.raw`$$2x+y=12\;\longrightarrow\;(-2,16),\,(0,12),\,(3,6),\,(5,2),\dots$$`,
+          note: "দুই চলকের একটিমাত্র সরল সমীকরণের অসংখ্য সমাধান আছে। জোট বাঁধলে তবেই কেবল সেই সমাধানগুলো টিকে থাকে যারা দুইটি সমীকরণকেই যুগপৎ সিদ্ধ করে।",
+        },
+      ],
+    },
+    {
+      title: "সহগের অনুপাত দেখে তিন রকম জোট",
+      formulas: [
+        {
+          statement: String.raw`$$\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}$$`,
+          note: "সমঞ্জস্য (consistent) ও পরস্পর অনির্ভরশীল (independent) — একটিমাত্র (অনন্য) সমাধান আছে। এক্ষেত্রে ধ্রুবক পদ তুলনা করার প্রয়োজনই হয় না।",
+        },
+        {
+          statement: String.raw`$$\frac{a_{1}}{a_{2}}=\frac{b_{1}}{b_{2}}=\frac{c_{1}}{c_{2}}$$`,
+          note: "সমঞ্জস্য ও পরস্পর নির্ভরশীল (dependent) — একটি সমীকরণকে অন্যটি দিয়ে গুণ বা ভাগ করেই পাওয়া যায়, তাই অসংখ্য সমাধান আছে।",
+        },
+        {
+          statement: String.raw`$$\frac{a_{1}}{a_{2}}=\frac{b_{1}}{b_{2}}\neq\frac{c_{1}}{c_{2}}$$`,
+          note: "অসমঞ্জস্য (inconsistent) ও পরস্পর অনির্ভরশীল — কোনো সমাধান নেই। চলকের সহগ মিলে যাওয়ায় অপনয়নে চলক দুইটিই চলে গিয়ে অসম্ভব একটি সমতা দাঁড়ায়।",
+        },
+      ],
+    },
+    {
+      title: "ধ্রুবক পদ না থাকলে",
+      formulas: [
+        {
+          statement: String.raw`$$c_{1}=c_{2}=0,\;\;\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}\;\Rightarrow\;(x,y)=(0,0)$$`,
+          note: "উভয় সমীকরণে ধ্রুবক পদ শূন্য হলে জোটটি সর্বদা সমঞ্জস্য — অন্তত শূন্য সমাধানটি তো আছেই। সহগের অনুপাত অসমান হলে ঐ একটিই সমাধান।",
+        },
+        {
+          statement: String.raw`$$c_{1}=c_{2}=0,\;\;\frac{a_{1}}{a_{2}}=\frac{b_{1}}{b_{2}}\;\Rightarrow\;\text{অসংখ্য সমাধান}$$`,
+          note: "অনুপাত সমান হলে সমীকরণ দুইটি আসলে একটিই, তাই সমঞ্জস্য ও পরস্পর নির্ভরশীল — অসংখ্য সমাধান।",
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১ — book pages ২২৭-২২৮.
+    {
+      id: 1,
+      question: String.raw`নিচের সমীকরণজোটগুলো সমঞ্জস্য/অসমঞ্জস্য, নির্ভরশীল/অনির্ভরশীল কিনা ব্যাখ্যা করো এবং এদের সমাধানের সংখ্যা নির্দেশ করো।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$$\begin{aligned}x+3y&=1\\ 2x+6y&=2\end{aligned}$$`,
+          solution: {
+            steps: [
+              String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{2}$$`,
+              String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{3}{6}=\frac{1}{2}$$`,
+              String.raw`ধ্রুবক পদদ্বয়ের অনুপাত $$\frac{1}{2}$$`,
+              String.raw`$$\therefore\;\frac{1}{2}=\frac{3}{6}=\frac{1}{2}$$`,
+              String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর নির্ভরশীল।`,
+            ],
+            answer: String.raw`সমঞ্জস্য ও পরস্পর নির্ভরশীল — অসংখ্য সমাধান`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$$\begin{aligned}2x-5y&=3\\ x+3y&=1\end{aligned}$$`,
+          solution: {
+            steps: [
+              String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{2}{1}$$`,
+              String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{-5}{3}$$`,
+              String.raw`$$\therefore\;\frac{2}{1}\neq\frac{-5}{3}$$`,
+              String.raw`সহগের অনুপাত অসমান, তাই ধ্রুবক পদ তুলনা করার প্রয়োজন নেই।`,
+              String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল।`,
+            ],
+            answer: String.raw`সমঞ্জস্য ও পরস্পর অনির্ভরশীল — একটিমাত্র (অনন্য) সমাধান`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$$\begin{aligned}3x-5y&=7\\ 6x-10y&=15\end{aligned}$$`,
+          solution: {
+            steps: [
+              String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{3}{6}=\frac{1}{2}$$`,
+              String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{-5}{-10}=\frac{1}{2}$$`,
+              String.raw`ধ্রুবক পদদ্বয়ের অনুপাত $$\frac{7}{15}$$`,
+              String.raw`$$\therefore\;\frac{3}{6}=\frac{-5}{-10}\neq\frac{7}{15}$$`,
+              String.raw`অতএব, সমীকরণজোটটি অসমঞ্জস্য ও পরস্পর অনির্ভরশীল।`,
+            ],
+            answer: String.raw`অসমঞ্জস্য ও পরস্পর অনির্ভরশীল — কোনো সমাধান নেই`,
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    {
+      id: 1,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}x-y&=4\\ x+y&=10\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{1}=1$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{-1}{1}=-1$$`,
+          String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}$$`,
+          String.raw`সহগের অনুপাত অসমান, তাই ধ্রুবক পদ তুলনা করার প্রয়োজন নেই।`,
+          String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর একটিমাত্র (অনন্য) সমাধান আছে।`,
+          String.raw`(যোগ করলে $2x=14$, অর্থাৎ সমাধানটি $(x,y)=(7,3)$।)`,
+        ],
+        answer: String.raw`সমঞ্জস্য ও পরস্পর অনির্ভরশীল — একটিমাত্র সমাধান`,
+      },
+    },
+    {
+      id: 2,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}2x+y&=3\\ 4x+2y&=6\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{2}{4}=\frac{1}{2}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{2}$$`,
+          String.raw`ধ্রুবক পদদ্বয়ের অনুপাত $$\frac{3}{6}=\frac{1}{2}$$`,
+          String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}=\frac{b_{1}}{b_{2}}=\frac{c_{1}}{c_{2}}$$`,
+          String.raw`১ম সমীকরণের উভয়পক্ষকে $2$ দ্বারা গুণ করলেই ২য় সমীকরণটি পাওয়া যায়।`,
+          String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর নির্ভরশীল; এর অসংখ্য সমাধান আছে।`,
+        ],
+        answer: String.raw`সমঞ্জস্য ও পরস্পর নির্ভরশীল — অসংখ্য সমাধান`,
+      },
+    },
+    {
+      id: 3,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}x-y-4&=0\\ 3x-3y-10&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{3}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{-1}{-3}=\frac{1}{3}$$`,
+          String.raw`ধ্রুবক পদদ্বয়ের অনুপাত $$\frac{-4}{-10}=\frac{2}{5}$$`,
+          String.raw`$$\therefore\;\frac{1}{3}=\frac{-1}{-3}\neq\frac{2}{5}$$`,
+          String.raw`অতএব, সমীকরণজোটটি অসমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর কোনো সমাধান নেই।`,
+          String.raw`(১ম সমীকরণকে $3$ দ্বারা গুণ করলে $3x-3y-12=0$; ২য়টি থেকে বিয়োগ করলে $2=0$ — যা অসম্ভব।)`,
+        ],
+        answer: String.raw`অসমঞ্জস্য ও পরস্পর অনির্ভরশীল — কোনো সমাধান নেই`,
+      },
+    },
+    {
+      id: 4,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}3x+2y&=0\\ 6x+4y&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`এখানে উভয় সমীকরণেই ধ্রুবক পদ শূন্য, অর্থাৎ $c_{1}=c_{2}=0$।`,
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{3}{6}=\frac{1}{2}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{2}{4}=\frac{1}{2}$$`,
+          String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}=\frac{b_{1}}{b_{2}}$$`,
+          String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর নির্ভরশীল; এর অসংখ্য সমাধান আছে।`,
+        ],
+        answer: String.raw`সমঞ্জস্য ও পরস্পর নির্ভরশীল — অসংখ্য সমাধান`,
+      },
+    },
+    {
+      id: 5,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}3x+2y&=0\\ 9x-6y&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`এখানেও $c_{1}=c_{2}=0$।`,
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{3}{9}=\frac{1}{3}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{2}{-6}=-\frac{1}{3}$$`,
+          String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}$$`,
+          String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর একটিমাত্র সমাধান আছে, আর ধ্রুবক পদ শূন্য বলে সেই সমাধানটি $(x,y)=(0,0)$।`,
+        ],
+        answer: String.raw`সমঞ্জস্য ও পরস্পর অনির্ভরশীল — একটিমাত্র সমাধান $(0,0)$`,
+      },
+    },
+    {
+      id: 6,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}5x-2y-16&=0\\ 3x-\frac{6}{5}y&=2\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`২য় সমীকরণটিকে $ax+by+c=0$ আকারে সাজিয়ে পাই,`,
+          String.raw`$$3x-\frac{6}{5}y-2=0$$`,
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{5}{3}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{-2}{-\frac{6}{5}}=2\times\frac{5}{6}=\frac{5}{3}$$`,
+          String.raw`ধ্রুবক পদদ্বয়ের অনুপাত $$\frac{-16}{-2}=8$$`,
+          String.raw`$$\therefore\;\frac{5}{3}=\frac{5}{3}\neq 8$$`,
+          String.raw`অতএব, সমীকরণজোটটি অসমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর কোনো সমাধান নেই।`,
+        ],
+        answer: String.raw`অসমঞ্জস্য ও পরস্পর অনির্ভরশীল — কোনো সমাধান নেই`,
+      },
+    },
+    {
+      id: 7,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}-\frac{1}{2}x+y&=-1\\ x-2y&=2\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{-\frac{1}{2}}{1}=-\frac{1}{2}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{-2}=-\frac{1}{2}$$`,
+          String.raw`ধ্রুবক পদদ্বয়ের অনুপাত $$\frac{-1}{2}=-\frac{1}{2}$$`,
+          String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}=\frac{b_{1}}{b_{2}}=\frac{c_{1}}{c_{2}}$$`,
+          String.raw`১ম সমীকরণের উভয়পক্ষকে $-2$ দ্বারা গুণ করলেই ২য় সমীকরণটি পাওয়া যায়।`,
+          String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর নির্ভরশীল; এর অসংখ্য সমাধান আছে।`,
+        ],
+        answer: String.raw`সমঞ্জস্য ও পরস্পর নির্ভরশীল — অসংখ্য সমাধান`,
+      },
+    },
+    {
+      id: 8,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}-\frac{1}{2}x-y&=0\\ x-2y&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`এখানে $c_{1}=c_{2}=0$।`,
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{-\frac{1}{2}}{1}=-\frac{1}{2}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{-1}{-2}=\frac{1}{2}$$`,
+          String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}$$`,
+          String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর একটিমাত্র সমাধান, আর তা $(x,y)=(0,0)$।`,
+        ],
+        answer: String.raw`সমঞ্জস্য ও পরস্পর অনির্ভরশীল — একটিমাত্র সমাধান $(0,0)$`,
+      },
+    },
+    {
+      id: 9,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}-\frac{1}{2}x+y&=-1\\ x+y&=5\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{-\frac{1}{2}}{1}=-\frac{1}{2}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{1}=1$$`,
+          String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}$$`,
+          String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর একটিমাত্র (অনন্য) সমাধান আছে।`,
+          String.raw`(বিয়োগ করলে $-\frac{3}{2}x=-6$, অর্থাৎ সমাধানটি $(x,y)=(4,1)$।)`,
+        ],
+        answer: String.raw`সমঞ্জস্য ও পরস্পর অনির্ভরশীল — একটিমাত্র সমাধান`,
+      },
+    },
+    {
+      id: 10,
+      group: SIM_TEST,
+      question: String.raw`$$\begin{aligned}ax-cy&=0\\ cx-ay&=c^{2}-a^{2}\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{a}{c}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{-c}{-a}=\frac{c}{a}$$`,
+          String.raw`এখন $$\frac{a}{c}=\frac{c}{a}\;\Leftrightarrow\;a^{2}=c^{2}\;\Leftrightarrow\;a=\pm c$$`,
+          String.raw`সুতরাং $a\neq\pm c$ হলে $$\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}$$`,
+          String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর একটিমাত্র (অনন্য) সমাধান আছে।`,
+          String.raw`(১ম সমীকরণ থেকে $x=\dfrac{cy}{a}$; ২য়টিতে বসালে $y(c^{2}-a^{2})=a(c^{2}-a^{2})$, অর্থাৎ সমাধানটি $(x,y)=(c,a)$।)`,
+          String.raw`তবে $a=\pm c$ হলে $c^{2}-a^{2}=0$ হয়ে যায় এবং সমীকরণ দুইটি একটিই সমীকরণে দাঁড়ায় — তখন জোটটি সমঞ্জস্য ও পরস্পর নির্ভরশীল, অসংখ্য সমাধান।`,
+        ],
+        answer: String.raw`$a\neq\pm c$ হলে সমঞ্জস্য ও পরস্পর অনির্ভরশীল — একটিমাত্র সমাধান`,
+      },
+    },
+  ],
+};
+
+// অনুশীলনী ১২.২ — book page ২৩৬. বইয়ের তিনটি নির্দেশনা-লাইনই এখানে তিনটি
+// শিরোনাম হয়ে এসেছে, কারণ কোন পদ্ধতিতে সমাধান করতে হবে তা প্রশ্নেই বলা আছে।
+const EQ_SUBST = "প্রতিস্থাপন পদ্ধতিতে সমাধান করো (১ – ৩)";
+const EQ_ELIM = "অপনয়ন পদ্ধতিতে সমাধান করো (৪ – ৬)";
+const EQ_CROSS = "আড়গুণন পদ্ধতিতে সমাধান করো (৭ – ১৫)";
+
+const exercise122: Exercise = {
+  id: "12.2",
+  bnId: "অনুশীলনী ১২.২",
+  title: "প্রতিস্থাপন, অপনয়ন ও আড়গুণন",
+  bookPages: "২৩৬",
+  formulas: [
+    {
+      title: "প্রতিস্থাপন পদ্ধতি (Substitution method)",
+      formulas: [
+        {
+          statement: String.raw`$$2x+y=8\;\Rightarrow\;y=8-2x$$`,
+          note: "সুবিধামত একটি সমীকরণ থেকে একটি চলককে অপর চলকের মাধ্যমে প্রকাশ করতে হয়। যে চলকের সহগ ১ বা ছোট, তাকে বেছে নিলে ভগ্নাংশ এড়ানো যায়।",
+        },
+        {
+          statement: String.raw`$$3x-2(8-2x)=5$$`,
+          note: "প্রাপ্ত মান অপর সমীকরণে বসালে এক চলকবিশিষ্ট সমীকরণ পাওয়া যায়; তা সমাধান করে চলকটির মান মেলে।",
+        },
+        {
+          statement: String.raw`$$x=3\;\Rightarrow\;y=8-2\times 3=2$$`,
+          note: "পাওয়া মানটি যে সমীকরণে চলককে প্রকাশ করা হয়েছিল সেখানেই বসালে অপর চলকের মান সবচেয়ে সহজে পাওয়া যায়।",
+        },
+      ],
+    },
+    {
+      title: "অপনয়ন পদ্ধতি (Elimination method)",
+      formulas: [
+        {
+          statement: String.raw`$$2x+y=8\;\xrightarrow{\;\times 2\;}\;4x+2y=16$$`,
+          note: "সুবিধামত একটি বা উভয় সমীকরণকে এমন সংখ্যা দিয়ে গুণ করতে হয় যেন কোনো এক চলকের সহগের পরমমান দুই সমীকরণে সমান হয়।",
+        },
+        {
+          statement: String.raw`$$(4x+2y)+(3x-2y)=16+5\;\Rightarrow\;7x=21$$`,
+          note: "সহগ দুইটির চিহ্ন বিপরীত হলে যোগ করলে, আর একই হলে বিয়োগ করলে, সেই চলকটি অপনীত হয়ে যায়।",
+        },
+      ],
+    },
+    {
+      title: "আড়গুণন পদ্ধতি (Cross multiplication method)",
+      formulas: [
+        {
+          statement: String.raw`$$\frac{x}{b_{1}c_{2}-b_{2}c_{1}}=\frac{y}{c_{1}a_{2}-c_{2}a_{1}}=\frac{1}{a_{1}b_{2}-a_{2}b_{1}}$$`,
+          note: String.raw`সমীকরণ দুইটিকে $a_{1}x+b_{1}y+c_{1}=0$ ও $a_{2}x+b_{2}y+c_{2}=0$ আকারে সাজিয়ে নিয়ে এই সম্পর্ক খাটে। একে বজ্রগুণন পদ্ধতিও বলে।`,
+        },
+        {
+          statement: String.raw`$$\begin{array}{c|cccc}a_{1}&b_{1}&c_{1}&a_{1}&b_{1}\\ a_{2}&b_{2}&c_{2}&a_{2}&b_{2}\end{array}$$`,
+          note: String.raw`মনে রাখার ছবি — প্রথম কলামের নিচে $b$, তারপর $c$, তারপর আবার $a$ ও $b$ লিখে পাশাপাশি দুই কলামের আড়াআড়ি গুণফলের বিয়োগই যথাক্রমে $x$, $y$ ও $1$ এর হর।`,
+        },
+        {
+          statement: String.raw`$$x=\frac{b_{1}c_{2}-b_{2}c_{1}}{a_{1}b_{2}-a_{2}b_{1}},\qquad y=\frac{c_{1}a_{2}-c_{2}a_{1}}{a_{1}b_{2}-a_{2}b_{1}}$$`,
+          note: String.raw`হর $a_{1}b_{2}-a_{2}b_{1}$ শূন্য হলে সমীকরণজোটটি অনন্য সমাধানবিশিষ্ট নয় — তখন এ পদ্ধতি খাটে না।`,
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ২ — book pages ২২৯-২৩০.
+    {
+      id: 2,
+      question: String.raw`প্রতিস্থাপন পদ্ধতিতে সমাধান করো: $$\begin{aligned}2x+y&=8\\ 3x-2y&=5\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$2x+y=8\qquad\cdots(1)$$`,
+          String.raw`$$3x-2y=5\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ হতে পাই, $$y=8-2x\qquad\cdots(3)$$`,
+          String.raw`সমীকরণ $(2)$ এ $y$ এর মান $8-2x$ বসিয়ে পাই,`,
+          String.raw`$$3x-2(8-2x)=5$$`,
+          String.raw`$$\text{বা, }3x-16+4x=5$$`,
+          String.raw`$$\text{বা, }7x=21$$`,
+          String.raw`$$\therefore\; x=3$$`,
+          String.raw`$x$ এর মান সমীকরণ $(3)$ এ বসিয়ে পাই, $$y=8-2\times 3=2$$`,
+          String.raw`$$\therefore\;(x,y)=(3,2)$$`,
+        ],
+        answer: String.raw`$(x,y)=(3,2)$`,
+      },
+    },
+    // উদাহরণ ৩ — book page ২৩০.
+    {
+      id: 3,
+      question: String.raw`অপনয়ন পদ্ধতিতে সমাধান করো: $$\begin{aligned}2x+y&=8\\ 3x-2y&=5\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$2x+y=8\qquad\cdots(1)$$`,
+          String.raw`$$3x-2y=5\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ এর উভয়পক্ষকে $2$ দ্বারা গুণ করে পাই,`,
+          String.raw`$$4x+2y=16\qquad\cdots(3)$$`,
+          String.raw`সমীকরণ $(2)$ ও $(3)$ যোগ করে পাই,`,
+          String.raw`$$7x=21$$`,
+          String.raw`$$\therefore\; x=3$$`,
+          String.raw`$x$ এর মান সমীকরণ $(1)$ এ বসিয়ে পাই,`,
+          String.raw`$$2\times 3+y=8$$`,
+          String.raw`$$\therefore\; y=2$$`,
+          String.raw`$$\therefore\;(x,y)=(3,2)$$`,
+        ],
+        answer: String.raw`$(x,y)=(3,2)$`,
+      },
+    },
+    // উদাহরণ ৪ — book pages ২৩২-২৩৩.
+    {
+      id: 4,
+      question: String.raw`আড়গুণন পদ্ধতিতে সমাধান করো: $$\begin{aligned}6x-y&=1\\ 3x+2y&=13\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`পক্ষান্তর প্রক্রিয়ায় প্রদত্ত সমীকরণদ্বয়ের ডানপক্ষ $0$ করে পাই,`,
+          String.raw`$$6x-y-1=0$$`,
+          String.raw`$$3x+2y-13=0$$`,
+          String.raw`$a_{1}x+b_{1}y+c_{1}=0$ ও $a_{2}x+b_{2}y+c_{2}=0$ এর সাথে তুলনা করে পাই,`,
+          String.raw`$$a_{1}=6,\;b_{1}=-1,\;c_{1}=-1$$`,
+          String.raw`$$a_{2}=3,\;b_{2}=2,\;c_{2}=-13$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{b_{1}c_{2}-b_{2}c_{1}}=\frac{y}{c_{1}a_{2}-c_{2}a_{1}}=\frac{1}{a_{1}b_{2}-a_{2}b_{1}}$$`,
+          String.raw`$$\text{বা, }\frac{x}{(-1)\times(-13)-2\times(-1)}=\frac{y}{(-1)\times 3-(-13)\times 6}=\frac{1}{6\times 2-3\times(-1)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{13+2}=\frac{y}{-3+78}=\frac{1}{12+3}$$`,
+          String.raw`$$\text{বা, }\frac{x}{15}=\frac{y}{75}=\frac{1}{15}$$`,
+          String.raw`সুতরাং $$\frac{x}{15}=\frac{1}{15},\;\text{ বা, }x=1$$`,
+          String.raw`আবার $$\frac{y}{75}=\frac{1}{15},\;\text{ বা, }y=5$$`,
+          String.raw`$$\therefore\;(x,y)=(1,5)$$`,
+        ],
+        answer: String.raw`$(x,y)=(1,5)$`,
+      },
+    },
+    // উদাহরণ ৫ — book pages ২৩৩-২৩৪.
+    {
+      id: 5,
+      question: String.raw`আড়গুণন পদ্ধতিতে সমাধান করো: $$\begin{aligned}3x-4y&=0\\ 2x-3y&=-1\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়কে সাজিয়ে পাই,`,
+          String.raw`$$3x-4y+0=0$$`,
+          String.raw`$$2x-3y+1=0$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{-4\times 1-(-3)\times 0}=\frac{y}{0\times 2-1\times 3}=\frac{1}{3\times(-3)-2\times(-4)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-4+0}=\frac{y}{0-3}=\frac{1}{-9+8}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-4}=\frac{y}{-3}=\frac{1}{-1}$$`,
+          String.raw`$$\text{বা, }\frac{x}{4}=\frac{y}{3}=\frac{1}{1}$$`,
+          String.raw`সুতরাং $x=4$ এবং $y=3$।`,
+          String.raw`$$\therefore\;(x,y)=(4,3)$$`,
+        ],
+        answer: String.raw`$(x,y)=(4,3)$`,
+      },
+    },
+    // উদাহরণ ৬ — book pages ২৩৪-২৩৫.
+    {
+      id: 6,
+      question: String.raw`আড়গুণন পদ্ধতিতে সমাধান করো: $$\begin{aligned}\frac{x}{2}+\frac{y}{3}&=8\\ \frac{5x}{4}-3y&=-3\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়কে $ax+by+c=0$ আকারে সাজিয়ে পাই,`,
+          String.raw`$$\frac{x}{2}+\frac{y}{3}=8,\;\text{ বা, }\frac{3x+2y}{6}=8,\;\text{ বা, }3x+2y-48=0$$`,
+          String.raw`$$\frac{5x}{4}-3y=-3,\;\text{ বা, }\frac{5x-12y}{4}=-3,\;\text{ বা, }5x-12y+12=0$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{2\times 12-(-12)\times(-48)}=\frac{y}{(-48)\times 5-12\times 3}=\frac{1}{3\times(-12)-5\times 2}$$`,
+          String.raw`$$\text{বা, }\frac{x}{24-576}=\frac{y}{-240-36}=\frac{1}{-36-10}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-552}=\frac{y}{-276}=\frac{1}{-46}$$`,
+          String.raw`$$\text{বা, }\frac{x}{552}=\frac{y}{276}=\frac{1}{46}$$`,
+          String.raw`সুতরাং $$x=\frac{552}{46}=12,\qquad y=\frac{276}{46}=6$$`,
+          String.raw`শুদ্ধি পরীক্ষা: ১ম সমীকরণে বামপক্ষ $$=\frac{12}{2}+\frac{6}{3}=6+2=8=\text{ডানপক্ষ}$$`,
+          String.raw`২য় সমীকরণে বামপক্ষ $$=\frac{5\times 12}{4}-3\times 6=15-18=-3=\text{ডানপক্ষ}$$`,
+          String.raw`$$\therefore\;(x,y)=(12,6)$$`,
+        ],
+        answer: String.raw`$(x,y)=(12,6)$`,
+      },
+    },
+    // উদাহরণ ৭ — book page ২৩৫.
+    {
+      id: 7,
+      question: String.raw`আড়গুণন পদ্ধতিতে সমাধান করো: $$ax-by=ab=bx-ay$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়কে সাজিয়ে পাই,`,
+          String.raw`$$ax-by-ab=0$$`,
+          String.raw`$$bx-ay-ab=0$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{(-b)\times(-ab)-(-a)\times(-ab)}=\frac{y}{(-ab)\times b-(-ab)\times a}=\frac{1}{a\times(-a)-b\times(-b)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{ab^{2}-a^{2}b}=\frac{y}{-ab^{2}+a^{2}b}=\frac{1}{-a^{2}+b^{2}}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-ab(a-b)}=\frac{y}{ab(a-b)}=\frac{1}{-(a+b)(a-b)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{ab(a-b)}=\frac{y}{-ab(a-b)}=\frac{1}{(a+b)(a-b)}$$`,
+          String.raw`সুতরাং $$x=\frac{ab(a-b)}{(a+b)(a-b)}=\frac{ab}{a+b}$$`,
+          String.raw`আবার $$y=\frac{-ab(a-b)}{(a+b)(a-b)}=\frac{-ab}{a+b}$$`,
+          String.raw`$$\therefore\;(x,y)=\left(\frac{ab}{a+b},\;\frac{-ab}{a+b}\right)$$`,
+        ],
+        answer: String.raw`$(x,y)=\left(\dfrac{ab}{a+b},\;-\dfrac{ab}{a+b}\right)$`,
+      },
+    },
+  ],
+  problems: [
+    // ─────────────── প্রতিস্থাপন পদ্ধতি (1 – 3) ───────────────
+    {
+      id: 1,
+      group: EQ_SUBST,
+      question: String.raw`$$\begin{aligned}7x-3y&=31\\ 9x-5y&=41\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$7x-3y=31\qquad\cdots(1)$$`,
+          String.raw`$$9x-5y=41\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ হতে পাই, $$3y=7x-31,\;\text{ বা, }y=\frac{7x-31}{3}\qquad\cdots(3)$$`,
+          String.raw`সমীকরণ $(2)$ এ $y$ এর মান বসিয়ে পাই,`,
+          String.raw`$$9x-5\cdot\frac{7x-31}{3}=41$$`,
+          String.raw`$$\text{বা, }27x-5(7x-31)=123\qquad\left[\,\text{উভয়পক্ষকে }3\ \text{দ্বারা গুণ করে}\,\right]$$`,
+          String.raw`$$\text{বা, }27x-35x+155=123$$`,
+          String.raw`$$\text{বা, }-8x=-32$$`,
+          String.raw`$$\therefore\; x=4$$`,
+          String.raw`$x$ এর মান সমীকরণ $(3)$ এ বসিয়ে পাই,`,
+          String.raw`$$y=\frac{7\times 4-31}{3}=\frac{28-31}{3}=\frac{-3}{3}=-1$$`,
+          String.raw`$$\therefore\;(x,y)=(4,-1)$$`,
+        ],
+        answer: String.raw`$(x,y)=(4,-1)$`,
+      },
+    },
+    {
+      id: 2,
+      group: EQ_SUBST,
+      question: String.raw`$$\begin{aligned}\frac{x}{2}+\frac{y}{3}&=1\\ \frac{x}{3}+\frac{y}{2}&=1\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`হর সরিয়ে প্রদত্ত সমীকরণদ্বয়কে সাজিয়ে পাই,`,
+          String.raw`$$3x+2y=6\qquad\cdots(1)$$`,
+          String.raw`$$2x+3y=6\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ হতে পাই, $$x=\frac{6-2y}{3}\qquad\cdots(3)$$`,
+          String.raw`সমীকরণ $(2)$ এ $x$ এর মান বসিয়ে পাই,`,
+          String.raw`$$2\cdot\frac{6-2y}{3}+3y=6$$`,
+          String.raw`$$\text{বা, }2(6-2y)+9y=18$$`,
+          String.raw`$$\text{বা, }12-4y+9y=18$$`,
+          String.raw`$$\text{বা, }5y=6$$`,
+          String.raw`$$\therefore\; y=\frac{6}{5}$$`,
+          String.raw`$y$ এর মান সমীকরণ $(3)$ এ বসিয়ে পাই,`,
+          String.raw`$$x=\frac{6-2\times\frac{6}{5}}{3}=\frac{6-\frac{12}{5}}{3}=\frac{\frac{18}{5}}{3}=\frac{6}{5}$$`,
+          String.raw`$$\therefore\;(x,y)=\left(\frac{6}{5},\;\frac{6}{5}\right)$$`,
+        ],
+        answer: String.raw`$(x,y)=\left(\dfrac{6}{5},\;\dfrac{6}{5}\right)$`,
+      },
+    },
+    {
+      id: 3,
+      group: EQ_SUBST,
+      question: String.raw`$$\begin{aligned}\frac{x}{a}+\frac{y}{b}&=2\\ ax+by&=a^{2}+b^{2}\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$\frac{x}{a}+\frac{y}{b}=2\qquad\cdots(1)$$`,
+          String.raw`$$ax+by=a^{2}+b^{2}\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ হতে পাই, $$\frac{x}{a}=2-\frac{y}{b},\;\text{ বা, }x=2a-\frac{ay}{b}\qquad\cdots(3)$$`,
+          String.raw`সমীকরণ $(2)$ এ $x$ এর মান বসিয়ে পাই,`,
+          String.raw`$$a\left(2a-\frac{ay}{b}\right)+by=a^{2}+b^{2}$$`,
+          String.raw`$$\text{বা, }2a^{2}-\frac{a^{2}y}{b}+by=a^{2}+b^{2}$$`,
+          String.raw`$$\text{বা, }2a^{2}b-a^{2}y+b^{2}y=a^{2}b+b^{3}\qquad\left[\,\text{উভয়পক্ষকে }b\ \text{দ্বারা গুণ করে}\,\right]$$`,
+          String.raw`$$\text{বা, }y\left(b^{2}-a^{2}\right)=b^{3}-a^{2}b=b\left(b^{2}-a^{2}\right)$$`,
+          String.raw`$$\therefore\; y=b\qquad\left[\,b^{2}-a^{2}\neq 0\ \text{ধরে উভয়পক্ষকে তা দিয়ে ভাগ করে}\,\right]$$`,
+          String.raw`$y$ এর মান সমীকরণ $(3)$ এ বসিয়ে পাই,`,
+          String.raw`$$x=2a-\frac{ab}{b}=2a-a=a$$`,
+          String.raw`$$\therefore\;(x,y)=(a,b)$$`,
+        ],
+        answer: String.raw`$(x,y)=(a,b)$`,
+      },
+    },
+
+    // ─────────────── অপনয়ন পদ্ধতি (4 – 6) ───────────────
+    {
+      id: 4,
+      group: EQ_ELIM,
+      question: String.raw`$$\begin{aligned}7x-3y&=31\\ 9x-5y&=41\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$7x-3y=31\qquad\cdots(1)$$`,
+          String.raw`$$9x-5y=41\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ কে $5$ দ্বারা ও সমীকরণ $(2)$ কে $3$ দ্বারা গুণ করে পাই,`,
+          String.raw`$$35x-15y=155\qquad\cdots(3)$$`,
+          String.raw`$$27x-15y=123\qquad\cdots(4)$$`,
+          String.raw`সমীকরণ $(3)$ থেকে $(4)$ বিয়োগ করে পাই,`,
+          String.raw`$$8x=32$$`,
+          String.raw`$$\therefore\; x=4$$`,
+          String.raw`$x$ এর মান সমীকরণ $(1)$ এ বসিয়ে পাই,`,
+          String.raw`$$7\times 4-3y=31$$`,
+          String.raw`$$\text{বা, }-3y=31-28$$`,
+          String.raw`$$\text{বা, }-3y=3$$`,
+          String.raw`$$\therefore\; y=-1$$`,
+          String.raw`$$\therefore\;(x,y)=(4,-1)$$`,
+        ],
+        answer: String.raw`$(x,y)=(4,-1)$`,
+      },
+    },
+    {
+      id: 5,
+      group: EQ_ELIM,
+      question: String.raw`$$\begin{aligned}7x-8y&=-9\\ 5x-4y&=-3\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$7x-8y=-9\qquad\cdots(1)$$`,
+          String.raw`$$5x-4y=-3\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(2)$ এর উভয়পক্ষকে $2$ দ্বারা গুণ করে পাই,`,
+          String.raw`$$10x-8y=-6\qquad\cdots(3)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে $(3)$ বিয়োগ করে পাই,`,
+          String.raw`$$-3x=-3$$`,
+          String.raw`$$\therefore\; x=1$$`,
+          String.raw`$x$ এর মান সমীকরণ $(2)$ এ বসিয়ে পাই,`,
+          String.raw`$$5\times 1-4y=-3$$`,
+          String.raw`$$\text{বা, }-4y=-8$$`,
+          String.raw`$$\therefore\; y=2$$`,
+          String.raw`$$\therefore\;(x,y)=(1,2)$$`,
+        ],
+        answer: String.raw`$(x,y)=(1,2)$`,
+      },
+    },
+    {
+      id: 6,
+      group: EQ_ELIM,
+      question: String.raw`$$\begin{aligned}ax+by&=c\\ a^{2}x+b^{2}y&=c^{2}\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$ax+by=c\qquad\cdots(1)$$`,
+          String.raw`$$a^{2}x+b^{2}y=c^{2}\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ এর উভয়পক্ষকে $b$ দ্বারা গুণ করে পাই,`,
+          String.raw`$$abx+b^{2}y=bc\qquad\cdots(3)$$`,
+          String.raw`সমীকরণ $(2)$ থেকে $(3)$ বিয়োগ করে পাই,`,
+          String.raw`$$a^{2}x-abx=c^{2}-bc$$`,
+          String.raw`$$\text{বা, }ax(a-b)=c(c-b)$$`,
+          String.raw`$$\therefore\; x=\frac{c(c-b)}{a(a-b)}$$`,
+          String.raw`আবার, সমীকরণ $(1)$ এর উভয়পক্ষকে $a$ দ্বারা গুণ করে পাই,`,
+          String.raw`$$a^{2}x+aby=ac\qquad\cdots(4)$$`,
+          String.raw`সমীকরণ $(4)$ থেকে $(2)$ বিয়োগ করে পাই,`,
+          String.raw`$$aby-b^{2}y=ac-c^{2}$$`,
+          String.raw`$$\text{বা, }by(a-b)=c(a-c)$$`,
+          String.raw`$$\therefore\; y=\frac{c(a-c)}{b(a-b)}$$`,
+          String.raw`$$\therefore\;(x,y)=\left(\frac{c(c-b)}{a(a-b)},\;\frac{c(a-c)}{b(a-b)}\right)\qquad\left[\,a\neq 0,\;b\neq 0,\;a\neq b\,\right]$$`,
+        ],
+        answer: String.raw`$(x,y)=\left(\dfrac{c(c-b)}{a(a-b)},\;\dfrac{c(a-c)}{b(a-b)}\right)$`,
+      },
+    },
+
+    // ─────────────── আড়গুণন পদ্ধতি (7 – 15) ───────────────
+    {
+      id: 7,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}2x+3y+5&=0\\ 4x+7y+6&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`সমীকরণদ্বয় ইতোমধ্যেই $a_{1}x+b_{1}y+c_{1}=0$ ও $a_{2}x+b_{2}y+c_{2}=0$ আকারে আছে। তুলনা করে পাই,`,
+          String.raw`$$a_{1}=2,\;b_{1}=3,\;c_{1}=5;\qquad a_{2}=4,\;b_{2}=7,\;c_{2}=6$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{3\times 6-7\times 5}=\frac{y}{5\times 4-6\times 2}=\frac{1}{2\times 7-4\times 3}$$`,
+          String.raw`$$\text{বা, }\frac{x}{18-35}=\frac{y}{20-12}=\frac{1}{14-12}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-17}=\frac{y}{8}=\frac{1}{2}$$`,
+          String.raw`সুতরাং $$x=-\frac{17}{2},\qquad y=\frac{8}{2}=4$$`,
+          String.raw`$$\therefore\;(x,y)=\left(-\frac{17}{2},\;4\right)$$`,
+        ],
+        answer: String.raw`$(x,y)=\left(-\dfrac{17}{2},\;4\right)$`,
+      },
+    },
+    {
+      id: 8,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}3x-5y+9&=0\\ 5x-3y-1&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`তুলনা করে পাই,`,
+          String.raw`$$a_{1}=3,\;b_{1}=-5,\;c_{1}=9;\qquad a_{2}=5,\;b_{2}=-3,\;c_{2}=-1$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{(-5)\times(-1)-(-3)\times 9}=\frac{y}{9\times 5-(-1)\times 3}=\frac{1}{3\times(-3)-5\times(-5)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{5+27}=\frac{y}{45+3}=\frac{1}{-9+25}$$`,
+          String.raw`$$\text{বা, }\frac{x}{32}=\frac{y}{48}=\frac{1}{16}$$`,
+          String.raw`সুতরাং $$x=\frac{32}{16}=2,\qquad y=\frac{48}{16}=3$$`,
+          String.raw`$$\therefore\;(x,y)=(2,3)$$`,
+        ],
+        answer: String.raw`$(x,y)=(2,3)$`,
+      },
+    },
+    {
+      id: 9,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}x+2y&=7\\ 2x-3y&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`পক্ষান্তর প্রক্রিয়ায় ডানপক্ষ $0$ করে পাই,`,
+          String.raw`$$x+2y-7=0$$`,
+          String.raw`$$2x-3y+0=0$$`,
+          String.raw`তুলনা করে পাই,`,
+          String.raw`$$a_{1}=1,\;b_{1}=2,\;c_{1}=-7;\qquad a_{2}=2,\;b_{2}=-3,\;c_{2}=0$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{2\times 0-(-3)\times(-7)}=\frac{y}{(-7)\times 2-0\times 1}=\frac{1}{1\times(-3)-2\times 2}$$`,
+          String.raw`$$\text{বা, }\frac{x}{0-21}=\frac{y}{-14-0}=\frac{1}{-3-4}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-21}=\frac{y}{-14}=\frac{1}{-7}$$`,
+          String.raw`$$\text{বা, }\frac{x}{21}=\frac{y}{14}=\frac{1}{7}$$`,
+          String.raw`সুতরাং $$x=\frac{21}{7}=3,\qquad y=\frac{14}{7}=2$$`,
+          String.raw`$$\therefore\;(x,y)=(3,2)$$`,
+        ],
+        answer: String.raw`$(x,y)=(3,2)$`,
+      },
+    },
+    {
+      id: 10,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}4x+3y&=-12\\ 2x&=5\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`পক্ষান্তর প্রক্রিয়ায় ডানপক্ষ $0$ করে পাই,`,
+          String.raw`$$4x+3y+12=0$$`,
+          String.raw`$$2x+0\cdot y-5=0$$`,
+          String.raw`তুলনা করে পাই,`,
+          String.raw`$$a_{1}=4,\;b_{1}=3,\;c_{1}=12;\qquad a_{2}=2,\;b_{2}=0,\;c_{2}=-5$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{3\times(-5)-0\times 12}=\frac{y}{12\times 2-(-5)\times 4}=\frac{1}{4\times 0-2\times 3}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-15-0}=\frac{y}{24+20}=\frac{1}{0-6}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-15}=\frac{y}{44}=\frac{1}{-6}$$`,
+          String.raw`সুতরাং $$x=\frac{-15}{-6}=\frac{5}{2},\qquad y=\frac{44}{-6}=-\frac{22}{3}$$`,
+          String.raw`$$\therefore\;(x,y)=\left(\frac{5}{2},\;-\frac{22}{3}\right)$$`,
+        ],
+        answer: String.raw`$(x,y)=\left(\dfrac{5}{2},\;-\dfrac{22}{3}\right)$`,
+      },
+    },
+    {
+      id: 11,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}-7x+8y&=9\\ 5x-4y&=-3\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`পক্ষান্তর প্রক্রিয়ায় ডানপক্ষ $0$ করে পাই,`,
+          String.raw`$$-7x+8y-9=0$$`,
+          String.raw`$$5x-4y+3=0$$`,
+          String.raw`তুলনা করে পাই,`,
+          String.raw`$$a_{1}=-7,\;b_{1}=8,\;c_{1}=-9;\qquad a_{2}=5,\;b_{2}=-4,\;c_{2}=3$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{8\times 3-(-4)\times(-9)}=\frac{y}{(-9)\times 5-3\times(-7)}=\frac{1}{(-7)\times(-4)-5\times 8}$$`,
+          String.raw`$$\text{বা, }\frac{x}{24-36}=\frac{y}{-45+21}=\frac{1}{28-40}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-12}=\frac{y}{-24}=\frac{1}{-12}$$`,
+          String.raw`$$\text{বা, }\frac{x}{12}=\frac{y}{24}=\frac{1}{12}$$`,
+          String.raw`সুতরাং $$x=\frac{12}{12}=1,\qquad y=\frac{24}{12}=2$$`,
+          String.raw`$$\therefore\;(x,y)=(1,2)$$`,
+        ],
+        answer: String.raw`$(x,y)=(1,2)$`,
+      },
+    },
+    {
+      id: 12,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}3x-y-7&=0\\ 2x+y-3&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`তুলনা করে পাই,`,
+          String.raw`$$a_{1}=3,\;b_{1}=-1,\;c_{1}=-7;\qquad a_{2}=2,\;b_{2}=1,\;c_{2}=-3$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{(-1)\times(-3)-1\times(-7)}=\frac{y}{(-7)\times 2-(-3)\times 3}=\frac{1}{3\times 1-2\times(-1)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{3+7}=\frac{y}{-14+9}=\frac{1}{3+2}$$`,
+          String.raw`$$\text{বা, }\frac{x}{10}=\frac{y}{-5}=\frac{1}{5}$$`,
+          String.raw`সুতরাং $$x=\frac{10}{5}=2,\qquad y=\frac{-5}{5}=-1$$`,
+          String.raw`$$\therefore\;(x,y)=(2,-1)$$`,
+        ],
+        answer: String.raw`$(x,y)=(2,-1)$`,
+      },
+    },
+    {
+      id: 13,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}ax+by&=a^{2}+b^{2}\\ 2bx-ay&=ab\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`পক্ষান্তর প্রক্রিয়ায় ডানপক্ষ $0$ করে পাই,`,
+          String.raw`$$ax+by-\left(a^{2}+b^{2}\right)=0$$`,
+          String.raw`$$2bx-ay-ab=0$$`,
+          String.raw`তুলনা করে পাই,`,
+          String.raw`$$a_{1}=a,\;b_{1}=b,\;c_{1}=-\left(a^{2}+b^{2}\right);\qquad a_{2}=2b,\;b_{2}=-a,\;c_{2}=-ab$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{b\times(-ab)-(-a)\times\left\{-\left(a^{2}+b^{2}\right)\right\}}=\frac{y}{-\left(a^{2}+b^{2}\right)\times 2b-(-ab)\times a}=\frac{1}{a\times(-a)-2b\times b}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-ab^{2}-a^{3}-ab^{2}}=\frac{y}{-2a^{2}b-2b^{3}+a^{2}b}=\frac{1}{-a^{2}-2b^{2}}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-a\left(a^{2}+2b^{2}\right)}=\frac{y}{-b\left(a^{2}+2b^{2}\right)}=\frac{1}{-\left(a^{2}+2b^{2}\right)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{a\left(a^{2}+2b^{2}\right)}=\frac{y}{b\left(a^{2}+2b^{2}\right)}=\frac{1}{a^{2}+2b^{2}}$$`,
+          String.raw`সুতরাং $$x=\frac{a\left(a^{2}+2b^{2}\right)}{a^{2}+2b^{2}}=a,\qquad y=\frac{b\left(a^{2}+2b^{2}\right)}{a^{2}+2b^{2}}=b$$`,
+          String.raw`$$\therefore\;(x,y)=(a,b)$$`,
+        ],
+        answer: String.raw`$(x,y)=(a,b)$`,
+      },
+    },
+    {
+      id: 14,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}y(3+x)&=x(6+y)\\ 3(3+x)&=5(y-1)\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`১ম সমীকরণটি সরল করে পাই,`,
+          String.raw`$$3y+xy=6x+xy$$`,
+          String.raw`$$\text{বা, }3y=6x\qquad\left[\,xy\ \text{উভয়পক্ষ থেকে কাটা গেল}\,\right]$$`,
+          String.raw`$$\text{বা, }2x-y=0$$`,
+          String.raw`২য় সমীকরণটি সরল করে পাই,`,
+          String.raw`$$9+3x=5y-5$$`,
+          String.raw`$$\text{বা, }3x-5y+14=0$$`,
+          String.raw`সুতরাং সমীকরণদ্বয়`,
+          String.raw`$$2x-y+0=0$$`,
+          String.raw`$$3x-5y+14=0$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{(-1)\times 14-(-5)\times 0}=\frac{y}{0\times 3-14\times 2}=\frac{1}{2\times(-5)-3\times(-1)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-14-0}=\frac{y}{0-28}=\frac{1}{-10+3}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-14}=\frac{y}{-28}=\frac{1}{-7}$$`,
+          String.raw`সুতরাং $$x=\frac{-14}{-7}=2,\qquad y=\frac{-28}{-7}=4$$`,
+          String.raw`$$\therefore\;(x,y)=(2,4)$$`,
+        ],
+        answer: String.raw`$(x,y)=(2,4)$`,
+      },
+    },
+    {
+      id: 15,
+      group: EQ_CROSS,
+      question: String.raw`$$\begin{aligned}(x+2)(y-3)&=y(x-1)\\ 5x-11y-8&=0\end{aligned}$$`,
+      solution: {
+        steps: [
+          String.raw`১ম সমীকরণটি সরল করে পাই,`,
+          String.raw`$$xy-3x+2y-6=xy-y$$`,
+          String.raw`$$\text{বা, }-3x+2y-6+y=0\qquad\left[\,xy\ \text{উভয়পক্ষ থেকে কাটা গেল}\,\right]$$`,
+          String.raw`$$\text{বা, }-3x+3y-6=0$$`,
+          String.raw`$$\text{বা, }x-y+2=0\qquad\left[\,\text{উভয়পক্ষকে }-3\ \text{দ্বারা ভাগ করে}\,\right]$$`,
+          String.raw`সুতরাং সমীকরণদ্বয়`,
+          String.raw`$$x-y+2=0$$`,
+          String.raw`$$5x-11y-8=0$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{(-1)\times(-8)-(-11)\times 2}=\frac{y}{2\times 5-(-8)\times 1}=\frac{1}{1\times(-11)-5\times(-1)}$$`,
+          String.raw`$$\text{বা, }\frac{x}{8+22}=\frac{y}{10+8}=\frac{1}{-11+5}$$`,
+          String.raw`$$\text{বা, }\frac{x}{30}=\frac{y}{18}=\frac{1}{-6}$$`,
+          String.raw`সুতরাং $$x=\frac{30}{-6}=-5,\qquad y=\frac{18}{-6}=-3$$`,
+          String.raw`$$\therefore\;(x,y)=(-5,-3)$$`,
+        ],
+        answer: String.raw`$(x,y)=(-5,-3)$`,
+      },
+    },
+  ],
+};
+
+// অনুশীলনী ১২.৩ — book page ২৪২. প্রতিটি প্রশ্নেরই একই নির্দেশনা, তাই একটিই
+// শিরোনাম। প্রতিটি সমাধানের সঙ্গে ছক কাগজের ছবি আছে, আর ছবির বিন্দুগুলো
+// সমাধানের ছক থেকেই নেওয়া।
+const EQ_GRAPH = "লেখচিত্রের সাহায্যে সমাধান করো (১ – ১০)";
+
+const exercise123: Exercise = {
+  id: "12.3",
+  bnId: "অনুশীলনী ১২.৩",
+  title: "লেখিক পদ্ধতি",
+  bookPages: "২৪২",
+  formulas: [
+    {
+      title: "লেখ আঁকার নিয়ম",
+      formulas: [
+        {
+          statement: String.raw`$$2x+y=3\;\Rightarrow\;y=3-2x$$`,
+          note: "প্রথমে সমীকরণটি থেকে একটি চলককে অপরটির মাধ্যমে প্রকাশ করতে হয়, তবেই সুবিধামত কয়েকটি মান বসিয়ে ছক তৈরি করা যায়।",
+        },
+        {
+          statement: String.raw`[[table side]]
+$x$ | $-1$ | $0$ | $3$
+$y$ | $5$ | $3$ | $-3$`,
+          note: "দুই চলকের একটি সরল সমীকরণের লেখ সরলরেখা, আর সরলরেখা নির্দিষ্ট করতে দুইটি বিন্দুই যথেষ্ট; তবু তিনটি নিলে একটি ভুল হিসাব সঙ্গে সঙ্গে ধরা পড়ে।",
+        },
+        {
+          statement: String.raw`$$XOX'\perp YOY',\qquad O=(0,0)$$`,
+          note: "ছক কাগজে পরস্পর লম্ব দুইটি রেখাকে x-অক্ষ ও y-অক্ষ এবং এদের ছেদবিন্দুকে মূলবিন্দু ধরা হয়; ক্ষুদ্রতম বর্গক্ষেত্রের এক বাহুর দৈর্ঘ্যকে সাধারণত একক ধরা হয়।",
+        },
+      ],
+    },
+    {
+      title: "লেখ দেখে সমাধান",
+      formulas: [
+        {
+          statement: String.raw`দুই লেখ এক বিন্দুতে ছেদ করে $\;\Rightarrow\;$ ছেদবিন্দুর স্থানাঙ্কই সমাধান`,
+          note: "সমঞ্জস্য ও পরস্পর অনির্ভরশীল সমীকরণজোটের চেহারা। ছেদবিন্দুর স্থানাঙ্ক উভয় সমীকরণকেই সিদ্ধ করে, তাই সেটিই অনন্য সমাধান।",
+        },
+        {
+          statement: String.raw`দুই লেখ সমাপতিত $\;\Rightarrow\;$ অসংখ্য সমাধান`,
+          note: "সমঞ্জস্য ও পরস্পর নির্ভরশীল জোট — একটির উপর আরেকটি বসে গিয়ে একটিই সরলরেখা হয়ে যায়, আর ঐ রেখার প্রতিটি বিন্দুই একেকটি সমাধান।",
+        },
+        {
+          statement: String.raw`দুই লেখ সমান্তরাল $\;\Rightarrow\;$ কোনো সমাধান নেই`,
+          note: "অসমঞ্জস্য ও পরস্পর অনির্ভরশীল জোট — রেখা দুইটি কখনো মিলবে না, তাই সাধারণ ছেদবিন্দুও নেই।",
+        },
+        {
+          statement: String.raw`$$3-\frac{3}{2}x=8-4x\;\Rightarrow\;y=3-\frac{3}{2}x,\;\;y=8-4x$$`,
+          note: "এক চলকবিশিষ্ট সমীকরণও লেখে সমাধান করা যায় — দুই পক্ষকে আলাদাভাবে y ধরলে দুইটি সরলরেখা মেলে, আর ছেদবিন্দুর ভুজই নির্ণেয় মান।",
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ৮ — book pages ২৩৮-২৩৯.
+    {
+      id: 8,
+      question: String.raw`সমাধান করো ও সমাধান লেখচিত্রে দেখাও: $$\begin{aligned}2x+y&=8\\ 3x-2y&=5\end{aligned}$$`,
+      figure: "12-ex8",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$2x+y-8=0\qquad\cdots(1)$$`,
+          String.raw`$$3x-2y-5=0\qquad\cdots(2)$$`,
+          String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+          String.raw`$$\frac{x}{1\times(-5)-(-2)\times(-8)}=\frac{y}{(-8)\times 3-(-5)\times 2}=\frac{1}{2\times(-2)-3\times 1}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-5-16}=\frac{y}{-24+10}=\frac{1}{-4-3}$$`,
+          String.raw`$$\text{বা, }\frac{x}{-21}=\frac{y}{-14}=\frac{1}{-7}$$`,
+          String.raw`$$\text{বা, }\frac{x}{21}=\frac{y}{14}=\frac{1}{7}$$`,
+          String.raw`সুতরাং $$x=\frac{21}{7}=3,\qquad y=\frac{14}{7}=2$$`,
+          String.raw`মনে করি, ছক কাগজে $XOX'$ ও $YOY'$ যথাক্রমে $x$-অক্ষ ও $y$-অক্ষ এবং $O$ মূলবিন্দু। উভয় অক্ষ বরাবর ক্ষুদ্রতম বর্গের প্রতি দুই বাহুর দৈর্ঘ্যকে একক ধরে $(3,2)$ বিন্দুটি স্থাপন করি।`,
+          String.raw`$$\therefore\;(x,y)=(3,2)$$`,
+        ],
+        answer: String.raw`$(x,y)=(3,2)$`,
+      },
+    },
+    // উদাহরণ ৯ — book pages ২৩৯-২৪০.
+    {
+      id: 9,
+      question: String.raw`লেখচিত্রের সাহায্যে সমাধান করো: $$\begin{aligned}3x-y&=3\\ 5x+y&=21\end{aligned}$$`,
+      figure: "12-ex9",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$3x-y=3\qquad\cdots(1)$$`,
+          String.raw`$$5x+y=21\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$y=3x-3$$`,
+          String.raw`[[table side]]
+$x$ | $-1$ | $0$ | $3$
+$y$ | $-6$ | $-3$ | $6$`,
+          String.raw`$\therefore$ সমীকরণটির লেখের উপর তিনটি বিন্দু $(-1,-6),\;(0,-3),\;(3,6)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$y=21-5x$$`,
+          String.raw`[[table side]]
+$x$ | $3$ | $4$ | $5$
+$y$ | $6$ | $1$ | $-4$`,
+          String.raw`$\therefore$ সমীকরণটির লেখের উপর তিনটি বিন্দু $(3,6),\;(4,1),\;(5,-4)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে যথাক্রমে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়।`,
+          String.raw`মনে করি, সরলরেখাদ্বয় পরস্পর $P$ বিন্দুতে ছেদ করেছে। চিত্র থেকে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(3,6)$।`,
+          String.raw`$$\therefore\;(x,y)=(3,6)$$`,
+        ],
+        answer: String.raw`$(x,y)=(3,6)$`,
+      },
+    },
+    // উদাহরণ ১০ — book pages ২৪০-২৪১.
+    {
+      id: 10,
+      question: String.raw`লৈখিক পদ্ধতিতে সমাধান করো: $$\begin{aligned}2x+5y&=-14\\ 4x-5y&=17\end{aligned}$$`,
+      figure: "12-ex10",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$2x+5y=-14\qquad\cdots(1)$$`,
+          String.raw`$$4x-5y=17\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$5y=-14-2x,\;\text{ বা, }y=\frac{-2x-14}{5}$$`,
+          String.raw`[[table side]]
+$x$ | $3$ | $\frac{1}{2}$ | $-2$
+$y$ | $-4$ | $-3$ | $-2$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(3,-4),\;\left(\frac{1}{2},-3\right),\;(-2,-2)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$5y=4x-17,\;\text{ বা, }y=\frac{4x-17}{5}$$`,
+          String.raw`[[table side]]
+$x$ | $3$ | $\frac{1}{2}$ | $-2$
+$y$ | $-1$ | $-3$ | $-5$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(3,-1),\;\left(\frac{1}{2},-3\right),\;(-2,-5)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $\left(\frac{1}{2},-3\right)$।`,
+          String.raw`$$\therefore\;(x,y)=\left(\frac{1}{2},\;-3\right)$$`,
+        ],
+        answer: String.raw`$(x,y)=\left(\dfrac{1}{2},\;-3\right)$`,
+      },
+    },
+    // উদাহরণ ১১ — book pages ২৪১-২৪২.
+    {
+      id: 11,
+      question: String.raw`লেখের সাহায্যে সমাধান করো: $$3-\frac{3}{2}x=8-4x$$`,
+      figure: "12-ex11",
+      solution: {
+        steps: [
+          String.raw`ধরি, $$y=3-\frac{3}{2}x=8-4x$$`,
+          String.raw`$$\therefore\; y=3-\frac{3}{2}x\qquad\cdots(1)$$`,
+          String.raw`$$\text{এবং}\;\; y=8-4x\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ এ $x$ এর কয়েকটি মান নিয়ে পাই,`,
+          String.raw`[[table side]]
+$x$ | $-2$ | $0$ | $2$
+$y$ | $6$ | $3$ | $0$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-2,6),\;(0,3),\;(2,0)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ এ $x$ এর কয়েকটি মান নিয়ে পাই,`,
+          String.raw`[[table side]]
+$x$ | $1$ | $2$ | $3$
+$y$ | $4$ | $0$ | $-4$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(1,4),\;(2,0),\;(3,-4)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ ছেদবিন্দুটির স্থানাঙ্ক $(2,0)$।`,
+          String.raw`$$\therefore\; x=2$$`,
+        ],
+        answer: String.raw`$x=2$`,
+      },
+    },
+  ],
+  problems: [
+    {
+      id: 1,
+      group: EQ_GRAPH,
+      question: String.raw`$$\begin{aligned}3x+4y&=14\\ 4x-3y&=2\end{aligned}$$`,
+      figure: "123-p1",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$3x+4y=14\qquad\cdots(1)$$`,
+          String.raw`$$4x-3y=2\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$4y=14-3x,\;\text{ বা, }y=\frac{14-3x}{4}$$`,
+          String.raw`[[table side]]
+$x$ | $-2$ | $2$ | $6$
+$y$ | $5$ | $2$ | $-1$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-2,5),\;(2,2),\;(6,-1)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$3y=4x-2,\;\text{ বা, }y=\frac{4x-2}{3}$$`,
+          String.raw`[[table side]]
+$x$ | $-1$ | $2$ | $5$
+$y$ | $-2$ | $2$ | $6$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-1,-2),\;(2,2),\;(5,6)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে যথাক্রমে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(2,2)$।`,
+          String.raw`$$\therefore\;(x,y)=(2,2)$$`,
+        ],
+        answer: String.raw`$(x,y)=(2,2)$`,
+      },
+    },
+    {
+      id: 2,
+      group: EQ_GRAPH,
+      question: String.raw`$$\begin{aligned}2x-y&=1\\ 5x+y&=13\end{aligned}$$`,
+      figure: "123-p2",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$2x-y=1\qquad\cdots(1)$$`,
+          String.raw`$$5x+y=13\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$y=2x-1$$`,
+          String.raw`[[table side]]
+$x$ | $0$ | $2$ | $3$
+$y$ | $-1$ | $3$ | $5$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(0,-1),\;(2,3),\;(3,5)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$y=13-5x$$`,
+          String.raw`[[table side]]
+$x$ | $1$ | $2$ | $3$
+$y$ | $8$ | $3$ | $-2$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(1,8),\;(2,3),\;(3,-2)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(2,3)$।`,
+          String.raw`$$\therefore\;(x,y)=(2,3)$$`,
+        ],
+        answer: String.raw`$(x,y)=(2,3)$`,
+      },
+    },
+    {
+      id: 3,
+      group: EQ_GRAPH,
+      question: String.raw`$$\begin{aligned}2x+5y&=1\\ x+3y&=2\end{aligned}$$`,
+      figure: "123-p3",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$2x+5y=1\qquad\cdots(1)$$`,
+          String.raw`$$x+3y=2\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$5y=1-2x,\;\text{ বা, }y=\frac{1-2x}{5}$$`,
+          String.raw`[[table side]]
+$x$ | $-7$ | $-2$ | $3$
+$y$ | $3$ | $1$ | $-1$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-7,3),\;(-2,1),\;(3,-1)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$3y=2-x,\;\text{ বা, }y=\frac{2-x}{3}$$`,
+          String.raw`[[table side]]
+$x$ | $-7$ | $-1$ | $2$
+$y$ | $3$ | $1$ | $0$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-7,3),\;(-1,1),\;(2,0)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(-7,3)$।`,
+          String.raw`$$\therefore\;(x,y)=(-7,3)$$`,
+        ],
+        answer: String.raw`$(x,y)=(-7,3)$`,
+      },
+    },
+    {
+      id: 4,
+      group: EQ_GRAPH,
+      question: String.raw`$$\begin{aligned}3x-2y&=2\\ 5x-3y&=5\end{aligned}$$`,
+      figure: "123-p4",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$3x-2y=2\qquad\cdots(1)$$`,
+          String.raw`$$5x-3y=5\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$2y=3x-2,\;\text{ বা, }y=\frac{3x-2}{2}$$`,
+          String.raw`[[table side]]
+$x$ | $0$ | $2$ | $4$
+$y$ | $-1$ | $2$ | $5$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(0,-1),\;(2,2),\;(4,5)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$3y=5x-5,\;\text{ বা, }y=\frac{5x-5}{3}$$`,
+          String.raw`[[table side]]
+$x$ | $-2$ | $1$ | $4$
+$y$ | $-5$ | $0$ | $5$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-2,-5),\;(1,0),\;(4,5)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(4,5)$।`,
+          String.raw`$$\therefore\;(x,y)=(4,5)$$`,
+        ],
+        answer: String.raw`$(x,y)=(4,5)$`,
+      },
+    },
+    {
+      id: 5,
+      group: EQ_GRAPH,
+      question: String.raw`$$\begin{aligned}\frac{x}{2}+\frac{y}{3}&=2\\ 2x+3y&=13\end{aligned}$$`,
+      figure: "123-p5",
+      solution: {
+        steps: [
+          String.raw`১ম সমীকরণের উভয়পক্ষকে $6$ দ্বারা গুণ করে পাই,`,
+          String.raw`$$3x+2y=12\qquad\cdots(1)$$`,
+          String.raw`$$2x+3y=13\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$2y=12-3x,\;\text{ বা, }y=\frac{12-3x}{2}$$`,
+          String.raw`[[table side]]
+$x$ | $0$ | $2$ | $4$
+$y$ | $6$ | $3$ | $0$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(0,6),\;(2,3),\;(4,0)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$3y=13-2x,\;\text{ বা, }y=\frac{13-2x}{3}$$`,
+          String.raw`[[table side]]
+$x$ | $-1$ | $2$ | $5$
+$y$ | $5$ | $3$ | $1$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-1,5),\;(2,3),\;(5,1)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(2,3)$।`,
+          String.raw`$$\therefore\;(x,y)=(2,3)$$`,
+        ],
+        answer: String.raw`$(x,y)=(2,3)$`,
+      },
+    },
+    {
+      id: 6,
+      group: EQ_GRAPH,
+      question: String.raw`$$\begin{aligned}3x+y&=6\\ 5x+3y&=12\end{aligned}$$`,
+      figure: "123-p6",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$3x+y=6\qquad\cdots(1)$$`,
+          String.raw`$$5x+3y=12\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$y=6-3x$$`,
+          String.raw`[[table side]]
+$x$ | $0$ | $1$ | $2$
+$y$ | $6$ | $3$ | $0$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(0,6),\;(1,3),\;(2,0)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$3y=12-5x,\;\text{ বা, }y=\frac{12-5x}{3}$$`,
+          String.raw`[[table side]]
+$x$ | $0$ | $\frac{3}{2}$ | $3$
+$y$ | $4$ | $\frac{3}{2}$ | $-1$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(0,4),\;\left(\frac{3}{2},\frac{3}{2}\right),\;(3,-1)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $\left(\frac{3}{2},\frac{3}{2}\right)$।`,
+          String.raw`$$\therefore\;(x,y)=\left(\frac{3}{2},\;\frac{3}{2}\right)$$`,
+        ],
+        answer: String.raw`$(x,y)=\left(\dfrac{3}{2},\;\dfrac{3}{2}\right)$`,
+      },
+    },
+    {
+      id: 7,
+      group: EQ_GRAPH,
+      question: String.raw`$$\begin{aligned}3x+2y&=4\\ 3x-4y&=1\end{aligned}$$`,
+      figure: "123-p7",
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত সমীকরণদ্বয়`,
+          String.raw`$$3x+2y=4\qquad\cdots(1)$$`,
+          String.raw`$$3x-4y=1\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$2y=4-3x,\;\text{ বা, }y=\frac{4-3x}{2}$$`,
+          String.raw`[[table side]]
+$x$ | $-2$ | $0$ | $2$
+$y$ | $5$ | $2$ | $-1$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-2,5),\;(0,2),\;(2,-1)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$4y=3x-1,\;\text{ বা, }y=\frac{3x-1}{4}$$`,
+          String.raw`[[table side]]
+$x$ | $-1$ | $1$ | $3$
+$y$ | $-1$ | $\frac{1}{2}$ | $2$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-1,-1),\;\left(1,\frac{1}{2}\right),\;(3,2)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $\left(1,\frac{1}{2}\right)$।`,
+          String.raw`$$\therefore\;(x,y)=\left(1,\;\frac{1}{2}\right)$$`,
+        ],
+        answer: String.raw`$(x,y)=\left(1,\;\dfrac{1}{2}\right)$`,
+      },
+    },
+    {
+      id: 8,
+      group: EQ_GRAPH,
+      question: String.raw`$$\begin{aligned}\frac{x}{2}+\frac{y}{3}&=3\\ x+\frac{y}{6}&=3\end{aligned}$$`,
+      figure: "123-p8",
+      solution: {
+        steps: [
+          String.raw`১ম সমীকরণের উভয়পক্ষকে $6$ দ্বারা ও ২য় সমীকরণের উভয়পক্ষকে $6$ দ্বারা গুণ করে পাই,`,
+          String.raw`$$3x+2y=18\qquad\cdots(1)$$`,
+          String.raw`$$6x+y=18\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$2y=18-3x,\;\text{ বা, }y=\frac{18-3x}{2}$$`,
+          String.raw`[[table side]]
+$x$ | $2$ | $4$ | $6$
+$y$ | $6$ | $3$ | $0$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(2,6),\;(4,3),\;(6,0)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$y=18-6x$$`,
+          String.raw`[[table side]]
+$x$ | $2$ | $\frac{5}{2}$ | $3$
+$y$ | $6$ | $3$ | $0$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(2,6),\;\left(\frac{5}{2},3\right),\;(3,0)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(2,6)$।`,
+          String.raw`$$\therefore\;(x,y)=(2,6)$$`,
+        ],
+        answer: String.raw`$(x,y)=(2,6)$`,
+      },
+    },
+    {
+      id: 9,
+      group: EQ_GRAPH,
+      question: String.raw`$$3x+2=x-2$$`,
+      figure: "123-p9",
+      solution: {
+        steps: [
+          String.raw`এটি এক চলকবিশিষ্ট সমীকরণ। ধরি, $$y=3x+2=x-2$$`,
+          String.raw`$$\therefore\; y=3x+2\qquad\cdots(1)$$`,
+          String.raw`$$\text{এবং}\;\; y=x-2\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ এ $x$ এর কয়েকটি মান নিয়ে পাই,`,
+          String.raw`[[table side]]
+$x$ | $-2$ | $0$ | $1$
+$y$ | $-4$ | $2$ | $5$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-2,-4),\;(0,2),\;(1,5)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ এ $x$ এর কয়েকটি মান নিয়ে পাই,`,
+          String.raw`[[table side]]
+$x$ | $-2$ | $0$ | $2$
+$y$ | $-4$ | $-2$ | $0$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-2,-4),\;(0,-2),\;(2,0)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ ছেদবিন্দুটির স্থানাঙ্ক $(-2,-4)$। নির্ণেয় হলো ছেদবিন্দুর ভুজ।`,
+          String.raw`$$\therefore\; x=-2$$`,
+        ],
+        answer: String.raw`$x=-2$`,
+      },
+    },
+    {
+      id: 10,
+      group: EQ_GRAPH,
+      question: String.raw`$$3x-7=3-2x$$`,
+      figure: "123-p10",
+      solution: {
+        steps: [
+          String.raw`এটিও এক চলকবিশিষ্ট সমীকরণ। ধরি, $$y=3x-7=3-2x$$`,
+          String.raw`$$\therefore\; y=3x-7\qquad\cdots(1)$$`,
+          String.raw`$$\text{এবং}\;\; y=3-2x\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ এ $x$ এর কয়েকটি মান নিয়ে পাই,`,
+          String.raw`[[table side]]
+$x$ | $1$ | $2$ | $3$
+$y$ | $-4$ | $-1$ | $2$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(1,-4),\;(2,-1),\;(3,2)$।`,
+          String.raw`আবার, সমীকরণ $(2)$ এ $x$ এর কয়েকটি মান নিয়ে পাই,`,
+          String.raw`[[table side]]
+$x$ | $0$ | $2$ | $4$
+$y$ | $3$ | $-1$ | $-5$`,
+          String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(0,3),\;(2,-1),\;(4,-5)$।`,
+          String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+          String.raw`চিত্রে দেখা যায়, $P$ ছেদবিন্দুটির স্থানাঙ্ক $(2,-1)$।`,
+          String.raw`$$\therefore\; x=2$$`,
+        ],
+        answer: String.raw`$x=2$`,
+      },
+    },
+  ],
+};
+
+// অনুশীলনী ১২.৪ — book pages ২৪৬-২৪৭, তার সঙ্গে অধ্যায়ের নমুনা প্রশ্ন
+// (book pages ২৪৭-২৪৮) অনুশীলনীর নম্বর ধরে টেনে নেওয়া হয়েছে।
+const EQ_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৪)";
+const EQ_BUILD = "সহসমীকরণ গঠন করে সমাধান করো (৫ – ১৬)";
+const EQ_MODEL_MCQ = "নমুনা প্রশ্ন — বহুনির্বাচনি (১৭ – ২০)";
+const EQ_MODEL_CQ = "নমুনা প্রশ্ন — সৃজনশীল ও সংক্ষিপ্ত-উত্তর (২১ – ২২)";
+
+const exercise124: Exercise = {
+  id: "12.4",
+  bnId: "অনুশীলনী ১২.৪",
+  title: "বাস্তবভিত্তিক সমস্যার সহসমীকরণ",
+  bookPages: "২৪৬ – ২৪৮",
+  formulas: [
+    {
+      title: "সমীকরণ গঠনের পথ",
+      formulas: [
+        {
+          statement: String.raw`$$\text{অজ্ঞাত রাশি দুইটি}\;\longrightarrow\;x,\;y$$`,
+          note: "সমস্যার শর্তাবলি থেকে দুইটি অজ্ঞাত রাশির জন্য দুইটি প্রতীক ধরা হয়। যতগুলো অজ্ঞাত, ততগুলো স্বতন্ত্র শর্ত — তাই দুইটি শর্ত থেকে দুইটি সমীকরণ গঠন করতে হয়।",
+        },
+        {
+          statement: String.raw`$$\text{সংখ্যাটি}=10x+y,\qquad\text{স্থান বিনিময়ে}=10y+x$$`,
+          note: "দুই অঙ্কবিশিষ্ট সংখ্যার দশক স্থানীয় অঙ্ক x ও একক স্থানীয় অঙ্ক y হলে। যোগ করলে সবসময় 11(x+y), বিয়োগ করলে 9(x−y) পাওয়া যায় — এ দুইটি অনেক প্রশ্নেই কাজে লাগে।",
+        },
+        {
+          statement: String.raw`$$\text{ভগ্নাংশটি}=\frac{x}{y}$$`,
+          note: "লব ও হরকে দুইটি চলক ধরে নিলে ভগ্নাংশ-সংক্রান্ত প্রতিটি শর্ত একেকটি সরল সমীকরণে দাঁড়ায় — আড়গুণনেই হর সরে যায়।",
+        },
+      ],
+    },
+    {
+      title: "যে সূত্রগুলো বারবার লাগে",
+      formulas: [
+        {
+          statement: String.raw`$$\text{পরিসীমা}=2(\text{দৈর্ঘ্য}+\text{প্রস্থ}),\qquad \text{ক্ষেত্রফল}=\text{দৈর্ঘ্য}\times\text{প্রস্থ}$$`,
+          note: "আয়তক্ষেত্রের দৈর্ঘ্য ও প্রস্থকে x ও y ধরলে পরিসীমা দেয় প্রথম সমীকরণটি, আর ক্ষেত্রফলের পরিবর্তন দেয় দ্বিতীয়টি।",
+        },
+        {
+          statement: String.raw`$$\text{সময়}=\frac{\text{দূরত্ব}}{\text{আপেক্ষিক বেগ}}$$`,
+          note: "দুইটি বস্তু বিপরীত দিকে চললে আপেক্ষিক বেগ বেগদ্বয়ের যোগফল, একই দিকে চললে বিয়োগফল। ট্রেন পরস্পরকে অতিক্রম করার ক্ষেত্রে অতিক্রান্ত দূরত্ব ট্রেন দুইটির দৈর্ঘ্যের সমষ্টি।",
+        },
+        {
+          statement: String.raw`$$\text{কর্ণসংখ্যা}=\frac{n(n-3)}{2}$$`,
+          note: String.raw`$n$ বাহুবিশিষ্ট বহুভুজের কর্ণসংখ্যা — প্রতিটি শীর্ষ থেকে নিজেকে ও দুই সন্নিহিত শীর্ষ বাদে $(n-3)$টি কর্ণ যায়, আর প্রতিটি কর্ণ দুইবার গোনা হয়।`,
+        },
+        {
+          statement: String.raw`$$\text{ঘণ্টার কাঁটা }\frac{y}{12}\text{ ঘর},\qquad\text{মিনিটের কাঁটা }y\text{ ঘর}$$`,
+          note: "মিনিটের কাঁটা ঘণ্টার কাঁটার চেয়ে ১২ গুণ দ্রুত চলে। ঘড়ির চাকতিতে ৬০টি ঘর, প্রতি ঘর ৬°; তাই ৩০° মানে ঠিক ৫ ঘরের ব্যবধান।",
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১২ — book page ২৪৩.
+    {
+      id: 12,
+      question: String.raw`দুই অঙ্কবিশিষ্ট কোনো সংখ্যার অঙ্কদ্বয়ের সমষ্টির সাথে $5$ যোগ করলে যোগফল হবে সংখ্যাটির দশক স্থানীয় অঙ্কের তিনগুণ। আর সংখ্যাটির অঙ্কদ্বয় স্থান বিনিময় করলে যে সংখ্যা পাওয়া যাবে, তা মূল সংখ্যাটি থেকে $9$ কম হবে। সংখ্যাটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, নির্ণেয় সংখ্যাটির দশক স্থানীয় অঙ্ক $x$ এবং একক স্থানীয় অঙ্ক $y$। অতএব, সংখ্যাটি $10x+y$।`,
+          String.raw`$$\therefore\;\text{১ম শর্তানুসারে, }x+y+5=3x\qquad\cdots(1)$$`,
+          String.raw`$$\text{এবং ২য় শর্তানুসারে, }10y+x=(10x+y)-9\qquad\cdots(2)$$`,
+          String.raw`সমীকরণ $(1)$ থেকে পাই, $$y=3x-x-5,\;\text{ বা, }y=2x-5\qquad\cdots(3)$$`,
+          String.raw`আবার, সমীকরণ $(2)$ থেকে পাই,`,
+          String.raw`$$10y-y+x-10x+9=0$$`,
+          String.raw`$$\text{বা, }9y-9x+9=0$$`,
+          String.raw`$$\text{বা, }y-x+1=0$$`,
+          String.raw`$$\text{বা, }2x-5-x+1=0\qquad\left[\,(3)\ \text{হতে}\ y\ \text{এর মান বসিয়ে}\,\right]$$`,
+          String.raw`$$\therefore\; x=4$$`,
+          String.raw`$(3)$ এ $x$ এর মান বসিয়ে পাই, $$y=2\times 4-5=3$$`,
+          String.raw`$$\therefore\;\text{নির্ণেয় সংখ্যাটি}=10x+y=10\times 4+3=43$$`,
+        ],
+        answer: String.raw`সংখ্যাটি $43$`,
+      },
+    },
+    // উদাহরণ ১৩ — book pages ২৪৩-২৪৪.
+    {
+      id: 13,
+      question: String.raw`আট বছর পূর্বে পিতার বয়স পুত্রের বয়সের আটগুণ ছিল। দশ বছর পর পিতার বয়স পুত্রের বয়সের দ্বিগুণ হবে। বর্তমানে কার বয়স কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, বর্তমানে পিতার বয়স $x$ বছর ও পুত্রের বয়স $y$ বছর।`,
+          String.raw`$$\therefore\;\text{১ম শর্তানুসারে, }x-8=8(y-8)\qquad\cdots(1)$$`,
+          String.raw`$$\text{এবং ২য় শর্তানুসারে, }x+10=2(y+10)\qquad\cdots(2)$$`,
+          String.raw`$(1)$ হতে পাই, $$x-8=8y-64$$`,
+          String.raw`$$\text{বা, }x=8y-56\qquad\cdots(3)$$`,
+          String.raw`$(2)$ হতে পাই, $$x+10=2y+20$$`,
+          String.raw`$$\text{বা, }8y-56+10=2y+20\qquad\left[\,(3)\ \text{হতে}\ x\ \text{এর মান বসিয়ে}\,\right]$$`,
+          String.raw`$$\text{বা, }8y-2y=20+56-10$$`,
+          String.raw`$$\text{বা, }6y=66$$`,
+          String.raw`$$\therefore\; y=11$$`,
+          String.raw`$(3)$ হতে পাই, $$x=8\times 11-56=88-56=32$$`,
+          String.raw`$\therefore$ বর্তমানে পিতার বয়স $32$ বছর ও পুত্রের বয়স $11$ বছর।`,
+        ],
+        answer: String.raw`পিতার বয়স $32$ বছর, পুত্রের বয়স $11$ বছর`,
+      },
+    },
+    // উদাহরণ ১৪ — book pages ২৪৪-২৪৫.
+    {
+      id: 14,
+      question: String.raw`একটি আয়তাকার বাগানের প্রস্থের দ্বিগুণ, দৈর্ঘ্য অপেক্ষা $10$ মিটার বেশি এবং বাগানটির পরিসীমা $100$ মিটার। বাগানটির সীমানার বাইরে চারদিকে $2$ মিটার চওড়া রাস্তা আছে। রাস্তাটি ইট দিয়ে তৈরি করতে প্রতি বর্গ মিটারে $110$ টাকা খরচ হয়।`,
+      figure: "12-ex14",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`বাগানটির দৈর্ঘ্য $x$ মিটার ও প্রস্থ $y$ মিটার ধরে সমীকরণজোট গঠন করো।`,
+          solution: {
+            steps: [
+              String.raw`আয়তাকার বাগানটির দৈর্ঘ্য $x$ মিটার ও প্রস্থ $y$ মিটার।`,
+              String.raw`$$\therefore\;\text{১ম শর্তানুসারে, }2y=x+10\qquad\cdots(1)$$`,
+              String.raw`$$\text{এবং ২য় শর্তানুসারে, }2(x+y)=100\qquad\cdots(2)$$`,
+            ],
+            answer: String.raw`$2y=x+10$ এবং $2(x+y)=100$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`বাগানটির দৈর্ঘ্য ও প্রস্থ নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`সমীকরণ $(2)$ হতে পাই, $$2x+2y=100$$`,
+              String.raw`$$\text{বা, }2x+x+10=100\qquad\left[\,(1)\ \text{হতে}\,\right]$$`,
+              String.raw`$$\text{বা, }3x=90$$`,
+              String.raw`$$\therefore\; x=30$$`,
+              String.raw`$\therefore$ $(1)$ হতে পাই, $$2y=30+10=40$$`,
+              String.raw`$$\therefore\; y=20$$`,
+              String.raw`$\therefore$ বাগানটির দৈর্ঘ্য $30$ মিটার ও প্রস্থ $20$ মিটার।`,
+            ],
+            answer: String.raw`দৈর্ঘ্য $30$ মিটার, প্রস্থ $20$ মিটার`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`রাস্তাটি ইট দিয়ে তৈরি করতে মোট কত খরচ হবে?`,
+          solution: {
+            steps: [
+              String.raw`রাস্তাটি বাগানের সীমানার বাইরে, তাই রাস্তাসহ বাগানের দৈর্ঘ্য ও প্রস্থ দুই দিক থেকেই $2$ মিটার করে বাড়ে।`,
+              String.raw`$$\text{রাস্তাসহ বাগানের দৈর্ঘ্য}=(30+4)\ \text{মি.}=34\ \text{মি.}$$`,
+              String.raw`$$\text{রাস্তাসহ বাগানের প্রস্থ}=(20+4)\ \text{মি.}=24\ \text{মি.}$$`,
+              String.raw`$$\therefore\;\text{রাস্তার ক্ষেত্রফল}=(34\times 24-30\times 20)\ \text{বর্গমিটার}$$`,
+              String.raw`$$=(816-600)\ \text{বর্গমিটার}=216\ \text{বর্গমিটার}$$`,
+              String.raw`$$\therefore\;\text{খরচ}=(216\times 110)\ \text{টাকা}=23760\ \text{টাকা}$$`,
+            ],
+            answer: String.raw`$23760$ টাকা`,
+          },
+        },
+      ],
+    },
+    // উদাহরণ ১৫ — book pages ২৪৫-২৪৬.
+    {
+      id: 15,
+      question: String.raw`ঘড়ির ঘণ্টা ও মিনিটের কাঁটা কতবার একটির উপরে আরেকটি বসে? সময়গুলো নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $x$ টা $y$ মিনিটে ঘণ্টা ও মিনিটের কাঁটা একটির উপরে আরেকটি বসে; এখানে সুবিধার্থে $x=0,1,\dots,11$ (যেখানে $0$ প্রকৃতপক্ষে $12$ বোঝাবে), আর $y$ পূর্ণসংখ্যা নাও হতে পারে।`,
+          String.raw`আমরা জানি, মিনিটের কাঁটা ঘণ্টার কাঁটার তুলনায় $12$ গুণ বেশি দ্রুত চলে।`,
+          String.raw`$x$ টার সময় ঘণ্টার কাঁটা ঠিক $x$ লেখার উপরে, অর্থাৎ $5x$ ঘরে, এবং মিনিটের কাঁটা $12$-এর উপরে, অর্থাৎ $0$ ঘরে ছিল।`,
+          String.raw`$y$ মিনিটে ঘণ্টার কাঁটা $\dfrac{y}{12}$ এবং মিনিটের কাঁটা $y$ ঘর অতিক্রম করবে। কাঁটা দুইটি একই জায়গায় বসলে,`,
+          String.raw`$$5x+\frac{y}{12}=y$$`,
+          String.raw`$$\text{বা, }y-\frac{y}{12}=5x$$`,
+          String.raw`$$\text{বা, }\frac{11}{12}y=5x$$`,
+          String.raw`$$\therefore\; y=\frac{60}{11}x$$`,
+          String.raw`এবার $x$ এর সম্ভাব্য মানগুলো বসিয়ে দেখি।`,
+          String.raw`$x=0$ হলে $y=0$ মিনিট, অর্থাৎ $12$টা।`,
+          String.raw`$x=1$ হলে $1$ টা $5\frac{5}{11}$ মিনিট।`,
+          String.raw`$x=2$ হলে $2$ টা $10\frac{10}{11}$ মিনিট।`,
+          String.raw`$\cdots\;\cdots\;\cdots$`,
+          String.raw`$x=11$ হলে $11$ টা $60$ মিনিট, বা $12$টা।`,
+          String.raw`প্রথম ও শেষ সময় দুইটি একই সময় বলে কাঁটা দুইটি $11$ বার মিলিত হবে এবং সময়গুলো হলো $x$ টা $\dfrac{60}{11}x$ মিনিট।`,
+        ],
+        answer: String.raw`$11$ বার; সময়গুলো $x$ টা $\dfrac{60}{11}x$ মিনিট, যেখানে $x=0,1,\dots,10$`,
+      },
+    },
+  ],
+  problems: [
+    {
+      id: 1,
+      group: EQ_MCQ,
+      question: String.raw`নিচের কোন শর্তে $ax+by+c=0$ ও $px+qy+r=0$ সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল হবে?
+ক) $\dfrac{a}{p}\neq\dfrac{b}{q}$  খ) $\dfrac{a}{p}=\dfrac{b}{q}=\dfrac{c}{r}$  গ) $\dfrac{a}{p}=\dfrac{b}{q}\neq\dfrac{c}{r}$  ঘ) $\dfrac{a}{p}=\dfrac{b}{q}$`,
+      solution: {
+        steps: [
+          String.raw`চলকের সহগের অনুপাত সমান হলে একটি সমীকরণকে অন্যটির মাধ্যমে প্রকাশ করা যায়, অর্থাৎ সমীকরণ দুইটি পরস্পর নির্ভরশীল হয়ে যায়।`,
+          String.raw`তাই পরস্পর অনির্ভরশীল হওয়ার শর্তই হলো সহগের অনুপাত অসমান।`,
+          String.raw`$$\frac{a}{p}\neq\frac{b}{q}$$`,
+          String.raw`এ শর্তে জোটটি সর্বদা সমঞ্জস্য এবং এর একটিমাত্র (অনন্য) সমাধান থাকে; ধ্রুবক পদ তুলনা করার প্রয়োজন হয় না।`,
+        ],
+        answer: String.raw`ক) $\dfrac{a}{p}\neq\dfrac{b}{q}$`,
+      },
+    },
+    {
+      id: 2,
+      group: EQ_MCQ,
+      question: String.raw`$x+y=4,\;x-y=2$ হলে $(x,y)$ এর মান নিচের কোনটি?
+ক) $(2,4)$  খ) $(4,2)$  গ) $(3,1)$  ঘ) $(1,3)$`,
+      solution: {
+        steps: [
+          String.raw`$$x+y=4\qquad\cdots(1)$$`,
+          String.raw`$$x-y=2\qquad\cdots(2)$$`,
+          String.raw`$(1)$ ও $(2)$ যোগ করে পাই, $$2x=6$$`,
+          String.raw`$$\therefore\; x=3$$`,
+          String.raw`$(1)$ এ $x$ এর মান বসিয়ে পাই, $$3+y=4$$`,
+          String.raw`$$\therefore\; y=1$$`,
+        ],
+        answer: String.raw`গ) $(3,1)$`,
+      },
+    },
+    {
+      id: 3,
+      group: EQ_MCQ,
+      question: String.raw`নিচের কোনটির জন্য ছকটি সঠিক?
+[[table side]]
+$x$ | $0$ | $2$ | $4$
+$y$ | $-4$ | $0$ | $4$
+
+ক) $y=x-4$  খ) $y=8-x$  গ) $y=4-2x$  ঘ) $y=2x-4$`,
+      solution: {
+        steps: [
+          String.raw`ছকের বিন্দু তিনটি $(0,-4),\;(2,0),\;(4,4)$।`,
+          String.raw`$x$ প্রতিবার $2$ বাড়লে $y$ বাড়ে $4$, অর্থাৎ ঢাল $$\frac{4}{2}=2$$`,
+          String.raw`$x=0$ হলে $y=-4$, তাই সমীকরণটির রূপ $y=2x-4$।`,
+          String.raw`যাচাই: $x=2$ হলে $y=2\times 2-4=0$; $x=4$ হলে $y=2\times 4-4=4$ — তিনটি বিন্দুই মিলে যায়।`,
+        ],
+        answer: String.raw`ঘ) $y=2x-4$`,
+      },
+    },
+    {
+      id: 4,
+      group: EQ_MCQ,
+      question: String.raw`$2x-y=8$ এবং $x-2y=4$ হলে, $x+y=$ কত?
+ক) $0$  খ) $4$  গ) $8$  ঘ) $12$`,
+      solution: {
+        steps: [
+          String.raw`$$2x-y=8\qquad\cdots(1)$$`,
+          String.raw`$$x-2y=4\qquad\cdots(2)$$`,
+          String.raw`$(2)$ এর উভয়পক্ষকে $2$ দ্বারা গুণ করে পাই, $$2x-4y=8\qquad\cdots(3)$$`,
+          String.raw`$(1)$ থেকে $(3)$ বিয়োগ করে পাই, $$3y=0$$`,
+          String.raw`$$\therefore\; y=0$$`,
+          String.raw`$(1)$ এ $y$ এর মান বসিয়ে পাই, $$2x=8,\;\text{ বা, }x=4$$`,
+          String.raw`$$\therefore\; x+y=4+0=4$$`,
+        ],
+        answer: String.raw`খ) $4$`,
+      },
+    },
+
+    // ─────────────── সহসমীকরণ গঠন করে সমাধান (5 – 16) ───────────────
+    {
+      id: 5,
+      group: EQ_BUILD,
+      question: String.raw`কোনো ভগ্নাংশের লব ও হরের প্রত্যেকটির সাথে $1$ যোগ করলে ভগ্নাংশটি $\dfrac{4}{5}$ হবে। আবার, লব ও হরের প্রত্যেকটি থেকে $5$ বিয়োগ করলে ভগ্নাংশটি $\dfrac{1}{2}$ হবে। ভগ্নাংশটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ভগ্নাংশটি $\dfrac{x}{y}$, যেখানে লব $x$ ও হর $y$।`,
+          String.raw`$$\text{১ম শর্তানুসারে, }\frac{x+1}{y+1}=\frac{4}{5}$$`,
+          String.raw`$$\text{বা, }5(x+1)=4(y+1)\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{বা, }5x+5=4y+4$$`,
+          String.raw`$$\text{বা, }5x-4y=-1\qquad\cdots(1)$$`,
+          String.raw`$$\text{২য় শর্তানুসারে, }\frac{x-5}{y-5}=\frac{1}{2}$$`,
+          String.raw`$$\text{বা, }2(x-5)=y-5$$`,
+          String.raw`$$\text{বা, }2x-y=5\qquad\cdots(2)$$`,
+          String.raw`$(2)$ হতে পাই, $$y=2x-5\qquad\cdots(3)$$`,
+          String.raw`$(1)$ এ $y$ এর মান বসিয়ে পাই,`,
+          String.raw`$$5x-4(2x-5)=-1$$`,
+          String.raw`$$\text{বা, }5x-8x+20=-1$$`,
+          String.raw`$$\text{বা, }-3x=-21$$`,
+          String.raw`$$\therefore\; x=7$$`,
+          String.raw`$(3)$ হতে পাই, $$y=2\times 7-5=9$$`,
+          String.raw`$$\therefore\;\text{ভগ্নাংশটি}=\frac{7}{9}$$`,
+        ],
+        answer: String.raw`ভগ্নাংশটি $\dfrac{7}{9}$`,
+      },
+    },
+    {
+      id: 6,
+      group: EQ_BUILD,
+      question: String.raw`কোনো ভগ্নাংশের লব থেকে $1$ বিয়োগ ও হরের সাথে $2$ যোগ করলে ভগ্নাংশটি $\dfrac{1}{2}$ হয়। আর লব থেকে $7$ বিয়োগ এবং হর থেকে $2$ বিয়োগ করলে ভগ্নাংশটি $\dfrac{1}{3}$ হয়। ভগ্নাংশটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ভগ্নাংশটি $\dfrac{x}{y}$।`,
+          String.raw`$$\text{১ম শর্তানুসারে, }\frac{x-1}{y+2}=\frac{1}{2}$$`,
+          String.raw`$$\text{বা, }2(x-1)=y+2$$`,
+          String.raw`$$\text{বা, }2x-y=4\qquad\cdots(1)$$`,
+          String.raw`$$\text{২য় শর্তানুসারে, }\frac{x-7}{y-2}=\frac{1}{3}$$`,
+          String.raw`$$\text{বা, }3(x-7)=y-2$$`,
+          String.raw`$$\text{বা, }3x-y=19\qquad\cdots(2)$$`,
+          String.raw`$(2)$ থেকে $(1)$ বিয়োগ করে পাই, $$x=15$$`,
+          String.raw`$(1)$ এ $x$ এর মান বসিয়ে পাই, $$2\times 15-y=4$$`,
+          String.raw`$$\text{বা, }-y=4-30$$`,
+          String.raw`$$\therefore\; y=26$$`,
+          String.raw`$$\therefore\;\text{ভগ্নাংশটি}=\frac{15}{26}$$`,
+        ],
+        answer: String.raw`ভগ্নাংশটি $\dfrac{15}{26}$`,
+      },
+    },
+    {
+      id: 7,
+      group: EQ_BUILD,
+      question: String.raw`দুই অঙ্কবিশিষ্ট একটি সংখ্যার একক স্থানীয় অঙ্ক দশক স্থানীয় অঙ্কের তিনগুণ অপেক্ষা $1$ বেশি। কিন্তু অঙ্কদ্বয় স্থান বিনিময় করলে যে সংখ্যা পাওয়া যায়, তা অঙ্কদ্বয়ের সমষ্টির আটগুণের সমান। সংখ্যাটি কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সংখ্যাটির দশক স্থানীয় অঙ্ক $x$ ও একক স্থানীয় অঙ্ক $y$। অতএব সংখ্যাটি $10x+y$ এবং স্থান বিনিময়ে প্রাপ্ত সংখ্যাটি $10y+x$।`,
+          String.raw`$$\text{১ম শর্তানুসারে, }y=3x+1$$`,
+          String.raw`$$\text{বা, }3x-y=-1\qquad\cdots(1)$$`,
+          String.raw`$$\text{২য় শর্তানুসারে, }10y+x=8(x+y)$$`,
+          String.raw`$$\text{বা, }10y+x=8x+8y$$`,
+          String.raw`$$\text{বা, }7x-2y=0\qquad\cdots(2)$$`,
+          String.raw`$(1)$ এর উভয়পক্ষকে $2$ দ্বারা গুণ করে পাই, $$6x-2y=-2\qquad\cdots(3)$$`,
+          String.raw`$(2)$ থেকে $(3)$ বিয়োগ করে পাই, $$x=2$$`,
+          String.raw`$(1)$ এ $x$ এর মান বসিয়ে পাই, $$3\times 2-y=-1$$`,
+          String.raw`$$\therefore\; y=7$$`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=10\times 2+7=27$$`,
+          String.raw`যাচাই: স্থান বিনিময়ে সংখ্যাটি $72$, আর অঙ্কদ্বয়ের সমষ্টির আটগুণ $8(2+7)=72$।`,
+        ],
+        answer: String.raw`সংখ্যাটি $27$`,
+      },
+    },
+    {
+      id: 8,
+      group: EQ_BUILD,
+      question: String.raw`দুই অঙ্কবিশিষ্ট একটি সংখ্যার অঙ্কদ্বয়ের অন্তর $4$। সংখ্যাটির অঙ্কদ্বয় স্থান বিনিময় করলে যে সংখ্যা পাওয়া যায়, তার ও মূল সংখ্যাটির যোগফল $110$। সংখ্যাটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সংখ্যাটির দশক স্থানীয় অঙ্ক $x$ ও একক স্থানীয় অঙ্ক $y$। অতএব সংখ্যাটি $10x+y$ এবং স্থান বিনিময়ে প্রাপ্ত সংখ্যাটি $10y+x$।`,
+          String.raw`$$\text{২য় শর্তানুসারে, }(10x+y)+(10y+x)=110$$`,
+          String.raw`$$\text{বা, }11x+11y=110$$`,
+          String.raw`$$\text{বা, }x+y=10\qquad\cdots(1)$$`,
+          String.raw`$$\text{১ম শর্তানুসারে, }x-y=\pm 4$$`,
+          String.raw`প্রথমে ধরি, $$x-y=4\qquad\cdots(2)$$`,
+          String.raw`$(1)$ ও $(2)$ যোগ করে পাই, $$2x=14,\;\text{ বা, }x=7$$`,
+          String.raw`$(1)$ হতে পাই, $$y=10-7=3$$`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=10\times 7+3=73$$`,
+          String.raw`আবার ধরি, $$y-x=4\qquad\cdots(3)$$`,
+          String.raw`$(1)$ ও $(3)$ যোগ করে পাই, $$2y=14,\;\text{ বা, }y=7$$ এবং $x=3$।`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=10\times 3+7=37$$`,
+          String.raw`দুইটি সংখ্যাই শর্ত দুইটি সিদ্ধ করে — $73+37=110$ এবং অঙ্কদ্বয়ের অন্তর $4$।`,
+        ],
+        answer: String.raw`সংখ্যাটি $73$ অথবা $37$`,
+      },
+    },
+    {
+      id: 9,
+      group: EQ_BUILD,
+      question: String.raw`মাতার বর্তমান বয়স তার দুই কন্যার বয়সের সমষ্টির চারগুণ। $5$ বছর পর মাতার বয়স ঐ দুই কন্যার বয়সের সমষ্টির দ্বিগুণ হবে। মাতার বর্তমান বয়স কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, মাতার বর্তমান বয়স $x$ বছর এবং দুই কন্যার বয়সের সমষ্টি $y$ বছর।`,
+          String.raw`$$\text{১ম শর্তানুসারে, }x=4y\qquad\cdots(1)$$`,
+          String.raw`$5$ বছর পর মাতার বয়স হবে $(x+5)$ বছর, আর দুই কন্যার প্রত্যেকেরই বয়স $5$ বছর করে বাড়বে বলে তাদের বয়সের সমষ্টি হবে $(y+10)$ বছর।`,
+          String.raw`$$\text{২য় শর্তানুসারে, }x+5=2(y+10)\qquad\cdots(2)$$`,
+          String.raw`$(2)$ এ $x$ এর মান বসিয়ে পাই,`,
+          String.raw`$$4y+5=2y+20$$`,
+          String.raw`$$\text{বা, }2y=15$$`,
+          String.raw`$$\therefore\; y=\frac{15}{2}=7.5$$`,
+          String.raw`$(1)$ হতে পাই, $$x=4\times 7.5=30$$`,
+          String.raw`যাচাই: $5$ বছর পর মাতার বয়স $35$ বছর, আর কন্যাদ্বয়ের বয়সের সমষ্টি $7.5+10=17.5$ বছর; $2\times 17.5=35$।`,
+          String.raw`$\therefore$ মাতার বর্তমান বয়স $30$ বছর।`,
+        ],
+        answer: String.raw`মাতার বর্তমান বয়স $30$ বছর`,
+      },
+    },
+    {
+      id: 10,
+      group: EQ_BUILD,
+      question: String.raw`একটি আয়তক্ষেত্রের দৈর্ঘ্য $5$ মিটার কম ও প্রস্থ $3$ মিটার বেশি হলে ক্ষেত্রফল $9$ বর্গমিটার কম হবে। আবার দৈর্ঘ্য $3$ মিটার বেশি ও প্রস্থ $2$ মিটার বেশি হলে ক্ষেত্রফল $67$ বর্গমিটার বেশি হবে। ক্ষেত্রটির দৈর্ঘ্য ও প্রস্থ নির্ণয় করো।`,
+      figure: "124-p10",
+      solution: {
+        steps: [
+          String.raw`মনে করি, আয়তক্ষেত্রটির দৈর্ঘ্য $x$ মিটার ও প্রস্থ $y$ মিটার। অতএব ক্ষেত্রফল $xy$ বর্গমিটার।`,
+          String.raw`$$\text{১ম শর্তানুসারে, }(x-5)(y+3)=xy-9$$`,
+          String.raw`$$\text{বা, }xy+3x-5y-15=xy-9$$`,
+          String.raw`$$\text{বা, }3x-5y=6\qquad\cdots(1)$$`,
+          String.raw`$$\text{২য় শর্তানুসারে, }(x+3)(y+2)=xy+67$$`,
+          String.raw`$$\text{বা, }xy+2x+3y+6=xy+67$$`,
+          String.raw`$$\text{বা, }2x+3y=61\qquad\cdots(2)$$`,
+          String.raw`$(1)$ কে $3$ দ্বারা ও $(2)$ কে $5$ দ্বারা গুণ করে পাই,`,
+          String.raw`$$9x-15y=18\qquad\cdots(3)$$`,
+          String.raw`$$10x+15y=305\qquad\cdots(4)$$`,
+          String.raw`$(3)$ ও $(4)$ যোগ করে পাই, $$19x=323$$`,
+          String.raw`$$\therefore\; x=17$$`,
+          String.raw`$(2)$ এ $x$ এর মান বসিয়ে পাই, $$34+3y=61$$`,
+          String.raw`$$\text{বা, }3y=27$$`,
+          String.raw`$$\therefore\; y=9$$`,
+          String.raw`যাচাই: $(17-5)(9+3)=144=153-9$ এবং $(17+3)(9+2)=220=153+67$।`,
+        ],
+        answer: String.raw`দৈর্ঘ্য $17$ মিটার, প্রস্থ $9$ মিটার`,
+      },
+    },
+    {
+      id: 11,
+      group: EQ_BUILD,
+      question: String.raw`একজন গার্মেন্টস শ্রমিক মাসিক বেতনে চাকরি করেন। প্রতিবছর শেষে একটি নির্দিষ্ট বেতনবৃদ্ধি পান। তার মাসিক বেতন $4$ বছর পর $4500$ টাকা ও $8$ বছর পর $5000$ টাকা হয়। তার চাকরি শুরুর বেতন ও বার্ষিক বেতন বৃদ্ধির পরিমাণ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, চাকরি শুরুর মাসিক বেতন $x$ টাকা ও বার্ষিক বেতন বৃদ্ধি $y$ টাকা।`,
+          String.raw`$$\text{১ম শর্তানুসারে, }x+4y=4500\qquad\cdots(1)$$`,
+          String.raw`$$\text{২য় শর্তানুসারে, }x+8y=5000\qquad\cdots(2)$$`,
+          String.raw`$(2)$ থেকে $(1)$ বিয়োগ করে পাই, $$4y=500$$`,
+          String.raw`$$\therefore\; y=125$$`,
+          String.raw`$(1)$ এ $y$ এর মান বসিয়ে পাই, $$x+4\times 125=4500$$`,
+          String.raw`$$\text{বা, }x=4500-500$$`,
+          String.raw`$$\therefore\; x=4000$$`,
+          String.raw`$\therefore$ চাকরি শুরুর বেতন $4000$ টাকা ও বার্ষিক বেতন বৃদ্ধি $125$ টাকা।`,
+        ],
+        answer: String.raw`শুরুর বেতন $4000$ টাকা, বার্ষিক বৃদ্ধি $125$ টাকা`,
+      },
+    },
+    {
+      id: 12,
+      group: EQ_BUILD,
+      question: String.raw`কোনো ভগ্নাংশের লবের সাথে $7$ যোগ করলে ভগ্নাংশটির মান পূর্ণসংখ্যা $2$ হয়। আবার হর হতে $2$ বিয়োগ করলে ভগ্নাংশটির মান পূর্ণসংখ্যা $1$ হয়।`,
+      figure: "124-p12",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`ভগ্নাংশটি $\dfrac{x}{y}$ ধরে সমীকরণজোট গঠন করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, ভগ্নাংশটি $\dfrac{x}{y}$, যেখানে লব $x$ ও হর $y$।`,
+              String.raw`$$\text{১ম শর্তানুসারে, }\frac{x+7}{y}=2$$`,
+              String.raw`$$\text{বা, }x+7=2y$$`,
+              String.raw`$$\text{বা, }x-2y+7=0\qquad\cdots(1)$$`,
+              String.raw`$$\text{২য় শর্তানুসারে, }\frac{x}{y-2}=1$$`,
+              String.raw`$$\text{বা, }x=y-2$$`,
+              String.raw`$$\text{বা, }x-y+2=0\qquad\cdots(2)$$`,
+            ],
+            answer: String.raw`$x-2y+7=0$ এবং $x-y+2=0$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`সমীকরণজোটটি আড়গুণন পদ্ধতিতে সমাধান করে $(x,y)$ নির্ণয় করো। ভগ্নাংশটি কত?`,
+          solution: {
+            steps: [
+              String.raw`তুলনা করে পাই,`,
+              String.raw`$$a_{1}=1,\;b_{1}=-2,\;c_{1}=7;\qquad a_{2}=1,\;b_{2}=-1,\;c_{2}=2$$`,
+              String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+              String.raw`$$\frac{x}{(-2)\times 2-(-1)\times 7}=\frac{y}{7\times 1-2\times 1}=\frac{1}{1\times(-1)-1\times(-2)}$$`,
+              String.raw`$$\text{বা, }\frac{x}{-4+7}=\frac{y}{7-2}=\frac{1}{-1+2}$$`,
+              String.raw`$$\text{বা, }\frac{x}{3}=\frac{y}{5}=\frac{1}{1}$$`,
+              String.raw`সুতরাং $x=3$ এবং $y=5$।`,
+              String.raw`$$\therefore\;\text{ভগ্নাংশটি}=\frac{3}{5}$$`,
+              String.raw`যাচাই: $\dfrac{3+7}{5}=2$ এবং $\dfrac{3}{5-2}=1$।`,
+            ],
+            answer: String.raw`$(x,y)=(3,5)$; ভগ্নাংশটি $\dfrac{3}{5}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`সমীকরণজোটটির লেখ অঙ্কন করে $(x,y)$ এর প্রাপ্ত মানের সত্যতা যাচাই করো।`,
+          solution: {
+            steps: [
+              String.raw`সমীকরণ $(1)$ থেকে পাই, $$2y=x+7,\;\text{ বা, }y=\frac{x+7}{2}$$`,
+              String.raw`[[table side]]
+$x$ | $-1$ | $3$ | $5$
+$y$ | $3$ | $5$ | $6$`,
+              String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(-1,3),\;(3,5),\;(5,6)$।`,
+              String.raw`আবার, সমীকরণ $(2)$ থেকে পাই, $$y=x+2$$`,
+              String.raw`[[table side]]
+$x$ | $0$ | $3$ | $4$
+$y$ | $2$ | $5$ | $6$`,
+              String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(0,2),\;(3,5),\;(4,6)$।`,
+              String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+              String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(3,5)$ — যা আড়গুণনে পাওয়া মানের সাথে মিলে যায়।`,
+              String.raw`$$\therefore\;(x,y)=(3,5)$$`,
+            ],
+            answer: String.raw`লেখের ছেদবিন্দু $(3,5)$ — প্রাপ্ত মান সঠিক`,
+          },
+        },
+      ],
+    },
+    {
+      id: 13,
+      group: EQ_BUILD,
+      question: String.raw`শিক্ষক বললেন একটি কাজ একা অথবা ছাত্র-ছাত্রীর জুটি করতে পারবে। ছাত্রদের $\dfrac{2}{3}$ এবং ছাত্রীদের $\dfrac{3}{5}$ অংশ জুটি বেঁধে কাজটি করলো। শ্রেণির কত ভাগ ছাত্র-ছাত্রী একা কাজটি করলো?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, শ্রেণিতে ছাত্র সংখ্যা $x$ ও ছাত্রী সংখ্যা $y$।`,
+          String.raw`প্রতিটি জুটিতে একজন ছাত্র ও একজন ছাত্রী, তাই জুটি বাঁধা ছাত্র ও ছাত্রীর সংখ্যা সমান।`,
+          String.raw`$$\text{শর্তানুসারে, }\frac{2}{3}x=\frac{3}{5}y$$`,
+          String.raw`$$\text{বা, }10x=9y\qquad\left[\,\text{উভয়পক্ষকে }15\ \text{দ্বারা গুণ করে}\,\right]$$`,
+          String.raw`$$\therefore\; y=\frac{10x}{9}\qquad\cdots(1)$$`,
+          String.raw`একা কাজ করা ছাত্র সংখ্যা $$=x-\frac{2}{3}x=\frac{x}{3}$$`,
+          String.raw`একা কাজ করা ছাত্রী সংখ্যা $$=y-\frac{3}{5}y=\frac{2y}{5}$$`,
+          String.raw`$$\therefore\;\text{একা কাজ করা মোট সংখ্যা}=\frac{x}{3}+\frac{2y}{5}=\frac{x}{3}+\frac{2}{5}\cdot\frac{10x}{9}=\frac{x}{3}+\frac{4x}{9}=\frac{7x}{9}$$`,
+          String.raw`$$\text{আবার, শ্রেণির মোট শিক্ষার্থী}=x+y=x+\frac{10x}{9}=\frac{19x}{9}$$`,
+          String.raw`$$\therefore\;\text{নির্ণেয় ভাগ}=\frac{\frac{7x}{9}}{\frac{19x}{9}}=\frac{7}{19}$$`,
+        ],
+        answer: String.raw`শ্রেণির $\dfrac{7}{19}$ অংশ`,
+      },
+    },
+    {
+      id: 14,
+      group: EQ_BUILD,
+      question: String.raw`$100$ ও $200$ মিটার দীর্ঘ দুইটি ট্রেন সমবেগে সামনাসামনি অতিক্রম করতে $5$ সেকেন্ড সময় লাগে, কিন্তু একই দিকে চললে অতিক্রম করতে $15$ সেকেন্ড সময় লাগে। ট্রেন দুইটির বেগ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ট্রেন দুইটির বেগ যথাক্রমে $x$ মি./সে. ও $y$ মি./সে., যেখানে $x>y$।`,
+          String.raw`পরস্পরকে অতিক্রম করতে ট্রেন দুইটিকে মোট $(100+200)=300$ মিটার পথ পাড়ি দিতে হয়।`,
+          String.raw`সামনাসামনি চললে আপেক্ষিক বেগ $(x+y)$ মি./সে.।`,
+          String.raw`$$\text{১ম শর্তানুসারে, }\frac{300}{x+y}=5$$`,
+          String.raw`$$\text{বা, }x+y=60\qquad\cdots(1)$$`,
+          String.raw`একই দিকে চললে আপেক্ষিক বেগ $(x-y)$ মি./সে.।`,
+          String.raw`$$\text{২য় শর্তানুসারে, }\frac{300}{x-y}=15$$`,
+          String.raw`$$\text{বা, }x-y=20\qquad\cdots(2)$$`,
+          String.raw`$(1)$ ও $(2)$ যোগ করে পাই, $$2x=80$$`,
+          String.raw`$$\therefore\; x=40$$`,
+          String.raw`$(1)$ হতে পাই, $$y=60-40=20$$`,
+          String.raw`$$\text{ঘণ্টায় প্রকাশ করলে, }40\ \text{মি./সে.}=\frac{40\times 3600}{1000}\ \text{কি.মি./ঘণ্টা}=144\ \text{কি.মি./ঘণ্টা}$$`,
+          String.raw`$$\text{এবং }20\ \text{মি./সে.}=72\ \text{কি.মি./ঘণ্টা}$$`,
+        ],
+        answer: String.raw`বেগ দুইটি $40$ মি./সে. ও $20$ মি./সে., অর্থাৎ $144$ ও $72$ কি.মি./ঘণ্টা`,
+      },
+    },
+    {
+      id: 15,
+      group: EQ_BUILD,
+      question: String.raw`কমপক্ষে কতগুলো ক্রমিক পূর্ণসংখ্যা নিলে তার গুণফল অবশ্যই $5040$ দ্বারা বিভাজ্য হবে?`,
+      solution: {
+        steps: [
+          String.raw`প্রথমে $5040$ কে উৎপাদকে বিশ্লেষণ করি।`,
+          String.raw`$$5040=7\times 6\times 5\times 4\times 3\times 2\times 1=7!$$`,
+          String.raw`আমরা জানি, $k$ সংখ্যক ক্রমিক পূর্ণসংখ্যার গুণফল সর্বদা $k!$ দ্বারা বিভাজ্য — কারণ ঐ গুণফলকে $k!$ দিয়ে ভাগ করলে যে ভাগফল পাওয়া যায়, তা একটি সমাবেশ সংখ্যা, অর্থাৎ পূর্ণসংখ্যা।`,
+          String.raw`সুতরাং $7$টি ক্রমিক পূর্ণসংখ্যা নিলে তার গুণফল অবশ্যই $7!=5040$ দ্বারা বিভাজ্য হবে।`,
+          String.raw`$6$টি নিলে চলবে না — যেমন $1\times 2\times 3\times 4\times 5\times 6=720$, যা $5040$ দ্বারা বিভাজ্য নয়।`,
+        ],
+        answer: String.raw`কমপক্ষে $7$টি ক্রমিক পূর্ণসংখ্যা`,
+      },
+    },
+    {
+      id: 16,
+      group: EQ_BUILD,
+      question: String.raw`ঘড়ির ঘণ্টা এবং মিনিটের কাঁটা পরস্পরের সঙ্গে $30$ ডিগ্রি কোণ করে কত বার? সময়গুলো নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, $x$ টা $y$ মিনিটে কাঁটা দুইটি পরস্পরের সঙ্গে $30^{\circ}$ কোণ করে; এখানে $x=0,1,\dots,11$।`,
+          String.raw`ঘড়ির চাকতিতে $60$টি ঘর এবং সম্পূর্ণ কোণ $360^{\circ}$, তাই প্রতি ঘর $6^{\circ}$।`,
+          String.raw`$$\therefore\;30^{\circ}=\frac{30}{6}\ \text{ঘর}=5\ \text{ঘর}$$`,
+          String.raw`$x$ টার সময় ঘণ্টার কাঁটা $5x$ ঘরে ও মিনিটের কাঁটা $0$ ঘরে ছিল। $y$ মিনিট পরে ঘণ্টার কাঁটা $\left(5x+\dfrac{y}{12}\right)$ ঘরে এবং মিনিটের কাঁটা $y$ ঘরে থাকবে।`,
+          String.raw`$$\text{শর্তানুসারে, }y-\left(5x+\frac{y}{12}\right)=\pm 5$$`,
+          String.raw`$$\text{বা, }\frac{11}{12}y-5x=\pm 5$$`,
+          String.raw`$$\text{বা, }11y=60x\pm 60$$`,
+          String.raw`$$\therefore\; y=\frac{60(x+1)}{11}\quad\text{অথবা}\quad y=\frac{60(x-1)}{11}$$`,
+          String.raw`$0\leq y<60$ হতে হবে। প্রথম রূপে $x=0,1,\dots,10$ — এই $11$টি মান চলে (মিনিটের কাঁটা ঘণ্টার কাঁটার আগে)।`,
+          String.raw`দ্বিতীয় রূপে $x=1,2,\dots,11$ — এই $11$টি মান চলে (মিনিটের কাঁটা ঘণ্টার কাঁটার পিছনে)।`,
+          String.raw`$$\therefore\;\text{মোট}=11+11=22\ \text{বার (}12\ \text{ঘণ্টায়)}$$`,
+          String.raw`যেমন, $x=1$ ও দ্বিতীয় রূপে $y=0$ — অর্থাৎ ঠিক $1$টায় কাঁটা দুইটির ব্যবধান $5$ ঘর, যা $30^{\circ}$।`,
+        ],
+        answer: String.raw`$12$ ঘণ্টায় $22$ বার; সময়গুলো $x$ টা $\dfrac{60(x\pm 1)}{11}$ মিনিট`,
+      },
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — বহুনির্বাচনি (17 – 20) ───────────────
+    {
+      id: 17,
+      group: EQ_MODEL_MCQ,
+      question: String.raw`$x+y=6$ ও $2x=4$ হলে, $y$ এর মান কত?
+ক) $2$  খ) $4$  গ) $6$  ঘ) $8$`,
+      solution: {
+        steps: [
+          String.raw`$$2x=4$$`,
+          String.raw`$$\therefore\; x=2$$`,
+          String.raw`$x$ এর মান $x+y=6$ এ বসিয়ে পাই, $$2+y=6$$`,
+          String.raw`$$\therefore\; y=4$$`,
+        ],
+        answer: String.raw`খ) $4$`,
+      },
+    },
+    {
+      id: 18,
+      group: EQ_MODEL_MCQ,
+      question: String.raw`$x-y-4=0$ এবং $3x-3y-10=0$ সমীকরণদ্বয় —
+$(i)$ পরস্পর নির্ভরশীল।  $(ii)$ পরস্পর সমঞ্জস্য।  $(iii)$ সমাধানযোগ্য নয়।
+উপরের তথ্যের ভিত্তিতে নিচের কোনটি সঠিক?
+ক) $ii$  খ) $iii$  গ) $i$ ও $iii$  ঘ) $ii$ ও $iii$`,
+      solution: {
+        steps: [
+          String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{3}$$`,
+          String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{-1}{-3}=\frac{1}{3}$$`,
+          String.raw`ধ্রুবক পদদ্বয়ের অনুপাত $$\frac{-4}{-10}=\frac{2}{5}$$`,
+          String.raw`$$\therefore\;\frac{1}{3}=\frac{-1}{-3}\neq\frac{2}{5}$$`,
+          String.raw`সুতরাং সমীকরণজোটটি অসমঞ্জস্য ও পরস্পর অনির্ভরশীল — এর কোনো সমাধান নেই।`,
+          String.raw`অতএব $(i)$ ভুল, $(ii)$ ভুল এবং কেবল $(iii)$ সঠিক।`,
+        ],
+        answer: String.raw`খ) $iii$`,
+      },
+    },
+    {
+      id: 19,
+      group: EQ_MODEL_MCQ,
+      question: String.raw`আয়তাকার একটি ঘরের মেঝের দৈর্ঘ্য, প্রস্থ অপেক্ষা $2$ মিটার বেশি এবং মেঝের পরিসীমা $20$ মিটার। ঘরটির মেঝে মোজাইক করতে প্রতি বর্গমিটারে $900$ টাকা খরচ হয়।
+ঘরটির মেঝের দৈর্ঘ্য কত মিটার?
+ক) $10$  খ) $8$  গ) $6$  ঘ) $4$`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, মেঝের দৈর্ঘ্য $x$ মিটার ও প্রস্থ $y$ মিটার।`,
+          String.raw`$$\text{১ম শর্তানুসারে, }x-y=2\qquad\cdots(1)$$`,
+          String.raw`$$\text{২য় শর্তানুসারে, }2(x+y)=20,\;\text{ বা, }x+y=10\qquad\cdots(2)$$`,
+          String.raw`$(1)$ ও $(2)$ যোগ করে পাই, $$2x=12$$`,
+          String.raw`$$\therefore\; x=6$$`,
+        ],
+        answer: String.raw`গ) $6$`,
+      },
+    },
+    {
+      id: 20,
+      group: EQ_MODEL_MCQ,
+      question: String.raw`(১৯ নং এর তথ্য অনুসারে) ঘরটির মেঝে মোজাইক করতে মোট কত খরচ হবে?
+ক) $72000$  খ) $43200$  গ) $28800$  ঘ) $21600$`,
+      solution: {
+        steps: [
+          String.raw`১৯ নং হতে মেঝের দৈর্ঘ্য $x=6$ মিটার। পরিসীমার শর্ত $x+y=10$ হতে পাই,`,
+          String.raw`$$y=10-6=4$$`,
+          String.raw`$$\therefore\;\text{মেঝের ক্ষেত্রফল}=6\times 4=24\ \text{বর্গমিটার}$$`,
+          String.raw`$$\therefore\;\text{খরচ}=(24\times 900)\ \text{টাকা}=21600\ \text{টাকা}$$`,
+        ],
+        answer: String.raw`ঘ) $21600$`,
+      },
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — সৃজনশীল ও সংক্ষিপ্ত-উত্তর (21 – 22) ───────────────
+    {
+      id: 21,
+      group: EQ_MODEL_CQ,
+      question: String.raw`একটি সরল সমীকরণজোট $x+y=10,\;3x-2y=0$।`,
+      figure: "124-p21",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`সরল সমীকরণজোট সমঞ্জস্য কিনা তা যাচাই করো।`,
+          solution: {
+            steps: [
+              String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{3}$$`,
+              String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{1}{-2}=-\frac{1}{2}$$`,
+              String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}$$`,
+              String.raw`সহগের অনুপাত অসমান, তাই ধ্রুবক পদ তুলনা করার প্রয়োজন নেই।`,
+              String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর একটিমাত্র (অনন্য) সমাধান আছে।`,
+            ],
+            answer: String.raw`সমঞ্জস্য ও পরস্পর অনির্ভরশীল — একটিমাত্র সমাধান`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`আড়গুণন পদ্ধতিতে সমীকরণজোটটি সমাধান করো।`,
+          solution: {
+            steps: [
+              String.raw`পক্ষান্তর প্রক্রিয়ায় ডানপক্ষ $0$ করে পাই,`,
+              String.raw`$$x+y-10=0$$`,
+              String.raw`$$3x-2y+0=0$$`,
+              String.raw`তুলনা করে পাই,`,
+              String.raw`$$a_{1}=1,\;b_{1}=1,\;c_{1}=-10;\qquad a_{2}=3,\;b_{2}=-2,\;c_{2}=0$$`,
+              String.raw`আড়গুণন পদ্ধতিতে পাই,`,
+              String.raw`$$\frac{x}{1\times 0-(-2)\times(-10)}=\frac{y}{(-10)\times 3-0\times 1}=\frac{1}{1\times(-2)-3\times 1}$$`,
+              String.raw`$$\text{বা, }\frac{x}{0-20}=\frac{y}{-30-0}=\frac{1}{-2-3}$$`,
+              String.raw`$$\text{বা, }\frac{x}{-20}=\frac{y}{-30}=\frac{1}{-5}$$`,
+              String.raw`$$\text{বা, }\frac{x}{20}=\frac{y}{30}=\frac{1}{5}$$`,
+              String.raw`সুতরাং $$x=\frac{20}{5}=4,\qquad y=\frac{30}{5}=6$$`,
+              String.raw`$$\therefore\;(x,y)=(4,6)$$`,
+            ],
+            answer: String.raw`$(x,y)=(4,6)$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`লেখচিত্রের সাহায্যে সমীকরণজোটটি সমাধান করো।`,
+          solution: {
+            steps: [
+              String.raw`$x+y=10$ থেকে পাই, $$y=10-x$$`,
+              String.raw`[[table side]]
+$x$ | $2$ | $4$ | $6$
+$y$ | $8$ | $6$ | $4$`,
+              String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(2,8),\;(4,6),\;(6,4)$।`,
+              String.raw`আবার, $3x-2y=0$ থেকে পাই, $$2y=3x,\;\text{ বা, }y=\frac{3x}{2}$$`,
+              String.raw`[[table side]]
+$x$ | $0$ | $2$ | $4$
+$y$ | $0$ | $3$ | $6$`,
+              String.raw`$\therefore$ লেখের উপর তিনটি বিন্দু $(0,0),\;(2,3),\;(4,6)$। ধ্রুবক পদ শূন্য বলে এ লেখটি মূলবিন্দু দিয়ে যায়।`,
+              String.raw`ছক কাগজে বিন্দুগুলো স্থাপন করে সংযুক্ত করলে দুইটি সরলরেখা পাওয়া যায়; এরা $P$ বিন্দুতে ছেদ করে।`,
+              String.raw`চিত্রে দেখা যায়, $P$ বিন্দুর স্থানাঙ্ক $(4,6)$ — যা (খ)-এর উত্তরের সাথে মিলে যায়।`,
+              String.raw`$$\therefore\;(x,y)=(4,6)$$`,
+            ],
+            answer: String.raw`$(x,y)=(4,6)$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 22,
+      group: EQ_MODEL_CQ,
+      question: String.raw`সংক্ষিপ্ত-উত্তর প্রশ্ন।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`একটি নৌকা দাঁড় বেয়ে স্রোতের অনুকূলে ঘণ্টায় $15$ কি.মি. যায় এবং স্রোতের প্রতিকূলে যায় ঘণ্টায় $5$ কি.মি.। নৌকার বেগ নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, স্থির পানিতে নৌকার বেগ $x$ কি.মি./ঘণ্টা ও স্রোতের বেগ $y$ কি.মি./ঘণ্টা।`,
+              String.raw`স্রোতের অনুকূলে নৌকার বেগ $(x+y)$ এবং প্রতিকূলে $(x-y)$ কি.মি./ঘণ্টা।`,
+              String.raw`$$\text{১ম শর্তানুসারে, }x+y=15\qquad\cdots(1)$$`,
+              String.raw`$$\text{২য় শর্তানুসারে, }x-y=5\qquad\cdots(2)$$`,
+              String.raw`$(1)$ ও $(2)$ যোগ করে পাই, $$2x=20$$`,
+              String.raw`$$\therefore\; x=10$$`,
+              String.raw`$(1)$ হতে পাই, $$y=15-10=5$$`,
+            ],
+            answer: String.raw`নৌকার বেগ $10$ কি.মি./ঘণ্টা (স্রোতের বেগ $5$ কি.মি./ঘণ্টা)`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`দুইটি বহুভুজের বাহুর সংখ্যা $17$ এবং এদের কর্ণের সংখ্যা $53$ হলে, প্রত্যেক বহুভুজের বাহুর সংখ্যা কত?`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, বহুভুজ দুইটির বাহুর সংখ্যা যথাক্রমে $x$ ও $y$।`,
+              String.raw`$$\text{১ম শর্তানুসারে, }x+y=17\qquad\cdots(1)$$`,
+              String.raw`আমরা জানি, $n$ বাহুবিশিষ্ট বহুভুজের কর্ণসংখ্যা $$=\frac{n(n-3)}{2}$$`,
+              String.raw`$$\text{২য় শর্তানুসারে, }\frac{x(x-3)}{2}+\frac{y(y-3)}{2}=53$$`,
+              String.raw`$$\text{বা, }x^{2}-3x+y^{2}-3y=106$$`,
+              String.raw`$$\text{বা, }x^{2}+y^{2}-3(x+y)=106$$`,
+              String.raw`$$\text{বা, }x^{2}+y^{2}=106+3\times 17=157\qquad\cdots(2)$$`,
+              String.raw`$(1)$ হতে পাই, $$(x+y)^{2}=289$$`,
+              String.raw`$$\text{বা, }x^{2}+y^{2}+2xy=289$$`,
+              String.raw`$$\text{বা, }2xy=289-157=132$$`,
+              String.raw`$$\therefore\; xy=66$$`,
+              String.raw`$$\therefore\;(x-y)^{2}=(x+y)^{2}-4xy=289-264=25$$`,
+              String.raw`$$\text{বা, }x-y=\pm 5$$`,
+              String.raw`$x-y=5$ ধরে $(1)$ এর সাথে যোগ করে পাই, $$2x=22,\;\text{ বা, }x=11$$ এবং $y=17-11=6$।`,
+              String.raw`যাচাই: $\dfrac{11\times 8}{2}+\dfrac{6\times 3}{2}=44+9=53$।`,
+            ],
+            answer: String.raw`বাহুর সংখ্যা $11$ ও $6$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$$\begin{aligned}-x+2y&=1\\ 2x+y&=4\end{aligned}$$ সমীকরণজোট সমঞ্জস কিনা যাচাই করো।`,
+          solution: {
+            steps: [
+              String.raw`প্রদত্ত সমীকরণদ্বয়`,
+              String.raw`$$-x+2y=1\qquad\cdots(1)$$`,
+              String.raw`$$2x+y=4\qquad\cdots(2)$$`,
+              String.raw`$x$ এর সহগদ্বয়ের অনুপাত $$\frac{-1}{2}$$`,
+              String.raw`$y$ এর সহগদ্বয়ের অনুপাত $$\frac{2}{1}=2$$`,
+              String.raw`$$\therefore\;\frac{a_{1}}{a_{2}}\neq\frac{b_{1}}{b_{2}}$$`,
+              String.raw`অতএব, সমীকরণজোটটি সমঞ্জস্য ও পরস্পর অনির্ভরশীল; এর একটিমাত্র সমাধান আছে।`,
+              String.raw`$(1)$ হতে পাই $x=2y-1$; $(2)$ এ বসিয়ে পাই $$2(2y-1)+y=4$$`,
+              String.raw`$$\text{বা, }5y=6,\;\text{ বা, }y=\frac{6}{5}$$`,
+              String.raw`$$\therefore\; x=2\times\frac{6}{5}-1=\frac{7}{5}$$`,
+            ],
+            answer: String.raw`সমঞ্জস্য; সমাধান $(x,y)=\left(\dfrac{7}{5},\;\dfrac{6}{5}\right)$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`দুইটি সংখ্যার যোগফল ও বিয়োগফল যথাক্রমে $31$ এবং $13$ হলে, বড় সংখ্যাটি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, সংখ্যা দুইটি $x$ ও $y$, যেখানে $x>y$।`,
+              String.raw`$$x+y=31\qquad\cdots(1)$$`,
+              String.raw`$$x-y=13\qquad\cdots(2)$$`,
+              String.raw`$(1)$ ও $(2)$ যোগ করে পাই, $$2x=44$$`,
+              String.raw`$$\therefore\; x=22$$`,
+              String.raw`$(1)$ হতে পাই, $$y=31-22=9$$`,
+            ],
+            answer: String.raw`বড় সংখ্যাটি $22$`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// অধ্যায় ৬ · রেখা, কোণ ও ত্রিভুজ
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// বইয়ের প্রথম যুক্তিমূলক জ্যামিতির অধ্যায়। অনুশীলনী ৬.১ ও ৬.২ পুরোটাই সংজ্ঞা
+// ও স্বীকার্য — এখানে "সমাধান" মানে হিসাব নয়, বইয়ের আলোচনাটুকু গুছিয়ে বলা।
+// অনুশীলনী ৬.৩ এর প্রায় প্রতিটি প্রশ্নই প্রমাণ, আর প্রতিটি প্রমাণের ভিত্তি
+// উপপাদ্য ৪ থেকে ১৫ — তাই সূত্রের তালিকায় উপপাদ্যগুলো বিবৃতিসহ রাখা হয়েছে।
+//
+// প্রতিটি প্রশ্নের সাথে চিত্র আছে (`figures/scenes6.ts`); জ্যামিতিতে চিত্রই
+// বিশেষ নির্বচন, তাই চিত্র ছাড়া প্রমাণের ধাপগুলো পড়া যায় না।
+
+const GEO_DEF = "সংজ্ঞা ও স্বীকার্য (১ – ৮)";
+const GEO_ANG = "কোণ সংক্রান্ত সংজ্ঞা (১ – ৪)";
+const TRI_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৩)";
+const TRI_PROVE = "প্রমাণ (৪ – ১৫)";
+const TRI_APPLY = "প্রয়োগ (১৬)";
+const TRI_MODEL_MCQ = "নমুনা প্রশ্ন — বহুনির্বাচনি (১৭ – ২০)";
+const TRI_MODEL_CQ = "নমুনা প্রশ্ন — সৃজনশীল (২১ – ২২)";
+const TRI_MODEL_SA = "নমুনা প্রশ্ন — সংক্ষিপ্ত-উত্তর (২৩)";
+
+const exercise61: Exercise = {
+  id: "6.1",
+  bnId: "অনুশীলনী ৬.১",
+  title: "স্থান, তল, রেখা ও বিন্দু",
+  bookPages: "১১৮",
+  formulas: [
+    {
+      title: "চারটি প্রাথমিক ধারণা",
+      formulas: [
+        {
+          statement: "স্থান (space) — ত্রিমাত্রিক",
+          note: "আমাদের চারপাশে বিস্তৃত সীমাহীন জগৎ। কোনো ঘনবস্তু স্থানের যে অংশ অধিকার করে তা তিন দিকে বিস্তৃত — দৈর্ঘ্য, প্রস্থ ও উচ্চতা।",
+        },
+        {
+          statement: "তল (surface) — দ্বিমাত্রিক",
+          note: "ঘনবস্তুর উপরিভাগ। এর কেবল দৈর্ঘ্য ও প্রস্থ আছে, উচ্চতা নাই। বাক্সের পৃষ্ঠ সমতল, গোলকের পৃষ্ঠ বক্রতল।",
+        },
+        {
+          statement: "রেখা (line) — একমাত্রিক",
+          note: "দুইটি তলের ছেদে রেখার উৎপত্তি। এর কেবল দৈর্ঘ্য আছে, প্রস্থ ও উচ্চতা নাই। যে রেখার সব বিন্দু একই বরাবরে, তা সরলরেখা।",
+        },
+        {
+          statement: "বিন্দু (point) — শূন্য মাত্রা",
+          note: "দুইটি রেখার ছেদে বিন্দুর উৎপত্তি। বিন্দুর দৈর্ঘ্য, প্রস্থ ও উচ্চতা নাই — কেবল অবস্থান আছে।",
+        },
+      ],
+    },
+    {
+      title: "ইউক্লিডের স্বতঃসিদ্ধ (axioms)",
+      formulas: [
+        {
+          statement: "যে সকল বস্তু একই বস্তুর সমান, সেগুলো পরস্পর সমান।",
+        },
+        {
+          statement: "সমান সমান বস্তুর সাথে সমান বস্তু যোগ করা হলে যোগফল সমান।",
+        },
+        {
+          statement:
+            "সমান সমান বস্তু থেকে সমান বস্তু বিয়োগ করা হলে বিয়োগফল সমান।",
+        },
+        { statement: "যা পরস্পরের সাথে মিলে যায়, তা পরস্পর সমান।" },
+        { statement: "পূর্ণ তার অংশের চেয়ে বড়।" },
+      ],
+    },
+    {
+      title: "ইউক্লিডের পাঁচটি স্বীকার্য (postulates)",
+      formulas: [
+        {
+          statement: "১. একটি বিন্দু থেকে অন্য একটি বিন্দু পর্যন্ত একটি সরলরেখা আঁকা যায়।",
+        },
+        { statement: "২. খণ্ডিত রেখাকে যথেচ্ছভাবে বাড়ানো যায়।" },
+        { statement: "৩. যেকোনো কেন্দ্র ও যেকোনো ব্যাসার্ধ নিয়ে বৃত্ত আঁকা যায়।" },
+        { statement: "৪. সকল সমকোণ পরস্পর সমান।" },
+        {
+          statement:
+            "৫. একটি সরলরেখা দুইটি সরলরেখাকে ছেদ করলে এবং ছেদকের একই পাশের অন্তঃস্থ কোণদ্বয়ের সমষ্টি দুই সমকোণের চেয়ে কম হলে, রেখা দুইটিকে যথেচ্ছভাবে বর্ধিত করলে যেদিকে কোণদ্বয়ের সমষ্টি দুই সমকোণের চেয়ে কম, সেদিকে মিলিত হয়।",
+          note: "প্রথম চারটি এত সহজ যে ‘স্পষ্টই সত্য’ বলে প্রতীয়মান হয়; পঞ্চমটি অন্য চারটির চেয়ে জটিল এবং সমান্তরাল সরলরেখার সাথে জড়িত।",
+        },
+      ],
+    },
+    {
+      title: "আপতন স্বীকার্য (স্বীকার্য ১ – ৫)",
+      formulas: [
+        {
+          statement: "১. জগৎ সকল বিন্দুর সেট এবং সমতল ও সরলরেখা এই সেটের উপসেট।",
+        },
+        {
+          statement:
+            "২. দুইটি ভিন্ন বিন্দুর জন্য একটি ও কেবল একটি সরলরেখা আছে, যাতে উভয় বিন্দু অবস্থিত।",
+        },
+        {
+          statement:
+            "৩. একই সরলরেখায় অবস্থিত নয় এমন তিনটি ভিন্ন বিন্দুর জন্য একটি ও কেবল একটি সমতল আছে, যাতে বিন্দু তিনটি অবস্থিত।",
+        },
+        {
+          statement:
+            "৪. কোনো সমতলের দুইটি ভিন্ন বিন্দু দিয়ে যায় এমন সরলরেখা ঐ সমতলে অবস্থিত।",
+        },
+        {
+          statement:
+            "৫. (ক) জগতে একাধিক সমতল বিদ্যমান। (খ) প্রত্যেক সমতলে একাধিক সরলরেখা অবস্থিত। (গ) প্রত্যেক সরলরেখার বিন্দুসমূহ ও বাস্তব সংখ্যাসমূহকে এমনভাবে সম্পর্কিত করা যায় যেন প্রত্যেক বিন্দুর সঙ্গে একটি অনন্য বাস্তব সংখ্যা এবং প্রত্যেক বাস্তব সংখ্যার সঙ্গে একটি অনন্য বিন্দু সংশ্লিষ্ট হয়।",
+        },
+      ],
+    },
+    {
+      title: "দূরত্ব, রুলার ও রুলার স্থাপন স্বীকার্য (স্বীকার্য ৬ – ৮)",
+      formulas: [
+        {
+          statement: String.raw`স্বীকার্য ৬ (দূরত্ব): $\;PQ=QP$`,
+          note: String.raw`(ক) $P$ ও $Q$ বিন্দুযুগল একটি অনন্য বাস্তব সংখ্যা নির্দিষ্ট করে, যাকে $P$ থেকে $Q$ এর দূরত্ব বলা হয়। (খ) $P$ ও $Q$ ভিন্ন হলে $PQ$ ধনাত্মক, অন্যথায় $PQ=0$। (গ) $P$ থেকে $Q$ এর দূরত্ব ও $Q$ থেকে $P$ এর দূরত্ব একই।`,
+        },
+        {
+          statement: String.raw`স্বীকার্য ৭ (রুলার): $\;PQ=|a-b|$`,
+          note: String.raw`কোনো সরলরেখায় অবস্থিত বিন্দুসমূহের সেট এবং বাস্তব সংখ্যার সেটের মধ্যে এমনভাবে এক-এক মিল স্থাপন করা যায়, যেন রেখাটির যেকোনো দুইটি বিন্দু $P,Q$ এর জন্য $PQ=|a-b|$ হয়, যেখানে $P$ ও $Q$ এর সঙ্গে যথাক্রমে $a$ ও $b$ সংশ্লিষ্ট।`,
+        },
+        {
+          statement: String.raw`স্বীকার্য ৮ (রুলার স্থাপন): $\;A\to 0,\;B>0$`,
+          note: String.raw`যেকোনো সরলরেখা $AB$ কে এমনভাবে সংখ্যারেখায় পরিণত করা যায় যে, $A$ এর স্থানাঙ্ক $0$ এবং $B$ এর স্থানাঙ্ক ধনাত্মক হয়।`,
+        },
+      ],
+    },
+    {
+      title: "প্রমাণের পদ্ধতি",
+      formulas: [
+        {
+          statement: "আরোহ পদ্ধতি (Mathematical Induction)",
+          note: "কতিপয় বিশেষ ক্ষেত্র থেকে সাধারণ সিদ্ধান্তে পৌঁছানো।",
+        },
+        {
+          statement: "অবরোহ পদ্ধতি (Mathematical Deduction)",
+          note: "সংজ্ঞা, স্বতঃসিদ্ধ ও স্বীকার্য থেকে ধাপে ধাপে নতুন প্রতিজ্ঞায় পৌঁছানো — জ্যামিতির প্রধান পদ্ধতি।",
+        },
+        {
+          statement: "বিরোধ পদ্ধতি (Proof by contradiction)",
+          note: "সিদ্ধান্তটি সত্য না হলে কী হয় তা ধরে নিয়ে বিরোধে পৌঁছানো। উপপাদ্য ৭ ও ১২ এভাবেই প্রমাণ করা হয়েছে।",
+        },
+        {
+          statement:
+            "জ্যামিতিক প্রমাণের ধাপ: সাধারণ নির্বচন → চিত্র ও বিশেষ নির্বচন → অঙ্কনের বর্ণনা → যৌক্তিক ধাপ",
+          note: "সাধারণ নির্বচন চিত্রনিরপেক্ষ বর্ণনা, বিশেষ নির্বচন চিত্রনির্ভর বর্ণনা। কোনো প্রতিজ্ঞা সরাসরি একটি উপপাদ্যের সিদ্ধান্ত থেকে প্রমাণিত হলে তাকে ঐ উপপাদ্যের অনুসিদ্ধান্ত বলা হয়।",
+        },
+      ],
+    },
+  ],
+  problems: [
+    {
+      id: 1,
+      group: GEO_DEF,
+      question: "স্থান, তল, রেখা এবং বিন্দুর ধারণা দাও।",
+      figure: "61-p1",
+      solution: {
+        steps: [
+          "স্থান: আমাদের চারপাশে বিস্তৃত সীমাহীন জগৎই স্থান (space)। বিভিন্ন বস্তু স্থানের যে অংশ জুড়ে থাকে, সেই অংশটুকুর আকার, আকৃতি ও অবস্থান থেকেই জ্যামিতিক ধ্যান-ধারণার উদ্ভব।",
+          "কোনো ঘনবস্তু যে স্থান অধিকার করে তা তিন দিকে বিস্তৃত, আর এ তিন দিকের বিস্তারই বস্তুটির তিনটি মাত্রা — দৈর্ঘ্য, প্রস্থ ও উচ্চতা — নির্দেশ করে। তাই প্রত্যেক ঘনবস্তুই ত্রিমাত্রিক।",
+          "তল: ঘনবস্তুর উপরিভাগ তল (surface) নির্দেশ করে; প্রত্যেক ঘনবস্তু এক বা একাধিক তল দ্বারা সীমাবদ্ধ থাকে। তল দ্বিমাত্রিক — এর কেবল দৈর্ঘ্য ও প্রস্থ আছে, কোনো উচ্চতা নাই। একটি বাক্সের দুইটি মাত্রা ঠিক রেখে তৃতীয় মাত্রা ক্রমশ কমিয়ে শূন্যে আনলে বাক্সটির পৃষ্ঠবিশেষ মাত্র অবশিষ্ট থাকে — এভাবেই ঘনবস্তু থেকে তলের ধারণায় আসা যায়। বাক্সের পৃষ্ঠতল সমতল (plane), গোলকের পৃষ্ঠ বক্রতল (curved surface)।",
+          "রেখা: দুইটি তল পরস্পরকে ছেদ করলে একটি রেখা (line) উৎপন্ন হয় — যেমন বাক্সের দুইটি পৃষ্ঠতল বাক্সের একধারে একটি রেখায় মিলিত হয়। রেখা একমাত্রিক; এর কেবল দৈর্ঘ্য আছে, প্রস্থ ও উচ্চতা নাই। তলের প্রস্থ ক্রমশ কমিয়ে শূন্যে আনলে ঐ তলের একটি রেখা মাত্র অবশিষ্ট থাকে। যে রেখার উপরিস্থিত বিন্দুগুলো একই বরাবরে থাকে তাকে সরলরেখা, অন্যথায় বক্ররেখা বলা হয়।",
+          "বিন্দু: দুইটি রেখা পরস্পর ছেদ করলে বিন্দুর (point) উৎপত্তি হয় — যেমন বাক্সের দুইটি ধার বাক্সের এক কোনায় একটি বিন্দুতে মিলিত হয়। বিন্দুর দৈর্ঘ্য, প্রস্থ ও উচ্চতা নাই, শুধু অবস্থান আছে। একটি রেখার দৈর্ঘ্য ক্রমশ হ্রাস পেলে অবশেষে তা একটি বিন্দুতে পর্যবসিত হয়। তাই বিন্দুকে শূন্য মাত্রার জ্যামিতিক উপাদান বলা হয়।",
+          "লক্ষণীয়, এগুলো সংজ্ঞা নয় — বর্ণনা মাত্র; কারণ বর্ণনায় ব্যবহৃত দৈর্ঘ্য, প্রস্থ, উচ্চতা শব্দগুলো নিজেরাই অসংজ্ঞায়িত। আধুনিক জ্যামিতিতে বিন্দু, সরলরেখা ও সমতলকে প্রাথমিক ধারণা হিসেবেই গ্রহণ করা হয়।",
+        ],
+        answer:
+          "স্থান ত্রিমাত্রিক, তল দ্বিমাত্রিক, রেখা একমাত্রিক এবং বিন্দু শূন্য মাত্রার জ্যামিতিক উপাদান।",
+      },
+    },
+    {
+      id: 2,
+      group: GEO_DEF,
+      question: "ইউক্লিডের পাঁচটি স্বীকার্য বর্ণনা করো।",
+      figure: "61-p2",
+      solution: {
+        steps: [
+          "আধুনিক জ্যামিতিতে বিন্দু, সরলরেখা ও সমতলকে প্রাথমিক ধারণা হিসেবে গ্রহণ করে এদের কিছু বৈশিষ্ট্যকে স্বীকার করে নেওয়া হয়; এই স্বীকৃত বৈশিষ্ট্যগুলোকেই জ্যামিতিক স্বীকার্য (postulate) বলা হয়। ইউক্লিড প্রদত্ত পাঁচটি স্বীকার্য হলো:",
+          "স্বীকার্য ১. একটি বিন্দু থেকে অন্য একটি বিন্দু পর্যন্ত একটি সরলরেখা আঁকা যায়।",
+          "স্বীকার্য ২. খণ্ডিত রেখাকে যথেচ্ছভাবে বাড়ানো যায়।",
+          "স্বীকার্য ৩. যেকোনো কেন্দ্র ও যেকোনো ব্যাসার্ধ নিয়ে বৃত্ত আঁকা যায়।",
+          "স্বীকার্য ৪. সকল সমকোণ পরস্পর সমান।",
+          "স্বীকার্য ৫. একটি সরলরেখা দুইটি সরলরেখাকে ছেদ করলে এবং ছেদকের একই পাশের অন্তঃস্থ কোণদ্বয়ের সমষ্টি দুই সমকোণের চেয়ে কম হলে, রেখা দুইটিকে যথেচ্ছভাবে বর্ধিত করলে যেদিকে কোণদ্বয়ের সমষ্টি দুই সমকোণের চেয়ে কম, সেদিকে মিলিত হয়।",
+          "মন্তব্য: প্রথম স্বীকার্যে কিছু অসম্পূর্ণতা রয়েছে — দুইটি ভিন্ন বিন্দু দিয়ে যে একটি অনন্য সরলরেখা অঙ্কন করা যায় তা উপেক্ষিত হয়েছে। পঞ্চম স্বীকার্যটি অন্য চারটির চেয়ে জটিল এবং সমান্তরাল সরলরেখার সাথে জড়িত; প্রথম থেকে চতুর্থ স্বীকার্যগুলো এত সহজ যে এগুলো ‘স্পষ্টই সত্য’ বলে প্রতীয়মান হয়, কিন্তু এগুলো প্রমাণ করা যায় না — তাই এগুলোকে ‘প্রমাণবিহীন সত্য’ বা স্বীকার্য বলে মেনে নেওয়া হয়।",
+        ],
+        answer:
+          "উপরের পাঁচটি — সরলরেখা অঙ্কন, রেখা বর্ধন, বৃত্ত অঙ্কন, সকল সমকোণের সমতা এবং সমান্তরাল সম্পর্কিত পঞ্চম স্বীকার্য।",
+      },
+    },
+    {
+      id: 3,
+      group: GEO_DEF,
+      question: "পাঁচটি আপতন স্বীকার্য বর্ণনা করো।",
+      figure: "61-p3",
+      solution: {
+        steps: [
+          "বিমূর্ত জ্যামিতিক ধারণা হিসাবে স্থানকে বিন্দুসমূহের সেট ধরা হয় এবং সরলরেখা ও সমতলকে এই সার্বিক সেটের উপসেট বিবেচনা করা হয়। এ প্রসঙ্গে যে স্বীকার্য ১ থেকে স্বীকার্য ৫ গৃহীত হয়, সেগুলোকেই আপতন স্বীকার্য (incidence axiom) বলা হয়।",
+          "স্বীকার্য ১. জগৎ (space) সকল বিন্দুর সেট এবং সমতল ও সরলরেখা এই সেটের উপসেট।",
+          "স্বীকার্য ২. দুইটি ভিন্ন বিন্দুর জন্য একটি ও কেবল একটি সরলরেখা আছে, যাতে উভয় বিন্দু অবস্থিত।",
+          "স্বীকার্য ৩. একই সরলরেখায় অবস্থিত নয় এমন তিনটি ভিন্ন বিন্দুর জন্য একটি ও কেবল একটি সমতল আছে, যাতে বিন্দু তিনটি অবস্থিত।",
+          "স্বীকার্য ৪. কোনো সমতলের দুইটি ভিন্ন বিন্দু দিয়ে যায় এমন সরলরেখা ঐ সমতলে অবস্থিত।",
+          "স্বীকার্য ৫. (ক) জগতে একাধিক সমতল বিদ্যমান। (খ) প্রত্যেক সমতলে একাধিক সরলরেখা অবস্থিত। (গ) প্রত্যেক সরলরেখার বিন্দুসমূহ এবং বাস্তব সংখ্যাসমূহকে এমনভাবে সম্পর্কিত করা যায় যেন রেখাটির প্রত্যেক বিন্দুর সঙ্গে একটি অনন্য বাস্তব সংখ্যা এবং প্রত্যেক বাস্তব সংখ্যার সঙ্গে রেখাটির একটি অনন্য বিন্দু সংশ্লিষ্ট হয়।",
+          "স্বীকার্য ২ অনুযায়ী দুইটি ভিন্ন বিন্দু $A$ ও $B$ একটি অনন্য সরলরেখা নির্দিষ্ট করে; একে $AB$ রেখা বা $BA$ রেখা বলা হয়। আর স্বীকার্য ৫ (গ) অনুযায়ী এরূপ প্রত্যেক সরলরেখা অসংখ্য বিন্দু ধারণ করে।",
+        ],
+        answer: "উপরের স্বীকার্য ১ থেকে স্বীকার্য ৫ — এগুলোই আপতন স্বীকার্য।",
+      },
+    },
+    {
+      id: 4,
+      group: GEO_DEF,
+      question: "দূরত্ব স্বীকার্যটি বর্ণনা করো।",
+      figure: "61-p4",
+      solution: {
+        steps: [
+          "জ্যামিতিতে দূরত্বের ধারণাও একটি প্রাথমিক ধারণা। এ জন্য স্বীকার করে নেওয়া হয় যে —",
+          String.raw`স্বীকার্য ৬ (ক) $P$ ও $Q$ বিন্দুযুগল একটি অনন্য বাস্তব সংখ্যা নির্দিষ্ট করে থাকে। সংখ্যাটিকে $P$ বিন্দু থেকে $Q$ বিন্দুর দূরত্ব বলা হয় এবং $PQ$ দ্বারা সূচিত করা হয়।`,
+          String.raw`স্বীকার্য ৬ (খ) $P$ ও $Q$ ভিন্ন বিন্দু হলে $PQ$ সংখ্যাটি ধনাত্মক। অন্যথায়, $PQ=0$।`,
+          String.raw`স্বীকার্য ৬ (গ) $P$ থেকে $Q$ এর দূরত্ব এবং $Q$ থেকে $P$ এর দূরত্ব একই। অর্থাৎ $PQ=QP$।`,
+          String.raw`$PQ=QP$ হওয়াতে এই দূরত্বকে সাধারণত $P$ বিন্দু ও $Q$ বিন্দুর মধ্যবর্তী দূরত্ব বলা হয়। ব্যবহারিকভাবে এই দূরত্ব পূর্ব নির্ধারিত এককের সাহায্যে পরিমাপ করা হয়।`,
+          "এই স্বীকার্য ৬ কেই দূরত্ব স্বীকার্য বলা হয়।",
+        ],
+        answer:
+          "স্বীকার্য ৬ — বিন্দুযুগল একটি অনন্য অঋণাত্মক বাস্তব সংখ্যা নির্দিষ্ট করে, বিন্দু দুইটি ভিন্ন হলে তা ধনাত্মক, এবং দূরত্বটি দুই দিক থেকেই একই।",
+      },
+    },
+    {
+      id: 5,
+      group: GEO_DEF,
+      question: "রুলার স্বীকার্যটি বর্ণনা করো।",
+      figure: "61-p5",
+      solution: {
+        steps: [
+          "স্বীকার্য ৫ (গ) অনুযায়ী প্রত্যেক সরলরেখায় অবস্থিত বিন্দুসমূহের সেট ও বাস্তব সংখ্যার সেটের মধ্যে এক-এক মিল স্থাপন করা যায়। এ প্রসঙ্গে স্বীকার করে নেওয়া হয় যে —",
+          String.raw`স্বীকার্য ৭. কোনো সরলরেখায় অবস্থিত বিন্দুসমূহের সেট এবং বাস্তব সংখ্যার সেটের মধ্যে এমনভাবে এক-এক মিল স্থাপন করা যায়, যেন রেখাটির যেকোনো দুইটি বিন্দু $P,Q$ এর জন্য`,
+          String.raw`$$PQ=|a-b|$$`,
+          String.raw`হয়, যেখানে মিলকরণের ফলে $P$ ও $Q$ এর সঙ্গে যথাক্রমে $a$ ও $b$ বাস্তব সংখ্যা সংশ্লিষ্ট হয়।`,
+          "এই স্বীকার্য ৭ কেই রুলার স্বীকার্য বলা হয়। নামটি এসেছে রুলার বা স্কেল থেকে — স্কেলের প্রতিটি দাগের গায়ে একটি সংখ্যা লেখা থাকে, আর দুইটি দাগের মধ্যবর্তী দূরত্ব সংখ্যা দুইটির বিয়োগফলের পরম মান।",
+        ],
+        answer:
+          String.raw`স্বীকার্য ৭ — রেখার বিন্দুসমূহ ও বাস্তব সংখ্যার মধ্যে এমন এক-এক মিল বসানো যায় যে $PQ=|a-b|$ হয়।`,
+      },
+    },
+    {
+      id: 6,
+      group: GEO_DEF,
+      question: "সংখ্যারেখা বর্ণনা করো।",
+      figure: "61-p6",
+      solution: {
+        steps: [
+          "রুলার স্বীকার্যে বর্ণিত মিলকরণ করা হলে রেখাটি একটি সংখ্যারেখায় পরিণত হয়েছে বলা হয়।",
+          String.raw`সংখ্যারেখায় $P$ বিন্দুর সঙ্গে $a$ সংখ্যাটি সংশ্লিষ্ট হলে $P$ কে $a$ এর লেখবিন্দু এবং $a$ কে $P$ এর স্থানাঙ্ক বলা হয়।`,
+          String.raw`কোনো সরলরেখাকে সংখ্যারেখায় পরিণত করার জন্য প্রথমে রেখাটির একটি বিন্দুর স্থানাঙ্ক $0$ এবং অপর একটি বিন্দুর স্থানাঙ্ক $1$ ধরে নেওয়া হয়। এতে রেখাটিতে একটি একক দূরত্ব এবং একটি ধনাত্মক দিক নির্দিষ্ট হয়।`,
+          String.raw`এরপর একক দূরত্বটি বারবার বসিয়ে ধনাত্মক দিকে $2,3,4,\dots$ এবং বিপরীত দিকে $-1,-2,-3,\dots$ সংখ্যাগুলোর লেখবিন্দু পাওয়া যায়; মধ্যবর্তী বিন্দুগুলোর স্থানাঙ্ক ভগ্নাংশ ও অমূলদ সংখ্যা।`,
+          String.raw`সংখ্যারেখার যেকোনো দুই বিন্দুর দূরত্ব তাদের স্থানাঙ্কদ্বয়ের বিয়োগফলের পরম মানের সমান — চিত্রে $P$ ও $Q$ এর স্থানাঙ্ক যথাক্রমে $a$ ও $b$ হলে $PQ=|a-b|$।`,
+        ],
+        answer:
+          "যে সরলরেখার প্রতিটি বিন্দুর সাথে একটি অনন্য বাস্তব সংখ্যা এবং প্রতিটি বাস্তব সংখ্যার সাথে একটি অনন্য বিন্দু মিলিয়ে দেওয়া হয়েছে, তাই সংখ্যারেখা।",
+      },
+    },
+    {
+      id: 7,
+      group: GEO_DEF,
+      question: "রুলার স্থাপন স্বীকার্যটি বর্ণনা করো।",
+      figure: "61-p7",
+      solution: {
+        steps: [
+          "একটি সরলরেখাকে সংখ্যারেখায় পরিণত করার অসংখ্য উপায় আছে — কোন বিন্দুটিকে শূন্য ধরা হবে এবং কোন দিকটিকে ধনাত্মক ধরা হবে, তা নানাভাবে বাছা যায়। এর মধ্য থেকে একটি সুবিধাজনক বাছাই সব সময় সম্ভব, এ কথাটিই স্বীকার করে নেওয়া হয় —",
+          String.raw`স্বীকার্য ৮. যেকোনো সরলরেখা $AB$ কে এমনভাবে সংখ্যারেখায় পরিণত করা যায় যে, $A$ এর স্থানাঙ্ক $0$ এবং $B$ এর স্থানাঙ্ক ধনাত্মক হয়।`,
+          "এই স্বীকার্য ৮ কেই রুলার স্থাপন স্বীকার্য বলা হয়। অর্থাৎ রুলারটিকে এমনভাবে বসানো যায় যেন তার শূন্য দাগটি পড়ে $A$ বিন্দুতে এবং $B$ বিন্দু পড়ে ধনাত্মক দিকে।",
+          String.raw`এই স্বীকার্যের ফলে যেকোনো রেখাংশ $AB$ এর দৈর্ঘ্য সরাসরি $B$ এর স্থানাঙ্ক দিয়েই পাওয়া যায়, কারণ তখন $AB=|0-b|=b$।`,
+        ],
+        answer:
+          String.raw`স্বীকার্য ৮ — যেকোনো সরলরেখা $AB$ কে এমনভাবে সংখ্যারেখায় পরিণত করা যায় যেন $A$ এর স্থানাঙ্ক $0$ এবং $B$ এর স্থানাঙ্ক ধনাত্মক হয়।`,
+      },
+    },
+    {
+      id: 8,
+      group: GEO_DEF,
+      question: "পরস্পরছেদী সরলরেখা ও সমান্তরাল সরলরেখার সংজ্ঞা দাও।",
+      figure: "61-p8",
+      solution: {
+        steps: [
+          "সমতলে দুইটি সরলরেখা পরস্পরকে ছেদ করতে পারে অথবা তারা সমান্তরাল।",
+          "পরস্পরছেদী সরলরেখা: সরলরেখাদ্বয় পরস্পরছেদী হয়, যদি উভয় রেখায় অবস্থিত একটি সাধারণ বিন্দু থাকে। লক্ষণীয় যে, দুইটি ভিন্ন সরলরেখার সর্বাধিক একটি সাধারণ বিন্দু থাকতে পারে — কারণ দুইটি ভিন্ন বিন্দু দিয়ে একটি ও কেবল একটি সরলরেখা যায়।",
+          "সমান্তরাল সরলরেখা: একই সমতলে অবস্থিত দুইটি সরলরেখার কোনো সাধারণ বিন্দু না থাকলে রেখা দুইটি সমান্তরাল। একই কথা আরও দুইভাবে বলা যায় —",
+          "(ক) সরলরেখা দুইটি কখনও পরস্পরকে ছেদ করে না (দুই দিকে অসীম পর্যন্ত বর্ধিত করা হলেও)।",
+          "(খ) একটি সরলরেখার প্রতিটি বিন্দু অপরটি থেকে সমান ক্ষুদ্রতম দূরত্বে অবস্থান করে। এই লম্ব-দূরত্বকেই দুইটি সমান্তরাল রেখাদ্বয়ের দূরত্ব বলা হয় — চিত্রে $d$।",
+          "(গ) সরলরেখা দুইটিকে অপর একটি সরলরেখা ছেদ করলে উৎপন্ন একান্তর কোণ বা অনুরূপ কোণগুলো সমান হয়।",
+          "সংজ্ঞা (গ) ইউক্লিডের পঞ্চম স্বীকার্যের সমতুল্য এবং জ্যামিতিক প্রমাণ ও অঙ্কনের জন্য এ সংজ্ঞাটি অধিকতর উপযোগী। এছাড়া লক্ষ করি, কোনো নির্দিষ্ট সরলরেখার উপর অবস্থিত নয় এরূপ বিন্দুর মধ্য দিয়ে ঐ সরলরেখার সমান্তরাল করে একটি মাত্র সরলরেখা আঁকা যায়।",
+        ],
+        answer:
+          "সাধারণ বিন্দু থাকলে পরস্পরছেদী, না থাকলে সমান্তরাল — আর সমান্তরাল হলে একটির প্রতিটি বিন্দু থেকে অপরটির লম্ব-দূরত্ব সমান।",
+      },
+    },
+  ],
+};
+
+const exercise62: Exercise = {
+  id: "6.2",
+  bnId: "অনুশীলনী ৬.২",
+  title: "কোণ",
+  bookPages: "১২৩",
+  formulas: [
+    {
+      title: "রেখা, রশ্মি, রেখাংশ",
+      formulas: [
+        {
+          statement: String.raw`$$AC+CB=AB$$`,
+          note: String.raw`$AB$ সরলরেখার উপর $C$ বিন্দু থাকলে $C$ কে $A$ ও $B$ এর অন্তর্বর্তী বলা হয়। $A,C,B$ কে সমরেখ বিন্দুও বলা হয়।`,
+        },
+        {
+          statement: String.raw`রেখাংশ $AB$`,
+          note: String.raw`$A$ ও $B$ এবং এদের অন্তর্বর্তী সকল বিন্দুর সেট। $A$ ও $B$ এর অন্তর্বর্তী প্রত্যেক বিন্দুকে রেখাংশের অন্তঃস্থ বিন্দু বলা হয়।`,
+        },
+        {
+          statement: String.raw`রশ্মি $CA$ ও রশ্মি $CB$`,
+          note: String.raw`$C$ বিন্দু এবং $C$ থেকে $AB$ সরলরেখা বরাবর কোনো একদিকে অসীম পর্যন্ত বিন্দুর সেট। $C$ বিন্দু $AB$ সরলরেখাকে $CA$ ও $CB$ রশ্মিতে বিভক্ত করে।`,
+        },
+      ],
+    },
+    {
+      title: "কোণ ও তার প্রকারভেদ",
+      formulas: [
+        {
+          statement: String.raw`$$\angle POQ$$`,
+          note: String.raw`একই সমতলে দুইটি রশ্মির প্রান্তবিন্দু একই হলে কোণ তৈরি হয়। রশ্মি দুইটি কোণের বাহু এবং সাধারণ বিন্দুটি শীর্ষবিন্দু।`,
+        },
+        {
+          statement: "সরল কোণ = দুই সমকোণ = ১৮০°",
+          note: "দুইটি পরস্পর বিপরীত রশ্মি এদের সাধারণ প্রান্তবিন্দুতে যে কোণ উৎপন্ন করে।",
+        },
+        {
+          statement: "সন্নিহিত কোণ",
+          note: "দুইটি কোণের শীর্ষবিন্দু এক, এদের একটি সাধারণ রশ্মি আছে এবং কোণদ্বয় সেই সাধারণ রশ্মির বিপরীত পাশে — তবে কোণদ্বয় পরস্পর সন্নিহিত।",
+        },
+        {
+          statement: "সমকোণ = ৯০°",
+          note: "একই রেখার উপর অবস্থিত দুইটি সন্নিহিত কোণ পরস্পর সমান হলে প্রত্যেকটি সমকোণ। সমকোণের বাহু দুইটি পরস্পরের উপর লম্ব।",
+        },
+        {
+          statement: "সূক্ষ্মকোণ < ৯০° < স্থূলকোণ < ১৮০° < প্রবৃদ্ধ কোণ < ৩৬০°",
+          note: "এক সমকোণ থেকে ছোট কোণ সূক্ষ্মকোণ; এক সমকোণ থেকে বড় কিন্তু দুই সমকোণ থেকে ছোট কোণ স্থূলকোণ; দুই সমকোণ থেকে বড় কিন্তু চার সমকোণ থেকে ছোট কোণ প্রবৃদ্ধ কোণ।",
+        },
+      ],
+    },
+    {
+      title: "পূরক, সম্পূরক ও বিপ্রতীপ কোণ",
+      formulas: [
+        {
+          statement: String.raw`পূরক: $\;\angle AOC+\angle COB=90^{\circ}$`,
+          note: "দুইটি কোণের পরিমাপের যোগফল এক সমকোণ হলে কোণ দুইটির একটি অপরটির পূরক কোণ।",
+        },
+        {
+          statement: String.raw`সম্পূরক: $\;\angle AOC+\angle COB=180^{\circ}$`,
+          note: "দুইটি কোণের পরিমাপের যোগফল দুই সমকোণ হলে কোণ দুইটি পরস্পর সম্পূরক কোণ।",
+        },
+        {
+          statement: "বিপ্রতীপ কোণ",
+          note: "কোনো কোণের বাহুদ্বয়ের বিপরীত রশ্মিদ্বয় যে কোণ তৈরি করে তা ঐ কোণের বিপ্রতীপ কোণ। দুইটি সরলরেখা কোনো বিন্দুতে পরস্পরকে ছেদ করলে ছেদ বিন্দুতে দুই জোড়া বিপ্রতীপ কোণ উৎপন্ন হয়।",
+        },
+      ],
+    },
+    {
+      title: "দুইটি উপপাদ্য",
+      formulas: [
+        {
+          statement:
+            "উপপাদ্য ১. একটি সরলরেখার একটি বিন্দুতে অপর একটি রশ্মি মিলিত হলে, যে দুইটি সন্নিহিত কোণ উৎপন্ন হয় এদের সমষ্টি দুই সমকোণ।",
+          note: String.raw`প্রমাণ: $AB$ রেখার উপর $DO$ লম্ব আঁকলে সন্নিহিত কোণদ্বয়ের সমষ্টি $=\angle AOC+\angle COB=\angle AOD+\angle DOC+\angle COB=\angle AOD+\angle DOB=2$ সমকোণ।`,
+        },
+        {
+          statement:
+            "উপপাদ্য ২. দুইটি সরলরেখা পরস্পর ছেদ করলে, উৎপন্ন বিপ্রতীপ কোণগুলো পরস্পর সমান।",
+          note: String.raw`$AB$ ও $CD$ রেখাদ্বয় $O$ বিন্দুতে ছেদ করলে $\angle AOC=\angle BOD$ এবং $\angle COB=\angle AOD$।`,
+        },
+      ],
+    },
+    {
+      title: "ছেদক ও সমান্তরাল সরলরেখা",
+      formulas: [
+        {
+          statement: "অনুরূপ কোণ (corresponding angle)",
+          note: String.raw`ছেদক দুইটি সরলরেখার সাথে আটটি কোণ তৈরি করে। চিত্রের $\angle 1$ ও $\angle 5$, $\angle 2$ ও $\angle 6$, $\angle 3$ ও $\angle 7$, $\angle 4$ ও $\angle 8$ পরস্পর অনুরূপ কোণ।`,
+        },
+        {
+          statement: "একান্তর কোণ (alternate angle)",
+          note: String.raw`$\angle 3$ ও $\angle 6$, $\angle 4$ ও $\angle 5$ পরস্পর একান্তর কোণ।`,
+        },
+        {
+          statement: "ছেদকের একই পার্শ্বস্থ অন্তঃস্থ কোণ (co-interior angle)",
+          note: String.raw`$\angle 4,\angle 6$ ডানপাশের অন্তঃস্থ কোণ এবং $\angle 3,\angle 5$ বামপাশের অন্তঃস্থ কোণ।`,
+        },
+        {
+          statement:
+            "সমান্তরাল হলে: অনুরূপ কোণ সমান, একান্তর কোণ সমান, একই পাশের অন্তঃস্থ কোণ সম্পূরক",
+          note: "এটিই ইউক্লিডের ৫ম স্বীকার্যের অঙ্কনের সাহায্যে প্রকাশ। অধ্যায়ের বাকি প্রায় সব প্রমাণ এই তিনটি কথার উপরই দাঁড়িয়ে আছে।",
+        },
+      ],
+    },
+  ],
+  problems: [
+    {
+      id: 1,
+      group: GEO_ANG,
+      question: "কোণের অভ্যন্তর ও বহির্ভাগের সংজ্ঞা দাও।",
+      figure: "62-p1",
+      solution: {
+        steps: [
+          String.raw`চিত্রে $OP$ ও $OQ$ রশ্মিদ্বয় এদের সাধারণ প্রান্তবিন্দু $O$ তে $\angle POQ$ উৎপন্ন করেছে। $O$ বিন্দুটি $\angle POQ$ এর শীর্ষবিন্দু এবং $OP$ ও $OQ$ এর বাহু।`,
+          String.raw`অভ্যন্তর: $OP$ এর যে পার্শ্বে $Q$ আছে সেই পার্শ্বে এবং $OQ$ এর যে পার্শ্বে $P$ আছে সেই পার্শ্বে অবস্থিত সকল বিন্দুর সেটকে $\angle POQ$ এর অভ্যন্তর বলা হয়।`,
+          String.raw`চিত্রে $X$ বিন্দুটি একই সাথে $OP$ এর $Q$-পাশে এবং $OQ$ এর $P$-পাশে আছে, তাই $X$ কোণটির অভ্যন্তরে।`,
+          String.raw`বহির্ভাগ: কোণটির অভ্যন্তরে অথবা কোনো বাহুতে অবস্থিত নয় এমন সকল বিন্দুর সেটকে এর বহির্ভাগ বলা হয়।`,
+          String.raw`চিত্রে $Y$ বিন্দুটি $OQ$ এর $P$-পাশে থাকলেও $OP$ এর $Q$-পাশে নয়, তাই $Y$ কোণটির বহির্ভাগে।`,
+          "লক্ষণীয়, কোণের বাহুর উপর অবস্থিত বিন্দুগুলো অভ্যন্তরেও নয়, বহির্ভাগেও নয় — সমতলটি এভাবে তিনটি অংশে ভাগ হয়ে যায়: অভ্যন্তর, বাহুদ্বয় এবং বহির্ভাগ।",
+        ],
+        answer:
+          "দুই বাহুর নির্দিষ্ট দুই পাশে একসাথে থাকা বিন্দুগুলোর সেট অভ্যন্তর; অভ্যন্তরেও নয়, বাহুতেও নয় এমন বিন্দুগুলোর সেট বহির্ভাগ।",
+      },
+    },
+    {
+      id: 2,
+      group: GEO_ANG,
+      question: "একই সরলরেখাস্থ তিনটি ভিন্ন বিন্দু দিয়ে উৎপন্ন কোণগুলোর নামকরণ করো।",
+      figure: "62-p2",
+      solution: {
+        steps: [
+          String.raw`মনে করি, $A,\;C,\;B$ একই সরলরেখার তিনটি ভিন্ন বিন্দু, যেখানে $C$ বিন্দুটি $A$ ও $B$ এর অন্তর্বর্তী।`,
+          String.raw`বিন্দু তিনটি নিয়ে মোট তিনটি কোণ পাওয়া যায় — শীর্ষবিন্দু যথাক্রমে $C$, $A$ ও $B$।`,
+          String.raw`$C$ শীর্ষে: $C$ বিন্দু $AB$ সরলরেখাকে $CA$ ও $CB$ দুইটি রশ্মিতে বিভক্ত করে, আর এই রশ্মিদ্বয় পরস্পর বিপরীত।`,
+          String.raw`$$\therefore\;\angle ACB=\text{সরল কোণ}=\text{দুই সমকোণ}=180^{\circ}$$`,
+          String.raw`$A$ শীর্ষে: $C$ ও $B$ দুইটিই $A$ এর একই পাশে, তাই $AC$ ও $AB$ একই রশ্মি।`,
+          String.raw`$$\therefore\;\angle BAC=\text{শূন্য কোণ}=0^{\circ}$$`,
+          String.raw`$B$ শীর্ষে: একইভাবে $BA$ ও $BC$ একই রশ্মি।`,
+          String.raw`$$\therefore\;\angle ABC=\text{শূন্য কোণ}=0^{\circ}$$`,
+          "অর্থাৎ সমরেখ তিনটি বিন্দু কোনো ত্রিভুজ তৈরি করে না — মধ্যবর্তী বিন্দুতে একটি সরল কোণ এবং প্রান্তের দুই বিন্দুতে দুইটি শূন্য কোণ পাওয়া যায়।",
+        ],
+        answer:
+          String.raw`$\angle ACB$ সরল কোণ ($180^{\circ}$), আর $\angle BAC$ ও $\angle ABC$ দুইটিই শূন্য কোণ ($0^{\circ}$)।`,
+      },
+    },
+    {
+      id: 3,
+      group: GEO_ANG,
+      question: "সন্নিহিত কোণের সংজ্ঞা দাও এবং এর বাহুগুলো চিহ্নিত করো।",
+      figure: "62-p3",
+      solution: {
+        steps: [
+          "সংজ্ঞা: যদি সমতলে দুইটি কোণের একই শীর্ষবিন্দু হয় ও এদের একটি সাধারণ রশ্মি থাকে এবং কোণদ্বয় সাধারণ রশ্মির বিপরীত পাশে অবস্থান করে, তবে ঐ কোণদ্বয়কে সন্নিহিত কোণ বলে।",
+          String.raw`চিত্রে $A$ বিন্দুটি $\angle BAC$ ও $\angle CAD$ এর শীর্ষবিন্দু।`,
+          String.raw`$A$ বিন্দুতে $\angle BAC$ ও $\angle CAD$ উৎপন্নকারী রশ্মিগুলোর মধ্যে $AC$ সাধারণ রশ্মি।`,
+          String.raw`কোণ দুইটি সাধারণ রশ্মি $AC$ এর বিপরীত পাশে অবস্থিত — $\angle BAC$ এক পাশে, $\angle CAD$ অন্য পাশে।`,
+          String.raw`$$\therefore\;\angle BAC\;\text{ ও }\;\angle CAD\;\text{ পরস্পর সন্নিহিত কোণ।}$$`,
+          String.raw`বাহু চিহ্নিতকরণ: $\angle BAC$ এর বাহু দুইটি $AB$ ও $AC$; $\angle CAD$ এর বাহু দুইটি $AC$ ও $AD$।`,
+          String.raw`এদের মধ্যে $AC$ সাধারণ বাহু, আর $AB$ ও $AD$ হলো বাকি দুইটি বাহু।`,
+        ],
+        answer:
+          String.raw`$AC$ সাধারণ বাহু, $AB$ ও $AD$ বাকি দুইটি বাহু — তাই $\angle BAC$ ও $\angle CAD$ সন্নিহিত কোণ।`,
+      },
+    },
+    {
+      id: 4,
+      group: GEO_ANG,
+      question:
+        "চিত্রসহ সংজ্ঞা দাও: বিপ্রতীপ কোণ, পূরক কোণ, সম্পূরক কোণ, সমকোণ, সূক্ষ্মকোণ এবং স্থূলকোণ।",
+      parts: [
+        {
+          label: "ক",
+          question: "বিপ্রতীপ কোণ (Vertical angle)",
+          figure: "62-p4a",
+          solution: {
+            steps: [
+              "সংজ্ঞা: কোনো কোণের বাহুদ্বয়ের বিপরীত রশ্মিদ্বয় যে কোণ তৈরি করে, তা ঐ কোণের বিপ্রতীপ কোণ।",
+              String.raw`চিত্রে $OA$ ও $OB$ পরস্পর বিপরীত রশ্মি; আবার $OC$ ও $OD$ ও পরস্পর বিপরীত রশ্মি।`,
+              String.raw`$\angle AOC$ এর বাহু দুইটি $OA$ ও $OC$; এদের বিপরীত রশ্মি দুইটি যথাক্রমে $OB$ ও $OD$, যারা $\angle BOD$ তৈরি করেছে।`,
+              String.raw`$$\therefore\;\angle AOC\;\text{ ও }\;\angle BOD\;\text{ পরস্পর বিপ্রতীপ কোণ।}$$`,
+              String.raw`একইভাবে $\angle BOC$ ও $\angle AOD$ একটি অপরটির বিপ্রতীপ কোণ। দুইটি সরলরেখা কোনো বিন্দুতে পরস্পরকে ছেদ করলে ছেদ বিন্দুতে এভাবে দুই জোড়া বিপ্রতীপ কোণ উৎপন্ন হয়।`,
+              "উপপাদ্য ২ অনুযায়ী বিপ্রতীপ কোণগুলো পরস্পর সমান।",
+            ],
+            answer:
+              String.raw`$\angle AOC=\angle BOD$ এবং $\angle BOC=\angle AOD$ — দুই জোড়া বিপ্রতীপ কোণ।`,
+          },
+        },
+        {
+          label: "খ",
+          question: "পূরক কোণ (Complementary angle)",
+          figure: "62-p4b",
+          solution: {
+            steps: [
+              "সংজ্ঞা: দুইটি কোণের পরিমাপের যোগফল এক সমকোণ হলে কোণ দুইটির একটি অপরটির পূরক কোণ।",
+              String.raw`চিত্রে $\angle AOB$ একটি সমকোণ এবং $OC$ রশ্মি কোণটির বাহুদ্বয়ের অভ্যন্তরে অবস্থিত। এর ফলে $\angle AOC$ এবং $\angle COB$ — এই দুইটি কোণ উৎপন্ন হলো।`,
+              String.raw`$$a+b=\angle AOC+\angle COB=\angle AOB=\text{এক সমকোণ}$$`,
+              String.raw`$$\therefore\;\angle AOC\;\text{ ও }\;\angle COB\;\text{ পরস্পর পূরক কোণ।}$$`,
+              String.raw`যেমন $30^{\circ}$ ও $60^{\circ}$ পরস্পর পূরক, কারণ $30^{\circ}+60^{\circ}=90^{\circ}$।`,
+            ],
+            answer: String.raw`$\angle AOC+\angle COB=90^{\circ}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: "সম্পূরক কোণ (Supplementary angle)",
+          figure: "62-p4c",
+          solution: {
+            steps: [
+              "সংজ্ঞা: দুইটি কোণের পরিমাপের যোগফল দুই সমকোণ হলে কোণ দুইটি পরস্পর সম্পূরক কোণ।",
+              String.raw`চিত্রে $O$ হলো $AB$ সরলরেখার অন্তঃস্থ একটি বিন্দু এবং $OC$ একটি রশ্মি যা $OA$ ও $OB$ রশ্মি থেকে ভিন্ন। এর ফলে $\angle AOC$ এবং $\angle COB$ — এই দুইটি কোণ উৎপন্ন হলো।`,
+              String.raw`$$a+b=\angle AOC+\angle COB=\angle AOB$$`,
+              String.raw`$AOB$ একটি সরলকোণ, তাই`,
+              String.raw`$$\therefore\;\angle AOC+\angle COB=\text{দুই সমকোণ}=180^{\circ}$$`,
+              String.raw`$$\therefore\;\angle AOC\;\text{ ও }\;\angle COB\;\text{ পরস্পর সম্পূরক কোণ।}$$`,
+              String.raw`যেমন $50^{\circ}$ ও $130^{\circ}$ পরস্পর সম্পূরক। লক্ষণীয়, সম্পূরক কোণদ্বয় এখানে সন্নিহিতও — এটিই উপপাদ্য ১।`,
+            ],
+            answer: String.raw`$\angle AOC+\angle COB=180^{\circ}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: "সমকোণ (Right angle)",
+          figure: "62-p4d",
+          solution: {
+            steps: [
+              "সংজ্ঞা: যদি একই রেখার উপর অবস্থিত দুইটি সন্নিহিত কোণ পরস্পর সমান হয়, তবে কোণ দুইটির প্রত্যেকটি সমকোণ। সমকোণের বাহু দুইটি পরস্পরের উপর লম্ব।",
+              String.raw`চিত্রে $BD$ রেখার $A$ বিন্দুতে $AC$ রশ্মি দ্বারা $\angle BAC$ ও $\angle DAC$ দুইটি কোণ উৎপন্ন হয়েছে; $A$ বিন্দু কোণ দুইটির শীর্ষবিন্দু এবং $AC$ সাধারণ বাহু।`,
+              String.raw`$$\angle BAC+\angle DAC=\text{দুই সমকোণ}\qquad\left[\,\text{উপপাদ্য }১\,\right]$$`,
+              String.raw`$$\text{আবার, }\angle BAC=\angle DAC$$`,
+              String.raw`$$\therefore\;2\angle BAC=\text{দুই সমকোণ}$$`,
+              String.raw`$$\therefore\;\angle BAC=\angle DAC=\text{এক সমকোণ}=90^{\circ}$$`,
+              String.raw`$$\therefore\;AC\perp BD$$`,
+            ],
+            answer: String.raw`$\angle BAC=\angle DAC=90^{\circ}$, অর্থাৎ $AC\perp BD$`,
+          },
+        },
+        {
+          label: "ঙ",
+          question: "সূক্ষ্মকোণ (Acute angle)",
+          figure: "62-p4e",
+          solution: {
+            steps: [
+              "সংজ্ঞা: এক সমকোণ থেকে ছোট কোণকে সূক্ষ্মকোণ বলা হয়।",
+              String.raw`চিত্রে $\angle AOC=40^{\circ}$, যা $90^{\circ}$ থেকে ছোট।`,
+              String.raw`$$0^{\circ}<\angle AOC<90^{\circ}$$`,
+              String.raw`$$\therefore\;\angle AOC\;\text{ একটি সূক্ষ্মকোণ।}$$`,
+              String.raw`যে ত্রিভুজের প্রত্যেকটি কোণ সূক্ষ্মকোণ, তাকে সূক্ষ্মকোণী ত্রিভুজ বলা হয়।`,
+            ],
+            answer: String.raw`এক সমকোণ থেকে ছোট কোণ; চিত্রে $\angle AOC=40^{\circ}$`,
+          },
+        },
+        {
+          label: "চ",
+          question: "স্থূলকোণ (Obtuse angle)",
+          figure: "62-p4f",
+          solution: {
+            steps: [
+              "সংজ্ঞা: এক সমকোণ থেকে বড় কিন্তু দুই সমকোণ থেকে ছোট কোণকে স্থূলকোণ বলা হয়।",
+              String.raw`চিত্রে $\angle AOD=130^{\circ}$, যা $90^{\circ}$ থেকে বড় কিন্তু $180^{\circ}$ থেকে ছোট।`,
+              String.raw`$$90^{\circ}<\angle AOD<180^{\circ}$$`,
+              String.raw`$$\therefore\;\angle AOD\;\text{ একটি স্থূলকোণ।}$$`,
+              String.raw`যে ত্রিভুজের একটি কোণ স্থূলকোণ, তাকে স্থূলকোণী ত্রিভুজ বলা হয়। আর $180^{\circ}$ থেকে বড় কিন্তু $360^{\circ}$ থেকে ছোট কোণ হলে তাকে প্রবৃদ্ধ কোণ বলা হতো।`,
+            ],
+            answer: String.raw`এক সমকোণ থেকে বড়, দুই সমকোণ থেকে ছোট কোণ; চিত্রে $\angle AOD=130^{\circ}$`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const exercise63: Exercise = {
+  id: "6.3",
+  bnId: "অনুশীলনী ৬.৩",
+  title: "ত্রিভুজ",
+  bookPages: "১৩২ – ১৩৫",
+  formulas: [
+    {
+      title: "ত্রিভুজের গঠন ও শ্রেণিবিভাগ",
+      formulas: [
+        {
+          statement: "বাহুভেদে: সমবাহু, সমদ্বিবাহু, বিষমবাহু",
+          note: "তিনটি বাহু সমান হলে সমবাহু; দুইটি বাহু সমান হলে সমদ্বিবাহু; তিনটি বাহুই অসমান হলে বিষমবাহু ত্রিভুজ।",
+        },
+        {
+          statement: "কোণভেদে: সূক্ষ্মকোণী, স্থূলকোণী, সমকোণী",
+          note: "প্রত্যেকটি কোণ সূক্ষ্মকোণ হলে সূক্ষ্মকোণী; একটি কোণ স্থূলকোণ হলে স্থূলকোণী; একটি কোণ সমকোণ হলে সমকোণী ত্রিভুজ।",
+        },
+        {
+          statement: "মধ্যমা ও উচ্চতা",
+          note: "যেকোনো শীর্ষবিন্দু হতে বিপরীত বাহুর মধ্যবিন্দু পর্যন্ত অঙ্কিত রেখাংশকে মধ্যমা বলে; আর যেকোনো শীর্ষবিন্দু হতে বিপরীত বাহুর লম্ব-দূরত্বই ত্রিভুজের উচ্চতা।",
+        },
+        {
+          statement: "বহিঃস্থ ও অন্তঃস্থ কোণ",
+          note: "একটি বাহু বর্ধিত করলে যে কোণ উৎপন্ন হয় তা একটি বহিঃস্থ কোণ। এই কোণের সন্নিহিত কোণটি ছাড়া অপর দুইটি কোণকে এই বহিঃস্থ কোণের বিপরীত অন্তঃস্থ কোণ বলে।",
+        },
+      ],
+    },
+    {
+      title: "সর্বসমতা ও তিনটি শর্ত",
+      formulas: [
+        {
+          statement: String.raw`$$\triangle ABC\cong\triangle DEF$$`,
+          note: String.raw`একটি ত্রিভুজকে অপরটির উপর স্থাপন করলে সর্বতোভাবে মিলে গেলে ত্রিভুজ দুইটি সর্বসম; তখন $AB=DE$, $AC=DF$, $BC=EF$ এবং $\angle A=\angle D$, $\angle B=\angle E$, $\angle C=\angle F$।`,
+        },
+        {
+          statement: "উপপাদ্য ৫ (বাহু-কোণ-বাহু)",
+          note: "দুইটি ত্রিভুজের একটির দুই বাহু যথাক্রমে অপরটির দুই বাহুর সমান এবং বাহু দুইটির অন্তর্ভুক্ত কোণ দুইটি সমান হলে, ত্রিভুজ দুইটি সর্বসম।",
+        },
+        {
+          statement: "উপপাদ্য ৮ (বাহু-বাহু-বাহু)",
+          note: "একটি ত্রিভুজের তিন বাহু অপর একটি ত্রিভুজের তিন বাহুর সমান হলে ত্রিভুজ দুইটি সর্বসম।",
+        },
+        {
+          statement: "উপপাদ্য ৯ (কোণ-বাহু-কোণ)",
+          note: "একটি ত্রিভুজের দুইটি কোণ ও এদের সংলগ্ন বাহু যথাক্রমে অপর ত্রিভুজের দুইটি কোণ ও তাদের সংলগ্ন বাহুর সমান হলে ত্রিভুজ দুইটি সর্বসম।",
+        },
+        {
+          statement: "উপপাদ্য ১০ (অতিভুজ-বাহু)",
+          note: "দুইটি সমকোণী ত্রিভুজের অতিভুজদ্বয় সমান এবং একটির এক বাহু অপরটির অপর এক বাহুর সমান হলে ত্রিভুজদ্বয় সর্বসম।",
+        },
+      ],
+    },
+    {
+      title: "কোণ ও বাহুর সম্পর্ক",
+      formulas: [
+        {
+          statement: String.raw`উপপাদ্য ৪: $\;\angle A+\angle B+\angle C=180^{\circ}$`,
+          note: "ত্রিভুজের তিন কোণের সমষ্টি দুই সমকোণের সমান।",
+        },
+        {
+          statement: "অনুসিদ্ধান্ত ২",
+          note: "ত্রিভুজের একটি বাহুকে বর্ধিত করলে যে বহিঃস্থ কোণ উৎপন্ন হয়, তা এর অন্তঃস্থ বিপরীত কোণদ্বয়ের সমষ্টির সমান।",
+        },
+        {
+          statement: "অনুসিদ্ধান্ত ৩",
+          note: "ত্রিভুজের একটি বাহুকে বর্ধিত করলে যে বহিঃস্থ কোণ উৎপন্ন হয়, তা এর অন্তঃস্থ বিপরীত কোণ দুইটির প্রত্যেকটি অপেক্ষা বৃহত্তর।",
+        },
+        {
+          statement: "অনুসিদ্ধান্ত ৪",
+          note: "সমকোণী ত্রিভুজের সূক্ষ্মকোণদ্বয় পরস্পর পূরক।",
+        },
+        {
+          statement: "উপপাদ্য ৬ ও ৭ (সমদ্বিবাহু)",
+          note: "দুইটি বাহু সমান হলে এদের বিপরীত কোণ দুইটিও সমান; আবার দুইটি কোণ সমান হলে এদের বিপরীত বাহু দুইটিও সমান।",
+        },
+        {
+          statement: "উপপাদ্য ১১ ও ১২",
+          note: "একটি বাহু অপরটির চেয়ে বৃহত্তর হলে বৃহত্তর বাহুর বিপরীত কোণ ক্ষুদ্রতর বাহুর বিপরীত কোণ অপেক্ষা বৃহত্তর; আবার একটি কোণ অপরটির চেয়ে বৃহত্তর হলে বৃহত্তর কোণের বিপরীত বাহু ক্ষুদ্রতর কোণের বিপরীত বাহু অপেক্ষা বৃহত্তর।",
+        },
+      ],
+    },
+    {
+      title: "বাহুর অসমতা ও মধ্যবিন্দু",
+      formulas: [
+        {
+          statement: String.raw`উপপাদ্য ১৩: $\;AB+AC>BC$`,
+          note: "ত্রিভুজের যেকোনো দুই বাহুর দৈর্ঘ্যের সমষ্টি এর তৃতীয় বাহুর দৈর্ঘ্য অপেক্ষা বৃহত্তর। তিনটি দৈর্ঘ্য দিয়ে ত্রিভুজ আঁকা সম্ভব কি না, এই একটি শর্তই তা ঠিক করে দেয়।",
+        },
+        {
+          statement: String.raw`অনুসিদ্ধান্ত ৫: $\;AB-AC<BC$`,
+          note: "ত্রিভুজের যেকোনো দুই বাহুর দৈর্ঘ্যের অন্তর এর তৃতীয় বাহুর দৈর্ঘ্য অপেক্ষা ক্ষুদ্রতর।",
+        },
+        {
+          statement: String.raw`উপপাদ্য ১৪: $\;DE\parallel BC,\;DE=\tfrac{1}{2}BC$`,
+          note: String.raw`ত্রিভুজের যেকোনো দুই বাহুর মধ্যবিন্দুর সংযোজক রেখাংশ তৃতীয় বাহুর সমান্তরাল এবং দৈর্ঘ্যে তার অর্ধেক।`,
+        },
+        {
+          statement: String.raw`উপপাদ্য ১৫: $\;AC^{2}=AB^{2}+BC^{2}$`,
+          note: "পিথাগোরাসের উপপাদ্য — সমকোণী ত্রিভুজের অতিভুজের ওপর অঙ্কিত বর্গক্ষেত্রের ক্ষেত্রফল অপর দুই বাহুর ওপর অঙ্কিত বর্গক্ষেত্রদ্বয়ের ক্ষেত্রফলের সমষ্টির সমান।",
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১ — book pages ১৩০-১৩১.
+    {
+      id: 1,
+      question: String.raw`$\triangle ABC$ এর $AB=AC$, $BA$ কে $D$ পর্যন্ত এমনভাবে বর্ধিত করা হলো যেন $AD=AC$ হয়। $C,\;D$ যোগ করা হলো। (ক) উদ্দীপকের ভিত্তিতে চিত্র আঁকো। (খ) প্রমাণ করো যে, $BC+CD>2AC$। (গ) প্রমাণ করো যে, $\angle BCD=$ এক সমকোণ।`,
+      figure: "63-ex1",
+      parts: [
+        {
+          label: "ক",
+          question: "উদ্দীপকের ভিত্তিতে চিত্র আঁকো।",
+          solution: {
+            steps: [
+              String.raw`উপরের চিত্রটিই নির্ণেয় চিত্র — $AB=AC$ বিশিষ্ট $\triangle ABC$ আঁকা হয়েছে, $BA$ কে $D$ পর্যন্ত বাড়িয়ে $AD=AC$ নেওয়া হয়েছে এবং $C,\;D$ যোগ করা হয়েছে।`,
+              String.raw`চিত্রে তিনটি দাগ দিয়ে দেখানো হয়েছে $AB=AC=AD$।`,
+            ],
+            answer: "চিত্র অঙ্কিত হলো",
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`প্রমাণ করো যে, $BC+CD>2AC$`,
+          solution: {
+            steps: [
+              String.raw`দেওয়া আছে $AB=AC$ এবং অঙ্কন অনুসারে $AC=AD$।`,
+              String.raw`$\triangle BCD$ এ,`,
+              String.raw`$$BC+CD>BD\qquad\left[\,\text{ত্রিভুজের যেকোনো দুই বাহুর সমষ্টি তৃতীয় বাহু অপেক্ষা বৃহত্তর}\,\right]$$`,
+              String.raw`$$\text{বা, } BC+CD>AB+AD$$`,
+              String.raw`$$\text{বা, } BC+CD>AD+AD$$`,
+              String.raw`$$\text{বা, } BC+CD>2AD$$`,
+              String.raw`$$\therefore\;BC+CD>2AC\qquad\left[\,\because\;AB=AC=AD\,\right]$$`,
+            ],
+            answer: String.raw`$BC+CD>2AC$ (প্রমাণিত)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`প্রমাণ করো যে, $\angle BCD=$ এক সমকোণ।`,
+          solution: {
+            steps: [
+              String.raw`দেওয়া আছে $AB=AC$, সুতরাং $\angle ABC=\angle ACB$।`,
+              String.raw`$$\text{অর্থাৎ }\angle DBC=\angle ACB$$`,
+              String.raw`অঙ্কন অনুসারে $AC=AD$, সুতরাং $\angle ADC=\angle ACD$।`,
+              String.raw`$$\text{অর্থাৎ }\angle BDC=\angle ACD$$`,
+              String.raw`$\triangle BCD$ এ,`,
+              String.raw`$$\angle BDC+\angle DBC+\angle BCD=\text{দুই সমকোণ}\qquad\left[\,\text{ত্রিভুজের তিন কোণের সমষ্টি}\,\right]$$`,
+              String.raw`$$\text{বা, }\angle ACD+\angle ACB+\angle BCD=\text{দুই সমকোণ}$$`,
+              String.raw`$$\text{বা, }\angle BCD+\angle BCD=\text{দুই সমকোণ}\qquad\left[\,\because\;\angle ACD+\angle ACB=\angle BCD\,\right]$$`,
+              String.raw`$$\text{বা, } 2\angle BCD=\text{দুই সমকোণ}$$`,
+              String.raw`$$\therefore\;\angle BCD=\text{এক সমকোণ}$$`,
+            ],
+            answer: String.raw`$\angle BCD=$ এক সমকোণ (প্রমাণিত)`,
+          },
+        },
+      ],
+    },
+    // উদাহরণ ২ — book pages ১৩১-১৩২.
+    {
+      id: 2,
+      question: String.raw`$PQR$ একটি ত্রিভুজ। $PA,\;QB$ ও $RC$ তিনটি মধ্যমা $O$ বিন্দুতে ছেদ করেছে। (ক) প্রদত্ত তথ্যের আলোকে চিত্র আঁকো। (খ) প্রমাণ করো যে, $PQ+PR>QO+RO$। (গ) প্রমাণ করো যে, $PA+QB+RC<PQ+QR+PR$।`,
+      figure: "63-ex2",
+      parts: [
+        {
+          label: "ক",
+          question: "প্রদত্ত তথ্যের আলোকে চিত্র আঁকো।",
+          solution: {
+            steps: [
+              String.raw`উপরের চিত্রটিই নির্ণেয় চিত্র — $A,\;B,\;C$ যথাক্রমে $QR$, $PR$ ও $PQ$ বাহুর মধ্যবিন্দু, আর $PA$, $QB$ ও $RC$ তিনটি মধ্যমা $O$ বিন্দুতে ছেদ করেছে।`,
+            ],
+            answer: "চিত্র অঙ্কিত হলো",
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`প্রমাণ করো যে, $PQ+PR>QO+RO$`,
+          solution: {
+            steps: [
+              String.raw`প্রমাণ: ত্রিভুজের যেকোনো দুই বাহুর সমষ্টি তার তৃতীয় বাহু অপেক্ষা বৃহত্তর।`,
+              String.raw`$\triangle PQB$ এ $PQ+PB>QB$`,
+              String.raw`আবার $\triangle BOR$ এ $BR+BO>RO$`,
+              String.raw`$$\therefore\;PQ+PB+BR+BO>QB+RO$$`,
+              String.raw`$$\text{বা, } PQ+PR+BO>QO+OB+RO\qquad\left[\,\because\;PB+BR=PR,\;QB=QO+OB\,\right]$$`,
+              String.raw`$$\therefore\;PQ+PR>QO+RO$$`,
+            ],
+            answer: String.raw`$PQ+PR>QO+RO$ (প্রমাণিত)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`প্রমাণ করো যে, $PA+QB+RC<PQ+QR+PR$`,
+          figure: "63-ex2c",
+          solution: {
+            steps: [
+              String.raw`অঙ্কন: $PA$ কে $D$ পর্যন্ত বর্ধিত করি যেন $PA=AD$ হয়। $Q,\;D$ যোগ করি।`,
+              String.raw`প্রমাণ: $\triangle QAD$ এবং $\triangle PAR$ এ`,
+              String.raw`$$QA=AR,\qquad AD=PA$$`,
+              String.raw`$$\text{এবং অন্তর্ভুক্ত }\angle QAD=\text{অন্তর্ভুক্ত }\angle PAR\qquad\left[\,\text{বিপ্রতীপ কোণ}\,\right]$$`,
+              String.raw`$$\therefore\;\triangle QAD\cong\triangle PAR\;\text{ এবং }\;QD=PR$$`,
+              String.raw`এখন, $\triangle PQD$ এ $PQ+QD>PD$`,
+              String.raw`$$\text{বা, } PQ+PR>2PA\qquad\left[\,\because\;A,\;PD\text{ এর মধ্যবিন্দু}\,\right]$$`,
+              String.raw`একইভাবে, $PQ+QR>2QB$ এবং $PR+QR>2RC$`,
+              String.raw`$$\therefore\;PQ+PR+PQ+QR+PR+QR>2PA+2QB+2RC$$`,
+              String.raw`$$\text{বা, } 2PQ+2QR+2PR>2PA+2QB+2RC$$`,
+              String.raw`$$\text{বা, } PQ+QR+PR>PA+QB+RC$$`,
+              String.raw`$$\therefore\;PA+QB+RC<PQ+QR+PR$$`,
+            ],
+            answer: String.raw`$PA+QB+RC<PQ+QR+PR$ (প্রমাণিত)`,
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    // ─────────────── বহুনির্বাচনি (১ – ৩) ───────────────
+    {
+      id: 1,
+      group: TRI_MCQ,
+      question: String.raw`নিচে তিনটি বাহুর দৈর্ঘ্য দেওয়া হলো। কোন ক্ষেত্রে ত্রিভুজ অঙ্কন সম্ভব (সংখ্যাগুলো দৈর্ঘ্যের এককে)?
+ক) $5,\,6,\,7$  খ) $5,\,7,\,14$  গ) $3,\,4,\,7$  ঘ) $2,\,4,\,8$`,
+      figure: "63-p1",
+      solution: {
+        steps: [
+          String.raw`ত্রিভুজ অঙ্কন সম্ভব হবে তখনই, যখন যেকোনো দুই বাহুর দৈর্ঘ্যের সমষ্টি তৃতীয় বাহুর দৈর্ঘ্য অপেক্ষা বৃহত্তর হয়। সবচেয়ে বড় বাহুটির সাথে বাকি দুইটির সমষ্টি মিলিয়ে দেখলেই যথেষ্ট।`,
+          String.raw`$$\text{ক) } 5+6=11>7\qquad\left[\,\text{সম্ভব}\,\right]$$`,
+          String.raw`$$\text{খ) } 5+7=12<14\qquad\left[\,\text{সম্ভব নয়}\,\right]$$`,
+          String.raw`$$\text{গ) } 3+4=7,\;\text{যা }7\text{ এর সমান, বৃহত্তর নয়}\qquad\left[\,\text{সম্ভব নয়}\,\right]$$`,
+          String.raw`$$\text{ঘ) } 2+4=6<8\qquad\left[\,\text{সম্ভব নয়}\,\right]$$`,
+          String.raw`গ) এর ক্ষেত্রে বাহু তিনটি একটি সরলরেখায় পড়ে যায় — ত্রিভুজ তৈরি হয় না, তাই সমান হলেও চলবে না।`,
+        ],
+        answer: String.raw`ক) $5,\,6,\,7$`,
+      },
+    },
+    {
+      id: 2,
+      group: TRI_MCQ,
+      question: String.raw`চিত্রে $\angle RPS$ এর মান কত?
+ক) $40^{\circ}$  খ) $70^{\circ}$  গ) $90^{\circ}$  ঘ) $110^{\circ}$`,
+      figure: "63-p2",
+      solution: {
+        steps: [
+          String.raw`চিত্রে $QP$ কে $S$ পর্যন্ত বর্ধিত করা হয়েছে, তাই $\angle RPS$ হলো $\triangle PQR$ এর $P$ বিন্দুর বহিঃস্থ কোণ।`,
+          String.raw`$$\angle RPS=\angle PQR+\angle PRQ\qquad\left[\,\text{অনুসিদ্ধান্ত }২\,\right]$$`,
+          String.raw`$$=30^{\circ}+40^{\circ}$$`,
+          String.raw`$$\therefore\;\angle RPS=70^{\circ}$$`,
+          String.raw`যাচাই: $\angle QPR=180^{\circ}-(30^{\circ}+40^{\circ})=110^{\circ}$, আর $\angle QPR$ ও $\angle RPS$ সন্নিহিত কোণ বলে এদের সমষ্টি $180^{\circ}$; তাই $\angle RPS=180^{\circ}-110^{\circ}=70^{\circ}$।`,
+        ],
+        answer: String.raw`খ) $70^{\circ}$`,
+      },
+    },
+    {
+      id: 3,
+      group: TRI_MCQ,
+      question: String.raw`একটি ত্রিভুজকে অপর একটি ত্রিভুজের উপর স্থাপন করলে যদি ত্রিভুজ দুইটি সর্বতোভাবে মিলে যায় তবে— ($i$) ত্রিভুজ দুইটি সর্বসম ($ii$) ত্রিভুজ দুইটির অনুরূপ বাহু সমান ($iii$) অনুরূপ কোণ সমান। নিচের কোনটি সঠিক?
+ক) $i,\,ii$  খ) $i,\,iii$  গ) $ii,\,iii$  ঘ) $i,\,ii$ ও $iii$`,
+      figure: "63-p3",
+      solution: {
+        steps: [
+          String.raw`($i$) সর্বসমতার সংজ্ঞাই হলো — একটি ত্রিভুজকে অপর একটি ত্রিভুজের উপর স্থাপন করলে যদি ত্রিভুজ দুইটি সর্বতোভাবে মিলে যায়, তবে ত্রিভুজ দুইটি সর্বসম। সুতরাং ($i$) সঠিক।`,
+          String.raw`($ii$) ও ($iii$) সর্বসম ত্রিভুজের অনুরূপ বাহু ও অনুরূপ কোণগুলো সমান — অর্থাৎ $A,\,B,\,C$ শীর্ষ যথাক্রমে $D,\,E,\,F$ শীর্ষের উপর পতিত হলে`,
+          String.raw`$$AB=DE,\quad AC=DF,\quad BC=EF$$`,
+          String.raw`$$\angle A=\angle D,\quad \angle B=\angle E,\quad \angle C=\angle F$$`,
+          String.raw`সুতরাং ($ii$) ও ($iii$) ও সঠিক।`,
+          String.raw`$$\therefore\;i,\;ii\;\text{ ও }\;iii\;\text{ তিনটিই সঠিক।}$$`,
+        ],
+        answer: String.raw`ঘ) $i,\,ii$ ও $iii$`,
+      },
+    },
+
+    // ─────────────── প্রমাণ (৪ – ১৫) ───────────────
+    {
+      id: 4,
+      group: TRI_PROVE,
+      question:
+        "প্রমাণ করো যে, সমবাহু ত্রিভুজের বাহুগুলোর মধ্যবিন্দুসমূহ যোগ করলে যে ত্রিভুজ উৎপন্ন হয়, তা সমবাহু হবে।",
+      figure: "63-p4",
+      solution: {
+        steps: [
+          String.raw`সাধারণ নির্বচন: সমবাহু ত্রিভুজের বাহুগুলোর মধ্যবিন্দুসমূহ যোগ করলে যে ত্রিভুজ উৎপন্ন হয়, তা সমবাহু।`,
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ একটি সমবাহু ত্রিভুজ এবং $D,\;E,\;F$ যথাক্রমে $AB,\;BC,\;CA$ বাহুর মধ্যবিন্দু। $D,E$; $E,F$ ও $F,D$ যোগ করা হয়েছে। প্রমাণ করতে হবে যে, $\triangle DEF$ সমবাহু।`,
+          String.raw`প্রমাণ: $\triangle ABC$ সমবাহু, তাই`,
+          String.raw`$$AB=BC=CA\qquad\text{এবং}\qquad \angle A=\angle B=\angle C=60^{\circ}$$`,
+          String.raw`$D,\;E,\;F$ মধ্যবিন্দু হওয়ায়,`,
+          String.raw`$$AD=DB=BE=EC=CF=FA=\tfrac{1}{2}AB$$`,
+          String.raw`ধাপ ১. $\triangle ADF$ ও $\triangle BED$ এ`,
+          String.raw`$$AD=BE,\qquad AF=BD,\qquad \text{অন্তর্ভুক্ত }\angle A=\text{অন্তর্ভুক্ত }\angle B$$`,
+          String.raw`$$\therefore\;\triangle ADF\cong\triangle BED\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;DF=DE$$`,
+          String.raw`ধাপ ২. একইভাবে $\triangle BED$ ও $\triangle CFE$ এ`,
+          String.raw`$$BE=CF,\qquad BD=CE,\qquad \text{অন্তর্ভুক্ত }\angle B=\text{অন্তর্ভুক্ত }\angle C$$`,
+          String.raw`$$\therefore\;\triangle BED\cong\triangle CFE\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;DE=EF$$`,
+          String.raw`ধাপ ৩. সুতরাং`,
+          String.raw`$$DE=EF=FD$$`,
+          String.raw`$$\therefore\;\triangle DEF\;\text{ একটি সমবাহু ত্রিভুজ।}$$`,
+        ],
+        answer: "প্রমাণিত",
+      },
+    },
+    {
+      id: 5,
+      group: TRI_PROVE,
+      question: "প্রমাণ করো যে, সমবাহু ত্রিভুজের মধ্যমা তিনটি পরস্পর সমান।",
+      figure: "63-p5",
+      solution: {
+        steps: [
+          String.raw`সাধারণ নির্বচন: সমবাহু ত্রিভুজের মধ্যমা তিনটি পরস্পর সমান।`,
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ একটি সমবাহু ত্রিভুজ এবং $AD,\;BE,\;CF$ এর তিনটি মধ্যমা, অর্থাৎ $D,\;E,\;F$ যথাক্রমে $BC,\;CA,\;AB$ বাহুর মধ্যবিন্দু। প্রমাণ করতে হবে যে, $AD=BE=CF$।`,
+          String.raw`প্রমাণ: $\triangle ABC$ সমবাহু, তাই`,
+          String.raw`$$AB=BC=CA\qquad\text{এবং}\qquad \angle A=\angle B=\angle C=60^{\circ}$$`,
+          String.raw`$$\therefore\;BD=DC=CE=EA=AF=FB=\tfrac{1}{2}AB$$`,
+          String.raw`ধাপ ১. $\triangle ABD$ ও $\triangle BCE$ এ`,
+          String.raw`$$AB=BC,\qquad BD=CE,\qquad \text{অন্তর্ভুক্ত }\angle ABD=\text{অন্তর্ভুক্ত }\angle BCE=60^{\circ}$$`,
+          String.raw`$$\therefore\;\triangle ABD\cong\triangle BCE\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;AD=BE$$`,
+          String.raw`ধাপ ২. একইভাবে $\triangle BCE$ ও $\triangle CAF$ এ`,
+          String.raw`$$BC=CA,\qquad CE=AF,\qquad \text{অন্তর্ভুক্ত }\angle BCE=\text{অন্তর্ভুক্ত }\angle CAF=60^{\circ}$$`,
+          String.raw`$$\therefore\;\triangle BCE\cong\triangle CAF\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;BE=CF$$`,
+          String.raw`ধাপ ৩. সুতরাং`,
+          String.raw`$$AD=BE=CF$$`,
+          String.raw`অর্থাৎ সমবাহু ত্রিভুজের মধ্যমা তিনটি পরস্পর সমান।`,
+        ],
+        answer: "প্রমাণিত",
+      },
+    },
+    {
+      id: 6,
+      group: TRI_PROVE,
+      question:
+        "প্রমাণ করো যে, ত্রিভুজের যেকোনো দুইটি বহিঃস্থ কোণের সমষ্টি দুই সমকোণ অপেক্ষা বৃহত্তর।",
+      figure: "63-p6",
+      solution: {
+        steps: [
+          String.raw`সাধারণ নির্বচন: ত্রিভুজের যেকোনো দুইটি বহিঃস্থ কোণের সমষ্টি দুই সমকোণ অপেক্ষা বৃহত্তর।`,
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এর $BC$ কে $D$ পর্যন্ত এবং $CB$ কে $E$ পর্যন্ত বর্ধিত করা হয়েছে। এতে $C$ বিন্দুতে বহিঃস্থ কোণ $x=\angle ACD$ এবং $B$ বিন্দুতে বহিঃস্থ কোণ $y=\angle ABE$ উৎপন্ন হয়েছে। প্রমাণ করতে হবে যে, $x+y>$ দুই সমকোণ।`,
+          String.raw`প্রমাণ: $\angle ACB$ ও $\angle ACD$ সন্নিহিত কোণ, তাই`,
+          String.raw`$$x=\angle ACD=180^{\circ}-\angle ACB$$`,
+          String.raw`একইভাবে $\angle ABC$ ও $\angle ABE$ সন্নিহিত কোণ, তাই`,
+          String.raw`$$y=\angle ABE=180^{\circ}-\angle ABC$$`,
+          String.raw`$$\therefore\;x+y=360^{\circ}-(\angle ABC+\angle ACB)$$`,
+          String.raw`আবার $\triangle ABC$ এ,`,
+          String.raw`$$\angle BAC+\angle ABC+\angle ACB=180^{\circ}\qquad\left[\,\text{উপপাদ্য }৪\,\right]$$`,
+          String.raw`$$\text{বা, }\angle ABC+\angle ACB=180^{\circ}-\angle BAC$$`,
+          String.raw`$$\therefore\;x+y=360^{\circ}-(180^{\circ}-\angle BAC)=180^{\circ}+\angle BAC$$`,
+          String.raw`ত্রিভুজের প্রতিটি কোণের পরিমাপ ধনাত্মক, অর্থাৎ $\angle BAC>0^{\circ}$।`,
+          String.raw`$$\therefore\;x+y>180^{\circ}=\text{দুই সমকোণ}$$`,
+          String.raw`অন্য যেকোনো দুইটি বহিঃস্থ কোণের ক্ষেত্রেও একই যুক্তি খাটে, কেবল তৃতীয় কোণটির নাম বদলায়।`,
+        ],
+        answer: "প্রমাণিত",
+      },
+    },
+    {
+      id: 7,
+      group: TRI_PROVE,
+      question: String.raw`$\triangle ABC$ এর $BC$ বাহুর মধ্যবিন্দু $D$ হলে, প্রমাণ করো যে, $AB+AC>2AD$`,
+      figure: "63-p7",
+      solution: {
+        steps: [
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এর $BC$ বাহুর মধ্যবিন্দু $D$, অর্থাৎ $AD$ একটি মধ্যমা। প্রমাণ করতে হবে যে, $AB+AC>2AD$।`,
+          String.raw`অঙ্কন: $AD$ কে $E$ পর্যন্ত বর্ধিত করি যেন $AD=DE$ হয়। $C,\;E$ যোগ করি।`,
+          String.raw`প্রমাণ: $\triangle ABD$ ও $\triangle ECD$ এ`,
+          String.raw`$$BD=DC\qquad\left[\,D,\;BC\text{ এর মধ্যবিন্দু}\,\right]$$`,
+          String.raw`$$AD=DE\qquad\left[\,\text{অঙ্কনানুসারে}\,\right]$$`,
+          String.raw`$$\text{অন্তর্ভুক্ত }\angle ADB=\text{অন্তর্ভুক্ত }\angle EDC\qquad\left[\,\text{বিপ্রতীপ কোণ}\,\right]$$`,
+          String.raw`$$\therefore\;\triangle ABD\cong\triangle ECD\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;AB=EC$$`,
+          String.raw`এখন $\triangle ACE$ এ,`,
+          String.raw`$$AC+CE>AE\qquad\left[\,\text{উপপাদ্য }১৩\,\right]$$`,
+          String.raw`$$\text{বা, } AC+AB>AD+DE$$`,
+          String.raw`$$\text{বা, } AB+AC>AD+AD$$`,
+          String.raw`$$\therefore\;AB+AC>2AD$$`,
+        ],
+        answer: String.raw`$AB+AC>2AD$ (প্রমাণিত)`,
+      },
+    },
+    {
+      id: 8,
+      group: TRI_PROVE,
+      question: String.raw`চিত্রে, দেওয়া আছে, $\angle C=$ এক সমকোণ এবং $\angle B=2\angle A$। প্রমাণ করো যে, $AB=2BC$`,
+      figure: "63-p8",
+      solution: {
+        steps: [
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এ $\angle ACB=$ এক সমকোণ এবং $\angle ABC=2\angle BAC$। প্রমাণ করতে হবে যে, $AB=2BC$।`,
+          String.raw`প্রথমে কোণ তিনটির মান বের করি। $\triangle ABC$ সমকোণী, তাই`,
+          String.raw`$$\angle BAC+\angle ABC=90^{\circ}\qquad\left[\,\text{অনুসিদ্ধান্ত }৪\,\right]$$`,
+          String.raw`$$\text{বা, }\angle BAC+2\angle BAC=90^{\circ}$$`,
+          String.raw`$$\text{বা, } 3\angle BAC=90^{\circ}$$`,
+          String.raw`$$\therefore\;\angle BAC=30^{\circ}\qquad\text{এবং}\qquad \angle ABC=60^{\circ}$$`,
+          String.raw`অঙ্কন: $BC$ কে $D$ পর্যন্ত বর্ধিত করি যেন $CD=BC$ হয়। $A,\;D$ যোগ করি।`,
+          String.raw`প্রমাণ: $\triangle ACD$ ও $\triangle ACB$ এ`,
+          String.raw`$$CD=CB\qquad\left[\,\text{অঙ্কনানুসারে}\,\right]$$`,
+          String.raw`$$AC=AC\qquad\left[\,\text{সাধারণ বাহু}\,\right]$$`,
+          String.raw`$$\text{অন্তর্ভুক্ত }\angle ACD=\text{অন্তর্ভুক্ত }\angle ACB=90^{\circ}$$`,
+          String.raw`$$\therefore\;\triangle ACD\cong\triangle ACB\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;AD=AB\qquad\text{এবং}\qquad \angle ADC=\angle ABC=60^{\circ}$$`,
+          String.raw`এখন $\triangle ABD$ এ,`,
+          String.raw`$$\angle ABD=60^{\circ},\qquad \angle ADB=60^{\circ}$$`,
+          String.raw`$$\therefore\;\angle BAD=180^{\circ}-(60^{\circ}+60^{\circ})=60^{\circ}$$`,
+          String.raw`তিনটি কোণই সমান, তাই $\triangle ABD$ একটি সমবাহু ত্রিভুজ।`,
+          String.raw`$$\therefore\;AB=BD=BC+CD=BC+BC$$`,
+          String.raw`$$\therefore\;AB=2BC$$`,
+        ],
+        answer: String.raw`$AB=2BC$ (প্রমাণিত)`,
+      },
+    },
+    {
+      id: 9,
+      group: TRI_PROVE,
+      question:
+        "প্রমাণ করো যে, ত্রিভুজের একটি বাহু বর্ধিত করলে যে বহিঃস্থ কোণ উৎপন্ন হয়, তা বিপরীত অন্তঃস্থ কোণদ্বয়ের সমষ্টির সমান।",
+      figure: "63-p9",
+      solution: {
+        steps: [
+          String.raw`সাধারণ নির্বচন: ত্রিভুজের একটি বাহু বর্ধিত করলে যে বহিঃস্থ কোণ উৎপন্ন হয়, তা এর অন্তঃস্থ বিপরীত কোণদ্বয়ের সমষ্টির সমান।`,
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এর $BC$ বাহুকে $D$ পর্যন্ত বর্ধিত করা হয়েছে; ফলে $\angle ACD$ বহিঃস্থ কোণ উৎপন্ন হয়েছে এবং $\angle 1=\angle BAC$ ও $\angle 2=\angle ABC$ এর বিপরীত অন্তঃস্থ কোণ। প্রমাণ করতে হবে যে, $\angle ACD=\angle 1+\angle 2$।`,
+          String.raw`অঙ্কন: $C$ বিন্দু দিয়ে $CE$ আঁকি যেন $BA\parallel CE$ হয়।`,
+          String.raw`প্রমাণ: $BA\parallel CE$ এবং $AC$ ছেদক, তাই`,
+          String.raw`$$x=\angle ACE=\angle BAC=\angle 1\qquad\left[\,\text{একান্তর কোণ}\,\right]$$`,
+          String.raw`আবার $BA\parallel CE$ এবং $BD$ ছেদক, তাই`,
+          String.raw`$$y=\angle ECD=\angle ABC=\angle 2\qquad\left[\,\text{অনুরূপ কোণ}\,\right]$$`,
+          String.raw`$CE$ রশ্মি $\angle ACD$ এর অভ্যন্তরে, তাই`,
+          String.raw`$$\angle ACD=\angle ACE+\angle ECD=x+y$$`,
+          String.raw`$$\therefore\;\angle ACD=\angle 1+\angle 2=\angle BAC+\angle ABC$$`,
+          String.raw`অর্থাৎ বহিঃস্থ কোণটি তার বিপরীত অন্তঃস্থ কোণদ্বয়ের সমষ্টির সমান।`,
+        ],
+        answer: "প্রমাণিত",
+      },
+    },
+    {
+      id: 10,
+      group: TRI_PROVE,
+      question:
+        "প্রমাণ করো যে, ত্রিভুজের যেকোনো দুই বাহুর অন্তর তার তৃতীয় বাহু অপেক্ষা ক্ষুদ্রতর।",
+      figure: "63-p10",
+      solution: {
+        steps: [
+          String.raw`সাধারণ নির্বচন: ত্রিভুজের যেকোনো দুই বাহুর দৈর্ঘ্যের অন্তর এর তৃতীয় বাহুর দৈর্ঘ্য অপেক্ষা ক্ষুদ্রতর।`,
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ একটি ত্রিভুজ। প্রমাণ করতে হবে যে, $AB$ ও $AC$ বাহুদ্বয়ের অন্তর $BC$ অপেক্ষা ক্ষুদ্রতর।`,
+          String.raw`প্রমাণ: $\triangle ABC$ এ, ত্রিভুজের যেকোনো দুই বাহুর সমষ্টি তৃতীয় বাহু অপেক্ষা বৃহত্তর।`,
+          String.raw`$$\therefore\;AB+BC>AC$$`,
+          String.raw`$$\text{বা, } BC>AC-AB \qquad\left[\,\text{উভয় পক্ষ থেকে } AB \text{ বিয়োগ করে}\,\right]$$`,
+          String.raw`আবার একই কারণে,`,
+          String.raw`$$AC+BC>AB$$`,
+          String.raw`$$\text{বা, } BC>AB-AC \qquad\left[\,\text{উভয় পক্ষ থেকে } AC \text{ বিয়োগ করে}\,\right]$$`,
+          String.raw`$AB-AC$ ও $AC-AB$ এর মধ্যে যেটি ধনাত্মক, সেটিই $AB$ ও $AC$ এর অন্তর; আর উপরের দুইটি অসমতা দুইটি ক্ষেত্রকেই ঢেকে দেয়।`,
+          String.raw`$$\therefore\;|AB-AC|<BC$$`,
+          String.raw`একইভাবে $|AB-BC|<AC$ এবং $|AC-BC|<AB$।`,
+        ],
+        answer: String.raw`$|AB-AC|<BC$ (প্রমাণিত)`,
+      },
+    },
+    {
+      id: 11,
+      group: TRI_PROVE,
+      question: String.raw`চিত্রে, $ABC$ ত্রিভুজের $\angle B=$ এক সমকোণ এবং $D$, অতিভুজ $AC$ এর মধ্যবিন্দু। প্রমাণ করো যে, $BD=\dfrac{1}{2}AC$`,
+      figure: "63-p11",
+      solution: {
+        steps: [
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এ $\angle ABC=$ এক সমকোণ এবং $D$ হলো অতিভুজ $AC$ এর মধ্যবিন্দু। প্রমাণ করতে হবে যে, $BD=\dfrac{1}{2}AC$।`,
+          String.raw`অঙ্কন: $AB$ বাহুর মধ্যবিন্দু $E$ নিই এবং $D,\;E$ যোগ করি।`,
+          String.raw`প্রমাণ: $\triangle ABC$ এ $E$ ও $D$ যথাক্রমে $AB$ ও $AC$ বাহুর মধ্যবিন্দু।`,
+          String.raw`$$\therefore\;ED\parallel BC\qquad\left[\,\text{উপপাদ্য }১৪\,\right]$$`,
+          String.raw`আবার $\angle ABC=90^{\circ}$, অর্থাৎ $AB\perp BC$।`,
+          String.raw`$ED\parallel BC$ এবং $AB$ ছেদক, তাই`,
+          String.raw`$$\angle AED=\angle ABC=90^{\circ}\qquad\left[\,\text{অনুরূপ কোণ}\,\right]$$`,
+          String.raw`$$\therefore\;\angle AED=\angle BED=90^{\circ}$$`,
+          String.raw`এখন $\triangle AED$ ও $\triangle BED$ এ`,
+          String.raw`$$AE=EB\qquad\left[\,E,\;AB\text{ এর মধ্যবিন্দু}\,\right]$$`,
+          String.raw`$$ED=ED\qquad\left[\,\text{সাধারণ বাহু}\,\right]$$`,
+          String.raw`$$\text{অন্তর্ভুক্ত }\angle AED=\text{অন্তর্ভুক্ত }\angle BED=90^{\circ}$$`,
+          String.raw`$$\therefore\;\triangle AED\cong\triangle BED\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;DA=DB$$`,
+          String.raw`$D$ হলো $AC$ এর মধ্যবিন্দু, তাই $DA=\dfrac{1}{2}AC$।`,
+          String.raw`$$\therefore\;BD=\frac{1}{2}AC$$`,
+        ],
+        answer: String.raw`$BD=\dfrac{1}{2}AC$ (প্রমাণিত)`,
+      },
+    },
+    {
+      id: 12,
+      group: TRI_PROVE,
+      question: String.raw`$\triangle ABC$ এ $AB>AC$ এবং $\angle A$ এর সমদ্বিখণ্ডক $AD$, $BC$ বাহুকে $D$ বিন্দুতে ছেদ করে। প্রমাণ করো যে, $\angle ADB$ স্থূলকোণ।`,
+      figure: "63-p12",
+      solution: {
+        steps: [
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এ $AB>AC$ এবং $\angle BAC$ এর সমদ্বিখণ্ডক $AD$, $BC$ কে $D$ বিন্দুতে ছেদ করেছে, অর্থাৎ $\angle BAD=\angle CAD$। প্রমাণ করতে হবে যে, $\angle ADB$ স্থূলকোণ।`,
+          String.raw`প্রমাণ: $\triangle ADC$ এর $CD$ বাহুকে $B$ এর দিকে বর্ধিত ধরলে $\angle ADB$ হলো এর বহিঃস্থ কোণ।`,
+          String.raw`$$\therefore\;\angle ADB=\angle CAD+\angle ACB\qquad\left[\,\text{অনুসিদ্ধান্ত }২\,\right]$$`,
+          String.raw`একইভাবে $\triangle ABD$ এর বহিঃস্থ কোণ $\angle ADC$ থেকে,`,
+          String.raw`$$\angle ADC=\angle BAD+\angle ABC$$`,
+          String.raw`আবার $\triangle ABC$ এ $AB>AC$, তাই`,
+          String.raw`$$\angle ACB>\angle ABC\qquad\left[\,\text{উপপাদ্য }১১\,\right]$$`,
+          String.raw`$\angle CAD=\angle BAD$, সুতরাং দুইটি সমান রাশির সাথে বড় ও ছোট রাশি যোগ করে পাই`,
+          String.raw`$$\angle CAD+\angle ACB>\angle BAD+\angle ABC$$`,
+          String.raw`$$\text{বা, }\angle ADB>\angle ADC$$`,
+          String.raw`কিন্তু $\angle ADB$ ও $\angle ADC$ সন্নিহিত কোণ, তাই`,
+          String.raw`$$\angle ADB+\angle ADC=\text{দুই সমকোণ}\qquad\left[\,\text{উপপাদ্য }১\,\right]$$`,
+          String.raw`$$\text{বা, }\angle ADC=\text{দুই সমকোণ}-\angle ADB$$`,
+          String.raw`$$\therefore\;\angle ADB>\text{দুই সমকোণ}-\angle ADB$$`,
+          String.raw`$$\text{বা, } 2\angle ADB>\text{দুই সমকোণ}$$`,
+          String.raw`$$\therefore\;\angle ADB>\text{এক সমকোণ}$$`,
+          String.raw`আবার $\angle ADB$ একটি ত্রিভুজের কোণ, তাই $\angle ADB<$ দুই সমকোণ।`,
+          String.raw`$$\therefore\;\angle ADB\;\text{ একটি স্থূলকোণ।}$$`,
+        ],
+        answer: String.raw`$\angle ADB$ স্থূলকোণ (প্রমাণিত)`,
+      },
+    },
+    {
+      id: 13,
+      group: TRI_PROVE,
+      question:
+        "প্রমাণ করো যে, কোনো রেখাংশের লম্বসমদ্বিখণ্ডকের উপরিস্থিত যেকোনো বিন্দু উক্ত রেখাংশের প্রান্ত বিন্দুদ্বয় হতে সমদূরবর্তী।",
+      figure: "63-p13",
+      solution: {
+        steps: [
+          String.raw`সাধারণ নির্বচন: কোনো রেখাংশের লম্বসমদ্বিখণ্ডকের উপরিস্থিত যেকোনো বিন্দু ঐ রেখাংশের প্রান্তবিন্দুদ্বয় হতে সমদূরবর্তী।`,
+          String.raw`বিশেষ নির্বচন: মনে করি, $AB$ একটি রেখাংশ এবং $MP$ তার লম্বসমদ্বিখণ্ডক, অর্থাৎ $M$ হলো $AB$ এর মধ্যবিন্দু এবং $MP\perp AB$। $P$ হলো $MP$ রেখার উপরিস্থিত যেকোনো বিন্দু। প্রমাণ করতে হবে যে, $PA=PB$।`,
+          String.raw`অঙ্কন: $P,A$ ও $P,B$ যোগ করি।`,
+          String.raw`প্রমাণ: $P$ যদি $M$ বিন্দুই হয়, তবে $PA=MA=MB=PB$ — প্রমাণ শেষ। সুতরাং ধরি $P\neq M$।`,
+          String.raw`$\triangle AMP$ ও $\triangle BMP$ এ`,
+          String.raw`$$AM=MB\qquad\left[\,M,\;AB\text{ এর মধ্যবিন্দু}\,\right]$$`,
+          String.raw`$$MP=MP\qquad\left[\,\text{সাধারণ বাহু}\,\right]$$`,
+          String.raw`$$\text{অন্তর্ভুক্ত }\angle AMP=\text{অন্তর্ভুক্ত }\angle BMP=90^{\circ}\qquad\left[\,MP\perp AB\,\right]$$`,
+          String.raw`$$\therefore\;\triangle AMP\cong\triangle BMP\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;PA=PB$$`,
+          String.raw`অর্থাৎ লম্বসমদ্বিখণ্ডকের উপরিস্থিত যেকোনো বিন্দু $A$ ও $B$ হতে সমদূরবর্তী।`,
+        ],
+        answer: String.raw`$PA=PB$ (প্রমাণিত)`,
+      },
+    },
+    {
+      id: 14,
+      group: TRI_PROVE,
+      question:
+        "প্রমাণ করো যে, সমদ্বিবাহু ত্রিভুজের শিরঃকোণের সমদ্বিখণ্ডক ভূমিকেও সমদ্বিখণ্ডিত করে এবং ভূমির উপর লম্ব।",
+      figure: "63-p14",
+      solution: {
+        steps: [
+          String.raw`সাধারণ নির্বচন: সমদ্বিবাহু ত্রিভুজের শিরঃকোণের সমদ্বিখণ্ডক ভূমিকেও সমদ্বিখণ্ডিত করে এবং ভূমির উপর লম্ব।`,
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এ $AB=AC$ এবং শিরঃকোণ $\angle BAC$ এর সমদ্বিখণ্ডক $AD$, ভূমি $BC$ কে $D$ বিন্দুতে ছেদ করেছে। প্রমাণ করতে হবে যে, $BD=DC$ এবং $AD\perp BC$।`,
+          String.raw`প্রমাণ: $\triangle ABD$ ও $\triangle ACD$ এ`,
+          String.raw`$$AB=AC\qquad\left[\,\text{দেওয়া আছে}\,\right]$$`,
+          String.raw`$$AD=AD\qquad\left[\,\text{সাধারণ বাহু}\,\right]$$`,
+          String.raw`$$\text{অন্তর্ভুক্ত }\angle BAD=\text{অন্তর্ভুক্ত }\angle CAD\qquad\left[\,AD\text{ সমদ্বিখণ্ডক}\,\right]$$`,
+          String.raw`$$\therefore\;\triangle ABD\cong\triangle ACD\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;BD=DC\qquad\text{এবং}\qquad \angle ADB=\angle ADC$$`,
+          String.raw`প্রথম ফল থেকেই পাই, $AD$ ভূমি $BC$ কে সমদ্বিখণ্ডিত করে।`,
+          String.raw`আবার $\angle ADB$ ও $\angle ADC$ সন্নিহিত কোণ, তাই`,
+          String.raw`$$\angle ADB+\angle ADC=\text{দুই সমকোণ}\qquad\left[\,\text{উপপাদ্য }১\,\right]$$`,
+          String.raw`$$\text{বা, } 2\angle ADB=\text{দুই সমকোণ}$$`,
+          String.raw`$$\therefore\;\angle ADB=\angle ADC=\text{এক সমকোণ}$$`,
+          String.raw`$$\therefore\;AD\perp BC$$`,
+        ],
+        answer: String.raw`$BD=DC$ এবং $AD\perp BC$ (প্রমাণিত)`,
+      },
+    },
+    {
+      id: 15,
+      group: TRI_PROVE,
+      question:
+        "প্রমাণ করো যে, ত্রিভুজের মধ্যমাত্রয়ের সমষ্টি তার পরিসীমা অপেক্ষা ক্ষুদ্রতর।",
+      figure: "63-p15",
+      solution: {
+        steps: [
+          String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এর তিনটি মধ্যমা $AD,\;BE,\;CF$, অর্থাৎ $D,\;E,\;F$ যথাক্রমে $BC,\;CA,\;AB$ বাহুর মধ্যবিন্দু। প্রমাণ করতে হবে যে, $AD+BE+CF<AB+BC+CA$।`,
+          String.raw`প্রমাণ: প্রশ্ন ৭ এ প্রমাণ করা হয়েছে যে, $BC$ এর মধ্যবিন্দু $D$ হলে $AB+AC>2AD$।`,
+          String.raw`$$\therefore\;AD<\frac{1}{2}(AB+AC)$$`,
+          String.raw`একইভাবে $CA$ এর মধ্যবিন্দু $E$ হওয়ায়,`,
+          String.raw`$$BE<\frac{1}{2}(BA+BC)$$`,
+          String.raw`এবং $AB$ এর মধ্যবিন্দু $F$ হওয়ায়,`,
+          String.raw`$$CF<\frac{1}{2}(CA+CB)$$`,
+          String.raw`তিনটি অসমতা যোগ করে পাই,`,
+          String.raw`$$AD+BE+CF<\frac{1}{2}\left(AB+AC+BA+BC+CA+CB\right)$$`,
+          String.raw`$$=\frac{1}{2}\times 2\left(AB+BC+CA\right)$$`,
+          String.raw`$$\therefore\;AD+BE+CF<AB+BC+CA$$`,
+          String.raw`অর্থাৎ মধ্যমাত্রয়ের সমষ্টি ত্রিভুজটির পরিসীমা অপেক্ষা ক্ষুদ্রতর।`,
+        ],
+        answer: "প্রমাণিত",
+      },
+    },
+
+    // ─────────────── প্রয়োগ (১৬) ───────────────
+    {
+      id: 16,
+      group: TRI_APPLY,
+      question: String.raw`এক পরিশ্রমী পিতা তার একমাত্র পুত্রকে ডেকে বললেন যে তিনি তার উপার্জিত অর্থ দিয়ে স্বর্ণ ক্রয় করে পার্শ্ববর্তী বনে লুকিয়ে রেখেছেন। স্বর্ণের অবস্থান সম্পর্কে পুত্র জিজ্ঞাসা করাতে তিনি জানালেন যে বনে একই রকম দেখতে দুইটি বৃক্ষ $A$ ও $B$ এবং একটি পাথর $S$ রয়েছে। $S$ থেকে $A$ তে পৌঁছে সমদূরত্ব লম্বালম্বিভাবে গিয়ে সে $C$ বিন্দু পাবে। এবার আবার $S$ থেকে $B$ তে এসে একইভাবে লম্বালম্বি সমদূরত্ব অতিক্রম করে $D$ বিন্দু পাবে। এবার $CD$ রেখার মধ্যবিন্দুতে স্বর্ণ পাওয়া যাবে। পুত্র বৃক্ষ $A$ ও $B$ পেলেও দুর্ভাগ্যজনকভাবে $S$ পেল না। সে কি স্বর্ণ খুঁজে পাবে? কীভাবে?`,
+      figure: "63-p16",
+      solution: {
+        steps: [
+          String.raw`হ্যাঁ, পুত্র স্বর্ণ খুঁজে পাবে — কারণ $CD$ এর মধ্যবিন্দুটি পাথর $S$ এর অবস্থানের উপর মোটেও নির্ভর করে না। নিচে তা প্রমাণ করা হলো।`,
+          String.raw`বিশেষ নির্বচন: মনে করি, $A$ ও $B$ দুইটি বৃক্ষ এবং $S$ পাথরের অবস্থান। শর্তানুসারে $AC=AS$ ও $AC\perp AS$, এবং $BD=BS$ ও $BD\perp BS$। $M$ হলো $CD$ এর মধ্যবিন্দু। দেখাতে হবে যে, $M$ এর অবস্থান কেবল $A$ ও $B$ দিয়েই নির্দিষ্ট।`,
+          String.raw`অঙ্কন: $AB$ রেখার উপর $S,\;C,\;D$ ও $M$ বিন্দু থেকে যথাক্রমে $SN,\;CP,\;DQ$ ও $MR$ লম্ব আঁকি; $N,\;P,\;Q,\;R$ হলো লম্বগুলোর পাদবিন্দু।`,
+          String.raw`প্রমাণ (ধাপ ১): $\triangle ACP$ ও $\triangle SAN$ এ`,
+          String.raw`$$AC=SA\qquad\left[\,\text{শর্তানুসারে}\,\right]$$`,
+          String.raw`$$\angle APC=\angle SNA=90^{\circ}\qquad\left[\,\text{অঙ্কনানুসারে}\,\right]$$`,
+          String.raw`$$\angle CAP=90^{\circ}-\angle SAN=\angle ASN\qquad\left[\,\because\;\angle CAS=90^{\circ}\;\text{এবং}\;\triangle SAN\;\text{সমকোণী}\,\right]$$`,
+          String.raw`$$\therefore\;\triangle ACP\cong\triangle SAN\qquad\left[\,\text{কোণ-বাহু-কোণ উপপাদ্য}\,\right]$$`,
+          String.raw`$$\therefore\;CP=AN\qquad\text{এবং}\qquad AP=SN$$`,
+          String.raw`প্রমাণ (ধাপ ২): একইভাবে $\triangle BDQ$ ও $\triangle SBN$ এ`,
+          String.raw`$$\therefore\;DQ=BN\qquad\text{এবং}\qquad BQ=SN$$`,
+          String.raw`প্রমাণ (ধাপ ৩): $M$ হলো $CD$ এর মধ্যবিন্দু, তাই $R$ হলো $PQ$ এর মধ্যবিন্দু এবং`,
+          String.raw`$$MR=\frac{1}{2}(CP+DQ)=\frac{1}{2}(AN+BN)=\frac{1}{2}AB$$`,
+          String.raw`প্রমাণ (ধাপ ৪): আবার $AP=SN$ এবং $AQ=AB-BQ=AB-SN$, সুতরাং`,
+          String.raw`$$AR=\frac{AP+AQ}{2}=\frac{SN+AB-SN}{2}=\frac{1}{2}AB$$`,
+          String.raw`অর্থাৎ $R$ হলো $AB$ এর মধ্যবিন্দু।`,
+          String.raw`সিদ্ধান্ত: $R$ হলো $AB$ এর মধ্যবিন্দু এবং $MR\perp AB$ ও $MR=\dfrac{1}{2}AB$ — তিনটি কথার কোনোটিতেই $S$ নাই।`,
+          String.raw`সুতরাং পুত্র যা করবে: $A$ ও $B$ যোগ করে $AB$ এর মধ্যবিন্দু $N$ নির্ণয় করবে, সেখানে $AB$ এর উপর লম্ব আঁকবে এবং সেই লম্ব বরাবর $\dfrac{1}{2}AB$ দূরত্ব মেপে যে বিন্দু পাবে, সেখানেই খুঁড়বে।`,
+          String.raw`লম্বটির দুই পাশে দুইটি সম্ভাব্য বিন্দু পাওয়া যায়; বনের কোন পাশে $C$ ও $D$ পড়ার কথা তা জানা না থাকলে দুইটি জায়গাতেই দেখতে হবে — তবু $S$ ছাড়াই মাত্র দুইটি জায়গা, সমস্ত বন নয়।`,
+        ],
+        answer:
+          String.raw`হ্যাঁ — $AB$ এর মধ্যবিন্দু থেকে $AB$ এর উপর লম্ব বরাবর $\dfrac{1}{2}AB$ দূরত্বে স্বর্ণ; $S$ এর অবস্থান জানার প্রয়োজন নাই।`,
+      },
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — বহুনির্বাচনি (১৭ – ২০) ───────────────
+    {
+      id: 17,
+      group: TRI_MODEL_MCQ,
+      question: String.raw`সমবাহু ত্রিভুজের একটি বাহুকে উভয়দিকে বর্ধিত করলে উৎপন্ন বহিঃস্থ কোণদ্বয়ের বিয়োগফল কত?
+ক) $0^{\circ}$  খ) $120^{\circ}$  গ) $180^{\circ}$  ঘ) $240^{\circ}$`,
+      figure: "63-p17",
+      solution: {
+        steps: [
+          String.raw`মনে করি, $\triangle ABC$ সমবাহু এবং $BC$ বাহুকে উভয়দিকে বর্ধিত করে $D$ ও $E$ পাওয়া গেছে।`,
+          String.raw`সমবাহু ত্রিভুজের প্রতিটি কোণ সমান, তাই`,
+          String.raw`$$\angle ABC=\angle ACB=\angle BAC=60^{\circ}$$`,
+          String.raw`$C$ বিন্দুতে বহিঃস্থ কোণ,`,
+          String.raw`$$\angle ACD=180^{\circ}-\angle ACB=180^{\circ}-60^{\circ}=120^{\circ}$$`,
+          String.raw`$B$ বিন্দুতে বহিঃস্থ কোণ,`,
+          String.raw`$$\angle ABE=180^{\circ}-\angle ABC=180^{\circ}-60^{\circ}=120^{\circ}$$`,
+          String.raw`$$\therefore\;\text{বিয়োগফল}=120^{\circ}-120^{\circ}=0^{\circ}$$`,
+        ],
+        answer: String.raw`ক) $0^{\circ}$`,
+      },
+    },
+    {
+      id: 18,
+      group: TRI_MODEL_MCQ,
+      question: String.raw`পাশের চিত্রে— ($i$) $\angle AOC$ একটি সূক্ষ্মকোণ ($ii$) $\angle AOB$ একটি সমকোণ ($iii$) $\angle AOD$ একটি প্রবৃদ্ধকোণ। নিচের কোনটি সঠিক?
+ক) $i$  খ) $ii$  গ) $i$ ও $ii$  ঘ) $ii$ ও $iii$`,
+      figure: "63-p18",
+      solution: {
+        steps: [
+          String.raw`($i$) $OC$ রশ্মিটি $OA$ ও $OB$ এর অভ্যন্তরে, তাই $\angle AOC<\angle AOB=90^{\circ}$।`,
+          String.raw`$$\therefore\;\angle AOC\;\text{ একটি সূক্ষ্মকোণ}\qquad\left[\,\text{সঠিক}\,\right]$$`,
+          String.raw`($ii$) $OB\perp OA$, তাই`,
+          String.raw`$$\angle AOB=90^{\circ}\qquad\left[\,\text{সঠিক}\,\right]$$`,
+          String.raw`($iii$) $OD$ রশ্মিটি $OB$ এর বাম পাশে, তাই $\angle AOD$ এক সমকোণ থেকে বড় কিন্তু দুই সমকোণ থেকে ছোট।`,
+          String.raw`$$90^{\circ}<\angle AOD<180^{\circ}$$`,
+          String.raw`অর্থাৎ $\angle AOD$ একটি স্থূলকোণ, প্রবৃদ্ধকোণ নয় — প্রবৃদ্ধকোণ হতে হলে $180^{\circ}$ থেকে বড় হতে হতো।`,
+          String.raw`$$\left[\,\text{সঠিক নয়}\,\right]$$`,
+          String.raw`$$\therefore\;i\;\text{ ও }\;ii\;\text{ সঠিক।}$$`,
+        ],
+        answer: String.raw`গ) $i$ ও $ii$`,
+      },
+    },
+    {
+      id: 19,
+      group: TRI_MODEL_MCQ,
+      question: String.raw`চিত্রে $AB\parallel EF\parallel CD$ এবং $BD\perp CD$। $\angle AEF$ এর মান কত?
+ক) $30^{\circ}$  খ) $60^{\circ}$  গ) $240^{\circ}$  ঘ) $270^{\circ}$`,
+      figure: "63-p19",
+      solution: {
+        steps: [
+          String.raw`$AB\parallel EF$ এবং $AG$ এদের ছেদক।`,
+          String.raw`$\angle BAE$ ও $\angle AEF$ ছেদকের একই পাশের অন্তঃস্থ কোণ, তাই এরা পরস্পর সম্পূরক।`,
+          String.raw`$$\angle BAE+\angle AEF=180^{\circ}$$`,
+          String.raw`$$\text{বা, } 120^{\circ}+\angle AEF=180^{\circ}$$`,
+          String.raw`$$\therefore\;\angle AEF=60^{\circ}$$`,
+        ],
+        answer: String.raw`খ) $60^{\circ}$`,
+      },
+    },
+    {
+      id: 20,
+      group: TRI_MODEL_MCQ,
+      question: String.raw`একই চিত্রে $\angle BFE$ এর মান নিচের কোনটি?
+ক) $30^{\circ}$  খ) $60^{\circ}$  গ) $90^{\circ}$  ঘ) $120^{\circ}$`,
+      figure: "63-p19",
+      solution: {
+        steps: [
+          String.raw`চিত্রে $B,\;F,\;D$ একই সরলরেখায়, অর্থাৎ $BD$ রেখাটি $F$ বিন্দু দিয়ে গেছে।`,
+          String.raw`দেওয়া আছে $BD\perp CD$, অর্থাৎ`,
+          String.raw`$$\angle BDC=90^{\circ}$$`,
+          String.raw`আবার $EF\parallel CD$ এবং $BD$ ছেদক, তাই`,
+          String.raw`$$\angle BFE=\angle BDC\qquad\left[\,\text{অনুরূপ কোণ}\,\right]$$`,
+          String.raw`$$\therefore\;\angle BFE=90^{\circ}$$`,
+          String.raw`অর্থাৎ $CD$ এর উপর লম্ব রেখাটি তার সমান্তরাল $EF$ এর উপরও লম্ব।`,
+        ],
+        answer: String.raw`গ) $90^{\circ}$`,
+      },
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — সৃজনশীল (২১ – ২২) ───────────────
+    {
+      id: 21,
+      group: TRI_MODEL_CQ,
+      question: String.raw`$ABC$ ত্রিভুজের $\angle A=$ এক সমকোণ। $BC$ বাহুর মধ্যবিন্দু $D$।`,
+      figure: "63-p21",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$\angle DEF$ ও $\angle PEF$ কোণদ্বয় পরস্পর সন্নিহিত ও পূরক কোণ হলে, চিত্র অঙ্কন করে কোণদ্বয় চিহ্নিত করো।`,
+          figure: "63-p21a",
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের নিয়ম: কোণ দুইটি সন্নিহিত হতে হলে এদের শীর্ষবিন্দু এক হতে হবে ($E$), একটি সাধারণ বাহু থাকতে হবে ($EF$) এবং কোণ দুইটি সেই সাধারণ বাহুর দুই পাশে থাকতে হবে।`,
+              String.raw`আবার পূরক হতে হলে এদের সমষ্টি এক সমকোণ হতে হবে।`,
+              String.raw`$$\angle DEF+\angle PEF=90^{\circ}$$`,
+              String.raw`সুতরাং $E$ বিন্দুতে $ED\perp EP$ আঁকি এবং $\angle DEP$ এর অভ্যন্তরে $EF$ রশ্মি আঁকি।`,
+              String.raw`এতে $EF$ এর এক পাশে $\angle DEF$ এবং অন্য পাশে $\angle PEF$ উৎপন্ন হলো — উপরের চিত্রে কোণ দুইটি চিহ্নিত করা হয়েছে।`,
+              String.raw`$$\therefore\;\angle DEF+\angle PEF=\angle DEP=\text{এক সমকোণ}$$`,
+            ],
+            answer:
+              String.raw`চিত্র অঙ্কিত — $EF$ সাধারণ বাহু এবং $\angle DEF+\angle PEF=90^{\circ}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`দেখাও যে, $AB+AC>2AD$`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কন: $AD$ কে $E$ পর্যন্ত বর্ধিত করি যেন $AD=DE$ হয়। $C,\;E$ যোগ করি।`,
+              String.raw`প্রমাণ: $\triangle ABD$ ও $\triangle ECD$ এ`,
+              String.raw`$$BD=DC\qquad\left[\,D,\;BC\text{ এর মধ্যবিন্দু}\,\right]$$`,
+              String.raw`$$AD=DE\qquad\left[\,\text{অঙ্কনানুসারে}\,\right]$$`,
+              String.raw`$$\text{অন্তর্ভুক্ত }\angle ADB=\text{অন্তর্ভুক্ত }\angle EDC\qquad\left[\,\text{বিপ্রতীপ কোণ}\,\right]$$`,
+              String.raw`$$\therefore\;\triangle ABD\cong\triangle ECD\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+              String.raw`$$\therefore\;AB=EC$$`,
+              String.raw`এখন $\triangle ACE$ এ,`,
+              String.raw`$$AC+CE>AE\qquad\left[\,\text{উপপাদ্য }১৩\,\right]$$`,
+              String.raw`$$\text{বা, } AC+AB>AD+DE$$`,
+              String.raw`$$\therefore\;AB+AC>2AD$$`,
+            ],
+            answer: String.raw`$AB+AC>2AD$ (দেখানো হলো)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`প্রমাণ করো যে, $AD=\dfrac{1}{2}BC$`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কন: (খ) এর মতোই $AD$ কে $E$ পর্যন্ত বর্ধিত করি যেন $AD=DE$ হয়। $B,E$ ও $C,E$ যোগ করি।`,
+              String.raw`প্রমাণ: (খ) এ পাওয়া গেছে $\triangle ABD\cong\triangle ECD$, সুতরাং`,
+              String.raw`$$AB=EC\qquad\text{এবং}\qquad \angle ABD=\angle ECD$$`,
+              String.raw`$\angle ABD$ ও $\angle ECD$ একান্তর কোণ এবং এরা সমান, তাই`,
+              String.raw`$$AB\parallel EC$$`,
+              String.raw`$AB\parallel EC$ এবং $AC$ ছেদক, তাই $\angle BAC$ ও $\angle ACE$ ছেদকের একই পাশের অন্তঃস্থ কোণ।`,
+              String.raw`$$\angle BAC+\angle ACE=180^{\circ}$$`,
+              String.raw`$$\text{বা, } 90^{\circ}+\angle ACE=180^{\circ}$$`,
+              String.raw`$$\therefore\;\angle ACE=90^{\circ}$$`,
+              String.raw`এখন $\triangle BAC$ ও $\triangle ECA$ এ`,
+              String.raw`$$AB=CE\qquad\left[\,\text{উপরে প্রমাণিত}\,\right]$$`,
+              String.raw`$$AC=CA\qquad\left[\,\text{সাধারণ বাহু}\,\right]$$`,
+              String.raw`$$\text{অন্তর্ভুক্ত }\angle BAC=\text{অন্তর্ভুক্ত }\angle ECA=90^{\circ}$$`,
+              String.raw`$$\therefore\;\triangle BAC\cong\triangle ECA\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+              String.raw`$$\therefore\;BC=EA$$`,
+              String.raw`আবার অঙ্কনানুসারে $EA=AD+DE=2AD$।`,
+              String.raw`$$\therefore\;BC=2AD$$`,
+              String.raw`$$\therefore\;AD=\frac{1}{2}BC$$`,
+            ],
+            answer: String.raw`$AD=\dfrac{1}{2}BC$ (প্রমাণিত)`,
+          },
+        },
+      ],
+    },
+    {
+      id: 22,
+      group: TRI_MODEL_CQ,
+      question: String.raw`$\triangle ABC$ এর $D$ ও $E$ যথাক্রমে $AB$ ও $AC$ এর মধ্যবিন্দু এবং $\angle B$ ও $\angle C$ এর সমদ্বিখণ্ডকদ্বয় $O$ বিন্দুতে মিলিত হয়েছে।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$\triangle PQR$ সমবাহু ত্রিভুজের $QR$ বাহুকে $S$ পর্যন্ত বর্ধিত করা হলে $R$ বিন্দুতে উৎপন্ন সন্নিহিত অন্তঃস্থ কোণের পরিমাণ নির্ণয় করো।`,
+          figure: "63-p22a",
+          solution: {
+            steps: [
+              String.raw`$QR$ কে $S$ পর্যন্ত বর্ধিত করায় $R$ বিন্দুতে বহিঃস্থ কোণ $\angle PRS$ উৎপন্ন হয়েছে।`,
+              String.raw`এই বহিঃস্থ কোণের সন্নিহিত অন্তঃস্থ কোণটি হলো $\angle PRQ$ — অর্থাৎ ত্রিভুজটির $R$ শীর্ষের নিজের কোণ।`,
+              String.raw`$\triangle PQR$ সমবাহু, তাই এর তিনটি কোণই সমান।`,
+              String.raw`$$\angle PQR+\angle QRP+\angle RPQ=180^{\circ}$$`,
+              String.raw`$$\text{বা, } 3\angle QRP=180^{\circ}$$`,
+              String.raw`$$\therefore\;\angle PRQ=60^{\circ}$$`,
+              String.raw`(যাচাই: তাহলে বহিঃস্থ কোণ $\angle PRS=180^{\circ}-60^{\circ}=120^{\circ}$, যা বিপরীত অন্তঃস্থ কোণদ্বয়ের সমষ্টি $60^{\circ}+60^{\circ}$ এর সমান।)`,
+            ],
+            answer: String.raw`$60^{\circ}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`প্রমাণ করো যে, $DE\parallel BC$ এবং $DE=\dfrac{1}{2}BC$`,
+          figure: "63-p22b",
+          solution: {
+            steps: [
+              String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এর $AB$ ও $AC$ বাহুর মধ্যবিন্দু যথাক্রমে $D$ ও $E$। প্রমাণ করতে হবে যে, $DE\parallel BC$ এবং $DE=\dfrac{1}{2}BC$।`,
+              String.raw`অঙ্কন: $D$ ও $E$ যোগ করে বর্ধিত করি যেন $EF=DE$ হয়। $C,\;F$ যোগ করি।`,
+              String.raw`প্রমাণ (ধাপ ১): $\triangle ADE$ ও $\triangle CFE$ এ`,
+              String.raw`$$AE=EC\qquad\left[\,\text{দেওয়া আছে}\,\right]$$`,
+              String.raw`$$DE=EF\qquad\left[\,\text{অঙ্কনানুসারে}\,\right]$$`,
+              String.raw`$$\text{অন্তর্ভুক্ত }\angle AED=\text{অন্তর্ভুক্ত }\angle CEF\qquad\left[\,\text{বিপ্রতীপ কোণ}\,\right]$$`,
+              String.raw`$$\therefore\;\triangle ADE\cong\triangle CFE\qquad\left[\,\text{বাহু-কোণ-বাহু উপপাদ্য}\,\right]$$`,
+              String.raw`$$\therefore\;\angle ADE=\angle EFC\qquad\text{এবং}\qquad AD=CF$$`,
+              String.raw`$\angle ADE$ ও $\angle EFC$ একান্তর কোণ এবং এরা সমান, তাই`,
+              String.raw`$$AD\parallel CF$$`,
+              String.raw`আবার $BD=AD=CF$ এবং $BD\parallel CF$।`,
+              String.raw`সুতরাং $BDFC$ একটি সামান্তরিক।`,
+              String.raw`$$\therefore\;DF\parallel BC\qquad\text{বা}\qquad DE\parallel BC$$`,
+              String.raw`প্রমাণ (ধাপ ২): সামান্তরিকের বিপরীত বাহুদ্বয় সমান, তাই`,
+              String.raw`$$DF=BC$$`,
+              String.raw`$$\text{বা, } DE+EF=BC$$`,
+              String.raw`$$\text{বা, } DE+DE=BC$$`,
+              String.raw`$$\text{বা, } 2DE=BC$$`,
+              String.raw`$$\therefore\;DE\parallel BC\qquad\text{এবং}\qquad DE=\frac{1}{2}BC$$`,
+            ],
+            answer: String.raw`$DE\parallel BC$ এবং $DE=\dfrac{1}{2}BC$ (প্রমাণিত)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`প্রমাণ করো যে, $\angle BOC=90^{\circ}+\dfrac{1}{2}\angle A$`,
+          figure: "63-p22c",
+          solution: {
+            steps: [
+              String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এ $\angle B$ ও $\angle C$ এর সমদ্বিখণ্ডকদ্বয় $O$ বিন্দুতে মিলিত হয়েছে। প্রমাণ করতে হবে যে, $\angle BOC=90^{\circ}+\dfrac{1}{2}\angle A$।`,
+              String.raw`প্রমাণ: $BO$ ও $CO$ যথাক্রমে $\angle B$ ও $\angle C$ কে সমদ্বিখণ্ডিত করেছে, তাই`,
+              String.raw`$$x=\angle OBC=\frac{1}{2}\angle B\qquad\text{এবং}\qquad y=\angle OCB=\frac{1}{2}\angle C$$`,
+              String.raw`$\triangle BOC$ এ,`,
+              String.raw`$$\angle BOC+x+y=180^{\circ}\qquad\left[\,\text{উপপাদ্য }৪\,\right]$$`,
+              String.raw`$$\text{বা, }\angle BOC=180^{\circ}-\frac{1}{2}\left(\angle B+\angle C\right)$$`,
+              String.raw`আবার $\triangle ABC$ এ,`,
+              String.raw`$$\angle A+\angle B+\angle C=180^{\circ}$$`,
+              String.raw`$$\text{বা, }\angle B+\angle C=180^{\circ}-\angle A$$`,
+              String.raw`$$\therefore\;\angle BOC=180^{\circ}-\frac{1}{2}\left(180^{\circ}-\angle A\right)$$`,
+              String.raw`$$=180^{\circ}-90^{\circ}+\frac{1}{2}\angle A$$`,
+              String.raw`$$\therefore\;\angle BOC=90^{\circ}+\frac{1}{2}\angle A$$`,
+            ],
+            answer: String.raw`$\angle BOC=90^{\circ}+\dfrac{1}{2}\angle A$ (প্রমাণিত)`,
+          },
+        },
+      ],
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — সংক্ষিপ্ত-উত্তর (২৩) ───────────────
+    {
+      id: 23,
+      group: TRI_MODEL_SA,
+      question: "সংক্ষিপ্ত-উত্তর প্রশ্ন।",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$\triangle ABC$-এ $AB=AC$, $\angle BAC=80^{\circ}$ এবং $BC$-কে $D$ পর্যন্ত বর্ধিত করা হলে, $\angle ACD$ নির্ণয় করো।`,
+          figure: "63-p23a",
+          solution: {
+            steps: [
+              String.raw`$\triangle ABC$ এ $AB=AC$, তাই সমান বাহুদ্বয়ের বিপরীত কোণ দুইটিও সমান।`,
+              String.raw`$$\angle ABC=\angle ACB\qquad\left[\,\text{উপপাদ্য }৬\,\right]$$`,
+              String.raw`আবার,`,
+              String.raw`$$\angle BAC+\angle ABC+\angle ACB=180^{\circ}$$`,
+              String.raw`$$\text{বা, } 80^{\circ}+2\angle ABC=180^{\circ}$$`,
+              String.raw`$$\text{বা, } 2\angle ABC=100^{\circ}$$`,
+              String.raw`$$\therefore\;\angle ABC=\angle ACB=50^{\circ}$$`,
+              String.raw`$BC$ কে $D$ পর্যন্ত বর্ধিত করায় $\angle ACD$ হলো $C$ বিন্দুর বহিঃস্থ কোণ।`,
+              String.raw`$$\angle ACD=\angle BAC+\angle ABC\qquad\left[\,\text{অনুসিদ্ধান্ত }২\,\right]$$`,
+              String.raw`$$=80^{\circ}+50^{\circ}$$`,
+              String.raw`$$\therefore\;\angle ACD=130^{\circ}$$`,
+            ],
+            answer: String.raw`$\angle ACD=130^{\circ}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$\triangle PQR$-এ $PQ=PR$ এবং $QR,\;PR$ ও $PQ$ বাহুর মধ্যবিন্দু যথাক্রমে $D,\;E$ ও $F$ হলে দেখাও যে, $DE=DF$।`,
+          figure: "63-p23b",
+          solution: {
+            steps: [
+              String.raw`$\triangle PQR$ এ $D$ ও $E$ যথাক্রমে $QR$ ও $PR$ বাহুর মধ্যবিন্দু।`,
+              String.raw`$$\therefore\;DE=\frac{1}{2}PQ\qquad\left[\,\text{উপপাদ্য }১৪\,\right]$$`,
+              String.raw`আবার $D$ ও $F$ যথাক্রমে $QR$ ও $PQ$ বাহুর মধ্যবিন্দু।`,
+              String.raw`$$\therefore\;DF=\frac{1}{2}PR\qquad\left[\,\text{উপপাদ্য }১৪\,\right]$$`,
+              String.raw`কিন্তু দেওয়া আছে $PQ=PR$।`,
+              String.raw`$$\therefore\;\frac{1}{2}PQ=\frac{1}{2}PR$$`,
+              String.raw`$$\therefore\;DE=DF$$`,
+            ],
+            answer: String.raw`$DE=DF$ (দেখানো হলো)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$\angle C$ ও $\angle D$ পরস্পর সম্পূরক এবং $\angle C-\angle D=60^{\circ}$ হলে, $\angle C$-এর মান নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$\angle C$ ও $\angle D$ পরস্পর সম্পূরক, তাই এদের সমষ্টি দুই সমকোণ।`,
+              String.raw`$$\angle C+\angle D=180^{\circ}\qquad\cdots(i)$$`,
+              String.raw`$$\text{আবার, }\angle C-\angle D=60^{\circ}\qquad\cdots(ii)$$`,
+              String.raw`$(i)$ ও $(ii)$ যোগ করে,`,
+              String.raw`$$2\angle C=240^{\circ}$$`,
+              String.raw`$$\therefore\;\angle C=120^{\circ}$$`,
+              String.raw`$(i)$ থেকে, $\angle D=180^{\circ}-120^{\circ}=60^{\circ}$; যাচাই: $120^{\circ}-60^{\circ}=60^{\circ}$।`,
+            ],
+            answer: String.raw`$\angle C=120^{\circ}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$\triangle ABC$-এর $BC$ বাহুর উপর যেকোনো বিন্দু $D$ হলে প্রমাণ করো যে, $AB+BC+AC>2AD$।`,
+          figure: "63-p23d",
+          solution: {
+            steps: [
+              String.raw`বিশেষ নির্বচন: মনে করি, $\triangle ABC$ এর $BC$ বাহুর উপর যেকোনো একটি বিন্দু $D$ এবং $A,\;D$ যোগ করা হয়েছে। প্রমাণ করতে হবে যে, $AB+BC+AC>2AD$।`,
+              String.raw`প্রমাণ: $\triangle ABD$ এ,`,
+              String.raw`$$AB+BD>AD\qquad\left[\,\text{উপপাদ্য }১৩\,\right]\qquad\cdots(i)$$`,
+              String.raw`আবার $\triangle ACD$ এ,`,
+              String.raw`$$AC+CD>AD\qquad\left[\,\text{উপপাদ্য }১৩\,\right]\qquad\cdots(ii)$$`,
+              String.raw`$(i)$ ও $(ii)$ যোগ করে,`,
+              String.raw`$$AB+BD+AC+CD>2AD$$`,
+              String.raw`$$\text{বা, } AB+AC+(BD+CD)>2AD$$`,
+              String.raw`$D$ বিন্দুটি $BC$ বাহুর উপর, তাই $BD+CD=BC$।`,
+              String.raw`$$\therefore\;AB+BC+AC>2AD$$`,
+            ],
+            answer: String.raw`$AB+BC+AC>2AD$ (প্রমাণিত)`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export const chaptersData: Chapter[] = [
   { id: 1, title: "বাস্তব সংখ্যা", exercises: [exercise1] },
   {
@@ -13376,7 +19337,7 @@ export const chaptersData: Chapter[] = [
   {
     id: 6,
     title: "রেখা, কোণ ও ত্রিভুজ",
-    exercises: [],
+    exercises: [exercise61, exercise62, exercise63],
   },
   {
     id: 7,
@@ -13402,9 +19363,13 @@ export const chaptersData: Chapter[] = [
   {
     id: 12,
     title: "দুই চলকবিশিষ্ট সরল সহসমীকরণ",
-    exercises: [],
+    exercises: [exercise121, exercise122, exercise123, exercise124],
   },
-  { id: 13, title: "সসীম ধারা", exercises: [] },
+  {
+    id: 13,
+    title: "সসীম ধারা",
+    exercises: [exercise131, exercise132],
+  },
   {
     id: 14,
     title: "অনুপাত, সদৃশতা ও প্রতিসমতা",
@@ -13420,5 +19385,9 @@ export const chaptersData: Chapter[] = [
     title: "পরিমিতি",
     exercises: [exercise161, exercise162],
   },
-  { id: 17, title: "পরিসংখ্যান", exercises: [] },
+  {
+    id: 17,
+    title: "পরিসংখ্যান",
+    exercises: [exercise17],
+  },
 ];

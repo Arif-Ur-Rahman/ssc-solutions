@@ -6,14 +6,24 @@
 import type { Scene } from "./types";
 import { scenes1 } from "./scenes1";
 import { scenes10 } from "./scenes10";
+import { scenes12 } from "./scenes12";
 import { scenes52 } from "./scenes52";
+import { scenes71 } from "./scenes71";
+import { scenes72 } from "./scenes72";
+import { scenes8 } from "./scenes8";
+import { scenes6 } from "./scenes6";
 import { scenes161 } from "./scenes161";
 import { scenes162 } from "./scenes162";
 
 export const scenes: Record<string, Scene> = {
   ...scenes1,
   ...scenes10,
+  ...scenes12,
   ...scenes52,
+  ...scenes71,
+  ...scenes72,
+  ...scenes8,
+  ...scenes6,
   ...scenes161,
   ...scenes162,
 };
