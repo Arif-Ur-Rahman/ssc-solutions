@@ -1,10 +1,15 @@
 // components/chaptersData.ts
 //
 // Source: NCTB Secondary (Bangla Version) 2026, Class 9-10 Mathematics.
+// Chapter 1 "বাস্তব সংখ্যা": অনুশীলনী ১ (book pages ১৮-১৯), followed by the
+// chapter's নমুনা প্রশ্ন (book page ২০), numbered on from the exercise.
 // Chapter 2 "সেট ও ফাংশন": অনুশীলনী ২.১ (book pages ৩১-৩২) and
 // অনুশীলনী ২.২ (book pages ৪০-৪১).
 // Chapter 4 "সূচক ও লগারিদম": অনুশীলনী ৪.১ (book pages ৮০-৮১) and
 // অনুশীলনী ৪.২ (book page ৮৬).
+// Chapter 5 "এক চলকবিশিষ্ট সমীকরণ": অনুশীলনী ৫.১ (book pages ৯৯-১০১) and
+// অনুশীলনী ৫.২ (book pages ১০৭-১০৯), the latter followed by the chapter's
+// নমুনা প্রশ্ন (book pages ১০৯-১১০), numbered on from the exercise.
 // Chapter 9 "ত্রিকোণমিতিক অনুপাত": অনুশীলনী ৯.১ (book pages ১৮৪-১৮৬) and
 // অনুশীলনী ৯.২ (book pages ১৯৪-১৯৫).
 // Chapter 11 "বীজগাণিতিক অনুপাত ও সমানুপাত": অনুশীলনী ১১.১ (book pages ২১৬-২১৭)
@@ -91,6 +96,1433 @@ export interface Chapter {
   title: string;
   exercises: Exercise[];
 }
+
+// ─────────────── অধ্যায় ১ · বাস্তব সংখ্যা ───────────────
+//
+// অধ্যায়ের একটিমাত্র অনুশীলনী, তার সঙ্গে বইয়ের নমুনা প্রশ্নগুলো অনুশীলনীর
+// নম্বর ধরে টেনে নেওয়া হয়েছে। সংখ্যার শ্রেণি আর "কোনটি কোনটির মধ্যে" —
+// এ দুইটি প্রশ্ন ছবিতে যত দ্রুত পড়া যায়, বাক্যে তত নয়; তাই কয়েকটি প্রশ্নে
+// সংখ্যারেখা ও শ্রেণিবিন্যাসের চিত্র (`figures/scenes1.ts`) বসানো হলো।
+
+const NUM_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৪)";
+const NUM_PROOF = "প্রমাণ ও নির্ণয় (৫ – ৭)";
+const NUM_DEC = "দশমিক ও সাধারণ ভগ্নাংশে রূপান্তর (৮ – ১০)";
+const NUM_OPS = "আবৃত দশমিকের যোগ, বিয়োগ, গুণ ও ভাগ (১১ – ১৪)";
+const NUM_ROOT = "বর্গমূল ও শ্রেণিবিন্যাস (১৫ – ১৬)";
+const NUM_MODEL_MCQ = "নমুনা প্রশ্ন — বহুনির্বাচনি (১৭ – ২০)";
+const NUM_MODEL_CQ = "নমুনা প্রশ্ন — সৃজনশীল ও সংক্ষিপ্ত-উত্তর (২১ – ২২)";
+
+const exercise1: Exercise = {
+  id: "1",
+  bnId: "অনুশীলনী ১",
+  title: "বাস্তব সংখ্যা",
+  bookPages: "১৮ – ২০",
+  formulas: [
+    {
+      title: "সংখ্যাগুলো কে কোথায়",
+      formulas: [
+        {
+          statement: String.raw`$$\mathbb{N}=\{1,2,3,4,\dots\}$$`,
+          note: String.raw`স্বাভাবিক সংখ্যা বা ধনাত্মক অখণ্ড সংখ্যা। এদের মধ্যে $2,3,5,7,\dots$ মৌলিক এবং $4,6,8,9,\dots$ যৌগিক। দুইটি স্বাভাবিক সংখ্যার গ.সা.গু. $1$ হলে এদেরকে পরস্পর সহমৌলিক বলা হয়।`,
+        },
+        {
+          statement: String.raw`$$\mathbb{Z}=\{\dots,-2,-1,0,1,2,\dots\}$$`,
+          note: "শূন্যসহ সকল ধনাত্মক ও ঋণাত্মক অখণ্ড সংখ্যা মিলে পূর্ণসংখ্যা।",
+        },
+        {
+          statement: String.raw`$$\frac{p}{q},\quad q\neq 0,\; q\neq 1$$`,
+          note: String.raw`ভগ্নাংশ সংখ্যা, যেখানে $q$ দ্বারা $p$ নিঃশেষে বিভাজ্য নয়। $p<q$ হলে প্রকৃত, $p>q$ হলে অপ্রকৃত ভগ্নাংশ।`,
+        },
+        {
+          statement: String.raw`$$\text{মূলদ}=\left\{\frac{p}{q}:p,q\in\mathbb{Z},\;q\neq 0\right\}$$`,
+          note: "সকল পূর্ণসংখ্যা ও সকল ভগ্নাংশই মূলদ সংখ্যা। যে কোনো মূলদ সংখ্যাকে দুইটি সহমৌলিক সংখ্যার অনুপাত হিসেবেও লেখা যায়।",
+        },
+        {
+          statement: String.raw`$$\sqrt{2},\;\sqrt{3},\;\frac{\sqrt{5}}{2},\;\dots$$`,
+          note: String.raw`যে সংখ্যাকে $\frac{p}{q}$ আকারে প্রকাশ করা যায় না, সেটি অমূলদ। পূর্ণবর্গ নয় এরূপ যে কোনো স্বাভাবিক সংখ্যার বর্গমূল অমূলদ।`,
+        },
+        {
+          statement: String.raw`$$\text{বাস্তব}=\text{মূলদ}\cup\text{অমূলদ}$$`,
+          note: "সকল মূলদ ও সকল অমূলদ সংখ্যা একসঙ্গে বাস্তব সংখ্যা। শূন্য থেকে বড় হলে ধনাত্মক, ছোট হলে ঋণাত্মক, আর শূন্যসহ সকল ধনাত্মক সংখ্যা অঋণাত্মক।",
+        },
+      ],
+    },
+    {
+      title: "দশমিক ভগ্নাংশ — কোনটি মূলদ, কোনটি নয়",
+      formulas: [
+        {
+          statement: String.raw`$$0.12,\;\;3.4152$$`,
+          note: "সসীম দশমিক ভগ্নাংশ — দশমিক বিন্দুর ডানে অঙ্কের সংখ্যা সসীম। প্রতিটি সসীম দশমিক মূলদ।",
+        },
+        {
+          statement: String.raw`$$2.\dot{5}=2.555\dots,\qquad 3.\dot{1}2\dot{4}=3.124124\dots$$`,
+          note: "আবৃত বা পৌনঃপুনিক দশমিক — একটি অঙ্ক আবৃত হলে তার উপর একটি বিন্দু, একাধিক অঙ্ক আবৃত হলে কেবল প্রথম ও শেষ অঙ্কের উপর বিন্দু। প্রতিটি আবৃত দশমিকও মূলদ।",
+        },
+        {
+          statement: String.raw`$$\sqrt{2}=1.4142135\dots$$`,
+          note: "অসীম অনাবৃত দশমিক — শেষও হয় না, পুনরাবৃত্তিও হয় না। এগুলোই অমূলদ সংখ্যা।",
+        },
+        {
+          statement: String.raw`$$1.\dot{3}\;\;\text{বিশুদ্ধ},\qquad 4.23\dot{5}1\dot{2}\;\;\text{মিশ্র}$$`,
+          note: "দশমিক বিন্দুর পর কেবল আবৃত অংশ থাকলে বিশুদ্ধ পৌনঃপুনিক, আগে কিছু অনাবৃত অঙ্ক থাকলে মিশ্র পৌনঃপুনিক ভগ্নাংশ।",
+        },
+      ],
+    },
+    {
+      title: "আবৃত দশমিককে সাধারণ ভগ্নাংশে",
+      formulas: [
+        {
+          statement: String.raw`$$\text{লব}=(\text{দশমিক বিন্দু বাদ দিয়ে পাওয়া সংখ্যা})-(\text{অনাবৃত অংশের সংখ্যা})$$`,
+          note: "দশমিক ও পৌনঃপুনিক বিন্দু উঠিয়ে যে পূর্ণসংখ্যা পাওয়া যায়, তা থেকে আবৃত অংশ বাদ দিয়ে বাকি অঙ্ক দিয়ে গঠিত সংখ্যাটি বিয়োগ।",
+        },
+        {
+          statement: String.raw`$$\text{হর}=\underbrace{9\cdots 9}_{\text{আবৃত অঙ্ক যতগুলো}}\;\underbrace{0\cdots 0}_{\text{অনাবৃত অঙ্ক যতগুলো}}$$`,
+          note: "আবৃত অঙ্ক যতগুলো ততগুলো ৯, তার ডানে অনাবৃত অঙ্ক যতগুলো ততগুলো ০।",
+        },
+        {
+          statement: String.raw`$$42.34\dot{7}\dot{8}=\frac{423478-4234}{9900}$$`,
+          note: String.raw`আবৃত অঙ্ক দুইটি ($78$) — তাই দুইটি ৯; অনাবৃত অঙ্ক দুইটি ($34$) — তাই দুইটি ০। লবে $4234$ বিয়োগ হয়েছে, কারণ আবৃত অংশ বাদ দিলে $42.34$ থেকে $4234$ পাওয়া যায়।`,
+        },
+      ],
+    },
+    {
+      title: "সদৃশ আবৃত দশমিক",
+      formulas: [
+        {
+          statement: String.raw`$$\text{অনাবৃত অঙ্ক সংখ্যা}=\max(n_{1},n_{2},\dots)$$`,
+          note: "প্রত্যেকটির অনাবৃত অংশ বাড়িয়ে সবচেয়ে বেশিটির সমান করতে হয়। সসীম দশমিকের ক্ষেত্রে ডানে শূন্য বসিয়ে বাড়ানো হয়।",
+        },
+        {
+          statement: String.raw`$$\text{আবৃত অঙ্ক সংখ্যা}=\operatorname{ল.সা.গু.}(r_{1},r_{2},\dots)$$`,
+          note: "আবৃত অংশগুলো বারবার লিখলে সংখ্যার মান বদলায় না, তাই প্রত্যেকটির আবৃত অংশকে ল.সা.গু. সংখ্যক অঙ্কে টেনে নেওয়া যায়।",
+        },
+      ],
+    },
+    {
+      title: "চার প্রক্রিয়া",
+      formulas: [
+        {
+          statement: String.raw`যোগ ও বিয়োগ — আগে সদৃশ করো`,
+          note: "সদৃশ করার পর সসীম দশমিকের নিয়মেই যোগ বা বিয়োগ। এতে প্রাপ্ত ফল প্রকৃত ফল নয়।",
+        },
+        {
+          statement: String.raw`ডানপ্রান্তের হাতের সংখ্যা শেষ অঙ্কে বসাও`,
+          note: "সদৃশকৃত সংখ্যাগুলোর আবৃত অংশের সর্বডানের অঙ্কগুলো যোগ (বা বিয়োগ) করলে যে হাত থাকে, তা ফলের সর্বডানের অঙ্কের সাথে যোগ (বা তা থেকে বিয়োগ) করলেই প্রকৃত ফল।",
+        },
+        {
+          statement: String.raw`গুণ ও ভাগ — আগে সাধারণ ভগ্নাংশে নামাও`,
+          note: "আবৃত দশমিকগুলোকে সাধারণ ভগ্নাংশে পরিণত করে গুণ বা ভাগ সেরে ফলটিকে আবার দশমিকে প্রকাশ করতে হয়।",
+        },
+      ],
+    },
+    {
+      title: "মান ও আসন্ন মান",
+      formulas: [
+        {
+          statement: String.raw`$$5.4325893\dots\;\longrightarrow\;5.4325$$`,
+          note: "চার দশমিক স্থান পর্যন্ত মান — যতগুলো স্থান চাওয়া হয়েছে ততগুলো অঙ্ক যেমন আছে তেমনই লেখা হয়।",
+        },
+        {
+          statement: String.raw`$$5.4325893\dots\;\longrightarrow\;5.4326$$`,
+          note: String.raw`চার দশমিক স্থান পর্যন্ত আসন্ন মান — পরের স্থানের অঙ্ক $5,6,7,8$ বা $9$ হলে শেষ অঙ্কের সাথে $1$ যোগ; $0,1,2,3$ বা $4$ হলে অঙ্কটি অপরিবর্তিত থাকে।`,
+        },
+      ],
+    },
+    {
+      title: "বাস্তব সংখ্যার মৌলিক বিধি",
+      formulas: [
+        {
+          statement: String.raw`$$a+b=b+a,\qquad ab=ba$$`,
+          note: "বিনিময় বিধি — যোগ ও গুণে ক্রম বদলালে ফল বদলায় না।",
+        },
+        {
+          statement: String.raw`$$(a+b)+c=a+(b+c),\qquad (ab)c=a(bc)$$`,
+          note: "সংযোগ বিধি।",
+        },
+        {
+          statement: String.raw`$$a(b+c)=ab+ac$$`,
+          note: "বণ্টন বিধি।",
+        },
+        {
+          statement: String.raw`$$a<b\Rightarrow a+c<b+c$$`,
+          note: String.raw`অসমতায় উভয়পক্ষে একই সংখ্যা যোগ করলে দিক বদলায় না। তবে গুণে $c>0$ হলে $ac<bc$, আর $c<0$ হলে $ac>bc$।`,
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১ — book page ৪.
+    {
+      id: 1,
+      question: String.raw`$\sqrt{3}$ এবং $4$ এর মধ্যে দুইটি অমূলদ সংখ্যা নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`এখানে, $\sqrt{3}=1.7320508\dots$`,
+          String.raw`মনে করি, $\sqrt{3}$ এবং $4$ এর মধ্যে যেকোনো দুইটি অমূলদ সংখ্যা $a$ ও $b$,`,
+          String.raw`যেখানে $a=\sqrt{3}+1$ এবং $b=\sqrt{3}+2$।`,
+          String.raw`অমূলদ সংখ্যার সাথে মূলদ সংখ্যা যোগ করলে যোগফলও অমূলদ হয়, সুতরাং $a$ ও $b$ উভয়ই অমূলদ সংখ্যা।`,
+          String.raw`$$\text{অর্থাৎ } \sqrt{3}<\sqrt{3}+1<\sqrt{3}+2<4$$`,
+          String.raw`$\therefore\;a$ ও $b$ দুইটিই নির্ণেয় অমূলদ সংখ্যা।`,
+          String.raw`মন্তব্য: এরূপ অসংখ্য অমূলদ সংখ্যা নির্ণয় করা যায়।`,
+        ],
+        answer: String.raw`$\sqrt{3}+1$ এবং $\sqrt{3}+2$`,
+      },
+    },
+    // উদাহরণ ২ — book pages ৪-৫.
+    {
+      id: 2,
+      question: String.raw`প্রমাণ করো যে, যেকোনো চারটি ক্রমিক স্বাভাবিক সংখ্যার গুণফলের সাথে $1$ যোগ করলে যোগফল একটি পূর্ণবর্গ সংখ্যা হবে।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, চারটি ক্রমিক স্বাভাবিক সংখ্যা যথাক্রমে $x,\;x+1,\;x+2,\;x+3$।`,
+          String.raw`ক্রমিক সংখ্যা চারটির গুণফলের সাথে $1$ যোগ করলে পাওয়া যায়,`,
+          String.raw`$$x(x+1)(x+2)(x+3)+1$$`,
+          String.raw`$$=x(x+3)(x+1)(x+2)+1$$`,
+          String.raw`$$=(x^{2}+3x)(x^{2}+3x+2)+1$$`,
+          String.raw`$$=a(a+2)+1\qquad\left[\,x^{2}+3x=a\ \text{ধরে}\,\right]$$`,
+          String.raw`$$=a^{2}+2a+1=(a+1)^{2}$$`,
+          String.raw`$$=(x^{2}+3x+1)^{2}$$`,
+          String.raw`যা একটি পূর্ণবর্গ সংখ্যা। সুতরাং যেকোনো চারটি ক্রমিক স্বাভাবিক সংখ্যার গুণফলের সাথে $1$ যোগ করলে যোগফল একটি পূর্ণবর্গ সংখ্যা হবে। (প্রমাণিত)`,
+        ],
+        answer: String.raw`$x(x+1)(x+2)(x+3)+1=(x^{2}+3x+1)^{2}$, একটি পূর্ণবর্গ সংখ্যা`,
+      },
+    },
+    // উদাহরণ ৩ — book page ৭.
+    {
+      id: 3,
+      question: String.raw`$\dfrac{3}{11}$ ও $\dfrac{95}{37}$ কে দশমিক ভগ্নাংশে প্রকাশ করো।`,
+      solution: {
+        steps: [
+          String.raw`$3$ কে $11$ দিয়ে ভাগ করি। $3$, $11$ এর চেয়ে ছোট বলে ভাগফলে $0$ ও দশমিক বিন্দু বসিয়ে $3$ এর ডানে $0$ বসালে $30$ হয়।`,
+          String.raw`$$11\,)\;30\;(\;0.2727\dots$$`,
+          String.raw`ভাগশেষ পর পর $8,\;3,\;8,\;3,\dots$ হয়ে ফিরে আসে, তাই ভাগফলে $27$ বারবার আসে।`,
+          String.raw`$$\therefore\;\frac{3}{11}=0.2727\dots=0.\dot{2}\dot{7}$$`,
+          String.raw`একইভাবে $95$ কে $37$ দিয়ে ভাগ করি।`,
+          String.raw`$$37\,)\;95\;(\;2.567567\dots$$`,
+          String.raw`$$\therefore\;\frac{95}{37}=2.567567\dots=2.\dot{5}6\dot{7}$$`,
+        ],
+        answer: String.raw`$\dfrac{3}{11}=0.\dot{2}\dot{7}$ এবং $\dfrac{95}{37}=2.\dot{5}6\dot{7}$`,
+      },
+    },
+    // উদাহরণ ৪ — book pages ৭-৮.
+    {
+      id: 4,
+      question: String.raw`$0.\dot{3}$, $0.\dot{2}\dot{4}$ এবং $42.34\dot{7}\dot{8}$ কে সাধারণ ভগ্নাংশে প্রকাশ করো।`,
+      solution: {
+        steps: [
+          String.raw`প্রথমে, $0.\dot{3}=0.3333\dots$`,
+          String.raw`$$0.\dot{3}\times 10=3.333\dots,\qquad 0.\dot{3}\times 1=0.333\dots$$`,
+          String.raw`বিয়োগ করে, $0.\dot{3}\times(10-1)=3$`,
+          String.raw`$$\text{বা, } 0.\dot{3}\times 9=3\qquad\therefore\;0.\dot{3}=\frac{3}{9}=\frac{1}{3}$$`,
+          String.raw`এবার, $0.\dot{2}\dot{4}=0.24242424\dots$`,
+          String.raw`$$0.\dot{2}\dot{4}\times 100=24.2424\dots,\qquad 0.\dot{2}\dot{4}\times 1=0.2424\dots$$`,
+          String.raw`বিয়োগ করে, $0.\dot{2}\dot{4}\times 99=24$`,
+          String.raw`$$\therefore\;0.\dot{2}\dot{4}=\frac{24}{99}=\frac{8}{33}$$`,
+          String.raw`শেষে, $42.34\dot{7}\dot{8}=42.34787878\dots$`,
+          String.raw`$$42.34\dot{7}\dot{8}\times 10000=423478.787878\dots$$`,
+          String.raw`$$42.34\dot{7}\dot{8}\times 100=4234.787878\dots$$`,
+          String.raw`বিয়োগ করে, $42.34\dot{7}\dot{8}\times 9900=423478-4234=419244$`,
+          String.raw`$$\therefore\;42.34\dot{7}\dot{8}=\frac{419244}{9900}=\frac{34937}{825}=42\frac{287}{825}$$`,
+        ],
+        answer: String.raw`$0.\dot{3}=\dfrac{1}{3}$, $\;0.\dot{2}\dot{4}=\dfrac{8}{33}$, $\;42.34\dot{7}\dot{8}=42\dfrac{287}{825}$`,
+      },
+    },
+    // উদাহরণ ৫ — book page ৯.
+    {
+      id: 5,
+      question: String.raw`$5.23\dot{4}5\dot{7}$ কে সাধারণ ভগ্নাংশে প্রকাশ করো।`,
+      solution: {
+        steps: [
+          String.raw`$$5.23\dot{4}5\dot{7}=5.23457457457\dots$$`,
+          String.raw`$$5.23\dot{4}5\dot{7}\times 100000=523457.457457\dots$$`,
+          String.raw`$$5.23\dot{4}5\dot{7}\times 100=523.457457\dots$$`,
+          String.raw`বিয়োগ করে, $5.23\dot{4}5\dot{7}\times 99900=522934$`,
+          String.raw`$$\therefore\;5.23\dot{4}5\dot{7}=\frac{522934}{99900}=\frac{261467}{49950}=5\frac{11717}{49950}$$`,
+          String.raw`ব্যাখ্যা: দশমিক অংশে পাঁচটি অঙ্ক আছে বলে $100000$ দিয়ে, আর আবৃত অংশের বামে দুইটি অঙ্ক আছে বলে $100$ দিয়ে গুণ করা হয়েছে; তাই হর $(100000-100)=99900$।`,
+        ],
+        answer: String.raw`$5\dfrac{11717}{49950}$`,
+      },
+    },
+    // উদাহরণ ৬ — book page ১০.
+    {
+      id: 6,
+      question: String.raw`$45.2\dot{3}4\dot{6}$ কে সাধারণ ভগ্নাংশে প্রকাশ করো।`,
+      solution: {
+        steps: [
+          String.raw`আবৃত অঙ্ক তিনটি ($346$) এবং অনাবৃত অঙ্ক একটি ($2$), তাই হর হবে তিনটি ৯ ও একটি ০ নিয়ে $9990$।`,
+          String.raw`লব হবে দশমিক বিন্দু উঠিয়ে পাওয়া $452346$ থেকে অনাবৃত অংশ দিয়ে গঠিত $452$ বিয়োগ করে।`,
+          String.raw`$$45.2\dot{3}4\dot{6}=\frac{452346-452}{9990}=\frac{451894}{9990}$$`,
+          String.raw`$$=\frac{225947}{4995}=45\frac{1172}{4995}$$`,
+        ],
+        answer: String.raw`$45\dfrac{1172}{4995}$`,
+      },
+    },
+    // উদাহরণ ৭ — book page ১০.
+    {
+      id: 7,
+      question: String.raw`$32.\dot{5}6\dot{7}$ কে সাধারণ ভগ্নাংশে প্রকাশ করো।`,
+      solution: {
+        steps: [
+          String.raw`আবৃত অঙ্ক তিনটি ($567$), অনাবৃত অঙ্ক নেই — তাই হর তিনটি ৯ নিয়ে $999$।`,
+          String.raw`$$32.\dot{5}6\dot{7}=\frac{32567-32}{999}=\frac{32535}{999}$$`,
+          String.raw`$$=\frac{3615}{111}=\frac{1205}{37}=32\frac{21}{37}$$`,
+        ],
+        answer: String.raw`$32\dfrac{21}{37}$`,
+      },
+    },
+    // উদাহরণ ৮ — book page ১১.
+    {
+      id: 8,
+      question: String.raw`$5.\dot{6}$, $7.3\dot{4}\dot{5}$ ও $10.78\dot{4}2\dot{3}$ কে সদৃশ আবৃত দশমিক ভগ্নাংশে পরিণত করো।`,
+      solution: {
+        steps: [
+          String.raw`তিনটি ভগ্নাংশের অনাবৃত অংশের অঙ্ক সংখ্যা যথাক্রমে $0$, $1$ ও $2$; সবচেয়ে বেশি $2$।`,
+          String.raw`আবৃত অংশের অঙ্ক সংখ্যা যথাক্রমে $1$, $2$ ও $3$; এদের ল.সা.গু. $6$।`,
+          String.raw`সুতরাং প্রত্যেকটির অনাবৃত অংশ $2$ অঙ্কের এবং আবৃত অংশ $6$ অঙ্কের করতে হবে।`,
+          String.raw`$$5.\dot{6}=5.66\dot{6}6666\dot{6}$$`,
+          String.raw`$$7.3\dot{4}\dot{5}=7.34\dot{5}4545\dot{4}$$`,
+          String.raw`$$10.78\dot{4}2\dot{3}=10.78\dot{4}2342\dot{3}$$`,
+        ],
+        answer: String.raw`$5.66\dot{6}6666\dot{6}$, $\;7.34\dot{5}4545\dot{4}$ ও $10.78\dot{4}2342\dot{3}$`,
+      },
+    },
+    // উদাহরণ ৯ — book page ১১.
+    {
+      id: 9,
+      question: String.raw`$1.7643$, $3.\dot{2}\dot{4}$ ও $2.78\dot{3}4\dot{6}$ কে সদৃশ আবৃত দশমিক ভগ্নাংশে পরিণত করো।`,
+      solution: {
+        steps: [
+          String.raw`$1.7643$ সসীম, তাই দশমিক বিন্দুর পরের $4$টি অঙ্কই অনাবৃত — এখানে আবৃত অংশ নেই।`,
+          String.raw`$3.\dot{2}\dot{4}$ এ অনাবৃত অঙ্ক $0$টি ও আবৃত অঙ্ক $2$টি; $2.78\dot{3}4\dot{6}$ এ অনাবৃত $2$টি ও আবৃত $3$টি।`,
+          String.raw`অনাবৃত অঙ্কের সর্বোচ্চ সংখ্যা $4$ এবং আবৃত অঙ্ক $2$ ও $3$ এর ল.সা.গু. $6$।`,
+          String.raw`$$1.7643=1.7643\dot{0}0000\dot{0}$$`,
+          String.raw`$$3.\dot{2}\dot{4}=3.2424\dot{2}4242\dot{4}$$`,
+          String.raw`$$2.78\dot{3}4\dot{6}=2.7834\dot{6}3463\dot{4}$$`,
+          String.raw`মন্তব্য: সসীম দশমিককে সদৃশ করতে হলে দশমিক বিন্দুর ডানে প্রয়োজনীয় সংখ্যক শূন্য বসাতে হয়।`,
+        ],
+        answer: String.raw`$1.7643\dot{0}0000\dot{0}$, $\;3.2424\dot{2}4242\dot{4}$ ও $2.7834\dot{6}3463\dot{4}$`,
+      },
+    },
+    // উদাহরণ ১০ — book page ১২.
+    {
+      id: 10,
+      question: String.raw`$3.\dot{8}\dot{9}$, $2.1\dot{7}\dot{8}$ ও $5.89\dot{7}9\dot{8}$ যোগ করো।`,
+      solution: {
+        steps: [
+          String.raw`এখানে অনাবৃত অংশের অঙ্ক সংখ্যা হবে $2$ এবং আবৃত অংশের অঙ্ক হবে $2$, $2$ ও $3$ এর ল.সা.গু. $6$।`,
+          String.raw`প্রথমে তিনটি আবৃত দশমিককে সদৃশ করা হলো,`,
+          String.raw`$$3.\dot{8}\dot{9}=3.89\dot{8}9898\dot{9}$$`,
+          String.raw`$$2.1\dot{7}\dot{8}=2.17\dot{8}7878\dot{7}$$`,
+          String.raw`$$5.89\dot{7}9\dot{8}=5.89\dot{7}9879\dot{8}$$`,
+          String.raw`সসীম দশমিকের নিয়মে যোগ করে পাই $11.97576574$।`,
+          String.raw`$$9+7+8=24\qquad\left[\,\text{আবৃত অংশের সর্বডানের অঙ্ক তিনটি}\,\right]$$`,
+          String.raw`হাতে থাকে $2$; এই $2$ যোগফলের সর্বডানের অঙ্কের সাথে যোগ করতে হবে।`,
+          String.raw`$$11.97576574+0.00000002=11.97576576$$`,
+          String.raw`$$\therefore\;\text{যোগফল}=11.97\dot{5}7657\dot{6}=11.97\dot{5}7\dot{6}$$`,
+        ],
+        answer: String.raw`$11.97\dot{5}7\dot{6}$`,
+      },
+    },
+    // উদাহরণ ১১ — book page ১৩.
+    {
+      id: 11,
+      question: String.raw`$8.9\dot{4}7\dot{8}$, $2.346$ ও $4.\dot{7}\dot{1}$ যোগ করো।`,
+      solution: {
+        steps: [
+          String.raw`অনাবৃত অংশ হবে $3$ অঙ্কের এবং আবৃত অংশ হবে $3$ ও $2$ এর ল.সা.গু. $6$ অঙ্কের।`,
+          String.raw`$$8.9\dot{4}7\dot{8}=8.947\dot{8}4784\dot{7}$$`,
+          String.raw`$$2.346=2.346\dot{0}0000\dot{0}$$`,
+          String.raw`$$4.\dot{7}\dot{1}=4.717\dot{1}7171\dot{7}$$`,
+          String.raw`সসীম দশমিকের নিয়মে যোগ করে পাই $16.011019564$।`,
+          String.raw`$$8+0+1+1=10\qquad\left[\,\text{সর্বডানের অঙ্কগুলো, আগের হাতসহ}\,\right]$$`,
+          String.raw`হাতে থাকে $1$, তা যোগফলের শেষ অঙ্কের সাথে যোগ করে,`,
+          String.raw`$$16.011019564+0.000000001=16.011019565$$`,
+          String.raw`$$\therefore\;\text{যোগফল}=16.011\dot{0}1956\dot{5}$$`,
+        ],
+        answer: String.raw`$16.011\dot{0}1956\dot{5}$`,
+      },
+    },
+    // উদাহরণ ১২ — book pages ১৩-১৪.
+    {
+      id: 12,
+      question: String.raw`$8.2\dot{4}\dot{3}$ থেকে $5.24\dot{6}7\dot{3}$ বিয়োগ করো।`,
+      solution: {
+        steps: [
+          String.raw`এখানে অনাবৃত অংশের অঙ্ক সংখ্যা হবে $2$ এবং আবৃত অংশের অঙ্ক সংখ্যা হবে $2$ ও $3$ এর ল.সা.গু. $6$।`,
+          String.raw`$$8.2\dot{4}\dot{3}=8.24\dot{3}4343\dot{4}$$`,
+          String.raw`$$5.24\dot{6}7\dot{3}=5.24\dot{6}7367\dot{3}$$`,
+          String.raw`সসীম দশমিকের নিয়মে বিয়োগ করে পাই $2.99669761$।`,
+          String.raw`$$4-3\ \text{নয়, }\;3\ \text{থেকে}\ 6\ \text{বিয়োগ করলে হাতে}\ 1\ \text{নিতে হবে}$$`,
+          String.raw`$$2.99669761-0.00000001=2.99669760$$`,
+          String.raw`$$\therefore\;\text{বিয়োগফল}=2.99\dot{6}6976\dot{0}$$`,
+        ],
+        answer: String.raw`$2.99\dot{6}6976\dot{0}$`,
+      },
+    },
+    // উদাহরণ ১৩ — book page ১৪.
+    {
+      id: 13,
+      question: String.raw`$24.45\dot{6}4\dot{5}$ থেকে $16.\dot{4}3\dot{7}$ বিয়োগ করো।`,
+      solution: {
+        steps: [
+          String.raw`অনাবৃত অংশ $2$ অঙ্কের এবং আবৃত অংশ $3$ অঙ্কের করলেই দুইটি সদৃশ হয়।`,
+          String.raw`$$24.45\dot{6}4\dot{5}=24.45\dot{6}4\dot{5}$$`,
+          String.raw`$$16.\dot{4}3\dot{7}=16.43\dot{7}4\dot{3}$$`,
+          String.raw`বিয়োগ করে পাই $8.01902$।`,
+          String.raw`$$6\ \text{থেকে}\ 7\ \text{বিয়োগ করলে হাতে}\ 1\ \text{নিতে হবে}$$`,
+          String.raw`$$8.01902-0.00001=8.01901$$`,
+          String.raw`$$\therefore\;\text{বিয়োগফল}=8.01\dot{9}0\dot{1}$$`,
+        ],
+        answer: String.raw`$8.01\dot{9}0\dot{1}$`,
+      },
+    },
+    // উদাহরণ ১৪ — book page ১৪.
+    {
+      id: 14,
+      question: String.raw`$4.\dot{3}$ কে $5.\dot{7}$ দ্বারা গুণ করো।`,
+      solution: {
+        steps: [
+          String.raw`$$4.\dot{3}=\frac{43-4}{9}=\frac{39}{9}=\frac{13}{3}$$`,
+          String.raw`$$5.\dot{7}=\frac{57-5}{9}=\frac{52}{9}$$`,
+          String.raw`$$\therefore\;4.\dot{3}\times 5.\dot{7}=\frac{13}{3}\times\frac{52}{9}=\frac{676}{27}=25.\dot{0}3\dot{7}$$`,
+        ],
+        answer: String.raw`$25.\dot{0}3\dot{7}$`,
+      },
+    },
+    // উদাহরণ ১৫ — book page ১৫.
+    {
+      id: 15,
+      question: String.raw`$0.2\dot{8}$ কে $42.\dot{1}\dot{8}$ দ্বারা গুণ করো।`,
+      solution: {
+        steps: [
+          String.raw`$$0.2\dot{8}=\frac{28-2}{90}=\frac{26}{90}=\frac{13}{45}$$`,
+          String.raw`$$42.\dot{1}\dot{8}=\frac{4218-42}{99}=\frac{4176}{99}=\frac{464}{11}$$`,
+          String.raw`$$\therefore\;0.2\dot{8}\times 42.\dot{1}\dot{8}=\frac{13}{45}\times\frac{464}{11}=\frac{6032}{495}=12.1\dot{8}\dot{5}$$`,
+        ],
+        answer: String.raw`$12.1\dot{8}\dot{5}$`,
+      },
+    },
+    // উদাহরণ ১৬ — book page ১৫.
+    {
+      id: 16,
+      question: String.raw`$2.5\times 4.3\dot{5}\times 1.2\dot{3}\dot{4}$ কত?`,
+      solution: {
+        steps: [
+          String.raw`$$2.5=\frac{25}{10}=\frac{5}{2}$$`,
+          String.raw`$$4.3\dot{5}=\frac{435-43}{90}=\frac{392}{90}$$`,
+          String.raw`$$1.2\dot{3}\dot{4}=\frac{1234-12}{990}=\frac{1222}{990}=\frac{611}{495}$$`,
+          String.raw`$$\therefore\;2.5\times 4.3\dot{5}\times 1.2\dot{3}\dot{4}=\frac{5}{2}\times\frac{392}{90}\times\frac{611}{495}$$`,
+          String.raw`$$=\frac{119756}{8910}=13.440628\dots$$`,
+        ],
+        answer: String.raw`$13.440628$ (প্রায়)`,
+      },
+    },
+    // উদাহরণ ১৭ — book page ১৫.
+    {
+      id: 17,
+      question: String.raw`$7.\dot{3}\dot{2}$ কে $0.2\dot{7}$ দ্বারা ভাগ করো।`,
+      solution: {
+        steps: [
+          String.raw`$$7.\dot{3}\dot{2}=\frac{732-7}{99}=\frac{725}{99}$$`,
+          String.raw`$$0.2\dot{7}=\frac{27-2}{90}=\frac{25}{90}=\frac{5}{18}$$`,
+          String.raw`$$\therefore\;7.\dot{3}\dot{2}\div 0.2\dot{7}=\frac{725}{99}\div\frac{5}{18}=\frac{725}{99}\times\frac{18}{5}=\frac{290}{11}=26.\dot{3}\dot{6}$$`,
+        ],
+        answer: String.raw`$26.\dot{3}\dot{6}$`,
+      },
+    },
+    // উদাহরণ ১৮ — book page ১৬.
+    {
+      id: 18,
+      question: String.raw`$2.\dot{2}71\dot{8}$ কে $1.9\dot{1}\dot{2}$ দ্বারা ভাগ করো।`,
+      solution: {
+        steps: [
+          String.raw`$$2.\dot{2}71\dot{8}=\frac{22718-2}{9999}=\frac{22716}{9999}$$`,
+          String.raw`$$1.9\dot{1}\dot{2}=\frac{1912-19}{990}=\frac{1893}{990}$$`,
+          String.raw`$$\therefore\;2.\dot{2}71\dot{8}\div 1.9\dot{1}\dot{2}=\frac{22716}{9999}\times\frac{990}{1893}=\frac{120}{101}=1.\dot{1}88\dot{1}$$`,
+        ],
+        answer: String.raw`$1.\dot{1}88\dot{1}$`,
+      },
+    },
+    // উদাহরণ ১৯ — book page ১৬.
+    {
+      id: 19,
+      question: String.raw`$9.45$ কে $2.8\dot{6}\dot{3}$ দ্বারা ভাগ করো।`,
+      solution: {
+        steps: [
+          String.raw`$$9.45=\frac{945}{100}$$`,
+          String.raw`$$2.8\dot{6}\dot{3}=\frac{2863-28}{990}=\frac{2835}{990}$$`,
+          String.raw`$$\therefore\;9.45\div 2.8\dot{6}\dot{3}=\frac{945}{100}\times\frac{990}{2835}=\frac{189\times 99}{2\times 2835}=\frac{33}{10}=3.3$$`,
+          String.raw`মন্তব্য: আবৃত দশমিক ভগ্নাংশের গুণফল ও ভাগফল আবৃত দশমিক ভগ্নাংশ নাও হতে পারে।`,
+        ],
+        answer: String.raw`$3.3$`,
+      },
+    },
+    // উদাহরণ ২০ — book pages ১৭-১৮.
+    {
+      id: 20,
+      question: String.raw`$13$ এর বর্গমূল নির্ণয় করো এবং তিন দশমিক স্থান পর্যন্ত আসন্ন মান লিখো।`,
+      solution: {
+        steps: [
+          String.raw`বর্গমূল নির্ণয়ের ভাগ পদ্ধতিতে,`,
+          String.raw`$$3\,)\;13\;(\;3.605551\dots$$`,
+          String.raw`$$\sqrt{13}=3.605551\dots$$`,
+          String.raw`যাচাই: $3.605^{2}=12.996025$ এবং $3.606^{2}=13.003236$, অর্থাৎ $3.605<\sqrt{13}<3.606$।`,
+          String.raw`তিন দশমিক স্থান পর্যন্ত আসন্ন মান বের করতে চতুর্থ স্থানের অঙ্ক দেখতে হয়; এখানে তা $5$, তাই তৃতীয় স্থানের অঙ্কের সাথে $1$ যোগ হবে।`,
+          String.raw`$$\therefore\;\text{আসন্ন মান}=3.606$$`,
+        ],
+        answer: String.raw`$\sqrt{13}=3.605551\dots$; তিন দশমিক স্থান পর্যন্ত আসন্ন মান $3.606$`,
+      },
+    },
+    // উদাহরণ ২১ — book page ১৮.
+    {
+      id: 21,
+      question: String.raw`$4.4623845\dots$ এর $1,2,3,4$ ও $5$ দশমিক স্থান পর্যন্ত মান ও আসন্ন মান কত?`,
+      solution: {
+        steps: [
+          String.raw`এক দশমিক স্থান পর্যন্ত মান $4.4$ এবং আসন্ন মান $4.5$।`,
+          String.raw`দুই দশমিক স্থান পর্যন্ত মান $4.46$ এবং আসন্ন মান $4.46$।`,
+          String.raw`তিন দশমিক স্থান পর্যন্ত মান $4.462$ এবং আসন্ন মান $4.462$।`,
+          String.raw`চার দশমিক স্থান পর্যন্ত মান $4.4623$ এবং আসন্ন মান $4.4624$।`,
+          String.raw`পাঁচ দশমিক স্থান পর্যন্ত মান $4.46238$ এবং আসন্ন মান $4.46238$।`,
+          String.raw`লক্ষ করো, পরবর্তী স্থানের অঙ্ক $5$ বা তার বেশি হলেই কেবল শেষ অঙ্কটি এক বাড়ে — তাই কোথাও দুইটি মান একই, কোথাও আলাদা।`,
+        ],
+        answer: String.raw`$4.4$ ও $4.5$; $\;4.46$ ও $4.46$; $\;4.462$ ও $4.462$; $\;4.4623$ ও $4.4624$; $\;4.46238$ ও $4.46238$`,
+      },
+    },
+  ],
+  problems: [
+    // ─────────────── বহুনির্বাচনি (1 – 4) ───────────────
+    {
+      id: 1,
+      group: NUM_MCQ,
+      question: String.raw`নিচের কোনটি অমূলদ সংখ্যা?
+ক) $0.\dot{3}$  খ) $\sqrt{\dfrac{16}{9}}$  গ) $\sqrt[3]{\dfrac{8}{27}}$  ঘ) $\dfrac{5}{\sqrt{3}}$`,
+      figure: "real-classes",
+      solution: {
+        steps: [
+          String.raw`$$\text{ক) } 0.\dot{3}=\frac{3}{9}=\frac{1}{3}\qquad\left[\text{মূলদ}\right]$$`,
+          String.raw`$$\text{খ) } \sqrt{\frac{16}{9}}=\frac{4}{3}\qquad\left[\text{মূলদ}\right]$$`,
+          String.raw`$$\text{গ) } \sqrt[3]{\frac{8}{27}}=\frac{2}{3}\qquad\left[\text{মূলদ}\right]$$`,
+          String.raw`$$\text{ঘ) } \frac{5}{\sqrt{3}}=\frac{5\sqrt{3}}{3}$$`,
+          String.raw`$\sqrt{3}$ অমূলদ এবং অমূলদ সংখ্যাকে শূন্য নয় এমন মূলদ সংখ্যা দিয়ে গুণ বা ভাগ করলে ফলও অমূলদ হয়।`,
+          String.raw`$\therefore\;\dfrac{5}{\sqrt{3}}$ একটি অমূলদ সংখ্যা।`,
+        ],
+        answer: String.raw`ঘ) $\dfrac{5}{\sqrt{3}}$`,
+      },
+    },
+    {
+      id: 2,
+      group: NUM_MCQ,
+      question: String.raw`$a,\;b,\;c,\;d$ চারটি ক্রমিক স্বাভাবিক সংখ্যা হলে নিচের কোনটি পূর্ণবর্গ সংখ্যা?
+ক) $abcd$  খ) $ab+cd$  গ) $abcd+1$  ঘ) $abcd-1$`,
+      solution: {
+        steps: [
+          String.raw`ধরি, $a=x,\;b=x+1,\;c=x+2,\;d=x+3$।`,
+          String.raw`$$abcd+1=x(x+1)(x+2)(x+3)+1$$`,
+          String.raw`$$=(x^{2}+3x)(x^{2}+3x+2)+1$$`,
+          String.raw`$$=a_{1}(a_{1}+2)+1\qquad\left[\,x^{2}+3x=a_{1}\ \text{ধরে}\,\right]$$`,
+          String.raw`$$=(a_{1}+1)^{2}=(x^{2}+3x+1)^{2}$$`,
+          String.raw`যা সর্বদা একটি পূর্ণবর্গ সংখ্যা (উদাহরণ ২ দ্রষ্টব্য)।`,
+        ],
+        answer: String.raw`গ) $abcd+1$`,
+      },
+    },
+    {
+      id: 3,
+      group: NUM_MCQ,
+      question: String.raw`$1$ থেকে $10$ পর্যন্ত মৌলিক সংখ্যা কয়টি?
+ক) $3$  খ) $4$  গ) $5$  ঘ) $6$`,
+      solution: {
+        steps: [
+          String.raw`যে স্বাভাবিক সংখ্যার $1$ ও সেই সংখ্যাটি ছাড়া আর কোনো গুণনীয়ক নেই, তাকে মৌলিক সংখ্যা বলে; $1$ মৌলিক নয়।`,
+          String.raw`$1$ থেকে $10$ পর্যন্ত মৌলিক সংখ্যাগুলো $2,\;3,\;5,\;7$।`,
+          String.raw`$\therefore$ মৌলিক সংখ্যা $4$টি।`,
+        ],
+        answer: String.raw`খ) $4$`,
+      },
+    },
+    {
+      id: 4,
+      group: NUM_MCQ,
+      question: String.raw`$a$ ও $b$ দুইটি পূর্ণসংখ্যা হলে $a^{2}+b^{2}$ এর সাথে নিচের কোনটি যোগ করলে যোগফল একটি পূর্ণবর্গ সংখ্যা হবে?
+ক) $-ab$  খ) $ab$  গ) $2ab$  ঘ) $ab$`,
+      solution: {
+        steps: [
+          String.raw`$$a^{2}+b^{2}+2ab=(a+b)^{2}$$`,
+          String.raw`$a$ ও $b$ পূর্ণসংখ্যা বলে $(a+b)$ও পূর্ণসংখ্যা, সুতরাং $(a+b)^{2}$ একটি পূর্ণবর্গ সংখ্যা।`,
+          String.raw`বাকি অপশনগুলোতে $a^{2}+b^{2}-ab$ বা $a^{2}+b^{2}+ab$ পাওয়া যায়, যেগুলো সব মানের জন্য পূর্ণবর্গ নয় — যেমন $a=1,\;b=2$ হলে $1+4+2=7$।`,
+        ],
+        answer: String.raw`গ) $2ab$`,
+      },
+    },
+
+    // ─────────────── প্রমাণ ও নির্ণয় (5 – 7) ───────────────
+    {
+      id: 5,
+      group: NUM_PROOF,
+      question: String.raw`প্রমাণ করো যে, প্রতিটি সংখ্যা অমূলদ।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$\sqrt{5}$`,
+          solution: {
+            steps: [
+              String.raw`ধরি, $\sqrt{5}$ একটি মূলদ সংখ্যা এবং $\sqrt{5}=\dfrac{p}{q}$; যেখানে $p$ ও $q$ পরস্পর সহমৌলিক স্বাভাবিক সংখ্যা এবং $q>1$।`,
+              String.raw`$$\text{বর্গ করে, } 5=\frac{p^{2}}{q^{2}}$$`,
+              String.raw`$$\text{অর্থাৎ } 5q=\frac{p^{2}}{q}\qquad\left[\,\text{উভয়পক্ষকে } q \text{ দ্বারা গুণ করে}\,\right]$$`,
+              String.raw`সুতরাং $5q$ পূর্ণসংখ্যা কিন্তু $\dfrac{p^{2}}{q}$ পূর্ণসংখ্যা নয়, কারণ $p$ ও $q$ পরস্পর সহমৌলিক এবং $q>1$।`,
+              String.raw`$\therefore\;5q$ এবং $\dfrac{p^{2}}{q}$ সমান হতে পারে না, অর্থাৎ $5q\neq\dfrac{p^{2}}{q}$।`,
+              String.raw`$\therefore\;\sqrt{5}$ কে $\dfrac{p}{q}$ আকারে প্রকাশ করা যাবে না।`,
+              String.raw`$\therefore\;\sqrt{5}$ একটি অমূলদ সংখ্যা। (প্রমাণিত)`,
+            ],
+            answer: String.raw`$\sqrt{5}$ অমূলদ (প্রমাণিত)`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$\sqrt{7}$`,
+          solution: {
+            steps: [
+              String.raw`ধরি, $\sqrt{7}$ একটি মূলদ সংখ্যা এবং $\sqrt{7}=\dfrac{p}{q}$; যেখানে $p$ ও $q$ পরস্পর সহমৌলিক স্বাভাবিক সংখ্যা এবং $q>1$।`,
+              String.raw`$$\text{বর্গ করে, } 7=\frac{p^{2}}{q^{2}}\qquad\text{বা, } 7q=\frac{p^{2}}{q}$$`,
+              String.raw`এখানে $7q$ পূর্ণসংখ্যা, কিন্তু $p$ ও $q$ সহমৌলিক ও $q>1$ বলে $\dfrac{p^{2}}{q}$ পূর্ণসংখ্যা নয়।`,
+              String.raw`$\therefore\;7q\neq\dfrac{p^{2}}{q}$, অর্থাৎ $\sqrt{7}$ কে $\dfrac{p}{q}$ আকারে প্রকাশ করা যাবে না।`,
+              String.raw`$\therefore\;\sqrt{7}$ একটি অমূলদ সংখ্যা। (প্রমাণিত)`,
+            ],
+            answer: String.raw`$\sqrt{7}$ অমূলদ (প্রমাণিত)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$\sqrt{10}$`,
+          solution: {
+            steps: [
+              String.raw`ধরি, $\sqrt{10}$ একটি মূলদ সংখ্যা এবং $\sqrt{10}=\dfrac{p}{q}$; যেখানে $p$ ও $q$ পরস্পর সহমৌলিক স্বাভাবিক সংখ্যা এবং $q>1$।`,
+              String.raw`$$\text{বর্গ করে, } 10=\frac{p^{2}}{q^{2}}\qquad\text{বা, } 10q=\frac{p^{2}}{q}$$`,
+              String.raw`$10q$ পূর্ণসংখ্যা, কিন্তু $p$ ও $q$ সহমৌলিক ও $q>1$ বলে $\dfrac{p^{2}}{q}$ পূর্ণসংখ্যা নয়।`,
+              String.raw`$\therefore\;10q\neq\dfrac{p^{2}}{q}$, অর্থাৎ $\sqrt{10}$ কে $\dfrac{p}{q}$ আকারে প্রকাশ করা যাবে না।`,
+              String.raw`$\therefore\;\sqrt{10}$ একটি অমূলদ সংখ্যা। (প্রমাণিত)`,
+            ],
+            answer: String.raw`$\sqrt{10}$ অমূলদ (প্রমাণিত)`,
+          },
+        },
+      ],
+    },
+    {
+      id: 6,
+      group: NUM_PROOF,
+      question: String.raw`নির্ণয় করো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$0.31$ এবং $0.12$ এর মধ্যে দুইটি অমূলদ সংখ্যা নির্ণয় করো।`,
+          figure: "between-012-031",
+          solution: {
+            steps: [
+              String.raw`এখানে $0.12<0.31$।`,
+              String.raw`আমরা জানি, $\sqrt{2}=1.414213\dots$ এবং $\sqrt{3}=1.732050\dots$ — দুইটিই অমূলদ সংখ্যা।`,
+              String.raw`মনে করি, $a=\dfrac{\sqrt{2}}{10}$ এবং $b=\dfrac{\sqrt{3}}{10}$।`,
+              String.raw`অমূলদ সংখ্যাকে শূন্য নয় এমন মূলদ সংখ্যা দিয়ে ভাগ করলে ভাগফলও অমূলদ হয়, সুতরাং $a$ ও $b$ উভয়ই অমূলদ।`,
+              String.raw`$$a=0.1414213\dots,\qquad b=0.1732050\dots$$`,
+              String.raw`$$\therefore\;0.12<a<b<0.31$$`,
+              String.raw`$\therefore\;a$ ও $b$ দুইটিই নির্ণেয় অমূলদ সংখ্যা।`,
+              String.raw`মন্তব্য: এভাবে $0.12$ ও $0.31$ এর মধ্যে অসংখ্য অমূলদ সংখ্যা নির্ণয় করা যায়; যেমন $0.1301001000100001\dots$ — এটিও অসীম অনাবৃত দশমিক, তাই অমূলদ।`,
+            ],
+            answer: String.raw`$\dfrac{\sqrt{2}}{10}$ এবং $\dfrac{\sqrt{3}}{10}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$\dfrac{1}{\sqrt{2}}$ এবং $\sqrt{2}$ এর মধ্যে একটি মূলদ এবং একটি অমূলদ সংখ্যা নির্ণয় করো।`,
+          figure: "between-root2",
+          solution: {
+            steps: [
+              String.raw`দুইটি সংখ্যাকেই হর $2$ নিয়ে লিখি,`,
+              String.raw`$$\frac{1}{\sqrt{2}}=\frac{\sqrt{2}}{2},\qquad \sqrt{2}=\frac{2\sqrt{2}}{2}=\frac{\sqrt{8}}{2}$$`,
+              String.raw`$$\text{এখন, } 2<4<6<8$$`,
+              String.raw`$$\therefore\;\sqrt{2}<\sqrt{4}<\sqrt{6}<\sqrt{8}$$`,
+              String.raw`$$\therefore\;\frac{\sqrt{2}}{2}<\frac{\sqrt{4}}{2}<\frac{\sqrt{6}}{2}<\frac{\sqrt{8}}{2}$$`,
+              String.raw`$$\text{অর্থাৎ } \frac{1}{\sqrt{2}}<1<\frac{\sqrt{6}}{2}<\sqrt{2}$$`,
+              String.raw`এখানে $\dfrac{\sqrt{4}}{2}=1$ একটি মূলদ সংখ্যা এবং $6$ পূর্ণবর্গ নয় বলে $\sqrt{6}$ অমূলদ, তাই $\dfrac{\sqrt{6}}{2}$ও অমূলদ।`,
+              String.raw`$$\text{যাচাই: } 0.7071\dots<1<1.2247\dots<1.4142\dots$$`,
+            ],
+            answer: String.raw`মূলদ $1$ এবং অমূলদ $\dfrac{\sqrt{6}}{2}$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 7,
+      group: NUM_PROOF,
+      question: String.raw`প্রমাণ করো যে, দুইটি ক্রমিক জোড় সংখ্যার গুণফল $8$ (আট) দ্বারা বিভাজ্য।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ক্রমিক জোড় সংখ্যা দুইটি $2n$ ও $2n+2$, যেখানে $n$ একটি স্বাভাবিক সংখ্যা।`,
+          String.raw`$$\text{গুণফল}=2n(2n+2)=4n(n+1)$$`,
+          String.raw`এখানে $n$ ও $n+1$ দুইটি ক্রমিক স্বাভাবিক সংখ্যা, তাই এদের একটি অবশ্যই জোড়।`,
+          String.raw`$$\therefore\;n(n+1)=2m\quad\text{আকারের, যেখানে } m \text{ একটি স্বাভাবিক সংখ্যা}$$`,
+          String.raw`$$\therefore\;\text{গুণফল}=4\times 2m=8m$$`,
+          String.raw`যা $8$ দ্বারা বিভাজ্য। সুতরাং দুইটি ক্রমিক জোড় সংখ্যার গুণফল সর্বদা $8$ দ্বারা বিভাজ্য। (প্রমাণিত)`,
+        ],
+        answer: String.raw`গুণফল $=8m$, অর্থাৎ $8$ দ্বারা বিভাজ্য (প্রমাণিত)`,
+      },
+    },
+
+    // ─────────────── দশমিক ও সাধারণ ভগ্নাংশ (8 – 10) ───────────────
+    {
+      id: 8,
+      group: NUM_DEC,
+      question: String.raw`আবৃত দশমিক ভগ্নাংশে প্রকাশ করো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$\dfrac{1}{6}$`,
+          solution: {
+            steps: [
+              String.raw`$1$ কে $6$ দিয়ে ভাগ করি। $1<6$ বলে ভাগফলে $0$ ও দশমিক বিন্দু বসিয়ে $1$ এর ডানে $0$ বসাই।`,
+              String.raw`$$10\div 6=1,\ \text{ভাগশেষ }4;\qquad 40\div 6=6,\ \text{ভাগশেষ }4$$`,
+              String.raw`ভাগশেষ আবার $4$ ফিরে এসেছে, তাই ভাগফলে $6$ বারবার আসবে।`,
+              String.raw`$$\therefore\;\frac{1}{6}=0.1666\dots=0.1\dot{6}$$`,
+            ],
+            answer: String.raw`$0.1\dot{6}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$\dfrac{7}{11}$`,
+          solution: {
+            steps: [
+              String.raw`$$70\div 11=6,\ \text{ভাগশেষ }4;\qquad 40\div 11=3,\ \text{ভাগশেষ }7$$`,
+              String.raw`ভাগশেষ $7$ ফিরে এসেছে, তাই ভাগফলে $63$ বারবার আসবে।`,
+              String.raw`$$\therefore\;\frac{7}{11}=0.6363\dots=0.\dot{6}\dot{3}$$`,
+            ],
+            answer: String.raw`$0.\dot{6}\dot{3}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$3\dfrac{2}{9}$`,
+          solution: {
+            steps: [
+              String.raw`$$3\frac{2}{9}=3+\frac{2}{9}$$`,
+              String.raw`$$\frac{2}{9}=0.2222\dots=0.\dot{2}$$`,
+              String.raw`$$\therefore\;3\frac{2}{9}=3.\dot{2}$$`,
+            ],
+            answer: String.raw`$3.\dot{2}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$3\dfrac{8}{15}$`,
+          solution: {
+            steps: [
+              String.raw`$$3\frac{8}{15}=3+\frac{8}{15}$$`,
+              String.raw`$$80\div 15=5,\ \text{ভাগশেষ }5;\qquad 50\div 15=3,\ \text{ভাগশেষ }5$$`,
+              String.raw`$$\therefore\;\frac{8}{15}=0.5333\dots=0.5\dot{3}$$`,
+              String.raw`$$\therefore\;3\frac{8}{15}=3.5\dot{3}$$`,
+            ],
+            answer: String.raw`$3.5\dot{3}$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 9,
+      group: NUM_DEC,
+      question: String.raw`সাধারণ ভগ্নাংশে প্রকাশ করো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$0.\dot{2}$`,
+          solution: {
+            steps: [
+              String.raw`আবৃত অঙ্ক একটি, অনাবৃত অঙ্ক নেই — তাই হর একটি ৯।`,
+              String.raw`$$0.\dot{2}=\frac{2-0}{9}=\frac{2}{9}$$`,
+            ],
+            answer: String.raw`$\dfrac{2}{9}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$0.\dot{3}\dot{5}$`,
+          solution: {
+            steps: [
+              String.raw`আবৃত অঙ্ক দুইটি, অনাবৃত অঙ্ক নেই — তাই হর দুইটি ৯।`,
+              String.raw`$$0.\dot{3}\dot{5}=\frac{35-0}{99}=\frac{35}{99}$$`,
+            ],
+            answer: String.raw`$\dfrac{35}{99}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$0.1\dot{3}$`,
+          solution: {
+            steps: [
+              String.raw`আবৃত অঙ্ক একটি ($3$) ও অনাবৃত অঙ্ক একটি ($1$) — তাই হর একটি ৯ ও একটি ০ নিয়ে $90$।`,
+              String.raw`$$0.1\dot{3}=\frac{13-1}{90}=\frac{12}{90}=\frac{2}{15}$$`,
+            ],
+            answer: String.raw`$\dfrac{2}{15}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$3.7\dot{8}$`,
+          solution: {
+            steps: [
+              String.raw`আবৃত অঙ্ক একটি ($8$) ও অনাবৃত অঙ্ক একটি ($7$) — তাই হর $90$।`,
+              String.raw`$$3.7\dot{8}=\frac{378-37}{90}=\frac{341}{90}=3\frac{71}{90}$$`,
+            ],
+            answer: String.raw`$\dfrac{341}{90}=3\dfrac{71}{90}$`,
+          },
+        },
+        {
+          label: "ঙ",
+          question: String.raw`$6.\dot{2}30\dot{9}$`,
+          solution: {
+            steps: [
+              String.raw`আবৃত অঙ্ক চারটি ($2309$), অনাবৃত অঙ্ক নেই — তাই হর চারটি ৯ নিয়ে $9999$।`,
+              String.raw`$$6.\dot{2}30\dot{9}=\frac{62309-6}{9999}=\frac{62303}{9999}=6\frac{2309}{9999}$$`,
+            ],
+            answer: String.raw`$\dfrac{62303}{9999}=6\dfrac{2309}{9999}$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 10,
+      group: NUM_DEC,
+      question: String.raw`সদৃশ আবৃত দশমিক ভগ্নাংশে প্রকাশ করো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$2.2\dot{3}$, $\;5.\dot{2}3\dot{5}$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা যথাক্রমে $1$ ও $0$; সবচেয়ে বেশি $1$।`,
+              String.raw`আবৃত অঙ্ক সংখ্যা যথাক্রমে $1$ ও $3$; ল.সা.গু. $3$।`,
+              String.raw`সুতরাং প্রত্যেকটির অনাবৃত অংশ $1$ অঙ্কের ও আবৃত অংশ $3$ অঙ্কের করতে হবে।`,
+              String.raw`$$2.2\dot{3}=2.2333333\dots=2.2\dot{3}3\dot{3}$$`,
+              String.raw`$$5.\dot{2}3\dot{5}=5.235235\dots=5.2\dot{3}5\dot{2}$$`,
+            ],
+            answer: String.raw`$2.2\dot{3}3\dot{3}$ এবং $5.2\dot{3}5\dot{2}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$7.2\dot{6}$, $\;4.23\dot{7}$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা যথাক্রমে $1$ ও $2$; সবচেয়ে বেশি $2$। আবৃত অঙ্ক দুইটিরই $1$, ল.সা.গু. $1$।`,
+              String.raw`$$7.2\dot{6}=7.2666\dots=7.26\dot{6}$$`,
+              String.raw`$$4.23\dot{7}=4.23\dot{7}$$`,
+            ],
+            answer: String.raw`$7.26\dot{6}$ এবং $4.23\dot{7}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$5.\dot{7}$, $\;8.\dot{3}\dot{4}$, $\;6.\dot{2}4\dot{5}$`,
+          solution: {
+            steps: [
+              String.raw`তিনটিরই অনাবৃত অঙ্ক সংখ্যা $0$। আবৃত অঙ্ক সংখ্যা $1$, $2$ ও $3$; ল.সা.গু. $6$।`,
+              String.raw`$$5.\dot{7}=5.\dot{7}7777\dot{7}$$`,
+              String.raw`$$8.\dot{3}\dot{4}=8.\dot{3}4343\dot{4}$$`,
+              String.raw`$$6.\dot{2}4\dot{5}=6.\dot{2}4524\dot{5}$$`,
+            ],
+            answer: String.raw`$5.\dot{7}7777\dot{7}$, $\;8.\dot{3}4343\dot{4}$ ও $6.\dot{2}4524\dot{5}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$12.32$, $\;2.1\dot{9}$, $\;4.32\dot{5}\dot{6}$`,
+          solution: {
+            steps: [
+              String.raw`$12.32$ সসীম, তাই এর দুইটি অঙ্কই অনাবৃত। অনাবৃত অঙ্ক সংখ্যা $2$, $1$ ও $2$; সবচেয়ে বেশি $2$।`,
+              String.raw`আবৃত অঙ্ক সংখ্যা $0$ (শূন্য বসিয়ে $1$), $1$ ও $2$; ল.সা.গু. $2$।`,
+              String.raw`$$12.32=12.32\dot{0}\dot{0}$$`,
+              String.raw`$$2.1\dot{9}=2.19999\dots=2.19\dot{9}\dot{9}$$`,
+              String.raw`$$4.32\dot{5}\dot{6}=4.32\dot{5}\dot{6}$$`,
+            ],
+            answer: String.raw`$12.32\dot{0}\dot{0}$, $\;2.19\dot{9}\dot{9}$ ও $4.32\dot{5}\dot{6}$`,
+          },
+        },
+      ],
+    },
+
+    // ─────────────── চার প্রক্রিয়া (11 – 14) ───────────────
+    {
+      id: 11,
+      group: NUM_OPS,
+      question: String.raw`যোগ করো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$0.4\dot{5}+0.1\dot{3}\dot{4}$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা দুইটিরই $1$; আবৃত অঙ্ক সংখ্যা $1$ ও $2$, এদের ল.সা.গু. $2$।`,
+              String.raw`$$0.4\dot{5}=0.4555\dots=0.4\dot{5}\dot{5}$$`,
+              String.raw`$$0.1\dot{3}\dot{4}=0.1\dot{3}\dot{4}$$`,
+              String.raw`সসীম দশমিকের নিয়মে যোগ করে, $0.455+0.134=0.589$।`,
+              String.raw`সর্বডানের অঙ্ক দুইটির যোগ $5+4=9$, হাতে কিছু থাকে না।`,
+              String.raw`$$\therefore\;\text{যোগফল}=0.5\dot{8}\dot{9}$$`,
+              String.raw`যাচাই: $\dfrac{41}{90}+\dfrac{133}{990}=\dfrac{584}{990}=\dfrac{292}{495}=0.5\dot{8}\dot{9}$।`,
+            ],
+            answer: String.raw`$0.5\dot{8}\dot{9}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$2.0\dot{5}+8.0\dot{4}+7.018$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা হবে $3$ (সবচেয়ে বেশি, $7.018$ থেকে) এবং আবৃত অঙ্ক সংখ্যা $1$।`,
+              String.raw`$$2.0\dot{5}=2.055\dot{5},\qquad 8.0\dot{4}=8.044\dot{4},\qquad 7.018=7.018\dot{0}$$`,
+              String.raw`সসীম দশমিকের নিয়মে যোগ করে, $2.0555+8.0444+7.0180=17.1179$।`,
+              String.raw`সর্বডানের অঙ্কগুলোর যোগ $5+4+0=9$, হাতে কিছু থাকে না।`,
+              String.raw`$$\therefore\;\text{যোগফল}=17.117\dot{9}=17.118$$`,
+              String.raw`যাচাই: $\dfrac{37}{18}+\dfrac{362}{45}+\dfrac{3509}{500}=\dfrac{8559}{500}=17.118$।`,
+            ],
+            answer: String.raw`$17.117\dot{9}$ অর্থাৎ $17.118$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$0.00\dot{6}+0.\dot{9}\dot{2}+0.\dot{1}3\dot{4}$`,
+          solution: {
+            steps: [
+              String.raw`এখানে সদৃশ করলে আবৃত অংশ $6$ অঙ্কের হয় এবং ডানপ্রান্তের হাতের হিসাব একাধিক ঘর পেরিয়ে আসে, তাই বইয়ের মন্তব্য অনুসারে সাধারণ ভগ্নাংশে নামিয়ে যোগ করা হলো।`,
+              String.raw`$$0.00\dot{6}=\frac{6-0}{900}=\frac{1}{150}$$`,
+              String.raw`$$0.\dot{9}\dot{2}=\frac{92}{99},\qquad 0.\dot{1}3\dot{4}=\frac{134}{999}$$`,
+              String.raw`$$\therefore\;\text{যোগফল}=\frac{1}{150}+\frac{92}{99}+\frac{134}{999}$$`,
+              String.raw`$$=\frac{3663+510600+73700}{549450}=\frac{587963}{549450}$$`,
+              String.raw`$$=1.07009373009373\dots=1.07\dot{0}0937\dot{3}$$`,
+            ],
+            answer: String.raw`$1.07\dot{0}0937\dot{3}$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 12,
+      group: NUM_OPS,
+      question: String.raw`বিয়োগ করো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$3.\dot{4}-2.1\dot{3}$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা $1$ এবং আবৃত অঙ্ক সংখ্যা $1$।`,
+              String.raw`$$3.\dot{4}=3.4\dot{4},\qquad 2.1\dot{3}=2.1\dot{3}$$`,
+              String.raw`বিয়োগ করে, $3.44-2.13=1.31$। সর্বডানে $4-3=1$, ধার নিতে হয়নি।`,
+              String.raw`$$\therefore\;\text{বিয়োগফল}=1.3\dot{1}$$`,
+            ],
+            answer: String.raw`$1.3\dot{1}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$5.\dot{1}\dot{2}-3.4\dot{5}$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা $1$ এবং আবৃত অঙ্ক সংখ্যা $2$ ও $1$ এর ল.সা.গু. $2$।`,
+              String.raw`$$5.\dot{1}\dot{2}=5.1\dot{2}\dot{1},\qquad 3.4\dot{5}=3.4\dot{5}\dot{5}$$`,
+              String.raw`বিয়োগ করে, $5.121-3.455=1.666$।`,
+              String.raw`সর্বডানে $1$ থেকে $5$ বিয়োগ করতে হলে ধার নিতে হয়, তাই বিয়োগফলের শেষ অঙ্ক থেকে $1$ বাদ যাবে।`,
+              String.raw`$$1.666-0.001=1.665$$`,
+              String.raw`$$\therefore\;\text{বিয়োগফল}=1.6\dot{6}\dot{5}$$`,
+            ],
+            answer: String.raw`$1.6\dot{6}\dot{5}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$8.49-5.3\dot{5}\dot{6}$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা $2$ এবং আবৃত অঙ্ক সংখ্যা $2$।`,
+              String.raw`$$8.49=8.49\dot{0}\dot{0},\qquad 5.3\dot{5}\dot{6}=5.35\dot{6}\dot{5}$$`,
+              String.raw`বিয়োগ করে, $8.4900-5.3565=3.1335$।`,
+              String.raw`সর্বডানে $0$ থেকে $5$ বিয়োগ করতে ধার নিতে হয়, তাই শেষ অঙ্ক থেকে $1$ বাদ যাবে।`,
+              String.raw`$$3.1335-0.0001=3.1334$$`,
+              String.raw`$$\therefore\;\text{বিয়োগফল}=3.13\dot{3}\dot{4}$$`,
+            ],
+            answer: String.raw`$3.13\dot{3}\dot{4}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$19.34\dot{5}-13.\dot{2}34\dot{9}$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা $2$ এবং আবৃত অঙ্ক সংখ্যা $1$ ও $4$ এর ল.সা.গু. $4$।`,
+              String.raw`$$19.34\dot{5}=19.34\dot{5}55\dot{5}$$`,
+              String.raw`$$13.\dot{2}34\dot{9}=13.23\dot{4}92\dot{3}$$`,
+              String.raw`বিয়োগ করে, $19.345555-13.234923=6.110632$। সর্বডানে $5-3=2$, ধার নিতে হয়নি।`,
+              String.raw`$$\therefore\;\text{বিয়োগফল}=6.11\dot{0}63\dot{2}$$`,
+            ],
+            answer: String.raw`$6.11\dot{0}63\dot{2}$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 13,
+      group: NUM_OPS,
+      question: String.raw`গুণ করো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$0.\dot{3}\times 0.\dot{6}$`,
+          solution: {
+            steps: [
+              String.raw`$$0.\dot{3}=\frac{3}{9}=\frac{1}{3},\qquad 0.\dot{6}=\frac{6}{9}=\frac{2}{3}$$`,
+              String.raw`$$\therefore\;0.\dot{3}\times 0.\dot{6}=\frac{1}{3}\times\frac{2}{3}=\frac{2}{9}=0.\dot{2}$$`,
+            ],
+            answer: String.raw`$0.\dot{2}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$2.\dot{4}\times 0.\dot{8}\dot{1}$`,
+          solution: {
+            steps: [
+              String.raw`$$2.\dot{4}=\frac{24-2}{9}=\frac{22}{9}$$`,
+              String.raw`$$0.\dot{8}\dot{1}=\frac{81}{99}=\frac{9}{11}$$`,
+              String.raw`$$\therefore\;2.\dot{4}\times 0.\dot{8}\dot{1}=\frac{22}{9}\times\frac{9}{11}=2$$`,
+            ],
+            answer: String.raw`$2$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$0.6\dot{2}\times 0.\dot{3}$`,
+          solution: {
+            steps: [
+              String.raw`$$0.6\dot{2}=\frac{62-6}{90}=\frac{56}{90}=\frac{28}{45}$$`,
+              String.raw`$$0.\dot{3}=\frac{1}{3}$$`,
+              String.raw`$$\therefore\;0.6\dot{2}\times 0.\dot{3}=\frac{28}{45}\times\frac{1}{3}=\frac{28}{135}$$`,
+              String.raw`$$=0.2074074\dots=0.2\dot{0}7\dot{4}$$`,
+            ],
+            answer: String.raw`$\dfrac{28}{135}=0.2\dot{0}7\dot{4}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$42.\dot{1}\dot{8}\times 0.2\dot{8}$`,
+          solution: {
+            steps: [
+              String.raw`$$42.\dot{1}\dot{8}=\frac{4218-42}{99}=\frac{4176}{99}=\frac{464}{11}$$`,
+              String.raw`$$0.2\dot{8}=\frac{28-2}{90}=\frac{26}{90}=\frac{13}{45}$$`,
+              String.raw`$$\therefore\;42.\dot{1}\dot{8}\times 0.2\dot{8}=\frac{464}{11}\times\frac{13}{45}=\frac{6032}{495}$$`,
+              String.raw`$$=12.185858\dots=12.1\dot{8}\dot{5}$$`,
+            ],
+            answer: String.raw`$12.1\dot{8}\dot{5}$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 14,
+      group: NUM_OPS,
+      question: String.raw`ভাগ করো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$0.\dot{3}\div 0.\dot{6}$`,
+          solution: {
+            steps: [
+              String.raw`$$0.\dot{3}=\frac{1}{3},\qquad 0.\dot{6}=\frac{2}{3}$$`,
+              String.raw`$$\therefore\;0.\dot{3}\div 0.\dot{6}=\frac{1}{3}\div\frac{2}{3}=\frac{1}{3}\times\frac{3}{2}=\frac{1}{2}=0.5$$`,
+            ],
+            answer: String.raw`$0.5$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$0.3\dot{5}\div 1.\dot{7}$`,
+          solution: {
+            steps: [
+              String.raw`$$0.3\dot{5}=\frac{35-3}{90}=\frac{32}{90}=\frac{16}{45}$$`,
+              String.raw`$$1.\dot{7}=\frac{17-1}{9}=\frac{16}{9}$$`,
+              String.raw`$$\therefore\;0.3\dot{5}\div 1.\dot{7}=\frac{16}{45}\times\frac{9}{16}=\frac{1}{5}=0.2$$`,
+            ],
+            answer: String.raw`$0.2$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$2.3\dot{7}\div 0.4\dot{5}$`,
+          solution: {
+            steps: [
+              String.raw`$$2.3\dot{7}=\frac{237-23}{90}=\frac{214}{90}$$`,
+              String.raw`$$0.4\dot{5}=\frac{45-4}{90}=\frac{41}{90}$$`,
+              String.raw`$$\therefore\;2.3\dot{7}\div 0.4\dot{5}=\frac{214}{90}\times\frac{90}{41}=\frac{214}{41}$$`,
+              String.raw`$$=5.2195121951\dots=5.\dot{2}195\dot{1}$$`,
+            ],
+            answer: String.raw`$\dfrac{214}{41}=5.\dot{2}195\dot{1}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$1.\dot{1}8\dot{5}\div 0.\dot{2}\dot{4}$`,
+          solution: {
+            steps: [
+              String.raw`$$1.\dot{1}8\dot{5}=\frac{1185-1}{999}=\frac{1184}{999}$$`,
+              String.raw`$$0.\dot{2}\dot{4}=\frac{24}{99}=\frac{8}{33}$$`,
+              String.raw`$$\therefore\;1.\dot{1}8\dot{5}\div 0.\dot{2}\dot{4}=\frac{1184}{999}\times\frac{33}{8}=\frac{4884}{999}$$`,
+              String.raw`$$=\frac{44}{9}=4.888\dots=4.\dot{8}$$`,
+            ],
+            answer: String.raw`$4.\dot{8}$`,
+          },
+        },
+      ],
+    },
+
+    // ─────────────── বর্গমূল ও শ্রেণিবিন্যাস (15 – 16) ───────────────
+    {
+      id: 15,
+      group: NUM_ROOT,
+      question: String.raw`চার দশমিক স্থান পর্যন্ত বর্গমূল এবং তিন দশমিক স্থান পর্যন্ত সেগুলোর আসন্ন মান লিখো:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$12$`,
+          solution: {
+            steps: [
+              String.raw`বর্গমূল নির্ণয়ের ভাগ পদ্ধতিতে,`,
+              String.raw`$$\sqrt{12}=3.4641016\dots$$`,
+              String.raw`যাচাই: $3.4641^{2}=11.99998881$ এবং $3.4642^{2}=12.00068164$, অর্থাৎ $3.4641<\sqrt{12}<3.4642$।`,
+              String.raw`$$\therefore\;\text{চার দশমিক স্থান পর্যন্ত মান}=3.4641$$`,
+              String.raw`চতুর্থ স্থানের অঙ্ক $1$, যা $5$ এর ছোট — তাই তৃতীয় স্থানের অঙ্ক অপরিবর্তিত থাকবে।`,
+              String.raw`$$\therefore\;\text{তিন দশমিক স্থান পর্যন্ত আসন্ন মান}=3.464$$`,
+            ],
+            answer: String.raw`$3.4641$; আসন্ন মান $3.464$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$0.\dot{2}\dot{5}$`,
+          solution: {
+            steps: [
+              String.raw`$$0.\dot{2}\dot{5}=\frac{25}{99}$$`,
+              String.raw`$$\therefore\;\sqrt{0.\dot{2}\dot{5}}=\sqrt{\frac{25}{99}}=\frac{5}{\sqrt{99}}=\frac{5}{9.9498744\dots}$$`,
+              String.raw`$$=0.5025189\dots$$`,
+              String.raw`যাচাই: $0.5025^{2}=0.25250625$ এবং $0.5026^{2}=0.25260676$, আর $\dfrac{25}{99}=0.2525252\dots$ — অর্থাৎ মানটি এই দুইয়ের মাঝে।`,
+              String.raw`$$\therefore\;\text{চার দশমিক স্থান পর্যন্ত মান}=0.5025$$`,
+              String.raw`চতুর্থ স্থানের অঙ্ক $5$, তাই তৃতীয় স্থানের অঙ্কের সাথে $1$ যোগ হবে।`,
+              String.raw`$$\therefore\;\text{আসন্ন মান}=0.503$$`,
+            ],
+            answer: String.raw`$0.5025$; আসন্ন মান $0.503$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$1.\dot{3}\dot{4}$`,
+          solution: {
+            steps: [
+              String.raw`$$1.\dot{3}\dot{4}=1+\frac{34}{99}=\frac{133}{99}=1.3434343\dots$$`,
+              String.raw`$$\therefore\;\sqrt{1.\dot{3}\dot{4}}=1.1590661\dots$$`,
+              String.raw`যাচাই: $1.1590^{2}=1.34328100$ এবং $1.1591^{2}=1.34351281$, অর্থাৎ $1.1590<\sqrt{1.\dot{3}\dot{4}}<1.1591$।`,
+              String.raw`$$\therefore\;\text{চার দশমিক স্থান পর্যন্ত মান}=1.1590$$`,
+              String.raw`চতুর্থ স্থানের অঙ্ক $0$, যা $5$ এর ছোট।`,
+              String.raw`$$\therefore\;\text{আসন্ন মান}=1.159$$`,
+            ],
+            answer: String.raw`$1.1590$; আসন্ন মান $1.159$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$5.1\dot{3}0\dot{2}$`,
+          solution: {
+            steps: [
+              String.raw`আবৃত অঙ্ক তিনটি ($302$) ও অনাবৃত অঙ্ক একটি ($1$),`,
+              String.raw`$$5.1\dot{3}0\dot{2}=\frac{51302-51}{9990}=\frac{51251}{9990}=5.1302302\dots$$`,
+              String.raw`$$\therefore\;\sqrt{5.1\dot{3}0\dot{2}}=2.2650011\dots$$`,
+              String.raw`যাচাই: $2.2650^{2}=5.13022500$ এবং $2.2651^{2}=5.13067801$, অর্থাৎ মানটি এই দুইয়ের মাঝে।`,
+              String.raw`$$\therefore\;\text{চার দশমিক স্থান পর্যন্ত মান}=2.2650$$`,
+              String.raw`চতুর্থ স্থানের অঙ্ক $0$, যা $5$ এর ছোট।`,
+              String.raw`$$\therefore\;\text{আসন্ন মান}=2.265$$`,
+            ],
+            answer: String.raw`$2.2650$; আসন্ন মান $2.265$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 16,
+      group: NUM_ROOT,
+      question: String.raw`নিচের কোন সংখ্যাগুলো মূলদ এবং কোন সংখ্যাগুলো অমূলদ লিখো:`,
+      figure: "real-classes",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$0.\dot{4}$`,
+          solution: {
+            steps: [
+              String.raw`$$0.\dot{4}=\frac{4}{9}$$`,
+              String.raw`এটি $\dfrac{p}{q}$ আকারে লেখা গেল, যেখানে $p=4$, $q=9$ পূর্ণসংখ্যা ও $q\neq 0$।`,
+            ],
+            answer: String.raw`মূলদ`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$\sqrt{9}$`,
+          solution: {
+            steps: [
+              String.raw`$$\sqrt{9}=3=\frac{3}{1}$$`,
+              String.raw`$9$ একটি পূর্ণবর্গ সংখ্যা, তাই এর বর্গমূল পূর্ণসংখ্যা।`,
+            ],
+            answer: String.raw`মূলদ`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$\sqrt{11}$`,
+          solution: {
+            steps: [
+              String.raw`$11$ পূর্ণবর্গ সংখ্যা নয়, তাই $\sqrt{11}$ কে $\dfrac{p}{q}$ আকারে প্রকাশ করা যায় না।`,
+              String.raw`$$\sqrt{11}=3.3166247\dots\qquad\left[\text{অসীম অনাবৃত দশমিক}\right]$$`,
+            ],
+            answer: String.raw`অমূলদ`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$\dfrac{\sqrt{6}}{3}$`,
+          solution: {
+            steps: [
+              String.raw`$6$ পূর্ণবর্গ নয়, তাই $\sqrt{6}$ অমূলদ।`,
+              String.raw`অমূলদ সংখ্যাকে শূন্য নয় এমন মূলদ সংখ্যা দিয়ে ভাগ করলে ভাগফলও অমূলদ হয়।`,
+              String.raw`$$\frac{\sqrt{6}}{3}=0.8164965\dots$$`,
+            ],
+            answer: String.raw`অমূলদ`,
+          },
+        },
+        {
+          label: "ঙ",
+          question: String.raw`$\dfrac{\sqrt{8}}{\sqrt{7}}$`,
+          solution: {
+            steps: [
+              String.raw`$$\frac{\sqrt{8}}{\sqrt{7}}=\sqrt{\frac{8}{7}}=\frac{2\sqrt{14}}{7}$$`,
+              String.raw`$\dfrac{8}{7}$ কোনো মূলদ সংখ্যার বর্গ নয়, তাই এর বর্গমূল অমূলদ।`,
+              String.raw`$$\frac{\sqrt{8}}{\sqrt{7}}=1.0690449\dots$$`,
+            ],
+            answer: String.raw`অমূলদ`,
+          },
+        },
+        {
+          label: "চ",
+          question: String.raw`$\dfrac{\sqrt{27}}{\sqrt{48}}$`,
+          solution: {
+            steps: [
+              String.raw`$$\frac{\sqrt{27}}{\sqrt{48}}=\sqrt{\frac{27}{48}}=\sqrt{\frac{9}{16}}=\frac{3}{4}$$`,
+              String.raw`$\dfrac{9}{16}$ একটি মূলদ সংখ্যার বর্গ, তাই বর্গমূলটিও মূলদ।`,
+            ],
+            answer: String.raw`মূলদ, $\dfrac{3}{4}$`,
+          },
+        },
+        {
+          label: "ছ",
+          question: String.raw`$\dfrac{\;\dfrac{2}{3}\;}{\dfrac{3}{7}}$`,
+          solution: {
+            steps: [
+              String.raw`$$\frac{\;\frac{2}{3}\;}{\frac{3}{7}}=\frac{2}{3}\times\frac{7}{3}=\frac{14}{9}$$`,
+              String.raw`দুইটি মূলদ সংখ্যার ভাগফল (হর শূন্য না হলে) মূলদই হয়।`,
+            ],
+            answer: String.raw`মূলদ, $\dfrac{14}{9}$`,
+          },
+        },
+        {
+          label: "জ",
+          question: String.raw`$5.\dot{6}3\dot{9}$`,
+          solution: {
+            steps: [
+              String.raw`$$5.\dot{6}3\dot{9}=\frac{5639-5}{999}=\frac{5634}{999}=\frac{626}{111}$$`,
+              String.raw`প্রতিটি আবৃত দশমিক ভগ্নাংশকেই সাধারণ ভগ্নাংশে পরিণত করা যায়, তাই এরা সবাই মূলদ।`,
+            ],
+            answer: String.raw`মূলদ, $\dfrac{626}{111}$`,
+          },
+        },
+      ],
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — বইয়ের পৃষ্ঠা ২০ ───────────────
+    {
+      id: 17,
+      group: NUM_MODEL_MCQ,
+      question: String.raw`তিনটি ক্রমিক স্বাভাবিক সংখ্যার গুণফল সর্বদাই নিচের কোন সংখ্যা দ্বারা বিভাজ্য হবে?
+ক) $5$  খ) $6$  গ) $7$  ঘ) $11$`,
+      solution: {
+        steps: [
+          String.raw`ধরি, ক্রমিক স্বাভাবিক সংখ্যা তিনটি $n,\;n+1,\;n+2$।`,
+          String.raw`পরপর তিনটি সংখ্যার অন্তত একটি জোড়, তাই গুণফল $2$ দ্বারা বিভাজ্য।`,
+          String.raw`আবার পরপর তিনটি সংখ্যার ঠিক একটি $3$ দ্বারা বিভাজ্য, তাই গুণফল $3$ দ্বারাও বিভাজ্য।`,
+          String.raw`$2$ ও $3$ সহমৌলিক, সুতরাং গুণফল $2\times 3=6$ দ্বারা বিভাজ্য।`,
+          String.raw`যাচাই: $1\times 2\times 3=6$, $\;2\times 3\times 4=24$, $\;3\times 4\times 5=60$ — সবগুলোই $6$ দ্বারা বিভাজ্য, কিন্তু $5$, $7$ বা $11$ দ্বারা নয়।`,
+        ],
+        answer: String.raw`খ) $6$`,
+      },
+    },
+    {
+      id: 18,
+      group: NUM_MODEL_MCQ,
+      question: String.raw`$a$ ও $b$ দুইটি ক্রমিক জোড় সংখ্যা হলে নিচের কোনটি বিজোড় সংখ্যা?
+ক) $a^{2}$  খ) $b^{2}$  গ) $a^{2}+1$  ঘ) $b^{2}+2$`,
+      solution: {
+        steps: [
+          String.raw`$a$ জোড় হলে $a^{2}$ও জোড়; একইভাবে $b^{2}$ জোড়।`,
+          String.raw`জোড় সংখ্যার সাথে $2$ যোগ করলে যোগফল জোড়ই থাকে, তাই $b^{2}+2$ জোড়।`,
+          String.raw`কিন্তু জোড় সংখ্যার সাথে $1$ যোগ করলে যোগফল বিজোড় হয়।`,
+          String.raw`$$\therefore\;a^{2}+1\ \text{বিজোড়}$$`,
+        ],
+        answer: String.raw`গ) $a^{2}+1$`,
+      },
+    },
+    {
+      id: 19,
+      group: NUM_MODEL_MCQ,
+      question: String.raw`$a=\sqrt{3}$ এবং $b=\sqrt{12}$ হলে —
+$(i)$ $ab$ একটি মূলদ সংখ্যা   $(ii)$ $\dfrac{a}{b}$ একটি মূলদ সংখ্যা   $(iii)$ $(a+b)$ একটি বাস্তব সংখ্যা
+নিচের কোনটি সঠিক?
+ক) $i$ ও $ii$  খ) $i$ ও $iii$  গ) $ii$ ও $iii$  ঘ) $i,\,ii$ ও $iii$`,
+      solution: {
+        steps: [
+          String.raw`$$(i)\;\; ab=\sqrt{3}\times\sqrt{12}=\sqrt{36}=6\qquad\left[\text{মূলদ — সঠিক}\right]$$`,
+          String.raw`$$(ii)\;\; \frac{a}{b}=\frac{\sqrt{3}}{\sqrt{12}}=\sqrt{\frac{3}{12}}=\sqrt{\frac{1}{4}}=\frac{1}{2}\qquad\left[\text{মূলদ — সঠিক}\right]$$`,
+          String.raw`$$(iii)\;\; a+b=\sqrt{3}+2\sqrt{3}=3\sqrt{3}$$`,
+          String.raw`$3\sqrt{3}$ অমূলদ, তবে প্রতিটি অমূলদ সংখ্যাই বাস্তব সংখ্যা — সুতরাং $(iii)$ও সঠিক।`,
+        ],
+        answer: String.raw`ঘ) $i,\,ii$ ও $iii$`,
+      },
+    },
+    {
+      id: 20,
+      group: NUM_MODEL_MCQ,
+      question: String.raw`$a=\sqrt{3}$ এবং $b=\sqrt{12}$ হলে নিচের কোনটি $a$ ও $b$ এর মধ্যবর্তী অমূলদ সংখ্যা?
+ক) $\dfrac{3\sqrt{3}}{2}$  খ) $\dfrac{3\sqrt{3}}{4}$  গ) $\dfrac{\sqrt{3}}{2}$  ঘ) $\dfrac{\sqrt{3}}{4}$`,
+      figure: "between-root3-root12",
+      solution: {
+        steps: [
+          String.raw`$$a=\sqrt{3}=1.732\dots,\qquad b=\sqrt{12}=2\sqrt{3}=3.464\dots$$`,
+          String.raw`$$\text{ক) } \frac{3\sqrt{3}}{2}=1.5\sqrt{3}=2.598\dots\qquad\left[\,\sqrt{3}<1.5\sqrt{3}<2\sqrt{3}\,\right]$$`,
+          String.raw`$$\text{খ) } \frac{3\sqrt{3}}{4}=0.75\sqrt{3}=1.299\dots\qquad\left[\,a\ \text{এর ছোট}\,\right]$$`,
+          String.raw`$$\text{গ) } \frac{\sqrt{3}}{2}=0.866\dots,\qquad \text{ঘ) } \frac{\sqrt{3}}{4}=0.433\dots$$`,
+          String.raw`কেবল ক) সংখ্যাটি $a$ ও $b$ এর মাঝে পড়ে, এবং $\sqrt{3}$ অমূলদ বলে $\dfrac{3\sqrt{3}}{2}$ও অমূলদ।`,
+        ],
+        answer: String.raw`ক) $\dfrac{3\sqrt{3}}{2}$`,
+      },
+    },
+    {
+      id: 21,
+      group: NUM_MODEL_CQ,
+      question: String.raw`$n=2m-1$, যেখানে $m\in\mathbb{N}$।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`যোগ করো: $0.\dot{7}+0.1\dot{5}$`,
+          solution: {
+            steps: [
+              String.raw`অনাবৃত অঙ্ক সংখ্যা হবে $1$ এবং আবৃত অঙ্ক সংখ্যা $1$।`,
+              String.raw`$$0.\dot{7}=0.7\dot{7},\qquad 0.1\dot{5}=0.1\dot{5}$$`,
+              String.raw`সসীম দশমিকের নিয়মে যোগ করে, $0.77+0.15=0.92$।`,
+              String.raw`সর্বডানের অঙ্ক দুইটির যোগ $7+5=12$, হাতে থাকে $1$ — তা যোগফলের শেষ অঙ্কের সাথে যোগ হবে।`,
+              String.raw`$$0.92+0.01=0.93$$`,
+              String.raw`$$\therefore\;\text{যোগফল}=0.9\dot{3}$$`,
+              String.raw`যাচাই: $\dfrac{7}{9}+\dfrac{7}{45}=\dfrac{35+7}{45}=\dfrac{42}{45}=\dfrac{14}{15}=0.9333\dots$`,
+            ],
+            answer: String.raw`$0.9\dot{3}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`দেখাও যে, $n^{2}$ থেকে $1$ বিয়োগ করলে বিয়োগফল সর্বদা $8$ (আট) দ্বারা বিভাজ্য।`,
+          solution: {
+            steps: [
+              String.raw`দেওয়া আছে, $n=2m-1$, যেখানে $m$ একটি স্বাভাবিক সংখ্যা — অর্থাৎ $n$ একটি বিজোড় সংখ্যা।`,
+              String.raw`$$n^{2}-1=(n-1)(n+1)$$`,
+              String.raw`$$=(2m-1-1)(2m-1+1)=(2m-2)(2m)$$`,
+              String.raw`$$=2(m-1)\times 2m=4m(m-1)$$`,
+              String.raw`এখানে $m-1$ ও $m$ দুইটি ক্রমিক সংখ্যা, তাই এদের একটি অবশ্যই জোড়; ধরি $m(m-1)=2k$।`,
+              String.raw`$$\therefore\;n^{2}-1=4\times 2k=8k$$`,
+              String.raw`যা $8$ দ্বারা বিভাজ্য। (দেখানো হলো)`,
+              String.raw`যাচাই: $m=3$ হলে $n=5$ এবং $n^{2}-1=24=8\times 3$।`,
+            ],
+            answer: String.raw`$n^{2}-1=8k$, অর্থাৎ $8$ দ্বারা বিভাজ্য (দেখানো হলো)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$m=3$ হলে প্রমাণ করো যে, $\sqrt{n}$ একটি অমূলদ সংখ্যা।`,
+          solution: {
+            steps: [
+              String.raw`$$m=3\ \text{হলে},\quad n=2m-1=2\times 3-1=5$$`,
+              String.raw`ধরি, $\sqrt{5}$ একটি মূলদ সংখ্যা এবং $\sqrt{5}=\dfrac{p}{q}$; যেখানে $p$ ও $q$ পরস্পর সহমৌলিক স্বাভাবিক সংখ্যা এবং $q>1$।`,
+              String.raw`$$\text{বর্গ করে, } 5=\frac{p^{2}}{q^{2}}\qquad\text{বা, } 5q=\frac{p^{2}}{q}$$`,
+              String.raw`এখানে $5q$ একটি পূর্ণসংখ্যা, কিন্তু $p$ ও $q$ সহমৌলিক ও $q>1$ বলে $\dfrac{p^{2}}{q}$ পূর্ণসংখ্যা নয়।`,
+              String.raw`$\therefore\;5q\neq\dfrac{p^{2}}{q}$, অর্থাৎ $\sqrt{5}$ কে $\dfrac{p}{q}$ আকারে প্রকাশ করা যাবে না।`,
+              String.raw`$\therefore\;\sqrt{n}=\sqrt{5}$ একটি অমূলদ সংখ্যা। (প্রমাণিত)`,
+            ],
+            answer: String.raw`$\sqrt{5}$ অমূলদ (প্রমাণিত)`,
+          },
+        },
+      ],
+    },
+    {
+      id: 22,
+      group: NUM_MODEL_CQ,
+      question: String.raw`সংক্ষিপ্ত-উত্তর প্রশ্ন:`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$a=0.\dot{2}$ এবং $b=0.\dot{3}$ হলে দেখাও যে, $(a+b)$ একটি মূলদ সংখ্যা।`,
+          solution: {
+            steps: [
+              String.raw`$$a=0.\dot{2}=\frac{2}{9},\qquad b=0.\dot{3}=\frac{3}{9}=\frac{1}{3}$$`,
+              String.raw`$$\therefore\;a+b=\frac{2}{9}+\frac{3}{9}=\frac{5}{9}$$`,
+              String.raw`এখানে $5$ ও $9$ পূর্ণসংখ্যা এবং $9\neq 0$, অর্থাৎ $(a+b)$ কে $\dfrac{p}{q}$ আকারে প্রকাশ করা গেল।`,
+              String.raw`$$\therefore\;a+b=\frac{5}{9}=0.\dot{5}\quad\text{একটি মূলদ সংখ্যা। (দেখানো হলো)}$$`,
+            ],
+            answer: String.raw`$a+b=\dfrac{5}{9}$, একটি মূলদ সংখ্যা`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`বর্গমূল নির্ণয় না করে দেখাও যে, $\sqrt{10}$ সংখ্যাটি $3$ ও $4$ এর মধ্যে অবস্থিত।`,
+          figure: "root10-between",
+          solution: {
+            steps: [
+              String.raw`$$3^{2}=9\quad\text{এবং}\quad 4^{2}=16$$`,
+              String.raw`$$\therefore\;9<10<16$$`,
+              String.raw`ধনাত্মক সংখ্যার ক্ষেত্রে বড় সংখ্যার বর্গমূলও বড় হয়, তাই অসমতার প্রতিটি পদের বর্গমূল নিয়ে,`,
+              String.raw`$$\sqrt{9}<\sqrt{10}<\sqrt{16}$$`,
+              String.raw`$$\therefore\;3<\sqrt{10}<4$$`,
+              String.raw`অর্থাৎ বর্গমূলের মান না বের করেই বলা যায়, $\sqrt{10}$ সংখ্যাটি $3$ ও $4$ এর মধ্যে অবস্থিত। (দেখানো হলো)`,
+            ],
+            answer: String.raw`$3<\sqrt{10}<4$ (দেখানো হলো)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$1.25\dot{7}\dot{4}$ ও $0.3\dot{6}1\dot{2}$ আবৃত দশমিক ভগ্নাংশদ্বয়কে সদৃশ আবৃত দশমিক ভগ্নাংশে প্রকাশ করো।`,
+          solution: {
+            steps: [
+              String.raw`$1.25\dot{7}\dot{4}$ এ অনাবৃত অঙ্ক $2$টি ($25$) ও আবৃত অঙ্ক $2$টি ($74$)।`,
+              String.raw`$0.3\dot{6}1\dot{2}$ এ অনাবৃত অঙ্ক $1$টি ($3$) ও আবৃত অঙ্ক $3$টি ($612$)।`,
+              String.raw`অনাবৃত অঙ্কের সর্বোচ্চ সংখ্যা $2$ এবং আবৃত অঙ্ক $2$ ও $3$ এর ল.সা.গু. $6$।`,
+              String.raw`সুতরাং প্রত্যেকটির অনাবৃত অংশ $2$ অঙ্কের ও আবৃত অংশ $6$ অঙ্কের করতে হবে।`,
+              String.raw`$$1.25\dot{7}\dot{4}=1.25747474\dots=1.25\dot{7}4747\dot{4}$$`,
+              String.raw`$$0.3\dot{6}1\dot{2}=0.3612612612\dots=0.36\dot{1}2612\dot{6}$$`,
+            ],
+            answer: String.raw`$1.25\dot{7}4747\dot{4}$ এবং $0.36\dot{1}2612\dot{6}$`,
+          },
+        },
+      ],
+    },
+  ],
+};
 
 // ─────────────── অধ্যায় ২ · সেট ও ফাংশন ───────────────
 //
@@ -9240,6 +10672,7 @@ const exercise111: Exercise = {
               String.raw`$$\text{or, } x^{2}=2ab-b^{2}=b(2a-b)$$`,
               String.raw`$$\therefore\; x=\pm\sqrt{b(2a-b)}$$`,
               String.raw`$2a>b>0$ হওয়ায় $b(2a-b)>0$, তাই মান দুইটি বাস্তব।`,
+              String.raw`সমাধানের পথে দুইবার বর্গ করা হয়েছে, তাই মানটি মূল সমীকরণে বসিয়ে যাচাই করা দরকার — $b\le a$ হলে $x=\pm\sqrt{b(2a-b)}$ মূল সমীকরণ সিদ্ধ করে।`,
             ],
             answer: String.raw`$x=\pm\sqrt{b(2a-b)}$`,
           },
@@ -10274,8 +11707,1652 @@ $(iii)$ $\dfrac{a+b}{a-b}=\dfrac{c+a}{c-a}$
   ],
 };
 
+// অনুশীলনী ৫.১ — book pages ৯৯-১০১. The book groups the problems under three
+// instruction lines, so those are the headings used below.
+const EQ_SOLVE = "সমাধান করো (১ – ৮)";
+const EQ_SET = "সমাধান সেট নির্ণয় করো (৯ – ১৪)";
+const EQ_FORM = "সমীকরণ গঠন করে সমাধান করো (১৫ – ২৪)";
+
+const exercise51: Exercise = {
+  id: "5.1",
+  bnId: "অনুশীলনী ৫.১",
+  title: "একঘাত সমীকরণ",
+  bookPages: "৯৯ – ১০১",
+  formulas: [
+    {
+      title: "সমীকরণ, অভেদ ও ঘাত",
+      formulas: [
+        {
+          statement: String.raw`$$ax+b=0\qquad(a\neq 0)$$`,
+          note: String.raw`এক চলকবিশিষ্ট একঘাত সমীকরণের আদর্শ রূপ। চলকের সর্বোচ্চ ঘাতই সমীকরণের ঘাত, তাই এর ঘাত $1$ এবং মূলও একটিই।`,
+        },
+        {
+          statement: String.raw`$$(x+1)^{2}-(x-1)^{2}=4x$$`,
+          note: String.raw`এটি অভেদ — $x$-এর সব মানের জন্যই সত্য। সমীকরণ কেবল কয়েকটি নির্দিষ্ট মানের জন্য সত্য হয়; এখানেই দুইয়ের পার্থক্য। প্রত্যেক বীজগাণিতিক সূত্রই একেকটি অভেদ।`,
+        },
+        {
+          statement: String.raw`$$S=\{\,\alpha\,\}$$`,
+          note: String.raw`সমাধান সেট — মূলগুলোকে সেট আকারে লেখা। যে মান হরকে শূন্য করে দেয় সেটি মূল হিসেবে গ্রহণযোগ্য নয়; সব মান বাদ পড়লে $S=\emptyset$।`,
+        },
+      ],
+    },
+    {
+      title: "সমাধানের চারটি নিয়ম",
+      formulas: [
+        {
+          statement: String.raw`$$x=a\;\Rightarrow\;x+c=a+c,\qquad x-c=a-c$$`,
+          note: "উভয় পক্ষে একই রাশি যোগ বা বিয়োগ করলে পক্ষদ্বয় সমান থাকে।",
+        },
+        {
+          statement: String.raw`$$x=a\;\Rightarrow\;xc=ac,\qquad \frac{x}{c}=\frac{a}{c}\;(c\neq 0)$$`,
+          note: "উভয় পক্ষকে একই অশূন্য রাশি দিয়ে গুণ বা ভাগ করলেও পক্ষদ্বয় সমান থাকে।",
+        },
+        {
+          statement: String.raw`$$a=b+c\;\Rightarrow\;a-b=c$$`,
+          note: "পক্ষান্তর বিধি — কোনো পদ এক পক্ষ থেকে অন্য পক্ষে গেলে তার চিহ্ন বদলে যায়। উপরের নিয়ম দুইটির সংক্ষিপ্ত রূপ এটিই, আর সমাধানের বেশির ভাগ ধাপ এই একটি বিধিতেই চলে।",
+        },
+      ],
+    },
+    {
+      title: "ভগ্নাংশ সমীকরণে যে কৌশলগুলো লাগে",
+      formulas: [
+        {
+          statement: String.raw`$$\frac{p}{q}=\frac{r}{s}\;\Rightarrow\;ps=qr$$`,
+          note: "আড়গুণন। দুই পক্ষেই একটি করে ভগ্নাংশ থাকলে এক ধাপেই হর সরে যায়।",
+        },
+        {
+          statement: String.raw`$$\frac{p}{q}=\frac{p}{r},\;q\neq r\;\Rightarrow\;p=0$$`,
+          note: String.raw`দুই পক্ষের লব সমান অথচ হর অসমান — তখন লবটি শূন্য হওয়া ছাড়া উপায় নেই। $\frac{1}{x+1}+\frac{1}{x+4}=\frac{1}{x+2}+\frac{1}{x+3}$ ধরনের সমীকরণে সোজা এই কথাটিই খাটানো হয়।`,
+        },
+        {
+          statement: String.raw`$$\frac{x-a}{b}-1=\frac{x-a-b}{b}$$`,
+          note: String.raw`প্রতি পদ থেকে উপযুক্ত সংখ্যা বাদ দিয়ে (এবং সমতা রাখতে অন্য পদে তা ফিরিয়ে দিয়ে) সব পদে একই উৎপাদক আনা যায়; তখন সেই উৎপাদককেই শূন্য ধরে সমাধান মেলে।`,
+        },
+      ],
+    },
+    {
+      title: "বাস্তব সমস্যায় সমীকরণ গঠন",
+      formulas: [
+        {
+          statement: String.raw`$$\text{সংখ্যাটি}=10x+y,\qquad \text{স্থান বিনিময়ে}=10y+x$$`,
+          note: String.raw`দুই অঙ্কবিশিষ্ট সংখ্যার দশক স্থানীয় অঙ্ক $x$ ও একক স্থানীয় অঙ্ক $y$ হলে। অঙ্কদ্বয়ের সমষ্টি দেওয়া থাকলে একটিকে $x$ ধরে অন্যটিকে $(\text{সমষ্টি}-x)$ লিখে নিলে চলক একটিই থাকে।`,
+        },
+        {
+          statement: String.raw`$$\text{সময়}=\frac{\text{দূরত্ব}}{\text{বেগ}}$$`,
+          note: "গতিবিষয়ক সমস্যায় শর্তটি প্রায় সবসময় সময়ের উপর দেওয়া থাকে, তাই দূরত্বকে চলক ধরে সময়গুলো লিখে যোগ করাই সহজ পথ।",
+        },
+        {
+          statement: String.raw`$$\text{মুনাফা}=\frac{\text{মূলধন}\times\text{মুনাফার হার}\times\text{সময়}}{100}$$`,
+          note: String.raw`দুই ভিন্ন হারে বিনিয়োগ থাকলে একটি অংশকে $x$ ধরে অন্যটিকে $(\text{মোট}-x)$ লিখলে এক চলকেই সমীকরণ দাঁড়িয়ে যায়।`,
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১ — book page ৯৬.
+    {
+      id: 1,
+      question: String.raw`সমাধান করো: $$\frac{5x}{7}-\frac{4}{5}=\frac{x}{5}-\frac{2}{7}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{5x}{7}-\frac{4}{5}=\frac{x}{5}-\frac{2}{7}$$`,
+          String.raw`$$\text{or, }\frac{5x}{7}-\frac{x}{5}=\frac{4}{5}-\frac{2}{7}\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+          String.raw`$$\text{or, }\frac{25x-7x}{35}=\frac{28-10}{35}$$`,
+          String.raw`$$\text{or, }\frac{18x}{35}=\frac{18}{35}$$`,
+          String.raw`$$\text{or, }18x=18$$`,
+          String.raw`$$\therefore\; x=1$$`,
+        ],
+        answer: String.raw`$x=1$`,
+      },
+    },
+    // উদাহরণ ২ — book page ৯৬.
+    {
+      id: 2,
+      question: String.raw`সমাধান করো: $$(y-1)(y+2)=(y+4)(y-2)$$`,
+      solution: {
+        steps: [
+          String.raw`$$(y-1)(y+2)=(y+4)(y-2)$$`,
+          String.raw`$$\text{or, }y^{2}-y+2y-2=y^{2}+4y-2y-8$$`,
+          String.raw`$$\text{or, }y-2=2y-8\qquad\left[\,y^{2}\ \text{উভয় পক্ষ থেকে কাটা গেল}\,\right]$$`,
+          String.raw`$$\text{or, }y-2y=-8+2$$`,
+          String.raw`$$\text{or, }-y=-6$$`,
+          String.raw`$$\therefore\; y=6$$`,
+        ],
+        answer: String.raw`$y=6$`,
+      },
+    },
+    // উদাহরণ ৩ — book pages ৯৬-৯৭.
+    {
+      id: 3,
+      question: String.raw`সমাধান করো ও সমাধান সেট লিখ: $$\frac{6x+1}{15}-\frac{2x-4}{7x-1}=\frac{2x-1}{5}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{6x+1}{15}-\frac{2x-4}{7x-1}=\frac{2x-1}{5}$$`,
+          String.raw`$$\text{or, }\frac{6x+1}{15}-\frac{2x-1}{5}=\frac{2x-4}{7x-1}\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+          String.raw`$$\text{or, }\frac{6x+1-3(2x-1)}{15}=\frac{2x-4}{7x-1}$$`,
+          String.raw`$$\text{or, }\frac{6x+1-6x+3}{15}=\frac{2x-4}{7x-1}$$`,
+          String.raw`$$\text{or, }\frac{4}{15}=\frac{2x-4}{7x-1}$$`,
+          String.raw`$$\text{or, }15(2x-4)=4(7x-1)\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{or, }30x-60=28x-4$$`,
+          String.raw`$$\text{or, }30x-28x=60-4$$`,
+          String.raw`$$\text{or, }2x=56$$`,
+          String.raw`$$\therefore\; x=28$$`,
+        ],
+        answer: String.raw`$x=28$, সমাধান সেট $S=\{28\}$`,
+      },
+    },
+    // উদাহরণ ৪ — book page ৯৭.
+    {
+      id: 4,
+      question: String.raw`সমাধান করো: $$\frac{1}{x-3}+\frac{1}{x-4}=\frac{1}{x-2}+\frac{1}{x-5}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{1}{x-3}+\frac{1}{x-4}=\frac{1}{x-2}+\frac{1}{x-5}$$`,
+          String.raw`$$\text{or, }\frac{x-4+x-3}{(x-3)(x-4)}=\frac{x-5+x-2}{(x-2)(x-5)}$$`,
+          String.raw`$$\text{or, }\frac{2x-7}{x^{2}-7x+12}=\frac{2x-7}{x^{2}-7x+10}$$`,
+          String.raw`দুই পক্ষের লব সমান, কিন্তু হর অসমান। এক্ষেত্রে লবের মান একমাত্র শূন্য হলেই দুই পক্ষ সমান হবে।`,
+          String.raw`$$\therefore\; 2x-7=0$$`,
+          String.raw`$$\text{or, }2x=7$$`,
+          String.raw`$$\therefore\; x=\frac{7}{2}$$`,
+        ],
+        answer: String.raw`$x=\dfrac{7}{2}$`,
+      },
+    },
+    // উদাহরণ ৫ — book page ৯৮.
+    {
+      id: 5,
+      question: String.raw`দুই অঙ্কবিশিষ্ট কোনো সংখ্যার একক স্থানীয় অঙ্কটি দশক স্থানীয় অঙ্ক অপেক্ষা $2$ বেশি। অঙ্কদ্বয় স্থান বিনিময় করলে যে সংখ্যা পাওয়া যাবে তা প্রদত্ত সংখ্যার দ্বিগুণ অপেক্ষা $6$ কম হবে। সংখ্যাটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, দশক স্থানীয় অঙ্কটি $x$; অতএব একক স্থানীয় অঙ্কটি হবে $x+2$।`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=10x+(x+2)=11x+2$$`,
+          String.raw`$$\text{স্থান বিনিময়ে সংখ্যাটি}=10(x+2)+x=11x+20$$`,
+          String.raw`$$\text{প্রশ্নমতে, }11x+20=2(11x+2)-6$$`,
+          String.raw`$$\text{or, }11x+20=22x+4-6$$`,
+          String.raw`$$\text{or, }22x-11x=20+6-4\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+          String.raw`$$\text{or, }11x=22$$`,
+          String.raw`$$\therefore\; x=2$$`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=11x+2=11\times 2+2=24$$`,
+        ],
+        answer: String.raw`প্রদত্ত সংখ্যাটি $24$`,
+      },
+    },
+    // উদাহরণ ৬ — book page ৯৮.
+    {
+      id: 6,
+      question: String.raw`একটি শ্রেণির প্রতি বেঞ্চে $4$ জন করে ছাত্র বসালে $3$টি বেঞ্চ খালি থাকে। আবার, প্রতি বেঞ্চে $3$ জন করে ছাত্র বসালে $6$ জন ছাত্রকে দাঁড়িয়ে থাকতে হয়। ঐ শ্রেণির ছাত্র সংখ্যা কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, শ্রেণিটির ছাত্র সংখ্যা $x$।`,
+          String.raw`যেহেতু প্রতি বেঞ্চে $4$ জন করে বসালে $3$টি বেঞ্চ খালি থাকে, সেহেতু বেঞ্চের সংখ্যা $$=\frac{x}{4}+3$$`,
+          String.raw`আবার, যেহেতু প্রতি বেঞ্চে $3$ জন করে বসালে $6$ জনকে দাঁড়িয়ে থাকতে হয়, সেহেতু বেঞ্চের সংখ্যা $$=\frac{x-6}{3}$$`,
+          String.raw`যেহেতু শ্রেণির বেঞ্চের সংখ্যা একই থাকবে,`,
+          String.raw`$$\text{সুতরাং }\frac{x}{4}+3=\frac{x-6}{3}$$`,
+          String.raw`$$\text{or, }\frac{x+12}{4}=\frac{x-6}{3}$$`,
+          String.raw`$$\text{or, }3x+36=4x-24\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{or, }4x-3x=36+24$$`,
+          String.raw`$$\therefore\; x=60$$`,
+        ],
+        answer: String.raw`ঐ শ্রেণির ছাত্র সংখ্যা $60$`,
+      },
+    },
+    // উদাহরণ ৭ — book pages ৯৮-৯৯.
+    {
+      id: 7,
+      question: String.raw`কবির সাহেব তাঁর $56000$ টাকার কিছু টাকা বার্ষিক $12\%$ মুনাফায় ও বাকি টাকা বার্ষিক $10\%$ মুনাফায় বিনিয়োগ করলেন। এক বছর পর তিনি মোট $6400$ টাকা মুনাফা পেলেন। তিনি $12\%$ মুনাফায় কত টাকা বিনিয়োগ করেছেন?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, কবির সাহেব $12\%$ মুনাফায় $x$ টাকা বিনিয়োগ করেছেন।`,
+          String.raw`$\therefore$ তিনি $10\%$ মুনাফায় বিনিয়োগ করেছেন $(56000-x)$ টাকা।`,
+          String.raw`এখন, $x$ টাকার $1$ বছরের মুনাফা $$x\times\frac{12}{100}=\frac{12x}{100}\ \text{টাকা}$$`,
+          String.raw`আবার, $(56000-x)$ টাকার $1$ বছরের মুনাফা $$(56000-x)\times\frac{10}{100}=\frac{10(56000-x)}{100}\ \text{টাকা}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }\frac{12x}{100}+\frac{10(56000-x)}{100}=6400$$`,
+          String.raw`$$\text{or, }12x+560000-10x=640000$$`,
+          String.raw`$$\text{or, }2x=640000-560000$$`,
+          String.raw`$$\text{or, }2x=80000$$`,
+          String.raw`$$\therefore\; x=40000$$`,
+        ],
+        answer: String.raw`$12\%$ মুনাফায় $40000$ টাকা`,
+      },
+    },
+  ],
+  problems: [
+    // ─────────────── সমাধান করো (1 – 8) ───────────────
+    {
+      id: 1,
+      group: EQ_SOLVE,
+      question: String.raw`$$\frac{ay}{b}-\frac{by}{a}=a^{2}-b^{2}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{ay}{b}-\frac{by}{a}=a^{2}-b^{2}$$`,
+          String.raw`$$\text{or, }\frac{a^{2}y-b^{2}y}{ab}=a^{2}-b^{2}$$`,
+          String.raw`$$\text{or, }\frac{y\left(a^{2}-b^{2}\right)}{ab}=a^{2}-b^{2}$$`,
+          String.raw`$$\text{or, }y\left(a^{2}-b^{2}\right)=ab\left(a^{2}-b^{2}\right)$$`,
+          String.raw`$$\therefore\; y=ab\qquad\left[\,a^{2}-b^{2}\neq 0\ \text{ধরে উভয় পক্ষকে তা দিয়ে ভাগ করে}\,\right]$$`,
+        ],
+        answer: String.raw`$y=ab$`,
+      },
+    },
+    {
+      id: 2,
+      group: EQ_SOLVE,
+      question: String.raw`$$(z+1)(z-2)=(z-4)(z+2)$$`,
+      solution: {
+        steps: [
+          String.raw`$$(z+1)(z-2)=(z-4)(z+2)$$`,
+          String.raw`$$\text{or, }z^{2}-2z+z-2=z^{2}+2z-4z-8$$`,
+          String.raw`$$\text{or, }-z-2=-2z-8\qquad\left[\,z^{2}\ \text{উভয় পক্ষ থেকে কাটা গেল}\,\right]$$`,
+          String.raw`$$\text{or, }-z+2z=-8+2$$`,
+          String.raw`$$\therefore\; z=-6$$`,
+        ],
+        answer: String.raw`$z=-6$`,
+      },
+    },
+    {
+      id: 3,
+      group: EQ_SOLVE,
+      question: String.raw`$$\frac{4}{2x+1}+\frac{9}{3x+2}=\frac{25}{5x+4}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{4}{2x+1}+\frac{9}{3x+2}=\frac{25}{5x+4}$$`,
+          String.raw`$$\text{or, }\frac{4(3x+2)+9(2x+1)}{(2x+1)(3x+2)}=\frac{25}{5x+4}$$`,
+          String.raw`$$\text{or, }\frac{12x+8+18x+9}{6x^{2}+7x+2}=\frac{25}{5x+4}$$`,
+          String.raw`$$\text{or, }\frac{30x+17}{6x^{2}+7x+2}=\frac{25}{5x+4}$$`,
+          String.raw`$$\text{or, }(30x+17)(5x+4)=25\left(6x^{2}+7x+2\right)\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{or, }150x^{2}+205x+68=150x^{2}+175x+50$$`,
+          String.raw`$$\text{or, }205x-175x=50-68$$`,
+          String.raw`$$\text{or, }30x=-18$$`,
+          String.raw`$$\therefore\; x=-\frac{3}{5}$$`,
+        ],
+        answer: String.raw`$x=-\dfrac{3}{5}$`,
+      },
+    },
+    {
+      id: 4,
+      group: EQ_SOLVE,
+      question: String.raw`$$\frac{1}{x+1}+\frac{1}{x+4}=\frac{1}{x+2}+\frac{1}{x+3}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{1}{x+1}+\frac{1}{x+4}=\frac{1}{x+2}+\frac{1}{x+3}$$`,
+          String.raw`$$\text{or, }\frac{x+4+x+1}{(x+1)(x+4)}=\frac{x+3+x+2}{(x+2)(x+3)}$$`,
+          String.raw`$$\text{or, }\frac{2x+5}{x^{2}+5x+4}=\frac{2x+5}{x^{2}+5x+6}$$`,
+          String.raw`দুই পক্ষের লব সমান, কিন্তু হর অসমান। তাই লবের মান শূন্য হলেই কেবল দুই পক্ষ সমান হতে পারে।`,
+          String.raw`$$\therefore\; 2x+5=0$$`,
+          String.raw`$$\text{or, }2x=-5$$`,
+          String.raw`$$\therefore\; x=-\frac{5}{2}$$`,
+        ],
+        answer: String.raw`$x=-\dfrac{5}{2}$`,
+      },
+    },
+    {
+      id: 5,
+      group: EQ_SOLVE,
+      question: String.raw`$$\frac{a}{x-a}+\frac{b}{x-b}=\frac{a+b}{x-a-b}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{a}{x-a}+\frac{b}{x-b}=\frac{a+b}{x-a-b}$$`,
+          String.raw`$$\text{or, }\frac{a}{x-a}+\frac{b}{x-b}=\frac{a}{x-a-b}+\frac{b}{x-a-b}$$`,
+          String.raw`$$\text{or, }\frac{a}{x-a}-\frac{a}{x-a-b}+\frac{b}{x-b}-\frac{b}{x-a-b}=0$$`,
+          String.raw`$$\text{or, }\frac{a\{(x-a-b)-(x-a)\}}{(x-a)(x-a-b)}+\frac{b\{(x-a-b)-(x-b)\}}{(x-b)(x-a-b)}=0$$`,
+          String.raw`$$\text{or, }\frac{-ab}{(x-a)(x-a-b)}+\frac{-ab}{(x-b)(x-a-b)}=0$$`,
+          String.raw`$$\text{or, }\frac{-ab}{x-a-b}\left(\frac{1}{x-a}+\frac{1}{x-b}\right)=0$$`,
+          String.raw`$$\text{or, }\frac{1}{x-a}+\frac{1}{x-b}=0\qquad\left[\,ab\neq 0\ \text{ও}\ x-a-b\neq 0\,\right]$$`,
+          String.raw`$$\text{or, }\frac{x-b+x-a}{(x-a)(x-b)}=0$$`,
+          String.raw`$$\text{or, }2x-a-b=0$$`,
+          String.raw`$$\therefore\; x=\frac{a+b}{2}$$`,
+        ],
+        answer: String.raw`$x=\dfrac{a+b}{2}$`,
+      },
+    },
+    {
+      id: 6,
+      group: EQ_SOLVE,
+      question: String.raw`$$\frac{x-a}{b}+\frac{x-b}{a}+\frac{x-3a-3b}{a+b}=0$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{x-a}{b}+\frac{x-b}{a}+\frac{x-3a-3b}{a+b}=0$$`,
+          String.raw`প্রথম দুইটি পদ থেকে $1$ করে বিয়োগ করে তৃতীয় পদে $2$ যোগ করলে সমতা অক্ষুণ্ন থাকে।`,
+          String.raw`$$\text{or, }\left(\frac{x-a}{b}-1\right)+\left(\frac{x-b}{a}-1\right)+\left(\frac{x-3a-3b}{a+b}+2\right)=0$$`,
+          String.raw`$$\text{or, }\frac{x-a-b}{b}+\frac{x-b-a}{a}+\frac{x-3a-3b+2a+2b}{a+b}=0$$`,
+          String.raw`$$\text{or, }\frac{x-a-b}{b}+\frac{x-a-b}{a}+\frac{x-a-b}{a+b}=0$$`,
+          String.raw`$$\text{or, }(x-a-b)\left(\frac{1}{b}+\frac{1}{a}+\frac{1}{a+b}\right)=0$$`,
+          String.raw`$$\text{or, }x-a-b=0\qquad\left[\,\frac{1}{a}+\frac{1}{b}+\frac{1}{a+b}\neq 0\,\right]$$`,
+          String.raw`$$\therefore\; x=a+b$$`,
+        ],
+        answer: String.raw`$x=a+b$`,
+      },
+    },
+    {
+      id: 7,
+      group: EQ_SOLVE,
+      question: String.raw`$$\frac{x-a}{a^{2}-b^{2}}=\frac{x-b}{b^{2}-a^{2}}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{x-a}{a^{2}-b^{2}}=\frac{x-b}{b^{2}-a^{2}}$$`,
+          String.raw`$$\text{or, }\frac{x-a}{a^{2}-b^{2}}=\frac{x-b}{-\left(a^{2}-b^{2}\right)}\qquad\left[\,b^{2}-a^{2}=-\left(a^{2}-b^{2}\right)\,\right]$$`,
+          String.raw`$$\text{or, }\frac{x-a}{a^{2}-b^{2}}=-\frac{x-b}{a^{2}-b^{2}}$$`,
+          String.raw`$$\text{or, }x-a=-(x-b)\qquad\left[\,\text{উভয় পক্ষকে }a^{2}-b^{2}\text{ দিয়ে গুণ করে}\,\right]$$`,
+          String.raw`$$\text{or, }x-a=-x+b$$`,
+          String.raw`$$\text{or, }2x=a+b$$`,
+          String.raw`$$\therefore\; x=\frac{a+b}{2}$$`,
+        ],
+        answer: String.raw`$x=\dfrac{a+b}{2}$`,
+      },
+    },
+    {
+      id: 8,
+      group: EQ_SOLVE,
+      question: String.raw`$$\left(3+\sqrt{3}\right)z+2=5+3\sqrt{3}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\left(3+\sqrt{3}\right)z+2=5+3\sqrt{3}$$`,
+          String.raw`$$\text{or, }\left(3+\sqrt{3}\right)z=5+3\sqrt{3}-2$$`,
+          String.raw`$$\text{or, }\left(3+\sqrt{3}\right)z=3+3\sqrt{3}$$`,
+          String.raw`$$\text{or, }z=\frac{3\left(1+\sqrt{3}\right)}{3+\sqrt{3}}$$`,
+          String.raw`$$\text{or, }z=\frac{3\left(1+\sqrt{3}\right)}{\sqrt{3}\left(\sqrt{3}+1\right)}\qquad\left[\,3=\sqrt{3}\cdot\sqrt{3}\,\right]$$`,
+          String.raw`$$\text{or, }z=\frac{3}{\sqrt{3}}$$`,
+          String.raw`$$\therefore\; z=\sqrt{3}$$`,
+        ],
+        answer: String.raw`$z=\sqrt{3}$`,
+      },
+    },
+
+    // ─────────────── সমাধান সেট নির্ণয় করো (9 – 14) ───────────────
+    {
+      id: 9,
+      group: EQ_SET,
+      question: String.raw`$$2x+\sqrt{2}=3x-4-3\sqrt{2}$$`,
+      solution: {
+        steps: [
+          String.raw`$$2x+\sqrt{2}=3x-4-3\sqrt{2}$$`,
+          String.raw`$$\text{or, }2x-3x=-4-3\sqrt{2}-\sqrt{2}\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+          String.raw`$$\text{or, }-x=-4-4\sqrt{2}$$`,
+          String.raw`$$\therefore\; x=4+4\sqrt{2}$$`,
+        ],
+        answer: String.raw`$S=\left\{\,4+4\sqrt{2}\,\right\}$`,
+      },
+    },
+    {
+      id: 10,
+      group: EQ_SET,
+      question: String.raw`$$\frac{z-2}{z-1}=2-\frac{1}{z-1}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{z-2}{z-1}=2-\frac{1}{z-1}$$`,
+          String.raw`$$\text{or, }\frac{z-2}{z-1}=\frac{2(z-1)-1}{z-1}$$`,
+          String.raw`$$\text{or, }\frac{z-2}{z-1}=\frac{2z-3}{z-1}$$`,
+          String.raw`হর দুইটি একই, তাই লব দুইটি সমান হতে হবে।`,
+          String.raw`$$\text{or, }z-2=2z-3$$`,
+          String.raw`$$\text{or, }-z=-1$$`,
+          String.raw`$$\text{or, }z=1$$`,
+          String.raw`কিন্তু $z=1$ হলে $z-1=0$, অর্থাৎ সমীকরণের হরগুলো শূন্য হয়ে যায় এবং রাশিগুলো অর্থহীন হয়। তাই এই মানটি গ্রহণযোগ্য নয়।`,
+          String.raw`$\therefore$ সমীকরণটির কোনো সমাধান নেই।`,
+        ],
+        answer: String.raw`$S=\emptyset$ — সমীকরণটির কোনো সমাধান নেই`,
+      },
+    },
+    {
+      id: 11,
+      group: EQ_SET,
+      question: String.raw`$$\frac{1}{x}+\frac{1}{x+1}=\frac{2}{x-1}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{1}{x}+\frac{1}{x+1}=\frac{2}{x-1}$$`,
+          String.raw`$$\text{or, }\frac{x+1+x}{x(x+1)}=\frac{2}{x-1}$$`,
+          String.raw`$$\text{or, }\frac{2x+1}{x^{2}+x}=\frac{2}{x-1}$$`,
+          String.raw`$$\text{or, }(2x+1)(x-1)=2\left(x^{2}+x\right)\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{or, }2x^{2}-2x+x-1=2x^{2}+2x$$`,
+          String.raw`$$\text{or, }-x-1=2x$$`,
+          String.raw`$$\text{or, }-3x=1$$`,
+          String.raw`$$\therefore\; x=-\frac{1}{3}$$`,
+          String.raw`এই মানে $x$, $x+1$ ও $x-1$ কোনোটিই শূন্য নয়, তাই মানটি গ্রহণযোগ্য।`,
+        ],
+        answer: String.raw`$S=\left\{\,-\dfrac{1}{3}\,\right\}$`,
+      },
+    },
+    {
+      id: 12,
+      group: EQ_SET,
+      question: String.raw`$$\frac{m}{m-x}+\frac{n}{n-x}=\frac{m+n}{m+n-x}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{m}{m-x}+\frac{n}{n-x}=\frac{m+n}{m+n-x}$$`,
+          String.raw`$$\text{or, }\frac{m}{m-x}+\frac{n}{n-x}=\frac{m}{m+n-x}+\frac{n}{m+n-x}$$`,
+          String.raw`$$\text{or, }\frac{m}{m-x}-\frac{m}{m+n-x}+\frac{n}{n-x}-\frac{n}{m+n-x}=0$$`,
+          String.raw`$$\text{or, }\frac{m\{(m+n-x)-(m-x)\}}{(m-x)(m+n-x)}+\frac{n\{(m+n-x)-(n-x)\}}{(n-x)(m+n-x)}=0$$`,
+          String.raw`$$\text{or, }\frac{mn}{(m-x)(m+n-x)}+\frac{mn}{(n-x)(m+n-x)}=0$$`,
+          String.raw`$$\text{or, }\frac{mn}{m+n-x}\left(\frac{1}{m-x}+\frac{1}{n-x}\right)=0$$`,
+          String.raw`$$\text{or, }\frac{1}{m-x}+\frac{1}{n-x}=0\qquad\left[\,mn\neq 0\ \text{ও}\ m+n-x\neq 0\,\right]$$`,
+          String.raw`$$\text{or, }\frac{n-x+m-x}{(m-x)(n-x)}=0$$`,
+          String.raw`$$\text{or, }m+n-2x=0$$`,
+          String.raw`$$\therefore\; x=\frac{m+n}{2}$$`,
+        ],
+        answer: String.raw`$S=\left\{\,\dfrac{m+n}{2}\,\right\}$`,
+      },
+    },
+    {
+      id: 13,
+      group: EQ_SET,
+      question: String.raw`$$\frac{1}{x+2}+\frac{1}{x+5}=\frac{1}{x+3}+\frac{1}{x+4}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{1}{x+2}+\frac{1}{x+5}=\frac{1}{x+3}+\frac{1}{x+4}$$`,
+          String.raw`$$\text{or, }\frac{x+5+x+2}{(x+2)(x+5)}=\frac{x+4+x+3}{(x+3)(x+4)}$$`,
+          String.raw`$$\text{or, }\frac{2x+7}{x^{2}+7x+10}=\frac{2x+7}{x^{2}+7x+12}$$`,
+          String.raw`দুই পক্ষের লব সমান, কিন্তু হর অসমান। তাই লবের মান শূন্য হওয়া ছাড়া উপায় নেই।`,
+          String.raw`$$\therefore\; 2x+7=0$$`,
+          String.raw`$$\therefore\; x=-\frac{7}{2}$$`,
+        ],
+        answer: String.raw`$S=\left\{\,-\dfrac{7}{2}\,\right\}$`,
+      },
+    },
+    {
+      id: 14,
+      group: EQ_SET,
+      question: String.raw`$$\frac{2t-6}{9}+\frac{15-2t}{12-5t}=\frac{4t-15}{18}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{2t-6}{9}+\frac{15-2t}{12-5t}=\frac{4t-15}{18}$$`,
+          String.raw`উভয় পক্ষকে $18(12-5t)$ দিয়ে গুণ করি।`,
+          String.raw`$$\text{or, }2(2t-6)(12-5t)+18(15-2t)=(4t-15)(12-5t)$$`,
+          String.raw`$$\text{or, }2\left(-10t^{2}+54t-72\right)+270-36t=-20t^{2}+123t-180$$`,
+          String.raw`$$\text{or, }-20t^{2}+108t-144+270-36t=-20t^{2}+123t-180$$`,
+          String.raw`$$\text{or, }72t+126=123t-180\qquad\left[\,-20t^{2}\ \text{উভয় পক্ষ থেকে কাটা গেল}\,\right]$$`,
+          String.raw`$$\text{or, }123t-72t=126+180$$`,
+          String.raw`$$\text{or, }51t=306$$`,
+          String.raw`$$\therefore\; t=6$$`,
+          String.raw`$t=6$ হলে $12-5t=-18\neq 0$, তাই মানটি গ্রহণযোগ্য।`,
+        ],
+        answer: String.raw`$S=\{6\}$`,
+      },
+    },
+
+    // ─────────────── সমীকরণ গঠন করে সমাধান করো (15 – 24) ───────────────
+    {
+      id: 15,
+      group: EQ_FORM,
+      question: String.raw`একটি সংখ্যা অপর একটি সংখ্যার $\dfrac{2}{5}$ গুণ। সংখ্যা দুইটির সমষ্টি $98$ হলে, সংখ্যা দুইটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, বড় সংখ্যাটি $x$; অতএব অপর সংখ্যাটি $\dfrac{2x}{5}$।`,
+          String.raw`$$\text{প্রশ্নমতে, }x+\frac{2x}{5}=98$$`,
+          String.raw`$$\text{or, }\frac{5x+2x}{5}=98$$`,
+          String.raw`$$\text{or, }7x=490$$`,
+          String.raw`$$\therefore\; x=70$$`,
+          String.raw`$$\therefore\;\text{অপর সংখ্যাটি}=\frac{2\times 70}{5}=28$$`,
+        ],
+        answer: String.raw`সংখ্যা দুইটি $70$ ও $28$`,
+      },
+    },
+    {
+      id: 16,
+      group: EQ_FORM,
+      question: String.raw`একটি প্রকৃত ভগ্নাংশের লব ও হরের অন্তর $1$; লব থেকে $2$ বিয়োগ ও হরের সাথে $2$ যোগ করলে যে ভগ্নাংশ পাওয়া যাবে তা $\dfrac{1}{6}$ এর সমান। ভগ্নাংশটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`প্রকৃত ভগ্নাংশে হর লব অপেক্ষা বড়। মনে করি, লব $x$; অতএব হর $x+1$।`,
+          String.raw`$$\therefore\;\text{ভগ্নাংশটি}=\frac{x}{x+1}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }\frac{x-2}{(x+1)+2}=\frac{1}{6}$$`,
+          String.raw`$$\text{or, }\frac{x-2}{x+3}=\frac{1}{6}$$`,
+          String.raw`$$\text{or, }6(x-2)=x+3\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{or, }6x-12=x+3$$`,
+          String.raw`$$\text{or, }5x=15$$`,
+          String.raw`$$\therefore\; x=3$$`,
+          String.raw`$$\therefore\;\text{ভগ্নাংশটি}=\frac{3}{3+1}=\frac{3}{4}$$`,
+        ],
+        answer: String.raw`ভগ্নাংশটি $\dfrac{3}{4}$`,
+      },
+    },
+    {
+      id: 17,
+      group: EQ_FORM,
+      question: String.raw`দুই অঙ্কবিশিষ্ট একটি সংখ্যার অঙ্কদ্বয়ের সমষ্টি $9$; অঙ্ক দুইটি স্থান বিনিময় করলে যে সংখ্যা পাওয়া যাবে তা প্রদত্ত সংখ্যা হতে $45$ কম হবে। সংখ্যাটি কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, দশক স্থানীয় অঙ্কটি $x$; অতএব একক স্থানীয় অঙ্কটি $9-x$।`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=10x+(9-x)=9x+9$$`,
+          String.raw`$$\text{স্থান বিনিময়ে সংখ্যাটি}=10(9-x)+x=90-9x$$`,
+          String.raw`$$\text{প্রশ্নমতে, }90-9x=(9x+9)-45$$`,
+          String.raw`$$\text{or, }90-9x=9x-36$$`,
+          String.raw`$$\text{or, }-9x-9x=-36-90$$`,
+          String.raw`$$\text{or, }-18x=-126$$`,
+          String.raw`$$\therefore\; x=7$$`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=9\times 7+9=72$$`,
+          String.raw`পরীক্ষা: স্থান বিনিময়ে সংখ্যাটি $27$, আর $72-27=45$।`,
+        ],
+        answer: String.raw`সংখ্যাটি $72$`,
+      },
+    },
+    {
+      id: 18,
+      group: EQ_FORM,
+      question: String.raw`দুই অঙ্কবিশিষ্ট একটি সংখ্যার দশক স্থানীয় অঙ্ক একক স্থানীয় অঙ্কের দ্বিগুণ। দেখাও যে, সংখ্যাটি অঙ্কদ্বয়ের সমষ্টির সাতগুণ।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, একক স্থানীয় অঙ্কটি $x$; অতএব দশক স্থানীয় অঙ্কটি $2x$।`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=10\times 2x+x=20x+x=21x$$`,
+          String.raw`$$\text{আবার, অঙ্কদ্বয়ের সমষ্টি}=2x+x=3x$$`,
+          String.raw`$$\therefore\;\text{অঙ্কদ্বয়ের সমষ্টির সাতগুণ}=7\times 3x=21x$$`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=\text{অঙ্কদ্বয়ের সমষ্টির সাতগুণ}$$`,
+        ],
+        answer: String.raw`সংখ্যাটি $=21x=7(2x+x)$, অর্থাৎ অঙ্কদ্বয়ের সমষ্টির সাতগুণ (দেখানো হলো)`,
+      },
+    },
+    {
+      id: 19,
+      group: EQ_FORM,
+      question: String.raw`একজন ক্ষুদ্র ব্যবসায়ী $5600$ টাকা বিনিয়োগ করে এক বছর পর কিছু টাকার উপর $5\%$ এবং অবশিষ্ট টাকার উপর $4\%$ লাভ করলেন। মোট $256$ টাকা লাভ করলে, তিনি কত টাকার উপর $5\%$ লাভ করলেন?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, তিনি $x$ টাকার উপর $5\%$ লাভ করলেন; অতএব $(5600-x)$ টাকার উপর $4\%$ লাভ করলেন।`,
+          String.raw`$$x\ \text{টাকার লাভ}=\frac{5x}{100}\ \text{টাকা}$$`,
+          String.raw`$$(5600-x)\ \text{টাকার লাভ}=\frac{4(5600-x)}{100}\ \text{টাকা}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }\frac{5x}{100}+\frac{4(5600-x)}{100}=256$$`,
+          String.raw`$$\text{or, }5x+22400-4x=25600$$`,
+          String.raw`$$\text{or, }x=25600-22400$$`,
+          String.raw`$$\therefore\; x=3200$$`,
+        ],
+        answer: String.raw`$3200$ টাকার উপর $5\%$ লাভ করলেন`,
+      },
+    },
+    {
+      id: 20,
+      group: EQ_FORM,
+      question: String.raw`একটি বালিকা বিদ্যালয়ের একটি শ্রেণিকক্ষে প্রতি বেঞ্চে $6$ জন করে ছাত্রী বসালে $2$টি বেঞ্চ খালি থাকে। কিন্তু প্রতি বেঞ্চে $5$ জন করে ছাত্রী বসালে $6$ জন ছাত্রীকে দাঁড়িয়ে থাকতে হয়। ঐ শ্রেণির বেঞ্চের সংখ্যা নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, শ্রেণিকক্ষের বেঞ্চের সংখ্যা $x$।`,
+          String.raw`প্রতি বেঞ্চে $6$ জন করে বসালে $2$টি বেঞ্চ খালি থাকে, অর্থাৎ $(x-2)$টি বেঞ্চেই সবাই বসে যায়।`,
+          String.raw`$$\therefore\;\text{ছাত্রী সংখ্যা}=6(x-2)$$`,
+          String.raw`আবার, প্রতি বেঞ্চে $5$ জন করে বসালে $6$ জন দাঁড়িয়ে থাকে।`,
+          String.raw`$$\therefore\;\text{ছাত্রী সংখ্যা}=5x+6$$`,
+          String.raw`$$\text{প্রশ্নমতে, }6(x-2)=5x+6$$`,
+          String.raw`$$\text{or, }6x-12=5x+6$$`,
+          String.raw`$$\text{or, }6x-5x=6+12$$`,
+          String.raw`$$\therefore\; x=18$$`,
+          String.raw`পরীক্ষা: ছাত্রী সংখ্যা $6(18-2)=96$ এবং $5\times 18+6=96$।`,
+        ],
+        answer: String.raw`বেঞ্চের সংখ্যা $18$টি (ছাত্রী $96$ জন)`,
+      },
+    },
+    {
+      id: 21,
+      group: EQ_FORM,
+      question: String.raw`একটি লঞ্চে যাত্রী সংখ্যা $47$। মাথাপিছু কেবিনের ভাড়া ডেকের ভাড়ার দ্বিগুণ। ডেকের ভাড়া মাথাপিছু $30$ টাকা এবং মোট ভাড়া প্রাপ্তি $1680$ টাকা হলে, কেবিনের যাত্রী সংখ্যা কত?`,
+      solution: {
+        steps: [
+          String.raw`ডেকের ভাড়া মাথাপিছু $30$ টাকা, অতএব কেবিনের ভাড়া মাথাপিছু $2\times 30=60$ টাকা।`,
+          String.raw`মনে করি, কেবিনের যাত্রী সংখ্যা $x$; অতএব ডেকের যাত্রী সংখ্যা $(47-x)$।`,
+          String.raw`$$\text{প্রশ্নমতে, }60x+30(47-x)=1680$$`,
+          String.raw`$$\text{or, }60x+1410-30x=1680$$`,
+          String.raw`$$\text{or, }30x=1680-1410$$`,
+          String.raw`$$\text{or, }30x=270$$`,
+          String.raw`$$\therefore\; x=9$$`,
+        ],
+        answer: String.raw`কেবিনের যাত্রী সংখ্যা $9$ জন`,
+      },
+    },
+    {
+      id: 22,
+      group: EQ_FORM,
+      question: String.raw`মোট $120$টি পঁচিশ পয়সার মুদ্রা ও পঞ্চাশ পয়সার মুদ্রায় মোট $35$ টাকা হলে, কোন প্রকারের মুদ্রার সংখ্যা কয়টি?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, পঁচিশ পয়সার মুদ্রা $x$টি; অতএব পঞ্চাশ পয়সার মুদ্রা $(120-x)$টি।`,
+          String.raw`$$35\ \text{টাকা}=35\times 100=3500\ \text{পয়সা}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }25x+50(120-x)=3500$$`,
+          String.raw`$$\text{or, }25x+6000-50x=3500$$`,
+          String.raw`$$\text{or, }-25x=3500-6000$$`,
+          String.raw`$$\text{or, }-25x=-2500$$`,
+          String.raw`$$\therefore\; x=100$$`,
+          String.raw`$$\therefore\;\text{পঞ্চাশ পয়সার মুদ্রা}=120-100=20\ \text{টি}$$`,
+        ],
+        answer: String.raw`পঁচিশ পয়সার মুদ্রা $100$টি ও পঞ্চাশ পয়সার মুদ্রা $20$টি`,
+      },
+    },
+    {
+      id: 23,
+      group: EQ_FORM,
+      question: String.raw`একটি গাড়ি ঘণ্টায় $60$ কি.মি. বেগে কিছু পথ এবং ঘণ্টায় $40$ কি.মি. বেগে অবশিষ্ট পথ অতিক্রম করলো। গাড়িটি মোট $5$ ঘণ্টায় $240$ কি.মি. পথ অতিক্রম করলে, ঘণ্টায় $60$ কি.মি. বেগে কতদূর গিয়েছে?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, গাড়িটি ঘণ্টায় $60$ কি.মি. বেগে $x$ কি.মি. পথ গিয়েছে; অতএব ঘণ্টায় $40$ কি.মি. বেগে গিয়েছে $(240-x)$ কি.মি.।`,
+          String.raw`$$\text{প্রথম অংশে সময়}=\frac{x}{60}\ \text{ঘণ্টা},\qquad \text{দ্বিতীয় অংশে সময়}=\frac{240-x}{40}\ \text{ঘণ্টা}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }\frac{x}{60}+\frac{240-x}{40}=5$$`,
+          String.raw`$$\text{or, }2x+3(240-x)=600\qquad\left[\,\text{উভয় পক্ষকে }120\text{ দিয়ে গুণ করে}\,\right]$$`,
+          String.raw`$$\text{or, }2x+720-3x=600$$`,
+          String.raw`$$\text{or, }-x=-120$$`,
+          String.raw`$$\therefore\; x=120$$`,
+          String.raw`পরীক্ষা: $\dfrac{120}{60}+\dfrac{120}{40}=2+3=5$ ঘণ্টা।`,
+        ],
+        answer: String.raw`ঘণ্টায় $60$ কি.মি. বেগে $120$ কি.মি. পথ গিয়েছে`,
+      },
+    },
+    {
+      id: 24,
+      group: EQ_FORM,
+      question: String.raw`ঢাকার নিউমার্কেট থেকে গাবতলীর দূরত্ব $12$ কি.মি.। সজল নিউমার্কেট থেকে রিকশায় ঘণ্টায় $6$ কি.মি. বেগে এবং কাজল একই স্থান থেকে পায়ে হেঁটে ঘণ্টায় $4$ কি.মি. বেগে গাবতলীর দিকে রওনা হলো। সজল গাবতলী পৌঁছে সেখানে $30$ মিনিট বিশ্রাম নিয়ে আবার নিউমার্কেটের দিকে একই বেগে রওনা হলো। তারা নিউমার্কেট থেকে কতদূরে মিলিত হবে?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, তারা নিউমার্কেট থেকে $x$ কি.মি. দূরে মিলিত হলো।`,
+          String.raw`$$\text{কাজলের সময়}=\frac{x}{4}\ \text{ঘণ্টা}$$`,
+          String.raw`সজল প্রথমে $12$ কি.মি. গিয়ে গাবতলী পৌঁছেছে, সেখানে $30$ মিনিট অর্থাৎ $\dfrac{1}{2}$ ঘণ্টা বিশ্রাম নিয়েছে, তারপর ফিরতি পথে $(12-x)$ কি.মি. এসেছে।`,
+          String.raw`$$\text{সজলের সময়}=\frac{12}{6}+\frac{1}{2}+\frac{12-x}{6}\ \text{ঘণ্টা}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }\frac{x}{4}=2+\frac{1}{2}+\frac{12-x}{6}$$`,
+          String.raw`$$\text{or, }3x=30+2(12-x)\qquad\left[\,\text{উভয় পক্ষকে }12\text{ দিয়ে গুণ করে}\,\right]$$`,
+          String.raw`$$\text{or, }3x=30+24-2x$$`,
+          String.raw`$$\text{or, }5x=54$$`,
+          String.raw`$$\therefore\; x=10.8$$`,
+          String.raw`পরীক্ষা: কাজলের সময় $\dfrac{10.8}{4}=2.7$ ঘণ্টা; সজলের সময় $2+\dfrac{1}{2}+\dfrac{1.2}{6}=2.7$ ঘণ্টা।`,
+        ],
+        answer: String.raw`নিউমার্কেট থেকে $10.8$ কি.মি. দূরে`,
+      },
+    },
+  ],
+};
+
+// অনুশীলনী ৫.২ — book pages ১০৭-১০৯. Four instruction lines in the book, the
+// first of them a run of multiple-choice questions.
+const QUAD_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৫)";
+const QUAD_SOLVE = "সমাধান করো (৬ – ১২)";
+const QUAD_SET = "সমাধান সেট নির্ণয় করো (১৩ – ১৭)";
+const QUAD_FORM = "সমীকরণ গঠন করে সমাধান করো (১৮ – ২৬)";
+const MODEL5_MCQ = "নমুনা প্রশ্ন — বহুনির্বাচনি (২৭ – ৩০)";
+const MODEL5_CQ = "নমুনা প্রশ্ন — সৃজনশীল (৩১)";
+const MODEL5_SHORT = "নমুনা প্রশ্ন — সংক্ষিপ্ত-উত্তর (৩২)";
+
+const exercise52: Exercise = {
+  id: "5.2",
+  bnId: "অনুশীলনী ৫.২",
+  title: "দ্বিঘাত সমীকরণ",
+  bookPages: "১০৭ – ১১০",
+  formulas: [
+    {
+      title: "দ্বিঘাত সমীকরণ ও তার সমাধান",
+      formulas: [
+        {
+          statement: String.raw`$$ax^{2}+bx+c=0\qquad(a\neq 0)$$`,
+          note: String.raw`এক চলকবিশিষ্ট দ্বিঘাত সমীকরণের আদর্শ রূপ। চলকের সর্বোচ্চ ঘাত $2$, তাই মূলের সংখ্যাও $2$ — এরা সমান বা অসমান হতে পারে।`,
+        },
+        {
+          statement: String.raw`$$ab=0\;\Rightarrow\;a=0\;\text{বা}\;b=0$$`,
+          note: "শূন্য গুণফলের ধর্ম — এই অনুশীলনীর মূল চাবিকাঠি। আগে সব পদ এক পক্ষে এনে ডান পক্ষ শূন্য করো, তারপর বাম পক্ষকে উৎপাদকে বিশ্লেষণ করলে প্রতিটি উৎপাদক থেকে একেকটি মূল পাওয়া যায়।",
+        },
+        {
+          statement: String.raw`$$x^{2}-(a+b)x+ab=(x-a)(x-b)$$`,
+          note: String.raw`মধ্যপদ বিভাজন — যে দুইটি সংখ্যার গুণফল $ab$ ও সমষ্টি $a+b$, মধ্যপদকে সেই দুই ভাগে ভেঙে জোড়া বেঁধে উৎপাদক বের করা হয়।`,
+        },
+      ],
+    },
+    {
+      title: "যে অভেদগুলো বারবার লাগে",
+      formulas: [
+        {
+          statement: String.raw`$$a^{2}-b^{2}=(a+b)(a-b)$$`,
+        },
+        {
+          statement: String.raw`$$(a\pm b)^{2}=a^{2}\pm 2ab+b^{2}$$`,
+        },
+        {
+          statement: String.raw`$$a^{3}-b^{3}=(a-b)\left(a^{2}+ab+b^{2}\right)$$`,
+          note: String.raw`$(x+1)^{3}-(x-1)^{3}$ ধরনের লবকে এভাবে ভাঙলে ঘন সূচক নিজে থেকেই নেমে আসে (১৭ নং প্রশ্ন)।`,
+        },
+        {
+          statement: String.raw`$$\frac{p}{q}+\frac{q}{p}-2=\frac{(p-q)^{2}}{pq}$$`,
+          note: String.raw`$\frac{p}{q}+\frac{q}{p}$ আকারের দুই পক্ষ থেকেই $2$ বিয়োগ করলে সমীকরণটি হঠাৎ ছোট হয়ে যায় — ১২ নং প্রশ্নে ঠিক এটিই ঘটে।`,
+        },
+      ],
+    },
+    {
+      title: "মূল লেখা ও মূল বাছাই",
+      formulas: [
+        {
+          statement: String.raw`$$S=\{\,\alpha,\;\beta\,\}$$`,
+          note: String.raw`সমাধান সেট। দুইটি মূল সমান হলে সেটে একটিই উপাদান থাকে, যেমন $(x-1)^{2}=0$ হলে $S=\{1\}$।`,
+        },
+        {
+          statement: String.raw`$$\text{সংখ্যা, দৈর্ঘ্য, লোকসংখ্যা}\;\Rightarrow\;x>0$$`,
+          note: "বাস্তব সমস্যায় দ্বিঘাত সমীকরণ দুইটি মূলই দেয়, কিন্তু প্রসঙ্গের সঙ্গে না মিললে একটিকে বাদ দিতে হয় — কলমের সংখ্যা বা রাস্তার চওড়া ঋণাত্মক হতে পারে না।",
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ৮ — book page ১০২.
+    {
+      id: 8,
+      question: String.raw`সমাধান করো: $$(x+2)(x-3)=0$$`,
+      solution: {
+        steps: [
+          String.raw`$$(x+2)(x-3)=0$$`,
+          String.raw`$$\therefore\; x+2=0\ \text{অথবা}\ x-3=0\qquad\left[\,ab=0\Rightarrow a=0\ \text{বা}\ b=0\,\right]$$`,
+          String.raw`$$x+2=0\ \text{হলে},\ x=-2$$`,
+          String.raw`$$\text{আবার, }x-3=0\ \text{হলে},\ x=3$$`,
+        ],
+        answer: String.raw`$x=-2$ অথবা $x=3$`,
+      },
+    },
+    // উদাহরণ ৯ — book page ১০২.
+    {
+      id: 9,
+      question: String.raw`সমাধান সেট নির্ণয় করো: $$y^{2}=\sqrt{3}\,y$$`,
+      solution: {
+        steps: [
+          String.raw`$$y^{2}=\sqrt{3}\,y$$`,
+          String.raw`$$\text{or, }y^{2}-\sqrt{3}\,y=0\qquad\left[\,\text{পক্ষান্তর করে ডান পক্ষ শূন্য করা হয়েছে}\,\right]$$`,
+          String.raw`$$\text{or, }y\left(y-\sqrt{3}\right)=0$$`,
+          String.raw`$$\therefore\; y=0\ \text{অথবা}\ y-\sqrt{3}=0$$`,
+          String.raw`$$\text{আবার, }y-\sqrt{3}=0\ \text{হলে},\ y=\sqrt{3}$$`,
+        ],
+        answer: String.raw`সমাধান সেট $\left\{\,0,\;\sqrt{3}\,\right\}$`,
+      },
+    },
+    // উদাহরণ ১০ — book pages ১০২-১০৩.
+    {
+      id: 10,
+      question: String.raw`সমাধান করো ও সমাধান সেট লিখ: $$x-4=\frac{x-4}{x}$$`,
+      solution: {
+        steps: [
+          String.raw`$$x-4=\frac{x-4}{x}$$`,
+          String.raw`$$\text{or, }x(x-4)=x-4\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{or, }x(x-4)-(x-4)=0\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+          String.raw`$$\text{or, }(x-4)(x-1)=0$$`,
+          String.raw`$$\therefore\; x-4=0\ \text{অথবা}\ x-1=0$$`,
+          String.raw`$$x-4=0\ \text{হলে},\ x=4$$`,
+          String.raw`$$\text{আবার, }x-1=0\ \text{হলে},\ x=1$$`,
+        ],
+        answer: String.raw`সমাধান সেট $\{1,\,4\}$`,
+      },
+    },
+    // উদাহরণ ১১ — book page ১০৩.
+    {
+      id: 11,
+      question: String.raw`সমাধান করো: $$\left(\frac{x+a}{x-a}\right)^{2}-5\left(\frac{x+a}{x-a}\right)+6=0$$`,
+      solution: {
+        steps: [
+          String.raw`$$\left(\frac{x+a}{x-a}\right)^{2}-5\left(\frac{x+a}{x-a}\right)+6=0\qquad\cdots(1)$$`,
+          String.raw`$$\text{ধরি, }\frac{x+a}{x-a}=y$$`,
+          String.raw`$$\therefore\;(1)\ \text{হতে পাই, }y^{2}-5y+6=0$$`,
+          String.raw`$$\text{or, }y^{2}-2y-3y+6=0$$`,
+          String.raw`$$\text{or, }y(y-2)-3(y-2)=0$$`,
+          String.raw`$$\text{or, }(y-2)(y-3)=0$$`,
+          String.raw`$$\therefore\; y=2\ \text{অথবা}\ y=3$$`,
+          String.raw`$$\text{এখন, }y=2\ \text{হলে, }\frac{x+a}{x-a}=\frac{2}{1}$$`,
+          String.raw`$$\text{or, }x+a=2(x-a)\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{or, }x+a=2x-2a$$`,
+          String.raw`$$\text{or, }2x-x=a+2a$$`,
+          String.raw`$$\therefore\; x=3a$$`,
+          String.raw`$$\text{আবার, }y=3\ \text{হলে, }\frac{x+a}{x-a}=\frac{3}{1}$$`,
+          String.raw`$$\text{or, }x+a=3(x-a)$$`,
+          String.raw`$$\text{or, }x+a=3x-3a$$`,
+          String.raw`$$\text{or, }3x-x=a+3a$$`,
+          String.raw`$$\therefore\; x=2a$$`,
+        ],
+        answer: String.raw`$x=2a$ অথবা $x=3a$`,
+      },
+    },
+    // উদাহরণ ১২ — book page ১০৪.
+    {
+      id: 12,
+      question: String.raw`একটি প্রকৃত ভগ্নাংশের হর, লব অপেক্ষা $4$ বেশি। ভগ্নাংশটি বর্গ করলে যে ভগ্নাংশ পাওয়া যাবে তার হর, লব অপেক্ষা $40$ বেশি হবে। ভগ্নাংশটি নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`ধরি, ভগ্নাংশটির লব $x$ এবং হর $x+4$।`,
+          String.raw`$$\text{সুতরাং ভগ্নাংশটি}=\frac{x}{x+4}$$`,
+          String.raw`$$\text{ভগ্নাংশটির বর্গ}=\left(\frac{x}{x+4}\right)^{2}=\frac{x^{2}}{(x+4)^{2}}=\frac{x^{2}}{x^{2}+8x+16}$$`,
+          String.raw`$$\text{এখানে, লব}=x^{2}\ \text{এবং হর}=x^{2}+8x+16$$`,
+          String.raw`$$\text{প্রশ্নমতে, }x^{2}+8x+16=x^{2}+40$$`,
+          String.raw`$$\text{or, }8x+16=40$$`,
+          String.raw`$$\text{or, }8x=24$$`,
+          String.raw`$$\therefore\; x=3$$`,
+          String.raw`$$\therefore\; x+4=3+4=7$$`,
+          String.raw`$$\therefore\;\frac{x}{x+4}=\frac{3}{7}$$`,
+        ],
+        answer: String.raw`ভগ্নাংশটি $\dfrac{3}{7}$`,
+      },
+    },
+    // উদাহরণ ১৩ — book pages ১০৪-১০৫.
+    {
+      id: 13,
+      figure: "52-ex13",
+      question: String.raw`$50$ মিটার দৈর্ঘ্য এবং $40$ মিটার প্রস্থবিশিষ্ট একটি আয়তাকার বাগানের ভিতরের চারদিকে সমান চওড়া একটি রাস্তা আছে। রাস্তা বাদে বাগানের ক্ষেত্রফল $1200$ বর্গমিটার হলে, রাস্তাটি কত মিটার চওড়া?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, রাস্তাটি $x$ মিটার চওড়া।`,
+          String.raw`রাস্তা বাদে বাগানটির দৈর্ঘ্য $(50-2x)$ মিটার এবং প্রস্থ $(40-2x)$ মিটার।`,
+          String.raw`$$\therefore\;\text{রাস্তা বাদে বাগানটির ক্ষেত্রফল}=(50-2x)(40-2x)\ \text{বর্গমিটার}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }(50-2x)(40-2x)=1200$$`,
+          String.raw`$$\text{or, }2000-100x-80x+4x^{2}=1200$$`,
+          String.raw`$$\text{or, }4x^{2}-180x+800=0$$`,
+          String.raw`$$\text{or, }x^{2}-45x+200=0\qquad\left[\,4\ \text{দিয়ে ভাগ করে}\,\right]$$`,
+          String.raw`$$\text{or, }x^{2}-5x-40x+200=0$$`,
+          String.raw`$$\text{or, }x(x-5)-40(x-5)=0$$`,
+          String.raw`$$\text{or, }(x-5)(x-40)=0$$`,
+          String.raw`$$\therefore\; x=5\ \text{অথবা}\ x=40$$`,
+          String.raw`কিন্তু রাস্তাটি বাগানের প্রস্থ $40$ মিটার থেকে কম চওড়া হবে।`,
+          String.raw`$$\therefore\; x\neq 40;\quad\therefore\; x=5$$`,
+        ],
+        answer: String.raw`রাস্তাটি $5$ মিটার চওড়া`,
+      },
+    },
+    // উদাহরণ ১৪ — book pages ১০৫-১০৬.
+    {
+      id: 14,
+      question: String.raw`শাহিক $240$ টাকায় কতগুলো কলম কিনল। সে যদি ঐ টাকায় একটি কলম বেশি পেতো তবে প্রতিটি কলমের দাম গড়ে $1$ টাকা কম পড়তো। সে কতগুলো কলম কিনল?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, শাহিক $240$ টাকায় মোট $x$টি কলম কিনেছিল। এতে প্রতিটি কলমের দাম পড়ে $\dfrac{240}{x}$ টাকা।`,
+          String.raw`সে যদি $240$ টাকায় $(x+1)$টি কলম পেতো তবে প্রতিটি কলমের দাম পড়তো $\dfrac{240}{x+1}$ টাকা।`,
+          String.raw`$$\text{প্রশ্নমতে, }\frac{240}{x+1}=\frac{240}{x}-1$$`,
+          String.raw`$$\text{or, }\frac{240}{x+1}=\frac{240-x}{x}$$`,
+          String.raw`$$\text{or, }240x=(x+1)(240-x)\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+          String.raw`$$\text{or, }240x=240x+240-x^{2}-x$$`,
+          String.raw`$$\text{or, }x^{2}+x-240=0\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+          String.raw`$$\text{or, }x^{2}+16x-15x-240=0$$`,
+          String.raw`$$\text{or, }x(x+16)-15(x+16)=0$$`,
+          String.raw`$$\text{or, }(x+16)(x-15)=0$$`,
+          String.raw`$$\therefore\; x=-16\ \text{অথবা}\ x=15$$`,
+          String.raw`কিন্তু কলমের সংখ্যা $x$ ঋণাত্মক হতে পারে না।`,
+          String.raw`$$\therefore\; x\neq -16;\quad\therefore\; x=15$$`,
+        ],
+        answer: String.raw`শাহিক $15$টি কলম কিনেছিল`,
+      },
+    },
+    // উদাহরণ ১৫ — book pages ১০৬-১০৭.
+    {
+      id: 15,
+      question: String.raw`একটি বিদ্যালয়ের নবম শ্রেণির একটি পরীক্ষায় $x$ জন ছাত্রের গণিতে প্রাপ্ত মোট নম্বর $1950$। একই পরীক্ষায় অন্য একজন নতুন ছাত্রের গণিতে প্রাপ্ত নম্বর $34$ যোগ করায় প্রাপ্ত নম্বরের গড় $1$ কমে গেল।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`পৃথকভাবে $x$ জন ছাত্রের এবং নতুন ছাত্রসহ সকলের প্রাপ্ত নম্বরের গড় $x$ এর মাধ্যমে লেখ।`,
+          solution: {
+            steps: [
+              String.raw`$$x\ \text{জন ছাত্রের প্রাপ্ত নম্বরের গড়}=\frac{1950}{x}$$`,
+              String.raw`$$\text{নতুন ছাত্রের নম্বরসহ }(x+1)\ \text{জন ছাত্রের গড়}=\frac{1950+34}{x+1}=\frac{1984}{x+1}$$`,
+            ],
+            answer: String.raw`$\dfrac{1950}{x}$ এবং $\dfrac{1984}{x+1}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`প্রদত্ত শর্তানুসারে সমীকরণ গঠন করে দেখাও যে, $x^{2}+35x-1950=0$`,
+          solution: {
+            steps: [
+              String.raw`নতুন ছাত্র যোগ হওয়ায় গড় $1$ কমে গেছে, অর্থাৎ আগের গড় নতুন গড় অপেক্ষা $1$ বেশি।`,
+              String.raw`$$\text{প্রশ্নমতে, }\frac{1950}{x}=\frac{1984}{x+1}+1$$`,
+              String.raw`$$\text{or, }\frac{1950}{x}-\frac{1984}{x+1}=1\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+              String.raw`$$\text{or, }\frac{1950x+1950-1984x}{x(x+1)}=1$$`,
+              String.raw`$$\text{or, }x^{2}+x=1950x-1984x+1950\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+              String.raw`$$\text{or, }x^{2}+x=1950-34x$$`,
+              String.raw`$$\therefore\; x^{2}+35x-1950=0\qquad\left[\,\text{দেখানো হলো}\,\right]$$`,
+            ],
+            answer: String.raw`$x^{2}+35x-1950=0$ (দেখানো হলো)`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$x$ এর মান বের করে উভয় ক্ষেত্রে নম্বরের গড় কত তা নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$x^{2}+35x-1950=0$$`,
+              String.raw`$$\text{or, }x^{2}+65x-30x-1950=0$$`,
+              String.raw`$$\text{or, }x(x+65)-30(x+65)=0$$`,
+              String.raw`$$\text{or, }(x+65)(x-30)=0$$`,
+              String.raw`$$\therefore\; x+65=0\ \text{অথবা}\ x-30=0$$`,
+              String.raw`$$x+65=0\ \text{হলে},\ x=-65$$`,
+              String.raw`$$\text{আবার, }x-30=0\ \text{হলে},\ x=30$$`,
+              String.raw`যেহেতু ছাত্রের সংখ্যা $x$ ঋণাত্মক হতে পারে না, সুতরাং $x\neq -65$।`,
+              String.raw`$$\therefore\; x=30$$`,
+              String.raw`$$\therefore\;\text{প্রথম ক্ষেত্রে গড়}=\frac{1950}{30}=65\quad\text{এবং দ্বিতীয় ক্ষেত্রে গড়}=\frac{1984}{31}=64$$`,
+            ],
+            answer: String.raw`$x=30$; গড় যথাক্রমে $65$ ও $64$`,
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    // ─────────────── বহুনির্বাচনি (1 – 5) ───────────────
+    {
+      id: 1,
+      group: QUAD_MCQ,
+      question: String.raw`$x$ কে চলক ধরে $a^{2}x+b=0$ সমীকরণটির ঘাত নিচের কোনটি?
+ক) $3$  খ) $2$  গ) $1$  ঘ) $0$`,
+      solution: {
+        steps: [
+          String.raw`সমীকরণের ঘাত মানে চলকের সর্বোচ্চ ঘাত। এখানে চলক $x$, আর $a$ ও $b$ ধ্রুবক।`,
+          String.raw`$$a^{2}x+b=0\ \text{-এ}\ x\ \text{-এর সর্বোচ্চ ঘাত}=1$$`,
+          String.raw`$a^{2}$-এর ঘাত $2$ হলেও $a$ চলক নয়, তাই তা সমীকরণের ঘাত নির্ধারণ করে না।`,
+        ],
+        answer: String.raw`গ) $1$`,
+      },
+    },
+    {
+      id: 2,
+      group: QUAD_MCQ,
+      question: String.raw`নিচের কোনটি অভেদ?
+ক) $(x+1)^{2}+(x-1)^{2}=4x$
+খ) $(x+1)^{2}+(x-1)^{2}=2\left(x^{2}+1\right)$
+গ) $(a+b)^{2}+(a-b)^{2}=2ab$
+ঘ) $(a-b)^{2}=a^{2}+2ab+b^{2}$`,
+      solution: {
+        steps: [
+          String.raw`$$(x+1)^{2}+(x-1)^{2}=\left(x^{2}+2x+1\right)+\left(x^{2}-2x+1\right)$$`,
+          String.raw`$$=2x^{2}+2=2\left(x^{2}+1\right)$$`,
+          String.raw`এটি $x$-এর সব মানের জন্যই সত্য, তাই খ) একটি অভেদ।`,
+          String.raw`ক) ভুল, কারণ বাম পক্ষ $2\left(x^{2}+1\right)$, যা $4x$-এর সমান নয়।`,
+          String.raw`গ) ভুল, কারণ $(a+b)^{2}+(a-b)^{2}=2\left(a^{2}+b^{2}\right)$।`,
+          String.raw`ঘ) ভুল, কারণ $(a-b)^{2}=a^{2}-2ab+b^{2}$।`,
+        ],
+        answer: String.raw`খ) $(x+1)^{2}+(x-1)^{2}=2\left(x^{2}+1\right)$`,
+      },
+    },
+    {
+      id: 3,
+      group: QUAD_MCQ,
+      question: String.raw`$x^{2}-x-12=0$ সমীকরণের মূলদ্বয় নিচের কোনটি?
+ক) $3,\,4$  খ) $3,\,-4$  গ) $-3,\,4$  ঘ) $-3,\,-4$`,
+      solution: {
+        steps: [
+          String.raw`$$x^{2}-x-12=0$$`,
+          String.raw`$$\text{or, }x^{2}-4x+3x-12=0$$`,
+          String.raw`$$\text{or, }x(x-4)+3(x-4)=0$$`,
+          String.raw`$$\text{or, }(x-4)(x+3)=0$$`,
+          String.raw`$$\therefore\; x=4\ \text{অথবা}\ x=-3$$`,
+        ],
+        answer: String.raw`গ) $-3,\,4$`,
+      },
+    },
+    {
+      id: 4,
+      group: QUAD_MCQ,
+      question: String.raw`$3x^{2}-x+5=0$ সমীকরণে $x$ এর সহগ কত?
+ক) $3$  খ) $2$  গ) $1$  ঘ) $-1$`,
+      solution: {
+        steps: [
+          String.raw`$$3x^{2}-x+5=3x^{2}+(-1)\cdot x+5$$`,
+          String.raw`$ax^{2}+bx+c=0$ এর সঙ্গে তুলনা করে পাই $a=3$, $b=-1$, $c=5$।`,
+          String.raw`$$\therefore\; x\ \text{-এর সহগ}=-1$$`,
+        ],
+        answer: String.raw`ঘ) $-1$`,
+      },
+    },
+    {
+      id: 5,
+      group: QUAD_MCQ,
+      question: String.raw`$x^{2}-(a+b)x+ab=0$ সমীকরণের সমাধান সেট নিচের কোনটি?
+ক) $\{a,\,b\}$  খ) $\{a,\,-b\}$  গ) $\{-a,\,b\}$  ঘ) $\{-a,\,-b\}$`,
+      solution: {
+        steps: [
+          String.raw`$$x^{2}-(a+b)x+ab=0$$`,
+          String.raw`$$\text{or, }x^{2}-ax-bx+ab=0$$`,
+          String.raw`$$\text{or, }x(x-a)-b(x-a)=0$$`,
+          String.raw`$$\text{or, }(x-a)(x-b)=0$$`,
+          String.raw`$$\therefore\; x=a\ \text{অথবা}\ x=b$$`,
+        ],
+        answer: String.raw`ক) $\{a,\,b\}$`,
+      },
+    },
+
+    // ─────────────── সমাধান করো (6 – 12) ───────────────
+    {
+      id: 6,
+      group: QUAD_SOLVE,
+      question: String.raw`$$(y+5)(y-5)=24$$`,
+      solution: {
+        steps: [
+          String.raw`$$(y+5)(y-5)=24$$`,
+          String.raw`$$\text{or, }y^{2}-25=24\qquad\left[\,a^{2}-b^{2}=(a+b)(a-b)\,\right]$$`,
+          String.raw`$$\text{or, }y^{2}-49=0$$`,
+          String.raw`$$\text{or, }(y+7)(y-7)=0$$`,
+          String.raw`$$\therefore\; y+7=0\ \text{অথবা}\ y-7=0$$`,
+          String.raw`$$\therefore\; y=-7\ \text{অথবা}\ y=7$$`,
+        ],
+        answer: String.raw`$y=7$ অথবা $y=-7$`,
+      },
+    },
+    {
+      id: 7,
+      group: QUAD_SOLVE,
+      question: String.raw`$$\left(\sqrt{2}\,x+3\right)\left(\sqrt{3}\,x-2\right)=0$$`,
+      solution: {
+        steps: [
+          String.raw`$$\left(\sqrt{2}\,x+3\right)\left(\sqrt{3}\,x-2\right)=0$$`,
+          String.raw`$$\therefore\;\sqrt{2}\,x+3=0\ \text{অথবা}\ \sqrt{3}\,x-2=0$$`,
+          String.raw`$$\sqrt{2}\,x+3=0\ \text{হলে},\ \sqrt{2}\,x=-3$$`,
+          String.raw`$$\therefore\; x=-\frac{3}{\sqrt{2}}=-\frac{3\sqrt{2}}{2}$$`,
+          String.raw`$$\text{আবার, }\sqrt{3}\,x-2=0\ \text{হলে},\ \sqrt{3}\,x=2$$`,
+          String.raw`$$\therefore\; x=\frac{2}{\sqrt{3}}=\frac{2\sqrt{3}}{3}$$`,
+        ],
+        answer: String.raw`$x=-\dfrac{3\sqrt{2}}{2}$ অথবা $x=\dfrac{2\sqrt{3}}{3}$`,
+      },
+    },
+    {
+      id: 8,
+      group: QUAD_SOLVE,
+      question: String.raw`$$2\left(z^{2}-9\right)+9z=0$$`,
+      solution: {
+        steps: [
+          String.raw`$$2\left(z^{2}-9\right)+9z=0$$`,
+          String.raw`$$\text{or, }2z^{2}-18+9z=0$$`,
+          String.raw`$$\text{or, }2z^{2}+9z-18=0$$`,
+          String.raw`$$\text{or, }2z^{2}+12z-3z-18=0$$`,
+          String.raw`$$\text{or, }2z(z+6)-3(z+6)=0$$`,
+          String.raw`$$\text{or, }(z+6)(2z-3)=0$$`,
+          String.raw`$$\therefore\; z+6=0\ \text{অথবা}\ 2z-3=0$$`,
+          String.raw`$$\therefore\; z=-6\ \text{অথবা}\ z=\frac{3}{2}$$`,
+        ],
+        answer: String.raw`$z=-6$ অথবা $z=\dfrac{3}{2}$`,
+      },
+    },
+    {
+      id: 9,
+      group: QUAD_SOLVE,
+      question: String.raw`$$\frac{3}{2z+1}+\frac{4}{5z-1}=2$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{3}{2z+1}+\frac{4}{5z-1}=2$$`,
+          String.raw`$$\text{or, }\frac{3(5z-1)+4(2z+1)}{(2z+1)(5z-1)}=2$$`,
+          String.raw`$$\text{or, }\frac{15z-3+8z+4}{10z^{2}+3z-1}=2$$`,
+          String.raw`$$\text{or, }23z+1=2\left(10z^{2}+3z-1\right)$$`,
+          String.raw`$$\text{or, }23z+1=20z^{2}+6z-2$$`,
+          String.raw`$$\text{or, }20z^{2}-17z-3=0$$`,
+          String.raw`$$\text{or, }20z^{2}-20z+3z-3=0$$`,
+          String.raw`$$\text{or, }20z(z-1)+3(z-1)=0$$`,
+          String.raw`$$\text{or, }(z-1)(20z+3)=0$$`,
+          String.raw`$$\therefore\; z=1\ \text{অথবা}\ z=-\frac{3}{20}$$`,
+        ],
+        answer: String.raw`$z=1$ অথবা $z=-\dfrac{3}{20}$`,
+      },
+    },
+    {
+      id: 10,
+      group: QUAD_SOLVE,
+      question: String.raw`$$\frac{x-2}{x+2}+\frac{6(x-2)}{x-6}=1$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{x-2}{x+2}+\frac{6(x-2)}{x-6}=1$$`,
+          String.raw`উভয় পক্ষকে $(x+2)(x-6)$ দিয়ে গুণ করি।`,
+          String.raw`$$\text{or, }(x-2)(x-6)+6(x-2)(x+2)=(x+2)(x-6)$$`,
+          String.raw`$$\text{or, }x^{2}-8x+12+6\left(x^{2}-4\right)=x^{2}-4x-12$$`,
+          String.raw`$$\text{or, }x^{2}-8x+12+6x^{2}-24=x^{2}-4x-12$$`,
+          String.raw`$$\text{or, }7x^{2}-8x-12=x^{2}-4x-12$$`,
+          String.raw`$$\text{or, }6x^{2}-4x=0$$`,
+          String.raw`$$\text{or, }2x(3x-2)=0$$`,
+          String.raw`$$\therefore\; x=0\ \text{অথবা}\ x=\frac{2}{3}$$`,
+          String.raw`দুইটি মানেই $x+2$ ও $x-6$ শূন্য নয়, তাই দুইটিই গ্রহণযোগ্য।`,
+        ],
+        answer: String.raw`$x=0$ অথবা $x=\dfrac{2}{3}$`,
+      },
+    },
+    {
+      id: 11,
+      group: QUAD_SOLVE,
+      question: String.raw`$$\frac{x}{a}+\frac{a}{x}=\frac{x}{b}+\frac{b}{x}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{x}{a}+\frac{a}{x}=\frac{x}{b}+\frac{b}{x}$$`,
+          String.raw`$$\text{or, }\frac{x}{a}-\frac{x}{b}=\frac{b}{x}-\frac{a}{x}\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+          String.raw`$$\text{or, }x\left(\frac{b-a}{ab}\right)=\frac{b-a}{x}$$`,
+          String.raw`$$\text{or, }\frac{x}{ab}=\frac{1}{x}\qquad\left[\,a\neq b\ \text{তাই}\ b-a\neq 0\,\right]$$`,
+          String.raw`$$\text{or, }x^{2}=ab$$`,
+          String.raw`$$\therefore\; x=\pm\sqrt{ab}$$`,
+        ],
+        answer: String.raw`$x=\sqrt{ab}$ অথবা $x=-\sqrt{ab}$`,
+      },
+    },
+    {
+      id: 12,
+      group: QUAD_SOLVE,
+      question: String.raw`$$\frac{x-a}{x-b}+\frac{x-b}{x-a}=\frac{a}{b}+\frac{b}{a}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{x-a}{x-b}+\frac{x-b}{x-a}=\frac{a}{b}+\frac{b}{a}$$`,
+          String.raw`উভয় পক্ষ থেকে $2$ বিয়োগ করি।`,
+          String.raw`$$\text{or, }\frac{x-a}{x-b}+\frac{x-b}{x-a}-2=\frac{a}{b}+\frac{b}{a}-2$$`,
+          String.raw`$$\text{or, }\frac{\{(x-a)-(x-b)\}^{2}}{(x-a)(x-b)}=\frac{(a-b)^{2}}{ab}\qquad\left[\,\frac{p}{q}+\frac{q}{p}-2=\frac{(p-q)^{2}}{pq}\,\right]$$`,
+          String.raw`$$\text{or, }\frac{(b-a)^{2}}{(x-a)(x-b)}=\frac{(a-b)^{2}}{ab}$$`,
+          String.raw`$$\text{or, }\frac{1}{(x-a)(x-b)}=\frac{1}{ab}\qquad\left[\,(b-a)^{2}=(a-b)^{2}\neq 0\,\right]$$`,
+          String.raw`$$\text{or, }(x-a)(x-b)=ab$$`,
+          String.raw`$$\text{or, }x^{2}-(a+b)x+ab=ab$$`,
+          String.raw`$$\text{or, }x^{2}-(a+b)x=0$$`,
+          String.raw`$$\text{or, }x\{x-(a+b)\}=0$$`,
+          String.raw`$$\therefore\; x=0\ \text{অথবা}\ x=a+b$$`,
+        ],
+        answer: String.raw`$x=0$ অথবা $x=a+b$`,
+      },
+    },
+
+    // ─────────────── সমাধান সেট নির্ণয় করো (13 – 17) ───────────────
+    {
+      id: 13,
+      group: QUAD_SET,
+      question: String.raw`$$\frac{3}{x}+\frac{4}{x+1}=2$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{3}{x}+\frac{4}{x+1}=2$$`,
+          String.raw`$$\text{or, }\frac{3(x+1)+4x}{x(x+1)}=2$$`,
+          String.raw`$$\text{or, }\frac{7x+3}{x^{2}+x}=2$$`,
+          String.raw`$$\text{or, }7x+3=2x^{2}+2x$$`,
+          String.raw`$$\text{or, }2x^{2}-5x-3=0$$`,
+          String.raw`$$\text{or, }2x^{2}-6x+x-3=0$$`,
+          String.raw`$$\text{or, }2x(x-3)+1(x-3)=0$$`,
+          String.raw`$$\text{or, }(x-3)(2x+1)=0$$`,
+          String.raw`$$\therefore\; x=3\ \text{অথবা}\ x=-\frac{1}{2}$$`,
+        ],
+        answer: String.raw`$S=\left\{\,3,\;-\dfrac{1}{2}\,\right\}$`,
+      },
+    },
+    {
+      id: 14,
+      group: QUAD_SET,
+      question: String.raw`$$\frac{x+7}{x+1}+\frac{2x+6}{2x+1}=5$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{x+7}{x+1}+\frac{2x+6}{2x+1}=5$$`,
+          String.raw`$$\text{or, }\left(1+\frac{6}{x+1}\right)+\left(1+\frac{5}{2x+1}\right)=5$$`,
+          String.raw`$$\text{or, }\frac{6}{x+1}+\frac{5}{2x+1}=3$$`,
+          String.raw`$$\text{or, }\frac{6(2x+1)+5(x+1)}{(x+1)(2x+1)}=3$$`,
+          String.raw`$$\text{or, }\frac{17x+11}{2x^{2}+3x+1}=3$$`,
+          String.raw`$$\text{or, }17x+11=6x^{2}+9x+3$$`,
+          String.raw`$$\text{or, }6x^{2}-8x-8=0$$`,
+          String.raw`$$\text{or, }3x^{2}-4x-4=0\qquad\left[\,2\ \text{দিয়ে ভাগ করে}\,\right]$$`,
+          String.raw`$$\text{or, }3x^{2}-6x+2x-4=0$$`,
+          String.raw`$$\text{or, }3x(x-2)+2(x-2)=0$$`,
+          String.raw`$$\text{or, }(x-2)(3x+2)=0$$`,
+          String.raw`$$\therefore\; x=2\ \text{অথবা}\ x=-\frac{2}{3}$$`,
+        ],
+        answer: String.raw`$S=\left\{\,2,\;-\dfrac{2}{3}\,\right\}$`,
+      },
+    },
+    {
+      id: 15,
+      group: QUAD_SET,
+      question: String.raw`$$\frac{1}{x}+\frac{1}{a}+\frac{1}{b}=\frac{1}{x+a+b}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{1}{x}+\frac{1}{a}+\frac{1}{b}=\frac{1}{x+a+b}$$`,
+          String.raw`$$\text{or, }\frac{1}{x}-\frac{1}{x+a+b}=-\frac{1}{a}-\frac{1}{b}\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+          String.raw`$$\text{or, }\frac{x+a+b-x}{x(x+a+b)}=-\frac{a+b}{ab}$$`,
+          String.raw`$$\text{or, }\frac{a+b}{x(x+a+b)}=-\frac{a+b}{ab}$$`,
+          String.raw`$$\text{or, }\frac{1}{x(x+a+b)}=-\frac{1}{ab}\qquad\left[\,a+b\neq 0\,\right]$$`,
+          String.raw`$$\text{or, }x(x+a+b)=-ab$$`,
+          String.raw`$$\text{or, }x^{2}+(a+b)x+ab=0$$`,
+          String.raw`$$\text{or, }x^{2}+ax+bx+ab=0$$`,
+          String.raw`$$\text{or, }x(x+a)+b(x+a)=0$$`,
+          String.raw`$$\text{or, }(x+a)(x+b)=0$$`,
+          String.raw`$$\therefore\; x=-a\ \text{অথবা}\ x=-b$$`,
+        ],
+        answer: String.raw`$S=\{\,-a,\;-b\,\}$`,
+      },
+    },
+    {
+      id: 16,
+      group: QUAD_SET,
+      question: String.raw`$$x+\frac{1}{x}=2$$`,
+      solution: {
+        steps: [
+          String.raw`$$x+\frac{1}{x}=2$$`,
+          String.raw`$$\text{or, }\frac{x^{2}+1}{x}=2$$`,
+          String.raw`$$\text{or, }x^{2}+1=2x$$`,
+          String.raw`$$\text{or, }x^{2}-2x+1=0$$`,
+          String.raw`$$\text{or, }(x-1)^{2}=0$$`,
+          String.raw`$$\therefore\; x=1,\;1$$`,
+          String.raw`মূল দুইটি সমান, তাই সমাধান সেটে উপাদান একটিই।`,
+        ],
+        answer: String.raw`$S=\{1\}$`,
+      },
+    },
+    {
+      id: 17,
+      group: QUAD_SET,
+      question: String.raw`$$\frac{(x+1)^{3}-(x-1)^{3}}{(x+1)^{2}-(x-1)^{2}}=2$$`,
+      solution: {
+        steps: [
+          String.raw`$$\text{লব}=(x+1)^{3}-(x-1)^{3}$$`,
+          String.raw`$$=\{(x+1)-(x-1)\}\left\{(x+1)^{2}+(x+1)(x-1)+(x-1)^{2}\right\}$$`,
+          String.raw`$$=2\left\{\left(x^{2}+2x+1\right)+\left(x^{2}-1\right)+\left(x^{2}-2x+1\right)\right\}=2\left(3x^{2}+1\right)$$`,
+          String.raw`$$\text{হর}=(x+1)^{2}-(x-1)^{2}=\{(x+1)+(x-1)\}\{(x+1)-(x-1)\}=2x\times 2=4x$$`,
+          String.raw`$$\therefore\;\frac{2\left(3x^{2}+1\right)}{4x}=2$$`,
+          String.raw`$$\text{or, }\frac{3x^{2}+1}{2x}=2$$`,
+          String.raw`$$\text{or, }3x^{2}+1=4x$$`,
+          String.raw`$$\text{or, }3x^{2}-4x+1=0$$`,
+          String.raw`$$\text{or, }3x^{2}-3x-x+1=0$$`,
+          String.raw`$$\text{or, }3x(x-1)-1(x-1)=0$$`,
+          String.raw`$$\text{or, }(x-1)(3x-1)=0$$`,
+          String.raw`$$\therefore\; x=1\ \text{অথবা}\ x=\frac{1}{3}$$`,
+        ],
+        answer: String.raw`$S=\left\{\,1,\;\dfrac{1}{3}\,\right\}$`,
+      },
+    },
+
+    // ─────────────── সমীকরণ গঠন করে সমাধান করো (18 – 26) ───────────────
+    {
+      id: 18,
+      group: QUAD_FORM,
+      question: String.raw`দুই অঙ্কবিশিষ্ট কোনো সংখ্যার অঙ্কদ্বয়ের সমষ্টি $15$ এবং এদের গুণফল $56$; সংখ্যাটি কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, একটি অঙ্ক $x$; অতএব অপর অঙ্কটি $15-x$।`,
+          String.raw`$$\text{প্রশ্নমতে, }x(15-x)=56$$`,
+          String.raw`$$\text{or, }15x-x^{2}=56$$`,
+          String.raw`$$\text{or, }x^{2}-15x+56=0$$`,
+          String.raw`$$\text{or, }x^{2}-7x-8x+56=0$$`,
+          String.raw`$$\text{or, }x(x-7)-8(x-7)=0$$`,
+          String.raw`$$\text{or, }(x-7)(x-8)=0$$`,
+          String.raw`$$\therefore\; x=7\ \text{অথবা}\ x=8$$`,
+          String.raw`$x=7$ হলে অপর অঙ্কটি $8$, আবার $x=8$ হলে অপর অঙ্কটি $7$ — দুই ক্ষেত্রেই অঙ্ক দুইটি $7$ ও $8$।`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=78\ \text{অথবা}\ 87$$`,
+        ],
+        answer: String.raw`সংখ্যাটি $78$ অথবা $87$`,
+      },
+    },
+    {
+      id: 19,
+      group: QUAD_FORM,
+      figure: "52-p19",
+      question: String.raw`একটি আয়তাকার ঘরের মেঝের ক্ষেত্রফল $192$ বর্গমিটার। মেঝের দৈর্ঘ্য $4$ মিটার কমালে ও প্রস্থ $4$ মিটার বাড়ালে ক্ষেত্রফল অপরিবর্তিত থাকে। মেঝের দৈর্ঘ্য ও প্রস্থ নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, মেঝের দৈর্ঘ্য $x$ মিটার; অতএব প্রস্থ $\dfrac{192}{x}$ মিটার।`,
+          String.raw`দৈর্ঘ্য $4$ মিটার কমালে দৈর্ঘ্য হয় $(x-4)$ মিটার এবং প্রস্থ $4$ মিটার বাড়ালে প্রস্থ হয় $\left(\dfrac{192}{x}+4\right)$ মিটার।`,
+          String.raw`$$\text{প্রশ্নমতে, }(x-4)\left(\frac{192}{x}+4\right)=192$$`,
+          String.raw`$$\text{or, }192+4x-\frac{768}{x}-16=192$$`,
+          String.raw`$$\text{or, }4x-\frac{768}{x}-16=0$$`,
+          String.raw`$$\text{or, }4x^{2}-16x-768=0\qquad\left[\,\text{উভয় পক্ষকে }x\text{ দিয়ে গুণ করে}\,\right]$$`,
+          String.raw`$$\text{or, }x^{2}-4x-192=0\qquad\left[\,4\ \text{দিয়ে ভাগ করে}\,\right]$$`,
+          String.raw`$$\text{or, }x^{2}-16x+12x-192=0$$`,
+          String.raw`$$\text{or, }x(x-16)+12(x-16)=0$$`,
+          String.raw`$$\text{or, }(x-16)(x+12)=0$$`,
+          String.raw`$$\therefore\; x=16\ \text{অথবা}\ x=-12$$`,
+          String.raw`কিন্তু দৈর্ঘ্য ঋণাত্মক হতে পারে না, তাই $x\neq -12$।`,
+          String.raw`$$\therefore\; x=16\quad\text{এবং প্রস্থ}=\frac{192}{16}=12$$`,
+          String.raw`পরীক্ষা: $(16-4)\times(12+4)=12\times 16=192$ বর্গমিটার।`,
+        ],
+        answer: String.raw`দৈর্ঘ্য $16$ মিটার ও প্রস্থ $12$ মিটার`,
+      },
+    },
+    {
+      id: 20,
+      group: QUAD_FORM,
+      figure: "52-p20",
+      question: String.raw`একটি সমকোণী ত্রিভুজের অতিভুজের দৈর্ঘ্য $15$ সে.মি. ও অপর বাহুদ্বয়ের দৈর্ঘ্যের অন্তর $3$ সে.মি.। ঐ বাহুদ্বয়ের দৈর্ঘ্য নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, বড় বাহুটির দৈর্ঘ্য $x$ সে.মি.; অতএব ছোট বাহুটির দৈর্ঘ্য $(x-3)$ সে.মি.।`,
+          String.raw`$$\text{পিথাগোরাসের সূত্রানুসারে, }x^{2}+(x-3)^{2}=15^{2}$$`,
+          String.raw`$$\text{or, }x^{2}+x^{2}-6x+9=225$$`,
+          String.raw`$$\text{or, }2x^{2}-6x-216=0$$`,
+          String.raw`$$\text{or, }x^{2}-3x-108=0\qquad\left[\,2\ \text{দিয়ে ভাগ করে}\,\right]$$`,
+          String.raw`$$\text{or, }x^{2}-12x+9x-108=0$$`,
+          String.raw`$$\text{or, }x(x-12)+9(x-12)=0$$`,
+          String.raw`$$\text{or, }(x-12)(x+9)=0$$`,
+          String.raw`$$\therefore\; x=12\ \text{অথবা}\ x=-9$$`,
+          String.raw`কিন্তু বাহুর দৈর্ঘ্য ঋণাত্মক হতে পারে না, তাই $x\neq -9$।`,
+          String.raw`$$\therefore\; x=12\quad\text{এবং অপর বাহু}=12-3=9$$`,
+          String.raw`পরীক্ষা: $12^{2}+9^{2}=144+81=225=15^{2}$।`,
+        ],
+        answer: String.raw`বাহুদ্বয়ের দৈর্ঘ্য $12$ সে.মি. ও $9$ সে.মি.`,
+      },
+    },
+    {
+      id: 21,
+      group: QUAD_FORM,
+      figure: "52-p21",
+      question: String.raw`একটি ত্রিভুজের ভূমি তার উচ্চতার দ্বিগুণ অপেক্ষা $6$ সে.মি. বেশি। ত্রিভুজ ক্ষেত্রটির ক্ষেত্রফল $810$ বর্গ সে.মি. হলে, এর উচ্চতা কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ত্রিভুজটির উচ্চতা $x$ সে.মি.; অতএব ভূমি $(2x+6)$ সে.মি.।`,
+          String.raw`$$\text{প্রশ্নমতে, }\frac{1}{2}(2x+6)\cdot x=810$$`,
+          String.raw`$$\text{or, }(x+3)x=810$$`,
+          String.raw`$$\text{or, }x^{2}+3x-810=0$$`,
+          String.raw`$$\text{or, }x^{2}+30x-27x-810=0$$`,
+          String.raw`$$\text{or, }x(x+30)-27(x+30)=0$$`,
+          String.raw`$$\text{or, }(x+30)(x-27)=0$$`,
+          String.raw`$$\therefore\; x=-30\ \text{অথবা}\ x=27$$`,
+          String.raw`কিন্তু উচ্চতা ঋণাত্মক হতে পারে না, তাই $x\neq -30$।`,
+          String.raw`$$\therefore\; x=27$$`,
+          String.raw`পরীক্ষা: ভূমি $=2\times 27+6=60$ এবং ক্ষেত্রফল $=\dfrac{1}{2}\times 60\times 27=810$ বর্গ সে.মি.।`,
+        ],
+        answer: String.raw`উচ্চতা $27$ সে.মি.`,
+      },
+    },
+    {
+      id: 22,
+      group: QUAD_FORM,
+      question: String.raw`একটি শ্রেণিতে যতজন ছাত্র-ছাত্রী পড়ে প্রত্যেকে তার সহপাঠীর সংখ্যার সমান টাকা চাঁদা দেওয়ায় মোট $420$ টাকা চাঁদা উঠল। ঐ শ্রেণির ছাত্র-ছাত্রীর সংখ্যা কত এবং প্রত্যেকে কত টাকা করে চাঁদা দিল?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ঐ শ্রেণির ছাত্র-ছাত্রীর সংখ্যা $x$।`,
+          String.raw`নিজেকে বাদ দিলে প্রত্যেকের সহপাঠীর সংখ্যা $(x-1)$, অতএব প্রত্যেকে $(x-1)$ টাকা করে চাঁদা দিল।`,
+          String.raw`$$\text{প্রশ্নমতে, }x(x-1)=420$$`,
+          String.raw`$$\text{or, }x^{2}-x-420=0$$`,
+          String.raw`$$\text{or, }x^{2}-21x+20x-420=0$$`,
+          String.raw`$$\text{or, }x(x-21)+20(x-21)=0$$`,
+          String.raw`$$\text{or, }(x-21)(x+20)=0$$`,
+          String.raw`$$\therefore\; x=21\ \text{অথবা}\ x=-20$$`,
+          String.raw`কিন্তু ছাত্র-ছাত্রীর সংখ্যা ঋণাত্মক হতে পারে না, তাই $x\neq -20$।`,
+          String.raw`$$\therefore\; x=21\quad\text{এবং প্রত্যেকের চাঁদা}=21-1=20\ \text{টাকা}$$`,
+        ],
+        answer: String.raw`ছাত্র-ছাত্রী $21$ জন, প্রত্যেকে $20$ টাকা করে`,
+      },
+    },
+    {
+      id: 23,
+      group: QUAD_FORM,
+      question: String.raw`একটি শ্রেণিতে যতজন ছাত্র-ছাত্রী পড়ে, প্রত্যেকে তত পয়সার চেয়ে আরও $30$ পয়সা বেশি করে চাঁদা দেওয়াতে মোট $70$ টাকা উঠল। ঐ শ্রেণির ছাত্র-ছাত্রীর সংখ্যা কত?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, ঐ শ্রেণির ছাত্র-ছাত্রীর সংখ্যা $x$; অতএব প্রত্যেকে $(x+30)$ পয়সা করে চাঁদা দিল।`,
+          String.raw`$$70\ \text{টাকা}=70\times 100=7000\ \text{পয়সা}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }x(x+30)=7000$$`,
+          String.raw`$$\text{or, }x^{2}+30x-7000=0$$`,
+          String.raw`$$\text{or, }x^{2}+100x-70x-7000=0$$`,
+          String.raw`$$\text{or, }x(x+100)-70(x+100)=0$$`,
+          String.raw`$$\text{or, }(x+100)(x-70)=0$$`,
+          String.raw`$$\therefore\; x=-100\ \text{অথবা}\ x=70$$`,
+          String.raw`কিন্তু ছাত্র-ছাত্রীর সংখ্যা ঋণাত্মক হতে পারে না, তাই $x\neq -100$।`,
+          String.raw`$$\therefore\; x=70$$`,
+          String.raw`পরীক্ষা: $70\times(70+30)=7000$ পয়সা $=70$ টাকা।`,
+        ],
+        answer: String.raw`ছাত্র-ছাত্রীর সংখ্যা $70$ জন`,
+      },
+    },
+    {
+      id: 24,
+      group: QUAD_FORM,
+      question: String.raw`দৃশ্যকল্প ১: দুই অঙ্কবিশিষ্ট একটি সংখ্যার অঙ্কদ্বয়ের সমষ্টি $7$; অঙ্কদ্বয়ের স্থান বিনিময় করলে যে সংখ্যা পাওয়া যায় তা প্রদত্ত সংখ্যা থেকে $9$ বেশি।
+দৃশ্যকল্প ২: করিম সাহেব $6400$ টাকার কিছু টাকা বিনিয়োগ করেন বার্ষিক $8\%$ মুনাফায় এবং বার্ষিক $9\%$ মুনাফায় অবশিষ্ট টাকা বিনিয়োগ করেন। $2$ বছর পরে তিনি $1092$ টাকা মুনাফা পান।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`সমাধান সেট নির্ণয় করো: $$\frac{3}{x}+\frac{4}{x+1}=2$$`,
+          solution: {
+            steps: [
+              String.raw`$$\frac{3}{x}+\frac{4}{x+1}=2$$`,
+              String.raw`$$\text{or, }\frac{3(x+1)+4x}{x(x+1)}=2$$`,
+              String.raw`$$\text{or, }\frac{7x+3}{x^{2}+x}=2$$`,
+              String.raw`$$\text{or, }7x+3=2x^{2}+2x$$`,
+              String.raw`$$\text{or, }2x^{2}-5x-3=0$$`,
+              String.raw`$$\text{or, }2x^{2}-6x+x-3=0$$`,
+              String.raw`$$\text{or, }2x(x-3)+1(x-3)=0$$`,
+              String.raw`$$\text{or, }(x-3)(2x+1)=0$$`,
+              String.raw`$$\therefore\; x=3\ \text{অথবা}\ x=-\frac{1}{2}$$`,
+            ],
+            answer: String.raw`$S=\left\{\,3,\;-\dfrac{1}{2}\,\right\}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`দৃশ্যকল্প ১-এর দুই অঙ্কবিশিষ্ট সংখ্যাটি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, দশক স্থানীয় অঙ্কটি $x$; অতএব একক স্থানীয় অঙ্কটি $7-x$।`,
+              String.raw`$$\therefore\;\text{সংখ্যাটি}=10x+(7-x)=9x+7$$`,
+              String.raw`$$\text{স্থান বিনিময়ে সংখ্যাটি}=10(7-x)+x=70-9x$$`,
+              String.raw`$$\text{প্রশ্নমতে, }70-9x=(9x+7)+9$$`,
+              String.raw`$$\text{or, }70-9x=9x+16$$`,
+              String.raw`$$\text{or, }-18x=-54$$`,
+              String.raw`$$\therefore\; x=3$$`,
+              String.raw`$$\therefore\;\text{সংখ্যাটি}=9\times 3+7=34$$`,
+              String.raw`পরীক্ষা: স্থান বিনিময়ে সংখ্যাটি $43$, আর $43-34=9$।`,
+            ],
+            answer: String.raw`সংখ্যাটি $34$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`দৃশ্যকল্প ২-এ বার্ষিক $8\%$ ও $9\%$ মুনাফায় বিনিয়োগ করা মূলধনের অনুপাত নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, তিনি $8\%$ মুনাফায় $x$ টাকা বিনিয়োগ করেন; অতএব $9\%$ মুনাফায় বিনিয়োগ করেন $(6400-x)$ টাকা।`,
+              String.raw`$$x\ \text{টাকার }2\ \text{বছরের মুনাফা}=\frac{x\times 8\times 2}{100}=\frac{16x}{100}\ \text{টাকা}$$`,
+              String.raw`$$(6400-x)\ \text{টাকার }2\ \text{বছরের মুনাফা}=\frac{(6400-x)\times 9\times 2}{100}=\frac{18(6400-x)}{100}\ \text{টাকা}$$`,
+              String.raw`$$\text{প্রশ্নমতে, }\frac{16x}{100}+\frac{18(6400-x)}{100}=1092$$`,
+              String.raw`$$\text{or, }16x+115200-18x=109200$$`,
+              String.raw`$$\text{or, }-2x=-6000$$`,
+              String.raw`$$\therefore\; x=3000$$`,
+              String.raw`$$\therefore\;9\%\ \text{মুনাফায় বিনিয়োগ}=6400-3000=3400\ \text{টাকা}$$`,
+              String.raw`$$\therefore\;\text{নির্ণেয় অনুপাত}=3000:3400=15:17$$`,
+            ],
+            answer: String.raw`$15:17$`,
+          },
+        },
+      ],
+    },
+    {
+      id: 25,
+      group: QUAD_FORM,
+      question: String.raw`নাবিলের বয়স যখন শুভর বর্তমান বয়সের সমান ছিল তখন শুভর যে বয়স ছিল নাবিলের বর্তমান বয়স তার দ্বিগুণ। শুভর বয়স যখন নাবিলের বর্তমান বয়সের সমান হবে তখন তাদের দুইজনের বয়সের যোগফল $63$ হলে প্রত্যেকের বর্তমান বয়স কত?`,
+      solution: {
+        steps: [
+          String.raw`শর্ত থেকে বোঝা যায় নাবিল শুভর চেয়ে বড়। মনে করি, নাবিলের বর্তমান বয়স $n$ বছর এবং তাদের বয়সের পার্থক্য $x$ বছর; অতএব শুভর বর্তমান বয়স $(n-x)$ বছর।`,
+          String.raw`নাবিলের বয়স শুভর বর্তমান বয়সের সমান অর্থাৎ $(n-x)$ ছিল $x$ বছর আগে; তখন শুভর বয়স ছিল $(n-x)-x=n-2x$ বছর।`,
+          String.raw`$$\text{প্রথম শর্তমতে, }n=2(n-2x)$$`,
+          String.raw`$$\text{or, }n=2n-4x$$`,
+          String.raw`$$\therefore\; n=4x\qquad\cdots(1)$$`,
+          String.raw`শুভর বয়স নাবিলের বর্তমান বয়স $n$-এর সমান হবে $x$ বছর পরে; তখন নাবিলের বয়স হবে $(n+x)$ বছর।`,
+          String.raw`$$\text{দ্বিতীয় শর্তমতে, }n+(n+x)=63$$`,
+          String.raw`$$\text{or, }2n+x=63$$`,
+          String.raw`$$\text{or, }2\cdot 4x+x=63\qquad\left[\,(1)\ \text{হতে}\,\right]$$`,
+          String.raw`$$\text{or, }9x=63$$`,
+          String.raw`$$\therefore\; x=7$$`,
+          String.raw`$$\therefore\; n=4\times 7=28\quad\text{এবং শুভর বয়স}=28-7=21$$`,
+          String.raw`পরীক্ষা: $7$ বছর আগে নাবিল ছিল $21$ ও শুভ ছিল $14$, আর $28=2\times 14$। আবার $7$ বছর পরে শুভ হবে $28$ ও নাবিল হবে $35$, যাদের যোগফল $63$।`,
+        ],
+        answer: String.raw`নাবিলের বর্তমান বয়স $28$ বছর ও শুভর বর্তমান বয়স $21$ বছর`,
+      },
+    },
+    {
+      id: 26,
+      group: QUAD_FORM,
+      question: String.raw`বাসে ওঠার লাইনে সোহাগের পিছনে যতজন দাঁড়িয়ে আছে সামনে তার থেকে দুইজন বেশি দাঁড়িয়ে আছে। তার পিছনে যতজন দাঁড়িয়ে আছে সম্পূর্ণ লাইনে তার তিনগুণ যাত্রী। লাইনে কতজন যাত্রী দাঁড়িয়ে আছে?`,
+      solution: {
+        steps: [
+          String.raw`মনে করি, সোহাগের পিছনে $x$ জন দাঁড়িয়ে আছে; অতএব তার সামনে দাঁড়িয়ে আছে $(x+2)$ জন।`,
+          String.raw`$$\therefore\;\text{সম্পূর্ণ লাইনে যাত্রী}=x+(x+2)+1=2x+3\ \text{জন}$$`,
+          String.raw`$$\text{প্রশ্নমতে, }2x+3=3x$$`,
+          String.raw`$$\text{or, }3x-2x=3$$`,
+          String.raw`$$\therefore\; x=3$$`,
+          String.raw`$$\therefore\;\text{লাইনে মোট যাত্রী}=3\times 3=9\ \text{জন}$$`,
+          String.raw`পরীক্ষা: পিছনে $3$ জন, সামনে $5$ জন ও সোহাগ নিজে — মোট $9$ জন।`,
+        ],
+        answer: String.raw`লাইনে $9$ জন যাত্রী দাঁড়িয়ে আছে`,
+      },
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — বইয়ের পৃষ্ঠা ১০৯ – ১১০ ───────────────
+    {
+      id: 27,
+      group: MODEL5_MCQ,
+      question: String.raw`$(x-4)^{2}=0$ সমীকরণের মূল কয়টি?
+ক) $1$টি  খ) $2$টি  গ) $3$টি  ঘ) $4$টি`,
+      solution: {
+        steps: [
+          String.raw`$$(x-4)^{2}=0$$`,
+          String.raw`$$\text{or, }(x-4)(x-4)=0$$`,
+          String.raw`$$\therefore\; x=4,\;4$$`,
+          String.raw`সমীকরণটির ঘাত $2$, তাই মূলও $2$টি — এখানে মূল দুইটি সমান।`,
+        ],
+        answer: String.raw`খ) $2$টি`,
+      },
+    },
+    {
+      id: 28,
+      group: MODEL5_MCQ,
+      question: String.raw`দুইটি বীজগাণিতিক রাশি $x$ ও $y$ এর গুণফল $xy=0$ হলে —
+$(i)$ $x=0$ অথবা $y=0$   $(ii)$ $x=0$, যখন $y\neq 0$   $(iii)$ $y=0$, যখন $x\neq 0$
+নিচের কোনটি সঠিক?
+ক) $i$ ও $ii$  খ) $i$ ও $iii$  গ) $ii$ ও $iii$  ঘ) $i,\,ii$ ও $iii$`,
+      solution: {
+        steps: [
+          String.raw`$(i)$ শূন্য গুণফলের ধর্মই বলে $xy=0$ হলে $x=0$ বা $y=0$ — সঠিক।`,
+          String.raw`$(ii)$ $y\neq 0$ হলে $xy=0$ সমীকরণকে $y$ দিয়ে ভাগ করা যায়, তাতে $x=0$ পাওয়া যায় — সঠিক।`,
+          String.raw`$(iii)$ একইভাবে $x\neq 0$ হলে $y=0$ হতেই হবে — সঠিক।`,
+        ],
+        answer: String.raw`ঘ) $i,\,ii$ ও $iii$`,
+      },
+    },
+    {
+      id: 29,
+      group: MODEL5_MCQ,
+      question: String.raw`দুই অঙ্কবিশিষ্ট একটি সংখ্যার দশক স্থানীয় অঙ্ক একক স্থানীয় অঙ্কের দ্বিগুণ। সংখ্যাটির একক স্থানীয় অঙ্ক $x$। সংখ্যাটি কত?
+ক) $2x$  খ) $3x$  গ) $12x$  ঘ) $21x$`,
+      solution: {
+        steps: [
+          String.raw`একক স্থানীয় অঙ্ক $x$, অতএব দশক স্থানীয় অঙ্ক $2x$।`,
+          String.raw`$$\therefore\;\text{সংখ্যাটি}=10\times 2x+x=20x+x=21x$$`,
+        ],
+        answer: String.raw`ঘ) $21x$`,
+      },
+    },
+    {
+      id: 30,
+      group: MODEL5_MCQ,
+      question: String.raw`উপরের সংখ্যাটির অঙ্কদ্বয় স্থান বিনিময় করলে সংখ্যাটি কত হবে?
+ক) $3x$  খ) $4x$  গ) $12x$  ঘ) $21x$`,
+      solution: {
+        steps: [
+          String.raw`স্থান বিনিময়ে দশক স্থানীয় অঙ্ক হবে $x$ এবং একক স্থানীয় অঙ্ক হবে $2x$।`,
+          String.raw`$$\therefore\;\text{নতুন সংখ্যাটি}=10\times x+2x=12x$$`,
+        ],
+        answer: String.raw`গ) $12x$`,
+      },
+    },
+    {
+      id: 31,
+      group: MODEL5_CQ,
+      question: String.raw`একটি জমির ক্ষেত্রফল $192$ বর্গমিটার। জমিটির দৈর্ঘ্য $4$ মিটার কমালে এবং প্রস্থ $4$ মিটার বাড়ালে ক্ষেত্রফল অপরিবর্তিত থাকে। আবার জমিটির মাঝখানে $20$ সে.মি. ব্যাসবিশিষ্ট একটি বৃত্ত আঁকা হলো। বৃত্তটির কেন্দ্র থেকে একটি জ্যা এর উপর অঙ্কিত লম্ব ঐ জ্যা এর অর্ধেকের চেয়ে $2$ সে.মি. কম।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`সমাধান করো: $$\frac{3x}{2}-\frac{5}{3}=\frac{2x}{3}$$`,
+          solution: {
+            steps: [
+              String.raw`$$\frac{3x}{2}-\frac{5}{3}=\frac{2x}{3}$$`,
+              String.raw`$$\text{or, }\frac{3x}{2}-\frac{2x}{3}=\frac{5}{3}\qquad\left[\,\text{পক্ষান্তর করে}\,\right]$$`,
+              String.raw`$$\text{or, }\frac{9x-4x}{6}=\frac{5}{3}$$`,
+              String.raw`$$\text{or, }\frac{5x}{6}=\frac{5}{3}$$`,
+              String.raw`$$\text{or, }15x=30\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+              String.raw`$$\therefore\; x=2$$`,
+            ],
+            answer: String.raw`$x=2$`,
+          },
+        },
+        {
+          label: "খ",
+          figure: "52-p19",
+          question: String.raw`জমিটির পরিসীমা নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, জমিটির দৈর্ঘ্য $x$ মিটার; অতএব প্রস্থ $\dfrac{192}{x}$ মিটার।`,
+              String.raw`$$\text{প্রশ্নমতে, }(x-4)\left(\frac{192}{x}+4\right)=192$$`,
+              String.raw`$$\text{or, }192+4x-\frac{768}{x}-16=192$$`,
+              String.raw`$$\text{or, }4x-\frac{768}{x}-16=0$$`,
+              String.raw`$$\text{or, }4x^{2}-16x-768=0\qquad\left[\,\text{উভয় পক্ষকে }x\text{ দিয়ে গুণ করে}\,\right]$$`,
+              String.raw`$$\text{or, }x^{2}-4x-192=0$$`,
+              String.raw`$$\text{or, }x^{2}-16x+12x-192=0$$`,
+              String.raw`$$\text{or, }(x-16)(x+12)=0$$`,
+              String.raw`$$\therefore\; x=16\ \text{অথবা}\ x=-12$$`,
+              String.raw`দৈর্ঘ্য ঋণাত্মক হতে পারে না, তাই $x=16$ এবং প্রস্থ $=\dfrac{192}{16}=12$ মিটার।`,
+              String.raw`$$\therefore\;\text{পরিসীমা}=2(16+12)=2\times 28=56\ \text{মিটার}$$`,
+            ],
+            answer: String.raw`জমিটির পরিসীমা $56$ মিটার`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`বৃত্তটির জ্যা এর দৈর্ঘ্য নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$$\text{বৃত্তের ব্যাসার্ধ }r=\frac{20}{2}=10\ \text{সে.মি.}$$`,
+              String.raw`মনে করি, জ্যা এর অর্ধেক $x$ সে.মি.; অতএব কেন্দ্র থেকে জ্যা এর উপর অঙ্কিত লম্বের দৈর্ঘ্য $(x-2)$ সে.মি.।`,
+              String.raw`কেন্দ্র থেকে জ্যা এর উপর অঙ্কিত লম্ব জ্যাকে সমদ্বিখণ্ডিত করে, তাই ব্যাসার্ধ, লম্ব ও অর্ধ-জ্যা নিয়ে একটি সমকোণী ত্রিভুজ পাওয়া যায়।`,
+              String.raw`$$\text{পিথাগোরাসের সূত্রানুসারে, }(x-2)^{2}+x^{2}=10^{2}$$`,
+              String.raw`$$\text{or, }x^{2}-4x+4+x^{2}=100$$`,
+              String.raw`$$\text{or, }2x^{2}-4x-96=0$$`,
+              String.raw`$$\text{or, }x^{2}-2x-48=0\qquad\left[\,2\ \text{দিয়ে ভাগ করে}\,\right]$$`,
+              String.raw`$$\text{or, }x^{2}-8x+6x-48=0$$`,
+              String.raw`$$\text{or, }x(x-8)+6(x-8)=0$$`,
+              String.raw`$$\text{or, }(x-8)(x+6)=0$$`,
+              String.raw`$$\therefore\; x=8\ \text{অথবা}\ x=-6$$`,
+              String.raw`দৈর্ঘ্য ঋণাত্মক হতে পারে না, তাই $x\neq -6$।`,
+              String.raw`$$\therefore\; x=8\quad\text{এবং জ্যা এর দৈর্ঘ্য}=2\times 8=16\ \text{সে.মি.}$$`,
+              String.raw`পরীক্ষা: লম্ব $=8-2=6$ এবং $6^{2}+8^{2}=36+64=100=10^{2}$।`,
+            ],
+            answer: String.raw`জ্যা এর দৈর্ঘ্য $16$ সে.মি.`,
+          },
+        },
+      ],
+    },
+    {
+      id: 32,
+      group: MODEL5_SHORT,
+      question: String.raw`সংক্ষিপ্ত-উত্তর প্রশ্ন।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`সমাধান করো: $$\frac{1}{x+1}+\frac{1}{x+2}=\frac{2}{x+3}$$`,
+          solution: {
+            steps: [
+              String.raw`$$\frac{1}{x+1}+\frac{1}{x+2}=\frac{2}{x+3}$$`,
+              String.raw`$$\text{or, }\frac{x+2+x+1}{(x+1)(x+2)}=\frac{2}{x+3}$$`,
+              String.raw`$$\text{or, }\frac{2x+3}{x^{2}+3x+2}=\frac{2}{x+3}$$`,
+              String.raw`$$\text{or, }(2x+3)(x+3)=2\left(x^{2}+3x+2\right)\qquad\left[\,\text{আড়গুণন করে}\,\right]$$`,
+              String.raw`$$\text{or, }2x^{2}+9x+9=2x^{2}+6x+4$$`,
+              String.raw`$$\text{or, }9x-6x=4-9$$`,
+              String.raw`$$\text{or, }3x=-5$$`,
+              String.raw`$$\therefore\; x=-\frac{5}{3}$$`,
+            ],
+            answer: String.raw`$x=-\dfrac{5}{3}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`একটি ধনাত্মক পূর্ণসংখ্যা অপর একটি ধনাত্মক পূর্ণসংখ্যার $\dfrac{2}{5}$ অংশ থেকে $3$ বেশি হলে, সংখ্যাটি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, নির্ণেয় সংখ্যাটি $x$ এবং অপর ধনাত্মক পূর্ণসংখ্যাটি $y$।`,
+              String.raw`$$\text{প্রশ্নমতে, }x=\frac{2y}{5}+3$$`,
+              String.raw`$x$ পূর্ণসংখ্যা হতে হলে $y$-কে $5$ এর গুণিতক হতে হবে। $y=5k$ ধরলে $x=2k+3$, অর্থাৎ শর্তটি $k=1,2,3,\dots$ প্রতিটি মানেই সিদ্ধ হয়।`,
+              String.raw`প্রশ্নে $y$ সম্পর্কে আর কোনো তথ্য নেই; সবচেয়ে ছোট মান $k=1$ নিলে $y=5$ ও $x=5$, অর্থাৎ সংখ্যা দুইটিই সমান। তাই শর্তটিকে "সংখ্যাটি নিজের $\dfrac{2}{5}$ অংশ থেকে $3$ বেশি" ধরে সমাধান করা হলো।`,
+              String.raw`$$x=\frac{2x}{5}+3$$`,
+              String.raw`$$\text{or, }x-\frac{2x}{5}=3$$`,
+              String.raw`$$\text{or, }\frac{5x-2x}{5}=3$$`,
+              String.raw`$$\text{or, }3x=15$$`,
+              String.raw`$$\therefore\; x=5$$`,
+              String.raw`পরীক্ষা: $5$ এর $\dfrac{2}{5}$ অংশ $=2$ এবং $2+3=5$।`,
+            ],
+            answer: String.raw`সংখ্যাটি $5$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`দুই অঙ্কবিশিষ্ট কোনো সংখ্যার অঙ্কদ্বয়ের সমষ্টি $7$ এবং গুণফল $10$ হলে, সংখ্যাটি নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, একটি অঙ্ক $x$; অতএব অপর অঙ্কটি $7-x$।`,
+              String.raw`$$\text{প্রশ্নমতে, }x(7-x)=10$$`,
+              String.raw`$$\text{or, }7x-x^{2}=10$$`,
+              String.raw`$$\text{or, }x^{2}-7x+10=0$$`,
+              String.raw`$$\text{or, }x^{2}-2x-5x+10=0$$`,
+              String.raw`$$\text{or, }x(x-2)-5(x-2)=0$$`,
+              String.raw`$$\text{or, }(x-2)(x-5)=0$$`,
+              String.raw`$$\therefore\; x=2\ \text{অথবা}\ x=5$$`,
+              String.raw`$x=2$ হলে অপর অঙ্কটি $5$, আবার $x=5$ হলে অপর অঙ্কটি $2$ — দুই ক্ষেত্রেই অঙ্ক দুইটি $2$ ও $5$।`,
+              String.raw`$$\therefore\;\text{সংখ্যাটি}=25\ \text{অথবা}\ 52$$`,
+            ],
+            answer: String.raw`সংখ্যাটি $25$ অথবা $52$`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export const chaptersData: Chapter[] = [
-  { id: 1, title: "বাস্তব সংখ্যা", exercises: [] },
+  { id: 1, title: "বাস্তব সংখ্যা", exercises: [exercise1] },
   {
     id: 2,
     title: "সেট ও ফাংশন",
@@ -10294,7 +13371,7 @@ export const chaptersData: Chapter[] = [
   {
     id: 5,
     title: "এক চলকবিশিষ্ট সমীকরণ",
-    exercises: [],
+    exercises: [exercise51, exercise52],
   },
   {
     id: 6,
