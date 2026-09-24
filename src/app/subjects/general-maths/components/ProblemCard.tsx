@@ -21,6 +21,12 @@ function SolutionBody({ solution }: { solution: Solution }) {
         ))}
       </div>
 
+      {solution.figure && (
+        <div className="mt-5">
+          <Figure name={solution.figure} />
+        </div>
+      )}
+
       <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-gold/20 bg-gold/[0.07] px-4 py-3 text-parchment">
         <span className="text-[11px] font-semibold tracking-wide text-gold">
           উত্তর
