@@ -131,14 +131,14 @@ export default function PieceView({ piece }: { piece: Piece }) {
           written on the answer script — the surrounding interface stays dark,
           so the writing reads as paper laid on the page. */}
       <div className="rounded-2xl bg-parchment px-5 py-7 text-ink shadow-xl shadow-ink-deep/50 ring-1 ring-gold-deep/20 sm:px-6 sm:py-8 md:px-10 md:py-10">
-        <h2 className="mb-6 text-center font-hand text-[1.35rem] font-bold leading-snug sm:text-[1.6rem]">
+        <h2 className="mb-6 text-center font-hand text-[1.2rem] font-bold leading-snug sm:text-[1.4rem]">
           {piece.title}
         </h2>
 
         {/* The written piece itself is set in a hand, so it reads as a
             student's answer rather than as interface text. Generous leading
             keeps the larger handwriting face comfortable over long essays. */}
-        <div className="space-y-4 font-hand text-[1.15rem] leading-[1.85] tracking-[0.01em] sm:text-[1.3rem]">
+        <div className="space-y-4 font-hand text-[1rem] leading-[1.8] tracking-[0.01em] sm:text-[1.1rem]">
           {piece.body.map((block, i) => {
             if (block.type === "dialogue") {
               return (
