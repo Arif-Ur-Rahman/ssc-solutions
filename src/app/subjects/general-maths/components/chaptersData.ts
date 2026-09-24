@@ -92,6 +92,9 @@ export interface FormulaGroup {
 export interface Example {
   // The উদাহরণ number the book gives it.
   id: number;
+  // What the book calls it, when not an উদাহরণ — অধ্যায় ৮ has no worked
+  // examples, only উপপাদ্য and সম্পাদ্য with their proofs.
+  label?: string;
   question: string;
   figure?: string;
   solution?: Solution;
@@ -107,6 +110,8 @@ export interface Exercise {
   formulas?: FormulaGroup[];
   // The book's worked examples, shown between the rules and the problems.
   examples?: Example[];
+  // Heading above `examples`, when they are theorems rather than উদাহরণ.
+  examplesTitle?: string;
   problems: Problem[];
 }
 
@@ -20514,6 +20519,15 @@ const exercise72: Exercise = {
   ],
 };
 
+// অধ্যায় ৮ lives in its own file; see chapter8Data.ts.
+import {
+  exercise81,
+  exercise82,
+  exercise83,
+  exercise84,
+  exercise85,
+} from "./chapter8Data";
+
 export const chaptersData: Chapter[] = [
   { id: 1, title: "বাস্তব সংখ্যা", exercises: [exercise1] },
   {
@@ -20546,7 +20560,11 @@ export const chaptersData: Chapter[] = [
     title: "ব্যবহারিক জ্যামিতি",
     exercises: [exercise71, exercise72],
   },
-  { id: 8, title: "বৃত্ত", exercises: [] },
+  {
+    id: 8,
+    title: "বৃত্ত",
+    exercises: [exercise81, exercise82, exercise83, exercise84, exercise85],
+  },
   {
     id: 9,
     title: "ত্রিকোণমিতিক অনুপাত",
