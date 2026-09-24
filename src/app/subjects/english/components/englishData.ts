@@ -1138,6 +1138,92 @@ const letters: Piece[] = [
     ],
   },
   {
+    id: "application-for-cancelling-train-ticket",
+    title: "Application for Cancelling a Train Ticket",
+    prompt:
+      "Write an application to the manager of a travel agency for cancelling your train ticket.",
+    vocab: [
+      { word: "cancel", bn: "বাতিল করা", pos: "Verb", past: "cancelled", pastParticiple: "cancelled", forms: [{ label: "noun", word: "cancellation" }], synonyms: ["call off", "revoke"], antonyms: ["confirm", "book"] },
+      { word: "deduct", bn: "কেটে রাখা, বাদ দেওয়া", pos: "Verb", past: "deducted", pastParticiple: "deducted", forms: [{ label: "noun", word: "deduction" }], synonyms: ["subtract", "take off"], antonyms: ["add"] },
+      { word: "fare", bn: "ভাড়া", pos: "Noun", synonyms: ["charge", "ticket price"] },
+      { word: "inconvenience", bn: "অসুবিধা, ঝামেলা", pos: "Noun", forms: [{ label: "adj", word: "inconvenient" }], synonyms: ["trouble", "bother"], antonyms: ["convenience", "comfort"] },
+      { word: "refund", bn: "টাকা ফেরত দেওয়া", pos: "Verb", past: "refunded", pastParticiple: "refunded", forms: [{ label: "noun", word: "refund" }, { label: "adj", word: "refundable" }], synonyms: ["repay", "pay back"], antonyms: ["charge", "withhold"] },
+      { word: "unavoidable", bn: "অনিবার্য, এড়ানো যায় না এমন", pos: "Adjective", forms: [{ label: "verb", word: "avoid (avoided)" }, { label: "adv", word: "unavoidably" }], synonyms: ["inevitable", "unpreventable"], antonyms: ["avoidable"] },
+    ],
+    body: [
+      { type: "label", text: "16 August 2026" },
+      { type: "label", text: "The Manager" },
+      { type: "label", text: "Shapla Tours and Travels" },
+      { type: "label", text: "Station Road, Chattogram" },
+      { type: "label", text: "Subject: Application for cancelling a train ticket." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, I beg to state that on 10 August I bought a train ticket from your agency for a journey from Chattogram to Dhaka by the Subarna Express. The train is to leave Chattogram at seven in the morning on 20 August. The ticket number is 4587, the coach is Cha and the seat number is 32. I paid seven hundred and sixty-five taka for it.",
+      },
+      {
+        type: "para",
+        text: "But for an unavoidable reason I shall not be able to make the journey. My mother has suddenly fallen seriously ill and has been admitted to the Chattogram Medical College Hospital. As I am her only son, I must stay beside her. So the ticket is of no use to me now.",
+      },
+      {
+        type: "para",
+        text: "I am returning the ticket with this application. I know that a certain amount is deducted from the fare as a cancellation charge, and I am ready to bear it. I am sorry for the inconvenience this may cause you.",
+      },
+      {
+        type: "para",
+        text: "I therefore pray and hope that you would be kind enough to cancel my ticket and refund the rest of the fare at your earliest convenience.",
+      },
+      { type: "label", text: "Yours faithfully" },
+      { type: "label", text: "Rafiqul Islam" },
+      { type: "label", text: "Enclosure: The train ticket (No. 4587)" },
+    ],
+  },
+  {
+    id: "application-for-relief-goods",
+    title: "Application for Relief Goods for Flood-affected People",
+    prompt:
+      "Write an application to the chairman of your area for relief goods for the flood or cyclone affected people.",
+    vocab: [
+      { word: "devastating", bn: "ভয়াবহ, ধ্বংসাত্মক", pos: "Adjective", forms: [{ label: "verb", word: "devastate (devastated)" }, { label: "noun", word: "devastation" }], synonyms: ["destructive", "ruinous"], antonyms: ["harmless", "mild"] },
+      { word: "epidemic", bn: "মহামারি", pos: "Noun", synonyms: ["outbreak", "plague"] },
+      { word: "inhabitant", bn: "অধিবাসী, বাসিন্দা", pos: "Noun", forms: [{ label: "verb", word: "inhabit (inhabited)" }], synonyms: ["resident", "dweller"], antonyms: ["outsider", "stranger"] },
+      { word: "marooned", bn: "পানিবন্দী, আটকে পড়া", pos: "Adjective", forms: [{ label: "verb", word: "maroon (marooned)" }], synonyms: ["stranded", "cut off"], antonyms: ["rescued", "free"] },
+      { word: "relief", bn: "ত্রাণ", pos: "Noun", forms: [{ label: "verb", word: "relieve (relieved)" }], synonyms: ["aid", "help"] },
+      { word: "shelter", bn: "আশ্রয়", pos: "Noun", forms: [{ label: "verb", word: "shelter (sheltered)" }], synonyms: ["refuge", "protection"], antonyms: ["exposure"] },
+      { word: "starvation", bn: "অনাহার", pos: "Noun", forms: [{ label: "verb", word: "starve (starved)" }], synonyms: ["hunger", "famine"], antonyms: ["plenty", "abundance"] },
+      { word: "submerge", bn: "ডুবিয়ে দেওয়া, প্লাবিত করা", pos: "Verb", past: "submerged", pastParticiple: "submerged", forms: [{ label: "noun", word: "submersion" }], synonyms: ["flood", "drown"], antonyms: ["surface", "emerge"] },
+      { word: "water-borne", bn: "পানিবাহিত", pos: "Adjective", synonyms: ["carried by water"] },
+    ],
+    body: [
+      { type: "label", text: "16 August 2026" },
+      { type: "label", text: "The Chairman" },
+      { type: "label", text: "Jatrapur Union Parishad" },
+      { type: "label", text: "Kurigram" },
+      { type: "label", text: "Subject: Application for relief goods for the flood-affected people." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "We, the inhabitants of the village of Char Jatrapur under your union, beg to draw your kind attention to the miserable condition of the flood-affected people of our area. A devastating flood has struck our village this week. The Brahmaputra has overflowed its banks, and almost the whole village is now submerged in water.",
+      },
+      {
+        type: "para",
+        text: "The people are passing their days in untold misery. Nearly five hundred families have lost their houses, and many of them have taken shelter on the embankment and in the local school building. Some are still marooned on the roofs of their houses. The crops of the fields have been washed away, and cattle, poultry and household goods have been lost. There is no food, no dry clothes and no pure drinking water. Many people, especially children and old people, are on the verge of starvation. Diarrhoea and other water-borne diseases have already broken out, and an epidemic may break out at any moment.",
+      },
+      {
+        type: "para",
+        text: "The people are in urgent need of rice, flour, pulses, dry food, saline, water purifying tablets, medicine and clothes. Unless relief is sent at once, many lives will be lost.",
+      },
+      {
+        type: "para",
+        text: "We therefore pray and hope that you would be kind enough to send sufficient relief goods and a medical team to our village without delay and save the helpless people.",
+      },
+      { type: "label", text: "Yours faithfully" },
+      { type: "label", text: "On behalf of the flood-affected people" },
+      { type: "label", text: "Abdul Karim" },
+      { type: "label", text: "Char Jatrapur, Kurigram" },
+    ],
+  },
+  {
     id: "letter-about-aim-in-life",
     title: "Letter to a Friend about Your Aim in Life",
     prompt: "Write a letter to your friend telling him about your aim in life.",
@@ -1312,7 +1398,7 @@ export const categories: Category[] = [
     id: "application-letter",
     title: "Application & Letter",
     icon: "ScrollText",
-    description: "Applications to the headmaster and letters to friends.",
+    description: "Formal applications and letters to friends and family.",
     pieces: letters,
   },
   {

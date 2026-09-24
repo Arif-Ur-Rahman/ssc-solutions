@@ -108,13 +108,13 @@ export default function GeneralMaths() {
           {exercise?.examples && (
             <section className="mb-10">
               <h2 className="font-sans mt-8 mb-4 text-sm font-semibold tracking-wide text-faint first:mt-0">
-                বইয়ের সমাধানকৃত উদাহরণ
+                {exercise.examplesTitle ?? "বইয়ের সমাধানকৃত উদাহরণ"}
               </h2>
               {exercise.examples.map((example) => (
                 <ProblemCard
                   key={example.id}
                   problem={example}
-                  label="উদাহরণ"
+                  label={example.label ?? "উদাহরণ"}
                 />
               ))}
             </section>

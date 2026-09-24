@@ -13,6 +13,9 @@
 // Chapter 6 "রেখা, কোণ ও ত্রিভুজ": অনুশীলনী ৬.১ (book page ১১৮), ৬.২ (book
 // page ১২৩) and ৬.৩ (book pages ১৩২-১৩৪), the last followed by the chapter's
 // নমুনা প্রশ্ন (book pages ১৩৪-১৩৫), numbered on from the exercise.
+// Chapter 7 "ব্যবহারিক জ্যামিতি": অনুশীলনী ৭.১ (book pages ১৪৩-১৪৪) and
+// অনুশীলনী ৭.২ (book pages ১৪৯-১৫০), the latter followed by the chapter's
+// নমুনা প্রশ্ন (book page ১৫১), numbered on from the exercise.
 // Chapter 9 "ত্রিকোণমিতিক অনুপাত": অনুশীলনী ৯.১ (book pages ১৮৪-১৮৬) and
 // অনুশীলনী ৯.২ (book pages ১৯৪-১৯৫).
 // Chapter 12 "দুই চলকবিশিষ্ট সরল সহসমীকরণ": অনুশীলনী ১২.১ (book pages ২২৮-২২৯),
@@ -43,6 +46,10 @@
 export interface Solution {
   steps: string[];
   answer: string;
+  // Key into `figures/scenes.ts`, drawn after the steps. In অধ্যায় ৭ the
+  // finished construction *is* the answer, so it belongs behind the toggle
+  // rather than above the question where it would give the answer away.
+  figure?: string;
 }
 
 export interface Part {
@@ -85,6 +92,9 @@ export interface FormulaGroup {
 export interface Example {
   // The উদাহরণ number the book gives it.
   id: number;
+  // What the book calls it, when not an উদাহরণ — অধ্যায় ৮ has no worked
+  // examples, only উপপাদ্য and সম্পাদ্য with their proofs.
+  label?: string;
   question: string;
   figure?: string;
   solution?: Solution;
@@ -100,6 +110,8 @@ export interface Exercise {
   formulas?: FormulaGroup[];
   // The book's worked examples, shown between the rules and the problems.
   examples?: Example[];
+  // Heading above `examples`, when they are theorems rather than উদাহরণ.
+  examplesTitle?: string;
   problems: Problem[];
 }
 
@@ -19312,6 +19324,1210 @@ const exercise63: Exercise = {
   ],
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// অধ্যায় ৭ · ব্যবহারিক জ্যামিতি
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// এ অধ্যায়ে প্রশ্নের উত্তর একটি সংখ্যা নয়, একটি অঙ্কন। তাই প্রতিটি সমাধান
+// বইয়ের ধাঁচে তিন অংশে লেখা — উপাত্ত যাচাই, অঙ্কনের বিবরণ, প্রমাণ — আর
+// শেষে সম্পূর্ণ অঙ্কনটি (`figures/scenes71.ts`, `figures/scenes72.ts`)
+// `solution.figure` হিসেবে সমাধানের ভেতরে রাখা হয়েছে, যাতে প্রশ্নের পাশে
+// দেখে উত্তর আগেই ফাঁস না হয়।
+//
+// যে প্রশ্নে উপাত্ত অক্ষরে দেওয়া (a, s, ∠x …), সেখানে চিত্রের জন্য একসেট মান
+// ধরে নেওয়া হয়েছে এবং সমাধানে তা বলে দেওয়া হয়েছে; অঙ্কনের ধাপ ঐ মানের
+// উপর নির্ভর করে না। কম্পাসে যে কোণ আঁকা যায় না (50°, 80°, 85° …), তা
+// চাঁদা দিয়ে আঁকতে বলা হয়েছে।
+
+const PG_TRI_DRAW = "ত্রিভুজ অঙ্কন (১ – ২)";
+const PG_TRI_SPECIAL = "বিশেষ উপাত্তে ত্রিভুজ অঙ্কন (৩ – ৭)";
+const PG_QUAD_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৩)";
+const PG_QUAD_DRAW = "চতুর্ভুজ অঙ্কন (৪ – ১১)";
+const PG_QUAD_CQ = "সৃজনশীল প্রশ্ন (১২ – ১৩)";
+const PG_QUAD_MODEL_MCQ = "নমুনা প্রশ্ন — বহুনির্বাচনি (১৪ – ১৭)";
+const PG_QUAD_MODEL_CQ = "নমুনা প্রশ্ন — সৃজনশীল (১৮)";
+const PG_QUAD_MODEL_SA = "নমুনা প্রশ্ন — সংক্ষিপ্ত-উত্তর (১৯)";
+
+const exercise71: Exercise = {
+  id: "7.1",
+  bnId: "অনুশীলনী ৭.১",
+  title: "ত্রিভুজ অঙ্কন",
+  bookPages: "১৪৩-১৪৪",
+  formulas: [
+    {
+      title: "যে তিনটি উপাত্তে একটি নির্দিষ্ট ত্রিভুজ আঁকা যায়",
+      formulas: [
+        {
+          statement: "১. তিনটি বাহু",
+          note: "যেকোনো দুই বাহুর সমষ্টি তৃতীয় বাহু অপেক্ষা বৃহত্তর হতে হবে, নইলে চাপ দুইটি মিলবে না।",
+        },
+        { statement: "২. দুইটি বাহু ও এদের অন্তর্ভুক্ত কোণ" },
+        {
+          statement: "৩. দুইটি কোণ ও এদের সংলগ্ন বাহু",
+          note: String.raw`কোণ দুইটির সমষ্টি $180^{\circ}$ এর কম হতে হবে।`,
+        },
+        {
+          statement: "৪. দুইটি কোণ ও একটির বিপরীত বাহু",
+          note: String.raw`তৃতীয় কোণ $=180^{\circ}-$ (দুই কোণের সমষ্টি) বের করলে এটি ৩ নম্বর ক্ষেত্রে পরিণত হয়।`,
+        },
+        {
+          statement: "৫. দুইটি বাহু ও এদের একটির বিপরীত কোণ",
+          note: "বিপরীত বাহুটি অপর বাহুর চেয়ে ছোট হলে চাপটি ভূমিকে দুই বিন্দুতে ছেদ করতে পারে — তখন দুইটি ত্রিভুজই শর্ত মানে।",
+        },
+        { statement: "৬. সমকোণী ত্রিভুজের অতিভুজ ও অপর একটি বাহু" },
+        {
+          statement: "তিনটি কোণ দিলে ত্রিভুজ নির্দিষ্ট হয় না",
+          note: "একই তিন কোণে বিভিন্ন আকারের অসংখ্য সদৃশ ত্রিভুজ আঁকা যায়। নির্দিষ্ট ত্রিভুজের জন্য তিনটি অনির্ভরশীল উপাত্ত লাগে।",
+        },
+      ],
+    },
+    {
+      title: "সম্পাদ্য ১ – ৩",
+      formulas: [
+        {
+          statement: String.raw`সম্পাদ্য ১. ভূমি $a$, ভূমি সংলগ্ন কোণ $\angle x$ ও অপর দুই বাহুর সমষ্টি $s$`,
+          note: String.raw`$BC=a$, $\angle CBF=\angle x$, $BF$ থেকে $BD=s$। $C,D$ যোগ করে $\angle BDC$ এর সমান $\angle DCA$ আঁকলে $CA$, $BD$ কে $A$ তে ছেদ করে। $AC=AD$ বলে $BA+AC=BD=s$। বিকল্পে $CD$ এর লম্বসমদ্বিখণ্ডক $BD$ কে $A$ তে ছেদ করে।`,
+        },
+        {
+          statement: String.raw`সম্পাদ্য ২. ভূমি $a$, ভূমি সংলগ্ন সূক্ষ্মকোণ $\angle x$ ও অপর দুই বাহুর অন্তর $d$`,
+          note: String.raw`$BC=a$, $\angle CBE=\angle x$, $BE$ থেকে $BD=d$। $C,D$ যোগ করে $\angle EDC$ এর সমান $\angle DCA$ আঁকলে $CA$, $BE$ কে $A$ তে ছেদ করে। $AD=AC$ বলে $AB-AC=BD=d$।`,
+        },
+        {
+          statement: String.raw`সম্পাদ্য ৩. ভূমি সংলগ্ন দুই কোণ $\angle x,\angle y$ ও পরিসীমা $p$`,
+          note: String.raw`$DE=p$ এর একই পাশে $\angle x$ ও $\angle y$ এঁকে এদের দ্বিখণ্ডকের ছেদবিন্দু $A$। $\angle DAB=\angle ADE$ ও $\angle EAC=\angle AED$ আঁকলে $B,C$ পাওয়া যায়। $DB=BA$ ও $CE=CA$ বলে পরিসীমা $=DE=p$।`,
+        },
+      ],
+    },
+    {
+      title: "বারবার লাগে এমন অঙ্কন",
+      formulas: [
+        {
+          statement: String.raw`$60^{\circ}$ কোণ`,
+          note: String.raw`শীর্ষবিন্দুকে কেন্দ্র করে যেকোনো ব্যাসার্ধে চাপ আঁকি যা বাহুকে $M$ এ কাটে; $M$ কে কেন্দ্র করে একই ব্যাসার্ধে চাপ আঁকি যা আগের চাপকে $N$ এ কাটে। তিন বিন্দু সমবাহু ত্রিভুজ গঠন করে, তাই কোণটি $60^{\circ}$।`,
+        },
+        {
+          statement: String.raw`$90^{\circ}$, $45^{\circ}$, $30^{\circ}$, $75^{\circ}$, $135^{\circ}$`,
+          note: String.raw`লম্ব এঁকে $90^{\circ}$; $90^{\circ}$ কে সমদ্বিখণ্ডিত করে $45^{\circ}$; $60^{\circ}$ কে সমদ্বিখণ্ডিত করে $30^{\circ}$; $60^{\circ}$ ও $90^{\circ}$ এর মাঝের কোণ সমদ্বিখণ্ডিত করে $75^{\circ}$; $90^{\circ}+45^{\circ}=135^{\circ}$। অন্য কোণ চাঁদা দিয়ে আঁকা হয়।`,
+        },
+        {
+          statement: "প্রদত্ত কোণের সমান কোণ আঁকা",
+          note: "প্রদত্ত কোণের শীর্ষকে কেন্দ্র করে যেকোনো ব্যাসার্ধে চাপ আঁকি; নতুন শীর্ষে একই ব্যাসার্ধে চাপ আঁকি; প্রদত্ত কোণের চাপ দুই বাহুকে যে দূরত্বে কেটেছে, সেই দূরত্ব নতুন চাপে কেটে নিয়ে শীর্ষের সাথে যোগ করি।",
+        },
+        {
+          statement: "রেখাংশের লম্বসমদ্বিখণ্ডক",
+          note: "রেখাংশের দুই প্রান্তকে কেন্দ্র করে অর্ধেকের বেশি ব্যাসার্ধে উভয় পাশে চাপ আঁকি; চাপের ছেদবিন্দু দুইটি যোগ করলেই লম্বসমদ্বিখণ্ডক। এর উপরের প্রতিটি বিন্দু রেখাংশের দুই প্রান্ত থেকে সমদূরবর্তী।",
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ১ — book page ১৪১.
+    {
+      id: 1,
+      question: String.raw`একটি ত্রিভুজ $ABC$ আঁক, যার $\angle B=60^{\circ}$, $\angle C=45^{\circ}$ এবং পরিসীমা $AB+BC+CA=11$ সে.মি.।`,
+      solution: {
+        steps: [
+          String.raw`এটি সম্পাদ্য ৩ এর প্রয়োগ: ভূমি সংলগ্ন দুইটি কোণ ও পরিসীমা দেওয়া আছে।`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. রেখাংশ $PQ=11$ সে.মি. আঁকি।`,
+          String.raw`২. $PQ$ রেখাংশের একই পাশে $P$ ও $Q$ বিন্দুতে যথাক্রমে $\angle QPL=60^{\circ}$ ও $\angle PQM=45^{\circ}$ আঁকি।`,
+          String.raw`৩. কোণ দুইটির দ্বিখণ্ডক $PG$ ও $QH$ আঁকি। মনে করি, $PG$ ও $QH$ রশ্মিদ্বয় পরস্পরকে $A$ বিন্দুতে ছেদ করে।`,
+          String.raw`৪. $PA$ ও $QA$ রেখাংশের লম্বসমদ্বিখণ্ডক আঁকি, যা $PQ$ কে যথাক্রমে $B$ ও $C$ বিন্দুতে ছেদ করে।`,
+          String.raw`৫. $A,B$ এবং $A,C$ যোগ করি। তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+          String.raw`প্রমাণ: $B$ বিন্দু $PA$ এর লম্বসমদ্বিখণ্ডকের উপর, তাই $BP=BA$।`,
+          String.raw`$$\therefore\;\angle BAP=\angle BPA=\tfrac12\times 60^{\circ}=30^{\circ}$$`,
+          String.raw`$\triangle ABP$ এর বহিঃস্থ কোণ,`,
+          String.raw`$$\angle ABC=\angle BPA+\angle BAP=30^{\circ}+30^{\circ}=60^{\circ}$$`,
+          String.raw`তেমনি $C$ বিন্দু $QA$ এর লম্বসমদ্বিখণ্ডকের উপর, তাই $CQ=CA$ এবং`,
+          String.raw`$$\angle ACB=\angle CQA+\angle CAQ=22\tfrac12^{\circ}+22\tfrac12^{\circ}=45^{\circ}$$`,
+          String.raw`আবার,`,
+          String.raw`$$AB+BC+CA=PB+BC+CQ=PQ=11\text{ সে.মি.}$$`,
+        ],
+        answer: String.raw`$\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ, যার $\angle B=60^{\circ}$, $\angle C=45^{\circ}$ ও পরিসীমা $11$ সে.মি.।`,
+        figure: "71-ex1",
+      },
+    },
+    // উদাহরণ ২ — book pages ১৪২-১৪৩.
+    {
+      id: 2,
+      question: String.raw`একটি ত্রিভুজের ভূমি $a=3$ সে.মি., ভূমি সংলগ্ন সূক্ষ্মকোণ $45^{\circ}$ এবং অপর বাহু দুইটির সমষ্টি $s=6$ সে.মি.।`,
+      parts: [
+        {
+          label: "ক",
+          question: "উদ্দীপকের তথ্যগুলো চিত্রে প্রকাশ করো।",
+          solution: {
+            steps: [
+              String.raw`$a=3$ সে.মি. ও $s=6$ সে.মি. দৈর্ঘ্যের দুইটি রেখাংশ আঁকি।`,
+              String.raw`$45^{\circ}$ কোণের জন্য: একটি রশ্মির প্রান্তবিন্দুতে লম্ব এঁকে $90^{\circ}$ কোণ তৈরি করি, তারপর কোণটিকে সমদ্বিখণ্ডিত করি।`,
+              String.raw`$$\tfrac12\times 90^{\circ}=45^{\circ}=\angle x$$`,
+            ],
+            answer: String.raw`চিত্রে $a$, $s$ ও $\angle x=45^{\circ}$ দেখানো হলো।`,
+            figure: "71-ex2a",
+          },
+        },
+        {
+          label: "খ",
+          question: "ত্রিভুজটি অঙ্কন করো। (অঙ্কনের চিহ্ন ও বিবরণ আবশ্যক)",
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. $AX$ যেকোনো রশ্মি থেকে $AB=a=3$ সে.মি. কাটি।`,
+              String.raw`২. $A$ বিন্দুতে $\angle XAE=\angle x=45^{\circ}$ আঁকি এবং $AE$ থেকে $AD=s=6$ সে.মি. নিই।`,
+              String.raw`৩. $B,D$ যোগ করি। $B$ বিন্দুতে $\angle ADB$ এর সমান করে $\angle DBC$ আঁকি। $BC$ রেখাংশ $AD$ কে $C$ বিন্দুতে ছেদ করে।`,
+              String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: $\triangle BCD$ এ $\angle CBD=\angle CDB$ [অঙ্কন অনুসারে]`,
+              String.raw`$$\therefore\;CB=CD$$`,
+              String.raw`$$\therefore\;AC+CB=AC+CD=AD=6\text{ সে.মি.}=s$$`,
+              String.raw`এবং $AB=3$ সে.মি. $=a$, $\angle BAC=45^{\circ}$।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "71-ex2b",
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`একটি বর্গের পরিসীমা $2s$ হলে বর্গটি আঁকো। (অঙ্কনের চিহ্ন ও বিবরণ আবশ্যক)`,
+          solution: {
+            steps: [
+              String.raw`বর্গের পরিসীমা $p=2s=2\times 6=12$ সে.মি.। চার বাহু সমান, তাই প্রতিটি বাহু $\tfrac14p$।`,
+              String.raw`$p$ রেখাংশের লম্বসমদ্বিখণ্ডক এঁকে অর্ধেক করি, সেই অর্ধেককে আবার সমদ্বিখণ্ডিত করে $\tfrac14p=3$ সে.মি. পাই।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. $AX$ যেকোনো রশ্মি থেকে $AB=\tfrac14p$ কেটে নিই।`,
+              String.raw`২. $A$ বিন্দুতে $AE\perp AB$ আঁকি। $AE$ থেকে $AD=AB$ কাটি।`,
+              String.raw`৩. $B$ ও $D$ বিন্দুকে কেন্দ্র করে $\tfrac14p$ এর সমান ব্যাসার্ধ নিয়ে $\angle BAD$ এর অভ্যন্তরে দুইটি বৃত্তচাপ আঁকি। বৃত্তচাপদ্বয় পরস্পর $C$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $B,C$ এবং $C,D$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট বর্গক্ষেত্র।`,
+              String.raw`প্রমাণ: $AB=BC=CD=DA=\tfrac14p$ এবং $\angle BAD=90^{\circ}$। চারটি বাহু সমান ও একটি কোণ সমকোণ বলে $ABCD$ বর্গ, এবং এর পরিসীমা $4\times\tfrac14p=p=2s$।`,
+            ],
+            answer: String.raw`$ABCD$ ই উদ্দিষ্ট বর্গক্ষেত্র (বাহু $3$ সে.মি.)।`,
+            figure: "71-ex2c",
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    // ─────────────── ত্রিভুজ অঙ্কন (১ – ২) ───────────────
+    {
+      id: 1,
+      group: PG_TRI_DRAW,
+      question: "নিম্নে প্রদত্ত উপাত্ত নিয়ে ত্রিভুজ অঙ্কন করো:",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`তিনটি বাহুর দৈর্ঘ্য যথাক্রমে $3$ সে.মি., $3.5$ সে.মি., $2.8$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`যাচাই: $3+2.8=5.8>3.5$, $3+3.5>2.8$, $3.5+2.8>3$ — যেকোনো দুই বাহুর সমষ্টি তৃতীয় বাহু অপেক্ষা বড়, তাই ত্রিভুজ আঁকা সম্ভব।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BD$ থেকে $BC=3$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ কে কেন্দ্র করে $2.8$ সে.মি. ব্যাসার্ধ নিয়ে $BC$ এর এক পাশে একটি বৃত্তচাপ আঁকি।`,
+              String.raw`৩. $C$ কে কেন্দ্র করে $3.5$ সে.মি. ব্যাসার্ধ নিয়ে একই পাশে আরেকটি বৃত্তচাপ আঁকি। চাপ দুইটি $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,B$ ও $A,C$ যোগ করি। তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $BC=3$ সে.মি., $AB=2.8$ সে.মি. ($B$ কেন্দ্রিক চাপের ব্যাসার্ধ) এবং $AC=3.5$ সে.মি. ($C$ কেন্দ্রিক চাপের ব্যাসার্ধ)।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "71-p1a",
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`দুইটি বাহুর দৈর্ঘ্য $4$ সে.মি., $3$ সে.মি. এবং অন্তর্ভুক্ত কোণ $60^{\circ}$।`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BD$ থেকে $BC=4$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ বিন্দুতে $\angle CBE=60^{\circ}$ আঁকি ($B$ কেন্দ্রে যেকোনো ব্যাসার্ধের চাপ যেখানে $BD$ কে কাটে, সেখান থেকে একই ব্যাসার্ধে চাপ কেটে)।`,
+              String.raw`৩. $BE$ থেকে $BA=3$ সে.মি. কেটে নিই।`,
+              String.raw`৪. $A,C$ যোগ করি। তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $BC=4$ সে.মি., $BA=3$ সে.মি. এবং এদের অন্তর্ভুক্ত $\angle ABC=60^{\circ}$।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "71-p1b",
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`দুইটি কোণ $60^{\circ}$ ও $45^{\circ}$ এবং এদের সংলগ্ন বাহুর দৈর্ঘ্য $5$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`যাচাই: $60^{\circ}+45^{\circ}=105^{\circ}<180^{\circ}$, তাই ত্রিভুজ আঁকা সম্ভব।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BD$ থেকে $BC=5$ সে.মি. কেটে নিই।`,
+              String.raw`২. $BC$ এর একই পাশে $B$ বিন্দুতে $\angle CBE=60^{\circ}$ এবং $C$ বিন্দুতে $\angle BCF=45^{\circ}$ আঁকি ($C$ তে লম্ব এঁকে তাকে সমদ্বিখণ্ডিত করে)।`,
+              String.raw`৩. $BE$ ও $CF$ রশ্মিদ্বয় পরস্পরকে $A$ বিন্দুতে ছেদ করে। তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $BC=5$ সে.মি., $\angle ABC=60^{\circ}$ এবং $\angle ACB=45^{\circ}$ — কোণ দুইটির সংলগ্ন বাহু $BC$।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "71-p1c",
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`দুইটি কোণ $60^{\circ}$ ও $45^{\circ}$ এবং $45^{\circ}$ কোণের বিপরীত বাহুর দৈর্ঘ্য $5$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, $\angle B=60^{\circ}$, $\angle C=45^{\circ}$ এবং $\angle C$ এর বিপরীত বাহু $AB=5$ সে.মি.।`,
+              String.raw`তৃতীয় কোণ,`,
+              String.raw`$$\angle A=180^{\circ}-(60^{\circ}+45^{\circ})=75^{\circ}$$`,
+              String.raw`সুতরাং $AB$ বাহুর দুই প্রান্তের কোণ $60^{\circ}$ ও $75^{\circ}$ জানা — এটি এখন "দুইটি কোণ ও সংলগ্ন বাহু" এর ক্ষেত্র।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BD$ নিই। $B$ বিন্দুতে $BD$ এর সাথে $60^{\circ}$ কোণ করে একটি রশ্মি আঁকি এবং তা থেকে $BA=5$ সে.মি. কেটে নিই।`,
+              String.raw`২. $A$ বিন্দুতে $AB$ এর সাথে $BD$ এর দিকে $\angle BAC=75^{\circ}$ আঁকি ($60^{\circ}$ ও $90^{\circ}$ এর মাঝের কোণ সমদ্বিখণ্ডিত করে)। এর বাহু $BD$ কে $C$ বিন্দুতে ছেদ করে।`,
+              String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: $\triangle ABC$ এ $\angle B=60^{\circ}$, $\angle A=75^{\circ}$, তাই`,
+              String.raw`$$\angle C=180^{\circ}-(60^{\circ}+75^{\circ})=45^{\circ}$$`,
+              String.raw`এবং $45^{\circ}$ কোণের বিপরীত বাহু $AB=5$ সে.মি.।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "71-p1d",
+          },
+        },
+        {
+          label: "ঙ",
+          question: String.raw`দুইটি বাহুর দৈর্ঘ্য যথাক্রমে $4.5$ সে.মি. ও $3.5$ সে.মি. এবং দ্বিতীয় বাহুর বিপরীত কোণ $30^{\circ}$।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, $AB=4.5$ সে.মি., $AC=3.5$ সে.মি. এবং $AC$ এর বিপরীত কোণ $\angle B=30^{\circ}$।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BD$ নিই। $B$ বিন্দুতে $60^{\circ}$ কোণ এঁকে তাকে সমদ্বিখণ্ডিত করে $BD$ এর সাথে $30^{\circ}$ কোণ করে একটি রশ্মি আঁকি।`,
+              String.raw`২. ঐ রশ্মি থেকে $BA=4.5$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $A$ কে কেন্দ্র করে $3.5$ সে.মি. ব্যাসার্ধ নিয়ে একটি বৃত্তচাপ আঁকি যা $BD$ কে $C$ ও $C'$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,C$ ও $A,C'$ যোগ করি। তাহলে $\triangle ABC$ ও $\triangle ABC'$ উভয়ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: উভয় ত্রিভুজে $AB=4.5$ সে.মি., $\angle B=30^{\circ}$ এবং $AC=AC'=3.5$ সে.মি. (একই চাপের ব্যাসার্ধ)।`,
+              String.raw`দুইটি ত্রিভুজ কেন: $A$ থেকে $BD$ এর দূরত্ব $4.5\times\sin 30^{\circ}=2.25$ সে.মি.। চাপের ব্যাসার্ধ $3.5$ এর চেয়ে বড় কিন্তু $AB=4.5$ এর চেয়ে ছোট, তাই চাপটি $BD$ কে $B$ এর একই পাশে দুইবার কাটে।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ও $\triangle ABC'$ — দুইটি ত্রিভুজই শর্ত পূরণ করে।`,
+            figure: "71-p1e",
+          },
+        },
+        {
+          label: "চ",
+          question: String.raw`সমকোণী ত্রিভুজের অতিভুজ ও একটি বাহুর দৈর্ঘ্য যথাক্রমে $6$ সে.মি. ও $4$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BX$ নিই এবং $B$ বিন্দুতে $BY\perp BX$ আঁকি।`,
+              String.raw`২. $BX$ থেকে $BC=4$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $C$ কে কেন্দ্র করে $6$ সে.মি. ব্যাসার্ধ নিয়ে একটি বৃত্তচাপ আঁকি যা $BY$ কে $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,C$ যোগ করি। তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $\angle ABC=90^{\circ}$, $BC=4$ সে.মি. এবং অতিভুজ $AC=6$ সে.মি.।`,
+              String.raw`যাচাই: $AB=\sqrt{6^{2}-4^{2}}=\sqrt{20}\approx 4.47$ সে.মি. — মেপে দেখলে এর কাছাকাছি পাওয়া যাবে।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় সমকোণী ত্রিভুজ।`,
+            figure: "71-p1f",
+          },
+        },
+      ],
+    },
+    {
+      id: 2,
+      group: PG_TRI_DRAW,
+      question: "নিম্নে প্রদত্ত উপাত্ত নিয়ে ত্রিভুজ অঙ্কন করো।",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`ভূমি $3.5$ সে.মি., ভূমি সংলগ্ন একটি কোণ $60^{\circ}$ ও অপর দুই বাহুর সমষ্টি $8$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`এটি সম্পাদ্য ১ এর প্রয়োগ।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BE$ থেকে $BC=3.5$ সে.মি. কেটে নিই। $B$ বিন্দুতে $\angle CBF=60^{\circ}$ আঁকি।`,
+              String.raw`২. $BF$ রশ্মি থেকে $BD=8$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $C,D$ যোগ করি। $DC$ এর যে পাশে $B$ আছে সে পাশে $C$ বিন্দুতে $\angle BDC$ এর সমান $\angle DCA$ আঁকি, যার বাহু $BD$ কে $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: $\triangle ACD$ এ $\angle ADC=\angle ACD$ [অঙ্কন অনুসারে]`,
+              String.raw`$$\therefore\;AC=AD$$`,
+              String.raw`$$\therefore\;BA+AC=BA+AD=BD=8\text{ সে.মি.}$$`,
+              String.raw`এবং $BC=3.5$ সে.মি., $\angle ABC=60^{\circ}$।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "71-p2a",
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`ভূমি $5$ সে.মি., ভূমি সংলগ্ন একটি কোণ $45^{\circ}$ ও অপর দুই বাহুর অন্তর $1$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`এটি সম্পাদ্য ২ এর প্রয়োগ ($45^{\circ}$ সূক্ষ্মকোণ)।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BF$ থেকে $BC=5$ সে.মি. কেটে নিই। $B$ বিন্দুতে $\angle CBE=45^{\circ}$ আঁকি।`,
+              String.raw`২. $BE$ রশ্মি থেকে $BD=1$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $C,D$ যোগ করি। $DC$ এর যে পাশে $E$ আছে সে পাশে $C$ বিন্দুতে $\angle EDC$ এর সমান $\angle DCA$ আঁকি। $CA$ রশ্মি $BE$ কে $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: $\triangle ACD$ এ $\angle ACD=\angle ADC$ [অঙ্কন অনুসারে]`,
+              String.raw`$$\therefore\;AD=AC$$`,
+              String.raw`$$\therefore\;AB-AC=AB-AD=BD=1\text{ সে.মি.}$$`,
+              String.raw`এবং $BC=5$ সে.মি., $\angle ABC=45^{\circ}$।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "71-p2b",
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`ভূমি সংলগ্ন কোণ দুইটি যথাক্রমে $60^{\circ}$ ও $45^{\circ}$ ও পরিসীমা $12$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`এটি সম্পাদ্য ৩ এর প্রয়োগ।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $DF$ থেকে পরিসীমার সমান $DE=12$ সে.মি. কেটে নিই।`,
+              String.raw`২. $DE$ এর একই পাশে $D$ বিন্দুতে $\angle EDL=60^{\circ}$ এবং $E$ বিন্দুতে $\angle DEM=45^{\circ}$ আঁকি।`,
+              String.raw`৩. কোণ দুইটির দ্বিখণ্ডক $DG$ ও $EH$ আঁকি; এরা পরস্পরকে $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A$ বিন্দুতে $\angle ADE$ এর সমান $\angle DAB$ এবং $\angle AED$ এর সমান $\angle EAC$ আঁকি। $AB$ ও $AC$ রশ্মিদ্বয় $DE$ কে যথাক্রমে $B$ ও $C$ বিন্দুতে ছেদ করে।`,
+              String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: $\triangle ABD$ এ $\angle ADB=\angle DAB$, $\therefore AB=DB$।`,
+              String.raw`$\triangle ACE$ এ $\angle AEC=\angle EAC$, $\therefore CA=CE$।`,
+              String.raw`$$\therefore\;AB+BC+CA=DB+BC+CE=DE=12\text{ সে.মি.}$$`,
+              String.raw`$$\angle ABC=\angle ADB+\angle DAB=30^{\circ}+30^{\circ}=60^{\circ}$$`,
+              String.raw`$$\angle ACB=\angle AEC+\angle EAC=22\tfrac12^{\circ}+22\tfrac12^{\circ}=45^{\circ}$$`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "71-p2c",
+          },
+        },
+      ],
+    },
+
+    // ─────────────── বিশেষ উপাত্তে ত্রিভুজ অঙ্কন (৩ – ৭) ───────────────
+    {
+      id: 3,
+      group: PG_TRI_SPECIAL,
+      question:
+        "একটি ত্রিভুজের ভূমি সংলগ্ন দুইটি কোণ এবং শীর্ষ থেকে ভূমির উপর অঙ্কিত লম্বের দৈর্ঘ্য দেওয়া আছে। ত্রিভুজটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, ভূমি সংলগ্ন কোণ দুইটি $\angle x$ ও $\angle y$ এবং লম্বের দৈর্ঘ্য $h$। (চিত্রে $\angle x=60^{\circ}$, $\angle y=45^{\circ}$, $h=3$ সে.মি. নেওয়া হয়েছে।)`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি $BX$ নিই। $BX$ এর যেকোনো বিন্দুতে লম্ব এঁকে তা থেকে $h$ এর সমান অংশ কেটে নিই এবং ঐ প্রান্তবিন্দু দিয়ে $PQ\parallel BX$ আঁকি।`,
+          String.raw`২. $B$ বিন্দুতে $\angle XBA=\angle x$ আঁকি, যার বাহু $PQ$ কে $A$ বিন্দুতে ছেদ করে।`,
+          String.raw`৩. $A$ বিন্দুতে $\angle QAC=\angle y$ আঁকি, যার বাহু $BX$ কে $C$ বিন্দুতে ছেদ করে।`,
+          String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+          String.raw`প্রমাণ: $PQ\parallel BX$ এবং $AC$ ছেদক, তাই`,
+          String.raw`$$\angle ACB=\angle QAC=\angle y\qquad[\text{একান্তর কোণ}]$$`,
+          String.raw`আবার $\angle ABC=\angle x$ [অঙ্কন অনুসারে]।`,
+          String.raw`$A$ থেকে $BX$ এর উপর লম্ব $AN$ আঁকলে $AN$ হলো সমান্তরাল রেখাদ্বয়ের দূরত্ব, অর্থাৎ $AN=h$।`,
+          String.raw`শর্ত: $\angle x+\angle y<180^{\circ}$ হতে হবে।`,
+        ],
+        answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+        figure: "71-p3",
+      },
+    },
+    {
+      id: 4,
+      group: PG_TRI_SPECIAL,
+      question:
+        "সমকোণী ত্রিভুজের অতিভুজ ও অপর দুই বাহুর সমষ্টি দেওয়া আছে। ত্রিভুজটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, অতিভুজ $a$ এবং অপর দুই বাহুর সমষ্টি $s$। (চিত্রে $a=5$ সে.মি., $s=7$ সে.মি.।)`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি $DX$ থেকে $DC=s$ কেটে নিই।`,
+          String.raw`২. $D$ বিন্দুতে $\angle CDZ=45^{\circ}$ আঁকি।`,
+          String.raw`৩. $C$ কে কেন্দ্র করে $a$ এর সমান ব্যাসার্ধ নিয়ে একটি বৃত্তচাপ আঁকি যা $DZ$ কে $A$ বিন্দুতে ছেদ করে।`,
+          String.raw`৪. $A$ থেকে $DC$ এর উপর $AB$ লম্ব আঁকি। $A,C$ যোগ করি।`,
+          String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+          String.raw`প্রমাণ: $\triangle ABD$ এ $\angle ABD=90^{\circ}$ ও $\angle ADB=45^{\circ}$, তাই $\angle DAB=45^{\circ}$।`,
+          String.raw`$$\therefore\;AB=DB$$`,
+          String.raw`$$\therefore\;AB+BC=DB+BC=DC=s$$`,
+          String.raw`আবার $\angle ABC=90^{\circ}$ এবং অতিভুজ $AC=a$ [অঙ্কন অনুসারে]।`,
+          String.raw`লক্ষণীয়: চাপটি $DZ$ কে সাধারণত দুইটি বিন্দুতে কাটে; দুইটি থেকেই একই ত্রিভুজ পাওয়া যায়, কেবল বাহু দুইটির স্থান বদলায় (চিত্রে $3$ ও $4$ সে.মি.)। চাপ $DZ$ কে কাটতে হলে $a<s<\sqrt{2}\,a$ হতে হবে।`,
+        ],
+        answer: String.raw`$\triangle ABC$ ই নির্ণেয় সমকোণী ত্রিভুজ।`,
+        figure: "71-p4",
+      },
+    },
+    {
+      id: 5,
+      group: PG_TRI_SPECIAL,
+      question:
+        "ত্রিভুজের ভূমি সংলগ্ন একটি কোণ, উচ্চতা ও অপর দুই বাহুর সমষ্টি দেওয়া আছে। ত্রিভুজটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, ভূমি সংলগ্ন কোণ $\angle x$, উচ্চতা $h$ এবং অপর দুই বাহুর সমষ্টি $s$। (চিত্রে $\angle x=60^{\circ}$, $h=3$ সে.মি., $s=7$ সে.মি.।)`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি $BF$ নিই। $B$ বিন্দুতে $BF$ এর সাথে $\angle x$ কোণ করে একটি রশ্মি আঁকি এবং তা থেকে $BD=s$ কেটে নিই।`,
+          String.raw`২. $BF$ থেকে $h$ দূরত্বে $PQ\parallel BF$ আঁকি ($BF$ এর উপর লম্ব এঁকে তা থেকে $h$ কেটে)। $PQ$ রেখা $BD$ কে $A$ বিন্দুতে ছেদ করে।`,
+          String.raw`৩. $A$ কে কেন্দ্র করে $AD$ এর সমান ব্যাসার্ধ নিয়ে একটি বৃত্তচাপ আঁকি যা $BF$ কে $C$ বিন্দুতে ছেদ করে।`,
+          String.raw`৪. $A,C$ যোগ করি। তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+          String.raw`প্রমাণ: অঙ্কন অনুসারে $AC=AD$।`,
+          String.raw`$$\therefore\;AB+AC=AB+AD=BD=s$$`,
+          String.raw`$\angle ABC=\angle x$ এবং $A$ থেকে $BF$ এর উপর লম্ব $AN$ হলো সমান্তরাল রেখাদ্বয়ের দূরত্ব, অর্থাৎ উচ্চতা $AN=h$।`,
+        ],
+        answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+        figure: "71-p5",
+      },
+    },
+    {
+      id: 6,
+      group: PG_TRI_SPECIAL,
+      question: "সমবাহু ত্রিভুজের পরিসীমা দেওয়া আছে। ত্রিভুজটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, সমবাহু ত্রিভুজের পরিসীমা $p$। তিন বাহু সমান, তাই প্রতিটি বাহু $\tfrac13p$। (চিত্রে $p=9$ সে.মি., বাহু $3$ সে.মি.।)`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. রেখাংশ $PQ=p$ আঁকি। $P$ বিন্দু থেকে যেকোনো সূক্ষ্মকোণে একটি রশ্মি $PZ$ আঁকি এবং তা থেকে পরপর তিনটি সমান অংশ কেটে নিই।`,
+          String.raw`২. শেষ ছেদবিন্দুকে $Q$ এর সাথে যোগ করি এবং বাকি দুই ছেদবিন্দু দিয়ে ঐ রেখার সমান্তরাল রেখা আঁকি, যারা $PQ$ কে $R$ ও $S$ বিন্দুতে ছেদ করে। তাহলে $PR=RS=SQ=\tfrac13p$।`,
+          String.raw`৩. যেকোনো রশ্মি থেকে $BC=PR=\tfrac13p$ কেটে নিই।`,
+          String.raw`৪. $B$ ও $C$ কে কেন্দ্র করে $\tfrac13p$ ব্যাসার্ধ নিয়ে $BC$ এর একই পাশে দুইটি বৃত্তচাপ আঁকি, যারা $A$ বিন্দুতে ছেদ করে। $A,B$ ও $A,C$ যোগ করি।`,
+          String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+          String.raw`প্রমাণ: কতকগুলো সমান্তরাল রেখা কোনো ছেদককে সমান সমান অংশে বিভক্ত করলে অপর যেকোনো ছেদককেও সমান অংশে বিভক্ত করে; তাই $PR=RS=SQ=\tfrac13p$।`,
+          String.raw`অঙ্কন অনুসারে $AB=BC=CA=\tfrac13p$, সুতরাং ত্রিভুজটি সমবাহু এবং`,
+          String.raw`$$AB+BC+CA=3\times\tfrac13p=p$$`,
+        ],
+        answer: String.raw`$\triangle ABC$ ই নির্ণেয় সমবাহু ত্রিভুজ।`,
+        figure: "71-p6",
+      },
+    },
+    {
+      id: 7,
+      group: PG_TRI_SPECIAL,
+      question:
+        "ত্রিভুজের ভূমি, ভূমি সংলগ্ন একটি স্থূলকোণ ও অপর দুই বাহুর অন্তর দেওয়া আছে। ত্রিভুজটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, ভূমি $a$, ভূমি সংলগ্ন স্থূলকোণ $\angle x$ এবং অপর দুই বাহুর অন্তর $d$। (চিত্রে $a=5$ সে.মি., $\angle x=120^{\circ}$, $d=4$ সে.মি.।)`,
+          String.raw`স্থূলকোণের বিপরীত বাহুই ত্রিভুজের বৃহত্তম বাহু। তাই $\angle B$ স্থূল হলে $AC>AB$ এবং $AC-AB=d$। সম্পাদ্য ২ এর মতো $d$ কে $BA$ এর উপর কাটা যায় না — কাটতে হয় $AB$ এর বর্ধিতাংশে।`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি $BF$ থেকে $BC=a$ কেটে নিই। $B$ বিন্দুতে $\angle CBE=\angle x$ আঁকি।`,
+          String.raw`২. $EB$ কে $B$ এর বিপরীত দিকে বর্ধিত করে তা থেকে $BD=d$ কেটে নিই।`,
+          String.raw`৩. $D,C$ যোগ করি এবং $DC$ এর লম্বসমদ্বিখণ্ডক আঁকি, যা $BE$ কে $A$ বিন্দুতে ছেদ করে।`,
+          String.raw`৪. $A,C$ যোগ করি। তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+          String.raw`প্রমাণ: $A$ বিন্দু $DC$ এর লম্বসমদ্বিখণ্ডকের উপর, তাই $AD=AC$।`,
+          String.raw`$D$ বিন্দু $AB$ এর বর্ধিতাংশে, তাই $AD=AB+BD$।`,
+          String.raw`$$\therefore\;AC-AB=AD-AB=BD=d$$`,
+          String.raw`এবং $BC=a$, $\angle ABC=\angle x$ [অঙ্কন অনুসারে]।`,
+        ],
+        answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+        figure: "71-p7",
+      },
+    },
+  ],
+};
+
+const exercise72: Exercise = {
+  id: "7.2",
+  bnId: "অনুশীলনী ৭.২",
+  title: "চতুর্ভুজ অঙ্কন",
+  bookPages: "১৪৯-১৫১",
+  formulas: [
+    {
+      title: "যে পাঁচটি উপাত্তে একটি নির্দিষ্ট চতুর্ভুজ আঁকা যায়",
+      formulas: [
+        { statement: "১. চারটি বাহু ও একটি কোণ" },
+        { statement: "২. চারটি বাহু ও একটি কর্ণ" },
+        { statement: "৩. তিনটি বাহু ও দুইটি কর্ণ" },
+        { statement: "৪. তিনটি বাহু ও এদের অন্তর্ভুক্ত দুইটি কোণ" },
+        {
+          statement: "৫. দুইটি বাহু ও তিনটি কোণ",
+          note: String.raw`চতুর্ভুজের চার কোণের সমষ্টি $360^{\circ}$, তাই তিনটি কোণ জানলে চতুর্থটিও জানা।`,
+        },
+        {
+          statement: "কেবল চারটি বাহু দিলে চতুর্ভুজ নির্দিষ্ট হয় না",
+          note: "কর্ণ চতুর্ভুজকে দুইটি ত্রিভুজে ভাগ করে; তাই একটি বা দুইটি কর্ণ দেওয়া থাকলে ত্রিভুজ এঁকে এঁকে চতুর্ভুজ আঁকা যায়।",
+        },
+        {
+          statement: "বিশেষ চতুর্ভুজে কম উপাত্তই যথেষ্ট",
+          note: "সামান্তরিকের দুই সন্নিহিত বাহু ও অন্তর্ভুক্ত কোণ, রম্বসের এক বাহু ও এক কোণ, বর্গের একটি বাহু — এগুলো থেকেই পাঁচটি স্বতন্ত্র উপাত্ত পাওয়া যায়।",
+        },
+      ],
+    },
+    {
+      title: "সম্পাদ্য ৪ – ৫",
+      formulas: [
+        {
+          statement: String.raw`সম্পাদ্য ৪. সামান্তরিকের দুইটি কর্ণ $a,b$ ও এদের অন্তর্ভুক্ত কোণ $\angle x$`,
+          note: String.raw`$AC=a$ এর মধ্যবিন্দু $O$ তে $\angle AOP=\angle x$ এঁকে $OP$ ও বিপরীত রশ্মি $OQ$ থেকে $OB=OD=\tfrac12b$। $\triangle AOB\cong\triangle COD$ বলে $AB$ ও $CD$ সমান ও সমান্তরাল।`,
+        },
+        {
+          statement: String.raw`সম্পাদ্য ৫. সামান্তরিকের দুইটি কর্ণ $a,b$ ও একটি বাহু $c$`,
+          note: String.raw`$AB=c$ এর $A$ ও $B$ কে কেন্দ্র করে $\tfrac a2$ ও $\tfrac b2$ ব্যাসার্ধের চাপ $O$ তে মিলে। $AO$ ও $BO$ কে বর্ধিত করে $OC=\tfrac a2$, $OD=\tfrac b2$ নিলেই $ABCD$।`,
+        },
+      ],
+    },
+    {
+      title: "অঙ্কনে ব্যবহৃত ধর্ম",
+      formulas: [
+        { statement: "সামান্তরিকের কর্ণদ্বয় পরস্পরকে সমদ্বিখণ্ডিত করে।" },
+        {
+          statement: "রম্বসের চার বাহু সমান এবং কর্ণদ্বয় পরস্পরকে সমকোণে সমদ্বিখণ্ডিত করে।",
+        },
+        {
+          statement: "বর্গের চার বাহু সমান ও প্রতিটি কোণ সমকোণ।",
+        },
+        {
+          statement: String.raw`চতুর্ভুজের চার কোণের সমষ্টি $360^{\circ}$।`,
+        },
+      ],
+    },
+  ],
+  examples: [
+    // উদাহরণ ৩ — book page ১৪৭.
+    {
+      id: 3,
+      question:
+        "ট্রাপিজিয়ামের দুইটি সমান্তরাল বাহু এবং এদের মধ্যে বৃহত্তর বাহু সংলগ্ন দুইটি কোণ দেওয়া আছে। ট্রাপিজিয়ামটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, ট্রাপিজিয়ামের সমান্তরাল বাহুদ্বয় $a$ ও $b$, যেখানে $a>b$, এবং বৃহত্তর বাহু $a$ সংলগ্ন কোণদ্বয় $\angle x$ ও $\angle y$। (চিত্রে $a=6$, $b=4$ সে.মি., $\angle x=60^{\circ}$, $\angle y=45^{\circ}$।)`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি $AX$ থেকে $AB=a$ নিই। $A$ বিন্দুতে $\angle x$ এর সমান $\angle BAY$ এবং $B$ বিন্দুতে $\angle y$ এর সমান $\angle ABZ$ আঁকি।`,
+          String.raw`২. $AB$ থেকে $AE=b$ কেটে নিই। $E$ বিন্দুতে $EC\parallel AY$ আঁকি, যা $BZ$ রশ্মিকে $C$ বিন্দুতে ছেদ করে।`,
+          String.raw`৩. $C$ বিন্দু দিয়ে $CD\parallel BA$ আঁকি, যা $AY$ রশ্মিকে $D$ বিন্দুতে ছেদ করে।`,
+          String.raw`তাহলে $ABCD$ ই উদ্দিষ্ট ট্রাপিজিয়াম।`,
+          String.raw`প্রমাণ: অঙ্কন অনুসারে $AE\parallel DC$ এবং $AD\parallel EC$, সুতরাং $AECD$ একটি সামান্তরিক এবং $CD=AE=b$।`,
+          String.raw`এখন চতুর্ভুজ $ABCD$ এ $AB=a$, $CD=b$, $AB\parallel CD$ এবং $\angle BAD=\angle x$, $\angle ABC=\angle y$।`,
+        ],
+        answer: String.raw`$ABCD$ ই নির্ণেয় ট্রাপিজিয়াম।`,
+        figure: "72-ex3",
+      },
+    },
+    // উদাহরণ ৪ — book pages ১৪৮-১৪৯.
+    {
+      id: 4,
+      question: String.raw`$ABC$ ত্রিভুজের $\angle B=60^{\circ}$, $\angle C=45^{\circ}$ এবং পরিসীমা $p=13$ সে.মি.।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`স্কেল ও কম্পাস দিয়ে $\angle B$ ও $\angle C$ আঁকো।`,
+          solution: {
+            steps: [
+              String.raw`$\angle B=60^{\circ}$: $B$ কে কেন্দ্র করে যেকোনো ব্যাসার্ধে চাপ আঁকি যা ভূমিকে $M$ বিন্দুতে কাটে। $M$ কে কেন্দ্র করে একই ব্যাসার্ধে চাপ আঁকি যা প্রথম চাপকে $N$ বিন্দুতে কাটে। $BN$ যোগ করি।`,
+              String.raw`$BM=BN=MN$ বলে $\triangle BMN$ সমবাহু, তাই $\angle NBM=60^{\circ}$।`,
+              String.raw`$\angle C=45^{\circ}$: $C$ বিন্দুতে ভূমির উপর লম্ব $CS$ আঁকি, অর্থাৎ $90^{\circ}$ কোণ। এই কোণকে সমদ্বিখণ্ডিত করি।`,
+              String.raw`$$\tfrac12\times 90^{\circ}=45^{\circ}$$`,
+            ],
+            answer: String.raw`চিত্রে $\angle B=60^{\circ}$ ও $\angle C=45^{\circ}$ আঁকা হলো।`,
+            figure: "72-ex4a",
+          },
+        },
+        {
+          label: "খ",
+          question: "ত্রিভুজটি অঙ্কন করো। (অঙ্কনের চিহ্ন ও বিবরণ আবশ্যক)",
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $RX$ থেকে $RQ=p=13$ সে.মি. কেটে নিই।`,
+              String.raw`২. $R$ বিন্দুতে $\tfrac12\angle B=30^{\circ}$ এর সমান $\angle ERX$ এবং $Q$ বিন্দুতে $\tfrac12\angle C=22\tfrac12^{\circ}$ এর সমান $\angle FQR$ আঁকি। $ER$ ও $FQ$ রেখা $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`৩. $A$ বিন্দুতে $ER$ এর যে পাশে $\angle ERX$ অবস্থিত সে পাশে $\angle RAB=\tfrac12\angle B$ এবং $FQ$ এর যে পাশে $\angle FQR$ অবস্থিত সে পাশে $\angle QAC=\tfrac12\angle C$ আঁকি। $AB$ ও $AC$ রেখাংশ $RQ$ কে যথাক্রমে $B$ ও $C$ বিন্দুতে ছেদ করে।`,
+              String.raw`তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: $\triangle ABR$ এ $\angle BRA=\angle BAR$, $\therefore BA=BR$ এবং বহিঃস্থ কোণ`,
+              String.raw`$$\angle ABC=\angle BRA+\angle BAR=30^{\circ}+30^{\circ}=60^{\circ}$$`,
+              String.raw`$\triangle ACQ$ এ $\angle CQA=\angle CAQ$, $\therefore CA=CQ$ এবং`,
+              String.raw`$$\angle ACB=22\tfrac12^{\circ}+22\tfrac12^{\circ}=45^{\circ}$$`,
+              String.raw`$$AB+BC+CA=RB+BC+CQ=RQ=13\text{ সে.মি.}$$`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+            figure: "72-ex4b",
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`একটি রম্বস আঁক যার বাহুর দৈর্ঘ্য $\dfrac p3$ এর সমান এবং একটি কোণ $\angle B$ এর সমান। (অঙ্কনের চিহ্ন ও বিবরণ আবশ্যক)`,
+          solution: {
+            steps: [
+              String.raw`রম্বসের বাহু $\tfrac13p=\tfrac{13}{3}\approx 4.33$ সে.মি. এবং একটি কোণ $\angle B=60^{\circ}$। $p$ রেখাংশকে (সমান্তরাল রেখার সাহায্যে) তিন সমান ভাগ করে $\tfrac13p$ পাই।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. $BX$ যেকোনো রশ্মি থেকে $BA=\tfrac13p$ কাটি।`,
+              String.raw`২. $B$ বিন্দুতে $\angle ABE=60^{\circ}$ আঁকি। $BE$ থেকে $BC=AB$ নিই।`,
+              String.raw`৩. $A$ ও $C$ বিন্দুকে কেন্দ্র করে $\tfrac13p$ এর সমান ব্যাসার্ধ নিয়ে $\angle ABC$ এর অভ্যন্তরে দুইটি বৃত্তচাপ আঁকি। বৃত্তচাপদ্বয় পরস্পর $D$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,D$ ও $C,D$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট রম্বস।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=BC=CD=DA=\tfrac13p$ এবং $\angle ABC=60^{\circ}=\angle B$। চার বাহু সমান বলে $ABCD$ রম্বস।`,
+            ],
+            answer: String.raw`$ABCD$ ই উদ্দিষ্ট রম্বস।`,
+            figure: "72-ex4c",
+          },
+        },
+      ],
+    },
+  ],
+  problems: [
+    // ─────────────── বহুনির্বাচনি প্রশ্ন (১ – ৩) ───────────────
+    {
+      id: 1,
+      group: PG_QUAD_MCQ,
+      question: String.raw`সমকোণী ত্রিভুজের সূক্ষ্মকোণ দুইটির পরিমাণ দেওয়া থাকলে নিম্নের কোন ক্ষেত্রে ত্রিভুজ অঙ্কন করা সম্ভব?
+ক) $60^{\circ}$ ও $36^{\circ}$  খ) $40^{\circ}$ ও $50^{\circ}$  গ) $30^{\circ}$ ও $70^{\circ}$  ঘ) $80^{\circ}$ ও $20^{\circ}$`,
+      solution: {
+        steps: [
+          String.raw`ত্রিভুজের তিন কোণের সমষ্টি $180^{\circ}$, আর এক কোণ $90^{\circ}$। তাই সূক্ষ্মকোণ দুইটির সমষ্টি`,
+          String.raw`$$180^{\circ}-90^{\circ}=90^{\circ}$$`,
+          String.raw`ক) $60^{\circ}+36^{\circ}=96^{\circ}$ খ) $40^{\circ}+50^{\circ}=90^{\circ}$ গ) $30^{\circ}+70^{\circ}=100^{\circ}$ ঘ) $80^{\circ}+20^{\circ}=100^{\circ}$`,
+          String.raw`কেবল খ) তে সমষ্টি $90^{\circ}$।`,
+        ],
+        answer: String.raw`খ) $40^{\circ}$ ও $50^{\circ}$`,
+        figure: "72-p1",
+      },
+    },
+    {
+      id: 2,
+      group: PG_QUAD_MCQ,
+      question: String.raw`একটি ত্রিভুজের দুইটি বাহুর দৈর্ঘ্য যথাক্রমে $4$ সে.মি. ও $9$ সে.মি. হলে তৃতীয় বাহুর দৈর্ঘ্য কত সে.মি.?
+ক) $4$  খ) $5$  গ) $6$  ঘ) $13$`,
+      solution: {
+        steps: [
+          String.raw`ত্রিভুজের যেকোনো দুই বাহুর সমষ্টি তৃতীয় বাহু অপেক্ষা বৃহত্তর এবং অন্তর তৃতীয় বাহু অপেক্ষা ক্ষুদ্রতর।`,
+          String.raw`$$9-4<\text{তৃতীয় বাহু}<9+4$$`,
+          String.raw`$$5<\text{তৃতীয় বাহু}<13$$`,
+          String.raw`বিকল্পগুলোর মধ্যে কেবল $6$ এই সীমার ভিতরে ($5$ ও $13$ সীমার সমান, তাই চলবে না)।`,
+        ],
+        answer: String.raw`গ) $6$`,
+        figure: "72-p2",
+      },
+    },
+    {
+      id: 3,
+      group: PG_QUAD_MCQ,
+      question: String.raw`নির্দিষ্ট একটি চতুর্ভুজ আঁকা সম্ভব যদি দেয়া থাকে — ($i$) চারটি বাহু ও একটি কোণ ($ii$) তিনটি বাহু ও এদের অন্তর্ভুক্ত দুইটি কোণ ($iii$) দুইটি বাহু ও তিনটি কোণ। নিচের কোনটি সঠিক?
+ক) $i$  খ) $ii$  গ) $i, ii$  ঘ) $i, ii$ ও $iii$`,
+      solution: {
+        steps: [
+          "নির্দিষ্ট চতুর্ভুজ আঁকার জন্য পাঁচটি অনির্ভরশীল উপাত্ত প্রয়োজন। তিনটি উক্তির প্রতিটিতেই পাঁচটি উপাত্ত আছে এবং তিনটিই বইয়ে বর্ণিত পাঁচ ধরনের উপাত্তের তালিকায় আছে:",
+          String.raw`($i$) চারটি বাহু ও একটি কোণ — $4+1=5$ [সঠিক]`,
+          String.raw`($ii$) তিনটি বাহু ও এদের অন্তর্ভুক্ত দুইটি কোণ — $3+2=5$ [সঠিক]`,
+          String.raw`($iii$) দুইটি বাহু ও তিনটি কোণ — $2+3=5$ [সঠিক]`,
+        ],
+        answer: String.raw`ঘ) $i, ii$ ও $iii$`,
+      },
+    },
+
+    // ─────────────── চতুর্ভুজ অঙ্কন (৪ – ১১) ───────────────
+    {
+      id: 4,
+      group: PG_QUAD_DRAW,
+      question: "নিম্নে প্রদত্ত উপাত্ত নিয়ে চতুর্ভুজ অঙ্কন করো:",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`চারটি বাহুর দৈর্ঘ্য $3$ সে.মি., $3.5$ সে.মি., $2.5$ সে.মি. ও $3$ সে.মি. এবং একটি কোণ $45^{\circ}$।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, $BC=3$, $AB=3.5$, $AD=2.5$, $CD=3$ সে.মি. এবং $\angle ABC=45^{\circ}$।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BE$ থেকে $BC=3$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ বিন্দুতে $\angle CBF=45^{\circ}$ আঁকি এবং $BF$ থেকে $BA=3.5$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $A$ কে কেন্দ্র করে $2.5$ সে.মি. এবং $C$ কে কেন্দ্র করে $3$ সে.মি. ব্যাসার্ধ নিয়ে $\angle ABC$ এর অভ্যন্তরে দুইটি বৃত্তচাপ আঁকি। চাপ দুইটি $D$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,D$ ও $C,D$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট চতুর্ভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=3.5$, $BC=3$, $CD=3$, $DA=2.5$ সে.মি. এবং $\angle ABC=45^{\circ}$।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় চতুর্ভুজ।`,
+            figure: "72-p4a",
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`চারটি বাহুর দৈর্ঘ্য $3.5$ সে.মি., $4$ সে.মি., $2.5$ সে.মি. ও $3.5$ সে.মি. এবং একটি কর্ণ $5$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, $AB=2.5$, $AD=3.5$, $BC=3.5$, $CD=4$ সে.মি. এবং কর্ণ $BD=5$ সে.মি.।`,
+              String.raw`কর্ণ $BD$ চতুর্ভুজটিকে $\triangle ABD$ ও $\triangle CBD$ এ ভাগ করে; প্রতিটির তিন বাহু জানা।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BE$ থেকে $BD=5$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ ও $D$ কে কেন্দ্র করে যথাক্রমে $2.5$ ও $3.5$ সে.মি. ব্যাসার্ধ নিয়ে $BD$ এর এক পাশে দুইটি চাপ আঁকি; এরা $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`৩. $B$ ও $D$ কে কেন্দ্র করে যথাক্রমে $3.5$ ও $4$ সে.মি. ব্যাসার্ধ নিয়ে $BD$ এর অপর পাশে দুইটি চাপ আঁকি; এরা $C$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,B$; $A,D$; $C,B$ ও $C,D$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট চতুর্ভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=2.5$, $BC=3.5$, $CD=4$, $DA=3.5$ সে.মি. এবং কর্ণ $BD=5$ সে.মি.।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় চতুর্ভুজ।`,
+            figure: "72-p4b",
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`তিনটি বাহুর দৈর্ঘ্য $3.2$ সে.মি., $3$ সে.মি., $3.5$ সে.মি. এবং দুইটি কর্ণ $2.8$ সে.মি. ও $4.5$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, $AB=3.2$, $AD=3$, $CD=3.5$ সে.মি. এবং কর্ণ $BD=4.5$, $AC=2.8$ সে.মি.।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BE$ থেকে কর্ণ $BD=4.5$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ ও $D$ কে কেন্দ্র করে যথাক্রমে $3.2$ ও $3$ সে.মি. ব্যাসার্ধ নিয়ে $BD$ এর এক পাশে দুইটি চাপ আঁকি; এরা $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`৩. $A$ কে কেন্দ্র করে $2.8$ সে.মি. এবং $D$ কে কেন্দ্র করে $3.5$ সে.মি. ব্যাসার্ধ নিয়ে $BD$ এর অপর পাশে দুইটি চাপ আঁকি; এরা $C$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,B$; $B,C$; $C,D$; $D,A$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট চতুর্ভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=3.2$, $CD=3.5$, $DA=3$ সে.মি. এবং কর্ণদ্বয় $BD=4.5$, $AC=2.8$ সে.মি.।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় চতুর্ভুজ।`,
+            figure: "72-p4c",
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`তিনটি বাহুর দৈর্ঘ্য $3$ সে.মি., $3.5$ সে.মি., $4$ সে.মি. এবং দুইটি কোণ $60^{\circ}$ ও $135^{\circ}$।`,
+          solution: {
+            steps: [
+              String.raw`মনে করি, $BC=3$, $AB=3.5$, $CD=4$ সে.মি. এবং অন্তর্ভুক্ত কোণ $\angle ABC=60^{\circ}$, $\angle BCD=135^{\circ}$।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BE$ থেকে $BC=3$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ বিন্দুতে $\angle CBF=60^{\circ}$ আঁকি এবং $BF$ থেকে $BA=3.5$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $C$ বিন্দুতে একই পাশে $\angle BCG=135^{\circ}$ আঁকি ($90^{\circ}+45^{\circ}$) এবং $CG$ থেকে $CD=4$ সে.মি. কেটে নিই।`,
+              String.raw`৪. $A,D$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট চতুর্ভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=3.5$, $BC=3$, $CD=4$ সে.মি. এবং $\angle ABC=60^{\circ}$, $\angle BCD=135^{\circ}$।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় চতুর্ভুজ।`,
+            figure: "72-p4d",
+          },
+        },
+      ],
+    },
+    {
+      id: 5,
+      group: PG_QUAD_DRAW,
+      question: "নিম্নে প্রদত্ত উপাত্ত নিয়ে সামান্তরিক অঙ্কন করো:",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`দুইটি কর্ণের দৈর্ঘ্য $4$ সে.মি., $6.5$ সে.মি. এবং এদের অন্তর্ভুক্ত কোণ $45^{\circ}$।`,
+          solution: {
+            steps: [
+              String.raw`এটি সম্পাদ্য ৪ এর প্রয়োগ: $a=4$, $b=6.5$ সে.মি., $\angle x=45^{\circ}$।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $AE$ থেকে $AC=4$ সে.মি. নিই। $AC$ এর লম্বসমদ্বিখণ্ডক এঁকে মধ্যবিন্দু $O$ নির্ণয় করি।`,
+              String.raw`২. $O$ বিন্দুতে $\angle AOP=45^{\circ}$ আঁকি। $OP$ এর বিপরীত রশ্মি $OQ$ আঁকি।`,
+              String.raw`৩. $OP$ ও $OQ$ থেকে $\tfrac12\times 6.5=3.25$ সে.মি. এর সমান যথাক্রমে $OB$ ও $OD$ নিই।`,
+              String.raw`৪. $A,B$; $B,C$; $C,D$; $D,A$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট সামান্তরিক।`,
+              String.raw`প্রমাণ: $\triangle AOB$ ও $\triangle COD$ এ $OA=OC=2$, $OB=OD=3.25$ এবং $\angle AOB=\angle COD$ [বিপ্রতীপ কোণ]।`,
+              String.raw`$$\therefore\;\triangle AOB\cong\triangle COD$$`,
+              String.raw`সুতরাং $AB=CD$ এবং $\angle ABO=\angle CDO$; কোণ দুইটি একান্তর, তাই $AB\parallel CD$। অনুরূপভাবে $AD$ ও $BC$ সমান ও সমান্তরাল।`,
+              String.raw`অতএব $ABCD$ সামান্তরিক, যার কর্ণ $AC=4$, $BD=3.25+3.25=6.5$ সে.মি. এবং অন্তর্ভুক্ত $\angle AOB=45^{\circ}$।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় সামান্তরিক।`,
+            figure: "72-p5a",
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`একটি বাহুর দৈর্ঘ্য $4$ সে.মি. এবং দুইটি কর্ণের দৈর্ঘ্য $5$ সে.মি., $6.5$ সে.মি.।`,
+          solution: {
+            steps: [
+              String.raw`এটি সম্পাদ্য ৫ এর প্রয়োগ: $c=4$, $a=5$, $b=6.5$ সে.মি.; $\tfrac a2=2.5$, $\tfrac b2=3.25$ সে.মি.।`,
+              String.raw`যাচাই: $\triangle AOB$ এর বাহু $2.5$, $3.25$, $4$ — $2.5+3.25=5.75>4$, তাই আঁকা সম্ভব।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $AX$ থেকে $AB=4$ সে.মি. নিই।`,
+              String.raw`২. $A$ ও $B$ কে কেন্দ্র করে যথাক্রমে $2.5$ ও $3.25$ সে.মি. ব্যাসার্ধ নিয়ে $AB$ এর একই পাশে দুইটি চাপ আঁকি; এরা $O$ বিন্দুতে ছেদ করে।`,
+              String.raw`৩. $AO$ কে বর্ধিত করে $OC=2.5$ সে.মি. এবং $BO$ কে বর্ধিত করে $OD=3.25$ সে.মি. নিই।`,
+              String.raw`৪. $A,D$; $D,C$ ও $B,C$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট সামান্তরিক।`,
+              String.raw`প্রমাণ: $\triangle AOB$ ও $\triangle COD$ এ $OA=OC$, $OB=OD$ এবং $\angle AOB=\angle COD$ [বিপ্রতীপ কোণ]।`,
+              String.raw`$\therefore\;\triangle AOB\cong\triangle COD$, তাই $AB=CD$ এবং $\angle ABO=\angle CDO$ (একান্তর), অর্থাৎ $AB\parallel CD$। অনুরূপভাবে $AD$ ও $BC$ সমান ও সমান্তরাল।`,
+              String.raw`অতএব $ABCD$ সামান্তরিক, যার বাহু $AB=4$ এবং কর্ণ $AC=5$, $BD=6.5$ সে.মি.।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় সামান্তরিক।`,
+            figure: "72-p5b",
+          },
+        },
+      ],
+    },
+    {
+      id: 6,
+      group: PG_QUAD_DRAW,
+      question: String.raw`$ABCD$ চতুর্ভুজের $AB$ ও $BC$ বাহু এবং $\angle B$, $\angle C$ ও $\angle D$ কোণ দেওয়া আছে। চতুর্ভুজটি আঁকো।`,
+      solution: {
+        steps: [
+          String.raw`(চিত্রে $AB=3$ সে.মি., $BC=4$ সে.মি., $\angle B=100^{\circ}$, $\angle C=80^{\circ}$, $\angle D=95^{\circ}$ নেওয়া হয়েছে।)`,
+          String.raw`$D$ বিন্দুর অবস্থান জানা নেই বলে $\angle D$ সরাসরি আঁকা যায় না; তাই চতুর্থ কোণ বের করি:`,
+          String.raw`$$\angle A=360^{\circ}-(\angle B+\angle C+\angle D)=360^{\circ}-(100^{\circ}+80^{\circ}+95^{\circ})=85^{\circ}$$`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি $BX$ থেকে $BC$ এর সমান অংশ কেটে নিই।`,
+          String.raw`২. $B$ বিন্দুতে $\angle B$ এর সমান $\angle CBA$ আঁকি এবং তা থেকে $BA$ এর সমান অংশ কেটে নিই।`,
+          String.raw`৩. $A$ বিন্দুতে $\angle A$ এর সমান $\angle BAD$ এবং $C$ বিন্দুতে $\angle C$ এর সমান $\angle BCD$ আঁকি (চাঁদার সাহায্যে)। রশ্মি দুইটি $D$ বিন্দুতে ছেদ করে।`,
+          String.raw`তাহলে $ABCD$ ই উদ্দিষ্ট চতুর্ভুজ।`,
+          String.raw`প্রমাণ: অঙ্কন অনুসারে $AB$, $BC$, $\angle B$ ও $\angle C$ প্রদত্ত মানের সমান এবং`,
+          String.raw`$$\angle ADC=360^{\circ}-(\angle A+\angle B+\angle C)=360^{\circ}-(85^{\circ}+100^{\circ}+80^{\circ})=95^{\circ}=\angle D$$`,
+        ],
+        answer: String.raw`$ABCD$ ই নির্ণেয় চতুর্ভুজ।`,
+        figure: "72-p6",
+      },
+    },
+    {
+      id: 7,
+      group: PG_QUAD_DRAW,
+      question: String.raw`$ABCD$ চতুর্ভুজের কর্ণ দুইটির ছেদবিন্দু দ্বারা কর্ণ দুইটির চারটি খণ্ডিত অংশ এবং এদের অন্তর্ভুক্ত একটি কোণ যথাক্রমে $OA=4$ সে.মি., $OB=5$ সে.মি., $OC=3.5$ সে.মি., $OD=4.5$ সে.মি. ও $\angle AOB=80^{\circ}$ দেওয়া আছে। চতুর্ভুজটি আঁকো।`,
+      solution: {
+        steps: [
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. একটি সরলরেখার উপর যেকোনো বিন্দু $O$ নিই। $O$ এর এক পাশে $OA=4$ সে.মি. এবং বিপরীত পাশে $OC=3.5$ সে.মি. কেটে নিই।`,
+          String.raw`২. $O$ বিন্দুতে চাঁদার সাহায্যে $\angle AOB=80^{\circ}$ আঁকি এবং ঐ রশ্মি থেকে $OB=5$ সে.মি. কেটে নিই।`,
+          String.raw`৩. $BO$ কে $O$ এর বিপরীত দিকে বর্ধিত করে $OD=4.5$ সে.মি. কেটে নিই।`,
+          String.raw`৪. $A,B$; $B,C$; $C,D$; $D,A$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট চতুর্ভুজ।`,
+          String.raw`প্রমাণ: $AC$ ও $BD$ কর্ণ দুইটি $O$ বিন্দুতে ছেদ করেছে, যেখানে অঙ্কন অনুসারে $OA=4$, $OB=5$, $OC=3.5$, $OD=4.5$ সে.মি. এবং $\angle AOB=80^{\circ}$।`,
+        ],
+        answer: String.raw`$ABCD$ ই নির্ণেয় চতুর্ভুজ।`,
+        figure: "72-p7",
+      },
+    },
+    {
+      id: 8,
+      group: PG_QUAD_DRAW,
+      question: String.raw`রম্বসের একটি বাহুর দৈর্ঘ্য $3.5$ সে.মি. ও একটি কোণ $45^{\circ}$; রম্বসটি আঁকো।`,
+      solution: {
+        steps: [
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. $BX$ যেকোনো রশ্মি থেকে $BA=3.5$ সে.মি. কাটি।`,
+          String.raw`২. $B$ বিন্দুতে $\angle ABC=45^{\circ}$ আঁকি ($90^{\circ}$ কে সমদ্বিখণ্ডিত করে) এবং ঐ রশ্মি থেকে $BC=3.5$ সে.মি. নিই।`,
+          String.raw`৩. $A$ ও $C$ কে কেন্দ্র করে $3.5$ সে.মি. ব্যাসার্ধ নিয়ে $\angle ABC$ এর অভ্যন্তরে দুইটি বৃত্তচাপ আঁকি; এরা $D$ বিন্দুতে ছেদ করে।`,
+          String.raw`৪. $A,D$ ও $C,D$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট রম্বস।`,
+          String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=BC=CD=DA=3.5$ সে.মি. এবং $\angle ABC=45^{\circ}$। চার বাহু সমান বলে $ABCD$ রম্বস।`,
+        ],
+        answer: String.raw`$ABCD$ ই নির্ণেয় রম্বস।`,
+        figure: "72-p8",
+      },
+    },
+    {
+      id: 9,
+      group: PG_QUAD_DRAW,
+      question: "রম্বসের একটি বাহু এবং একটি কর্ণের দৈর্ঘ্য দেওয়া আছে। রম্বসটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, রম্বসের বাহু $a$ এবং একটি কর্ণ $d$। (চিত্রে $a=3.5$ সে.মি., $d=5$ সে.মি.।)`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি $AX$ থেকে কর্ণ $AC=d$ কেটে নিই।`,
+          String.raw`২. $A$ ও $C$ কে কেন্দ্র করে $a$ এর সমান ব্যাসার্ধ নিয়ে $AC$ এর দুই পাশে দুইটি করে বৃত্তচাপ আঁকি। এক পাশের চাপদ্বয় $B$ বিন্দুতে এবং অপর পাশের চাপদ্বয় $D$ বিন্দুতে ছেদ করে।`,
+          String.raw`৩. $A,B$; $B,C$; $C,D$; $D,A$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট রম্বস।`,
+          String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=BC=CD=DA=a$ এবং কর্ণ $AC=d$। চার বাহু সমান বলে $ABCD$ রম্বস।`,
+          String.raw`শর্ত: চাপ দুইটি মিলতে হলে $d<2a$ হতে হবে।`,
+        ],
+        answer: String.raw`$ABCD$ ই নির্ণেয় রম্বস।`,
+        figure: "72-p9",
+      },
+    },
+    {
+      id: 10,
+      group: PG_QUAD_DRAW,
+      question: "রম্বসের দুইটি কর্ণের দৈর্ঘ্য দেওয়া আছে। রম্বসটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, রম্বসের কর্ণ দুইটি $a$ ও $b$। (চিত্রে $a=6$ সে.মি., $b=4$ সে.মি.।)`,
+          String.raw`রম্বসের কর্ণদ্বয় পরস্পরকে সমকোণে সমদ্বিখণ্ডিত করে — এ ধর্মই অঙ্কনের ভিত্তি।`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি থেকে $AC=a$ কেটে নিই।`,
+          String.raw`২. $AC$ এর লম্বসমদ্বিখণ্ডক আঁকি, যা $AC$ কে $O$ বিন্দুতে ছেদ করে।`,
+          String.raw`৩. লম্বসমদ্বিখণ্ডকের উপর $O$ এর দুই পাশে $OB=OD=\tfrac b2$ কেটে নিই।`,
+          String.raw`৪. $A,B$; $B,C$; $C,D$; $D,A$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট রম্বস।`,
+          String.raw`প্রমাণ: $B$ ও $D$ বিন্দু $AC$ এর লম্বসমদ্বিখণ্ডকের উপর, তাই $AB=BC$ ও $AD=DC$।`,
+          String.raw`আবার $\triangle AOB$ ও $\triangle AOD$ এ $OB=OD$, $AO$ সাধারণ এবং $\angle AOB=\angle AOD=90^{\circ}$, তাই $AB=AD$।`,
+          String.raw`$$\therefore\;AB=BC=CD=DA=\sqrt{\left(\tfrac a2\right)^{2}+\left(\tfrac b2\right)^{2}}$$`,
+          String.raw`চিত্রের মানে প্রতিটি বাহু $\sqrt{3^{2}+2^{2}}=\sqrt{13}\approx 3.61$ সে.মি.। চার বাহু সমান এবং কর্ণ $AC=a$, $BD=b$, সুতরাং $ABCD$ ই নির্ণেয় রম্বস।`,
+        ],
+        answer: String.raw`$ABCD$ ই নির্ণেয় রম্বস।`,
+        figure: "72-p10",
+      },
+    },
+    {
+      id: 11,
+      group: PG_QUAD_DRAW,
+      question: "বর্গক্ষেত্রের পরিসীমা দেওয়া আছে। বর্গক্ষেত্রটি আঁকো।",
+      solution: {
+        steps: [
+          String.raw`মনে করি, বর্গক্ষেত্রের পরিসীমা $p$। চার বাহু সমান, তাই প্রতিটি বাহু $\tfrac14p$। (চিত্রে $p=12$ সে.মি., বাহু $3$ সে.মি.।)`,
+          String.raw`$p$ রেখাংশকে লম্বসমদ্বিখণ্ডক দিয়ে সমান দুই ভাগ করি, এক ভাগকে আবার সমদ্বিখণ্ডিত করে $\tfrac14p$ পাই।`,
+          String.raw`অঙ্কনের বিবরণ:`,
+          String.raw`১. যেকোনো রশ্মি $AX$ থেকে $AB=\tfrac14p$ কেটে নিই।`,
+          String.raw`২. $A$ বিন্দুতে $AE\perp AB$ আঁকি এবং $AE$ থেকে $AD=\tfrac14p$ কেটে নিই।`,
+          String.raw`৩. $B$ ও $D$ কে কেন্দ্র করে $\tfrac14p$ ব্যাসার্ধ নিয়ে $\angle BAD$ এর অভ্যন্তরে দুইটি চাপ আঁকি; এরা $C$ বিন্দুতে ছেদ করে।`,
+          String.raw`৪. $B,C$ ও $C,D$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট বর্গক্ষেত্র।`,
+          String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=BC=CD=DA=\tfrac14p$ এবং $\angle BAD=90^{\circ}$। চার বাহু সমান ও একটি কোণ সমকোণ বলে $ABCD$ বর্গক্ষেত্র, এবং এর পরিসীমা $4\times\tfrac14p=p$।`,
+        ],
+        answer: String.raw`$ABCD$ ই নির্ণেয় বর্গক্ষেত্র।`,
+        figure: "72-p11",
+      },
+    },
+
+    // ─────────────── সৃজনশীল প্রশ্ন (১২ – ১৩) ───────────────
+    {
+      id: 12,
+      group: PG_QUAD_CQ,
+      question: String.raw`একটি সমকোণী ত্রিভুজের অতিভুজ $5$ সে.মি. ও এক বাহুর দৈর্ঘ্য $4$ সে.মি.। উপরের তথ্যের আলোকে নিচের প্রশ্নগুলোর উত্তর দাও:`,
+      parts: [
+        {
+          label: "ক",
+          question: "ত্রিভুজটির অপর বাহুর দৈর্ঘ্য কত?",
+          solution: {
+            steps: [
+              String.raw`পিথাগোরাসের উপপাদ্য অনুসারে,`,
+              String.raw`$$\text{অপর বাহু}=\sqrt{5^{2}-4^{2}}=\sqrt{25-16}=\sqrt{9}=3$$`,
+            ],
+            answer: String.raw`$3$ সে.মি.`,
+          },
+        },
+        {
+          label: "খ",
+          question: "ত্রিভুজটি অঙ্কন করো। (অঙ্কনের চিহ্ন আবশ্যক)",
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BX$ থেকে $BC=4$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ বিন্দুতে $BY\perp BX$ আঁকি।`,
+              String.raw`৩. $C$ কে কেন্দ্র করে $5$ সে.মি. ব্যাসার্ধ নিয়ে একটি বৃত্তচাপ আঁকি যা $BY$ কে $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,C$ যোগ করি। তাহলে $\triangle ABC$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: $\angle ABC=90^{\circ}$, $BC=4$ সে.মি. এবং অতিভুজ $AC=5$ সে.মি.। মেপে দেখা যায় $AB=3$ সে.মি., যা (ক) এর সাথে মিলে।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "72-p12b",
+          },
+        },
+        {
+          label: "গ",
+          question: "ত্রিভুজটির পরিসীমার সমান পরিসীমাবিশিষ্ট একটি বর্গ অঙ্কন করো। (অঙ্কনের চিহ্ন আবশ্যক)",
+          solution: {
+            steps: [
+              String.raw`ত্রিভুজের পরিসীমা $=3+4+5=12$ সে.মি.।`,
+              String.raw`$$\therefore\;\text{বর্গের বাহু}=\frac{12}{4}=3\text{ সে.মি.}$$`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি থেকে $PQ=3$ সে.মি. কেটে নিই।`,
+              String.raw`২. $P$ বিন্দুতে $PQ$ এর উপর লম্ব আঁকি এবং তা থেকে $PS=3$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $Q$ ও $S$ কে কেন্দ্র করে $3$ সে.মি. ব্যাসার্ধ নিয়ে $\angle QPS$ এর অভ্যন্তরে দুইটি চাপ আঁকি; এরা $R$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $Q,R$ ও $R,S$ যোগ করি। তাহলে $PQRS$ ই উদ্দিষ্ট বর্গ।`,
+              String.raw`প্রমাণ: $PQ=QR=RS=SP=3$ সে.মি. এবং $\angle QPS=90^{\circ}$, তাই $PQRS$ বর্গ, যার পরিসীমা $4\times 3=12$ সে.মি. = ত্রিভুজের পরিসীমা।`,
+            ],
+            answer: String.raw`$PQRS$ ই নির্ণেয় বর্গ (বাহু $3$ সে.মি.)।`,
+            figure: "72-p12c",
+          },
+        },
+      ],
+    },
+    {
+      id: 13,
+      group: PG_QUAD_CQ,
+      question: String.raw`$ABCD$ চতুর্ভুজের $AB=4$ সে.মি., $BC=5$ সে.মি., $\angle A=85^{\circ}$, $\angle B=80^{\circ}$ এবং $\angle C=95^{\circ}$। উপরের তথ্যের আলোকে নিচের প্রশ্নগুলোর উত্তর দাও।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$\angle D$ এর মান নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`চতুর্ভুজের চার কোণের সমষ্টি $360^{\circ}$।`,
+              String.raw`$$\angle D=360^{\circ}-(\angle A+\angle B+\angle C)$$`,
+              String.raw`$$=360^{\circ}-(85^{\circ}+80^{\circ}+95^{\circ})=360^{\circ}-260^{\circ}=100^{\circ}$$`,
+            ],
+            answer: String.raw`$\angle D=100^{\circ}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`প্রদত্ত তথ্য অনুযায়ী $ABCD$ চতুর্ভুজটি অঙ্কন করো। (অঙ্কনের চিহ্ন আবশ্যক)`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BX$ থেকে $BC=5$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ বিন্দুতে চাঁদার সাহায্যে $\angle CBA=80^{\circ}$ আঁকি এবং ঐ রশ্মি থেকে $BA=4$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $A$ বিন্দুতে $\angle BAD=85^{\circ}$ এবং $C$ বিন্দুতে $\angle BCD=95^{\circ}$ আঁকি। রশ্মি দুইটি $D$ বিন্দুতে ছেদ করে।`,
+              String.raw`তাহলে $ABCD$ ই উদ্দিষ্ট চতুর্ভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $AB=4$, $BC=5$ সে.মি., $\angle A=85^{\circ}$, $\angle B=80^{\circ}$, $\angle C=95^{\circ}$ এবং (ক) অনুসারে $\angle D=100^{\circ}$।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় চতুর্ভুজ।`,
+            figure: "72-p13b",
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`প্রদত্ত বাহু দুইটিকে একটি সামান্তরিকের বাহু এবং $\angle B=80^{\circ}$ ধরে সামান্তরিকটি অঙ্কন করো। (অঙ্কনের চিহ্ন আবশ্যক)`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BX$ থেকে $BC=5$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ বিন্দুতে $\angle CBA=80^{\circ}$ আঁকি এবং তা থেকে $BA=4$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $A$ কে কেন্দ্র করে $5$ সে.মি. এবং $C$ কে কেন্দ্র করে $4$ সে.মি. ব্যাসার্ধ নিয়ে $\angle ABC$ এর অভ্যন্তরে দুইটি চাপ আঁকি; এরা $D$ বিন্দুতে ছেদ করে।`,
+              String.raw`৪. $A,D$ ও $C,D$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট সামান্তরিক।`,
+              String.raw`প্রমাণ: $\triangle ABC$ ও $\triangle CDA$ এ $AB=CD=4$, $BC=DA=5$ এবং $AC$ সাধারণ বাহু।`,
+              String.raw`$$\therefore\;\triangle ABC\cong\triangle CDA$$`,
+              String.raw`ফলে $\angle BAC=\angle DCA$ (একান্তর), তাই $AB\parallel CD$; তেমনি $\angle BCA=\angle DAC$, তাই $BC\parallel AD$। বিপরীত বাহুগুলো সমান্তরাল বলে $ABCD$ সামান্তরিক, যার $\angle B=80^{\circ}$।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় সামান্তরিক।`,
+            figure: "72-p13c",
+          },
+        },
+      ],
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — বহুনির্বাচনি (১৪ – ১৭) ───────────────
+    {
+      id: 14,
+      group: PG_QUAD_MODEL_MCQ,
+      question: String.raw`একটি সমদ্বিবাহু সমকোণী ত্রিভুজের সমান বাহুদ্বয়ের প্রতিটির দৈর্ঘ্য $18$ সে.মি. হলে ত্রিভুজটির ক্ষেত্রফল কত বর্গসে.মি.?
+ক) $36$  খ) $81$  গ) $162$  ঘ) $324$`,
+      figure: "72-p14",
+      solution: {
+        steps: [
+          String.raw`সমকোণ সংলগ্ন সমান বাহু দুইটিই ভূমি ও উচ্চতা।`,
+          String.raw`$$\text{ক্ষেত্রফল}=\tfrac12\times 18\times 18=162\text{ বর্গসে.মি.}$$`,
+        ],
+        answer: String.raw`গ) $162$`,
+      },
+    },
+    {
+      id: 15,
+      group: PG_QUAD_MODEL_MCQ,
+      question: String.raw`রম্বসের— ($i$) চারটি বাহু পরস্পর সমান ($ii$) বিপরীত কোণ সমান ($iii$) কর্ণদ্বয় পরস্পরকে সমকোণে সমদ্বিখণ্ডিত করে। নিচের কোনটি সঠিক?
+ক) $i, ii$  খ) $i, iii$  গ) $ii, iii$  ঘ) $i, ii$ ও $iii$`,
+      solution: {
+        steps: [
+          String.raw`($i$) রম্বসের সংজ্ঞা অনুসারেই চার বাহু সমান। [সঠিক]`,
+          String.raw`($ii$) রম্বস একটি সামান্তরিক, আর সামান্তরিকের বিপরীত কোণগুলো সমান। [সঠিক]`,
+          String.raw`($iii$) রম্বসের কর্ণদ্বয় পরস্পরকে সমকোণে সমদ্বিখণ্ডিত করে। [সঠিক]`,
+        ],
+        answer: String.raw`ঘ) $i, ii$ ও $iii$`,
+        figure: "72-p15",
+      },
+    },
+    {
+      id: 16,
+      group: PG_QUAD_MODEL_MCQ,
+      question: String.raw`চিত্রে, $ABCD$ একটি আয়তক্ষেত্রের কর্ণদ্বয় পরস্পরকে $E$ বিন্দুতে ছেদ করেছে। $BF=2$ সে.মি. এবং $EF=3$ সে.মি.। $BD$ কর্ণের দৈর্ঘ্য কত সে.মি.?
+ক) $1$  খ) $\sqrt5$  গ) $\sqrt{13}$  ঘ) $5$`,
+      figure: "72-p16",
+      solution: {
+        steps: [
+          String.raw`$EF\perp AB$ এবং $E$ কর্ণদ্বয়ের মধ্যবিন্দু, তাই $F$ হলো $AB$ এর মধ্যবিন্দু।`,
+          String.raw`সমকোণী $\triangle BFE$ এ,`,
+          String.raw`$$BE=\sqrt{BF^{2}+EF^{2}}=\sqrt{2^{2}+3^{2}}=\sqrt{13}$$`,
+          String.raw`আয়তের কর্ণদ্বয় পরস্পরকে সমদ্বিখণ্ডিত করে, তাই`,
+          String.raw`$$BD=2\,BE=2\sqrt{13}\approx 7.21$$`,
+          String.raw`অন্যভাবে: $AB=2\,BF=4$, $BC=2\,EF=6$, তাই $BD=\sqrt{4^{2}+6^{2}}=\sqrt{52}=2\sqrt{13}$।`,
+          String.raw`বিকল্পগুলোর কোনোটিই $2\sqrt{13}$ নয়। গ) $\sqrt{13}$ হলো $BE$ এর দৈর্ঘ্য, অর্থাৎ অর্ধ-কর্ণ — প্রশ্নে সম্ভবত $BE$ বোঝানো হয়েছে।`,
+        ],
+        answer: String.raw`$BD=2\sqrt{13}$ সে.মি.; বিকল্পে নেই — গ) $\sqrt{13}$ হলো $BE$ (অর্ধ-কর্ণ)`,
+      },
+    },
+    {
+      id: 17,
+      group: PG_QUAD_MODEL_MCQ,
+      question: String.raw`(১৬ নং প্রশ্নের চিত্র) আয়তক্ষেত্রটির ক্ষেত্রফল কত বর্গসে.মি.?
+ক) $8\sqrt5$  খ) $24$  গ) $12\sqrt5$  ঘ) $32\sqrt5$`,
+      figure: "72-p16",
+      solution: {
+        steps: [
+          String.raw`$F$ হলো $AB$ এর মধ্যবিন্দু, তাই $AB=2\,BF=2\times 2=4$ সে.মি.।`,
+          String.raw`$E$ থেকে $AB$ এর দূরত্ব $EF$ হলো প্রস্থের অর্ধেক, তাই $BC=2\,EF=2\times 3=6$ সে.মি.।`,
+          String.raw`$$\text{ক্ষেত্রফল}=AB\times BC=4\times 6=24\text{ বর্গসে.মি.}$$`,
+        ],
+        answer: String.raw`খ) $24$`,
+      },
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — সৃজনশীল (১৮) ───────────────
+    {
+      id: 18,
+      group: PG_QUAD_MODEL_CQ,
+      question: String.raw`একটি ট্রাপিজিয়ামের সমান্তরাল দুইটি বাহুর দৈর্ঘ্য $4$ সে.মি. ও $6$ সে.মি. এবং বৃহত্তম বাহু সংলগ্ন দুইটি কোণ $\angle x=60^{\circ}$ এবং $\angle y=50^{\circ}$।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$5$ সে.মি. বাহুবিশিষ্ট একটি সমবাহু ত্রিভুজ অঙ্কন করো।`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $BX$ থেকে $BC=5$ সে.মি. কেটে নিই।`,
+              String.raw`২. $B$ ও $C$ কে কেন্দ্র করে $5$ সে.মি. ব্যাসার্ধ নিয়ে $BC$ এর একই পাশে দুইটি চাপ আঁকি; এরা $A$ বিন্দুতে ছেদ করে।`,
+              String.raw`৩. $A,B$ ও $A,C$ যোগ করি। তাহলে $\triangle ABC$ ই উদ্দিষ্ট সমবাহু ত্রিভুজ ($AB=BC=CA=5$ সে.মি.)।`,
+            ],
+            answer: String.raw`$\triangle ABC$ ই নির্ণেয় সমবাহু ত্রিভুজ।`,
+            figure: "72-p18a",
+          },
+        },
+        {
+          label: "খ",
+          question: "ট্রাপিজিয়ামটি আঁক। (অঙ্কনের চিহ্ন ও বিবরণ আবশ্যক)",
+          solution: {
+            steps: [
+              String.raw`এখানে $a=6$ সে.মি., $b=4$ সে.মি., $\angle x=60^{\circ}$, $\angle y=50^{\circ}$ (উদাহরণ ৩ এর পদ্ধতি)।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $AX$ থেকে $AB=6$ সে.মি. নিই। $A$ বিন্দুতে $\angle BAY=60^{\circ}$ এবং $B$ বিন্দুতে চাঁদার সাহায্যে $\angle ABZ=50^{\circ}$ আঁকি।`,
+              String.raw`২. $AB$ থেকে $AE=4$ সে.মি. কেটে নিই। $E$ বিন্দুতে $EC\parallel AY$ আঁকি (অর্থাৎ $\angle BEC=60^{\circ}$), যা $BZ$ কে $C$ বিন্দুতে ছেদ করে।`,
+              String.raw`৩. $C$ বিন্দু দিয়ে $CD\parallel BA$ আঁকি, যা $AY$ কে $D$ বিন্দুতে ছেদ করে।`,
+              String.raw`তাহলে $ABCD$ ই উদ্দিষ্ট ট্রাপিজিয়াম।`,
+              String.raw`প্রমাণ: $AE\parallel DC$ ও $AD\parallel EC$, তাই $AECD$ সামান্তরিক এবং $DC=AE=4$ সে.মি.।`,
+              String.raw`চতুর্ভুজ $ABCD$ এ $AB=6$, $CD=4$ সে.মি., $AB\parallel CD$, $\angle BAD=60^{\circ}$ ও $\angle ABC=50^{\circ}$।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় ট্রাপিজিয়াম।`,
+            figure: "72-p18b",
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`উদ্দীপকের বাহু দুইটিকে সামান্তরিকের দুইটি কর্ণ ও $\angle y$ কে অন্তর্ভুক্ত কোণ বিবেচনা করে সামান্তরিকটি আঁক। (অঙ্কনের চিহ্ন ও বিবরণ আবশ্যক)`,
+          solution: {
+            steps: [
+              String.raw`কর্ণ $a=4$ সে.মি., $b=6$ সে.মি. এবং অন্তর্ভুক্ত কোণ $\angle y=50^{\circ}$ (সম্পাদ্য ৪)।`,
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $AE$ থেকে $AC=4$ সে.মি. নিই এবং এর মধ্যবিন্দু $O$ নির্ণয় করি।`,
+              String.raw`২. $O$ বিন্দুতে $\angle AOP=50^{\circ}$ আঁকি এবং $OP$ এর বিপরীত রশ্মি $OQ$ আঁকি।`,
+              String.raw`৩. $OP$ ও $OQ$ থেকে $\tfrac12\times 6=3$ সে.মি. এর সমান যথাক্রমে $OB$ ও $OD$ নিই।`,
+              String.raw`৪. $A,B$; $B,C$; $C,D$; $D,A$ যোগ করি। তাহলে $ABCD$ ই উদ্দিষ্ট সামান্তরিক।`,
+              String.raw`প্রমাণ: $\triangle AOB$ ও $\triangle COD$ এ $OA=OC=2$, $OB=OD=3$ এবং $\angle AOB=\angle COD$ [বিপ্রতীপ কোণ], তাই $\triangle AOB\cong\triangle COD$।`,
+              String.raw`ফলে $AB=CD$ এবং $\angle ABO=\angle CDO$ (একান্তর), অর্থাৎ $AB\parallel CD$; অনুরূপভাবে $AD$ ও $BC$ সমান ও সমান্তরাল।`,
+              String.raw`অতএব $ABCD$ সামান্তরিক, যার কর্ণ $AC=4$, $BD=6$ সে.মি. এবং অন্তর্ভুক্ত $\angle AOB=50^{\circ}$।`,
+            ],
+            answer: String.raw`$ABCD$ ই নির্ণেয় সামান্তরিক।`,
+            figure: "72-p18c",
+          },
+        },
+      ],
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — সংক্ষিপ্ত-উত্তর (১৯) ───────────────
+    {
+      id: 19,
+      group: PG_QUAD_MODEL_SA,
+      question: "নিচের অঙ্কনগুলো করো:",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$\Delta DEF$-এর $DE=DF=4$ সে.মি. ও $\angle EDF=50^{\circ}$ হলে, $\Delta DEF$ অঙ্কন করো।`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $DX$ থেকে $DE=4$ সে.মি. কেটে নিই।`,
+              String.raw`২. $D$ বিন্দুতে চাঁদার সাহায্যে $\angle EDF=50^{\circ}$ আঁকি এবং ঐ রশ্মি থেকে $DF=4$ সে.মি. কেটে নিই।`,
+              String.raw`৩. $E,F$ যোগ করি। তাহলে $\triangle DEF$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $DE=DF=4$ সে.মি. এবং অন্তর্ভুক্ত $\angle EDF=50^{\circ}$।`,
+            ],
+            answer: String.raw`$\triangle DEF$ ই নির্ণেয় সমদ্বিবাহু ত্রিভুজ।`,
+            figure: "72-p19a",
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$\Delta PQR$-এর $PQ=PR=5$ সে.মি. এবং $QR=6$ সে.মি. হলে, $\Delta PQR$ টি অঙ্কন করো।`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. যেকোনো রশ্মি $QX$ থেকে $QR=6$ সে.মি. কেটে নিই।`,
+              String.raw`২. $Q$ ও $R$ কে কেন্দ্র করে $5$ সে.মি. ব্যাসার্ধ নিয়ে $QR$ এর একই পাশে দুইটি চাপ আঁকি; এরা $P$ বিন্দুতে ছেদ করে।`,
+              String.raw`৩. $P,Q$ ও $P,R$ যোগ করি। তাহলে $\triangle PQR$ ই উদ্দিষ্ট ত্রিভুজ।`,
+              String.raw`প্রমাণ: অঙ্কন অনুসারে $PQ=PR=5$ সে.মি. এবং $QR=6$ সে.মি.।`,
+            ],
+            answer: String.raw`$\triangle PQR$ ই নির্ণেয় ত্রিভুজ।`,
+            figure: "72-p19b",
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`রুলার-কম্পাসের সাহায্যে $MN=7$ সে.মি. রেখাংশের $Q$ বিন্দুতে সমদ্বিখণ্ডক $PQ$ অঙ্কন করো যেন $\angle PQN=45^{\circ}$ হয়।`,
+          solution: {
+            steps: [
+              String.raw`অঙ্কনের বিবরণ:`,
+              String.raw`১. $MN=7$ সে.মি. রেখাংশ আঁকি।`,
+              String.raw`২. $M$ ও $N$ কে কেন্দ্র করে $3.5$ সে.মি. এর বেশি ব্যাসার্ধ নিয়ে $MN$ এর উভয় পাশে চাপ আঁকি। চাপের ছেদবিন্দু দুইটি যোগ করলে লম্বসমদ্বিখণ্ডক পাওয়া যায়, যা $MN$ কে $Q$ বিন্দুতে ছেদ করে। এর উপরের অংশে একটি বিন্দু $S$ নিই।`,
+              String.raw`৩. $\angle SQN=90^{\circ}$ কোণটি সমদ্বিখণ্ডিত করি ($Q$ কেন্দ্রিক চাপ $QS$ ও $QN$ কে যে দুই বিন্দুতে কাটে, সেখান থেকে সমান ব্যাসার্ধের চাপ কেটে)। দ্বিখণ্ডকটিই $QP$।`,
+              String.raw`প্রমাণ: $Q$ হলো $MN$ এর মধ্যবিন্দু, তাই $MQ=QN=3.5$ সে.মি. — অর্থাৎ $PQ$ রেখা $MN$ কে $Q$ বিন্দুতে সমদ্বিখণ্ডিত করে।`,
+              String.raw`$$\angle PQN=\tfrac12\angle SQN=\tfrac12\times 90^{\circ}=45^{\circ}$$`,
+            ],
+            answer: String.raw`$PQ$ ই নির্ণেয় সমদ্বিখণ্ডক, $\angle PQN=45^{\circ}$।`,
+            figure: "72-p19c",
+          },
+        },
+      ],
+    },
+  ],
+};
+
+// অধ্যায় ৮ lives in its own file; see chapter8Data.ts.
+import {
+  exercise81,
+  exercise82,
+  exercise83,
+  exercise84,
+  exercise85,
+} from "./chapter8Data";
+
 export const chaptersData: Chapter[] = [
   { id: 1, title: "বাস্তব সংখ্যা", exercises: [exercise1] },
   {
@@ -19342,9 +20558,13 @@ export const chaptersData: Chapter[] = [
   {
     id: 7,
     title: "ব্যবহারিক জ্যামিতি",
-    exercises: [],
+    exercises: [exercise71, exercise72],
   },
-  { id: 8, title: "বৃত্ত", exercises: [] },
+  {
+    id: 8,
+    title: "বৃত্ত",
+    exercises: [exercise81, exercise82, exercise83, exercise84, exercise85],
+  },
   {
     id: 9,
     title: "ত্রিকোণমিতিক অনুপাত",
