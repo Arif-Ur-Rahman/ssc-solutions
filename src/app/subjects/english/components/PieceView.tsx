@@ -51,6 +51,15 @@ function VocabCard({ entry }: { entry: VocabEntry }) {
 export default function PieceView({ piece }: { piece: Piece }) {
   const [showVocab, setShowVocab] = useState(false);
   const vocab = piece.vocab ?? [];
+  // Grammar lessons are rules worked through examples, not a model answer.
+  const isLesson = piece.body.some(
+    (b) => b.type === "rule" || b.type === "example"
+  );
+  // Rules are numbered in order down the lesson.
+  const ruleNumbers = new Map<number, number>();
+  piece.body.forEach((b, i) => {
+    if (b.type === "rule") ruleNumbers.set(i, ruleNumbers.size + 1);
+  });
 
   return (
     <article>
@@ -124,7 +133,7 @@ export default function PieceView({ piece }: { piece: Piece }) {
       )}
 
       <div className="mb-3 font-sans font-semibold text-[10px] uppercase tracking-[0.2em] text-gold">
-        Model Answer
+        {isLesson ? "Rules & Examples" : "Model Answer"}
       </div>
 
       {/* The answer is set on a parchment sheet in black ink, the way it would be
@@ -156,6 +165,58 @@ export default function PieceView({ piece }: { piece: Piece }) {
                 <p key={i} className="font-bold">
                   {block.text}
                 </p>
+              );
+            }
+
+            if (block.type === "heading") {
+              return (
+                <h3
+                  key={i}
+                  className="!mt-10 border-b border-ink/15 pb-1 text-[1.1rem] font-bold first:!mt-0 sm:text-[1.2rem]"
+                >
+                  {block.text}
+                </h3>
+              );
+            }
+
+            if (block.type === "rule") {
+              return (
+                <div
+                  key={i}
+                  className="!mt-7 rounded-lg border border-gold-deep/30 bg-gold/[0.08] px-4 py-3"
+                >
+                  <p>
+                    <span className="mr-2 align-middle font-sans font-semibold text-[10px] uppercase tracking-[0.2em] text-gold-deep">
+                      Rule {ruleNumbers.get(i)}
+                    </span>
+                    {block.text}
+                  </p>
+                  {block.formula && (
+                    <p className="mt-1.5 font-sans text-[0.8rem] font-semibold leading-relaxed text-ink/70">
+                      {block.formula}
+                    </p>
+                  )}
+                </div>
+              );
+            }
+
+            // Each form of the sentence on its own line, the label in a fixed
+            // column so the forms line up and read top to bottom.
+            if (block.type === "example") {
+              return (
+                <div key={i} className="border-l-2 border-ink/15 pl-4">
+                  {block.lines.map((line, j) => (
+                    <div
+                      key={j}
+                      className="flex flex-col gap-x-3 sm:flex-row sm:items-baseline"
+                    >
+                      <span className="shrink-0 font-sans text-[10px] font-semibold uppercase tracking-[0.15em] text-gold-deep sm:w-32">
+                        {line.label}
+                      </span>
+                      <span className="min-w-0 flex-1">{line.text}</span>
+                    </div>
+                  ))}
+                </div>
               );
             }
 

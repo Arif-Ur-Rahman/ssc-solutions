@@ -3,14 +3,18 @@
 import { useState } from "react";
 import { BookOpen, Construction, PanelLeft } from "lucide-react";
 import { useMobileNav } from "@/hooks/useMobileNav";
-import { categories } from "./components/englishData";
+import { categories, sections } from "./components/englishData";
 import Sidebar from "./components/Sidebar";
 import PieceView from "./components/PieceView";
 
+// Open on the first category that has something written in it, rather than on
+// a Grammar topic that is still empty.
+const firstCategory = categories.find((c) => c.pieces.length) ?? categories[0];
+
 export default function English() {
-  const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const [activeCategory, setActiveCategory] = useState(firstCategory.id);
   const [activePiece, setActivePiece] = useState<string | null>(
-    categories[0].pieces[0]?.id ?? null
+    firstCategory.pieces[0]?.id ?? null
   );
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const mobileNav = useMobileNav();
@@ -30,7 +34,7 @@ export default function English() {
   return (
     <div className="textured flex min-h-screen bg-ink">
       <Sidebar
-        categories={categories}
+        sections={sections}
         activeCategory={activeCategory}
         activePiece={piece?.id ?? null}
         onSelectCategory={handleSelectCategory}
@@ -43,7 +47,7 @@ export default function English() {
 
       <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 md:px-10 md:py-10">
         <div className="mx-auto max-w-5xl">
-          {/* ── Writing-type opener, for the viewports where the sidebar is a
+          {/* ── Topic opener, for the viewports where the sidebar is a
               drawer rather than a rail ── */}
           <button
             type="button"
@@ -51,7 +55,7 @@ export default function English() {
             className="sticky top-16 z-30 -mx-4 mb-6 flex w-[calc(100%+2rem)] items-center gap-2 border-b border-gold/8 bg-ink/90 px-4 py-3 text-sm font-medium text-muted backdrop-blur transition-colors duration-200 hover:text-parchment sm:-mx-6 sm:w-[calc(100%+3rem)] sm:px-6 md:hidden"
           >
             <PanelLeft className="h-4 w-4 text-gold" />
-            Writing types
+            Topics
             {category && (
               <span className="ml-auto min-w-0 truncate text-xs text-faint">
                 {category.title}
@@ -78,10 +82,10 @@ export default function English() {
             <div className="rounded-2xl border border-dashed border-gold/10 bg-parchment/[0.02] px-6 py-16 text-center">
               <Construction className="mx-auto mb-4 h-8 w-8 text-faint" />
               <p className="font-medium text-muted">
-                Writing for this section is on the way.
+                Solutions for this section are on the way.
               </p>
               <p className="mt-1 text-sm text-faint">
-                Pick another type from the sidebar in the meantime.
+                Pick another topic from the sidebar in the meantime.
               </p>
             </div>
           )}

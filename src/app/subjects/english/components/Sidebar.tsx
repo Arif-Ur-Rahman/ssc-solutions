@@ -3,30 +3,50 @@
 import {
   AlignLeft,
   BookMarked,
+  CaseSensitive,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  CircleHelp,
   Languages,
+  Link,
   Mail,
   MessagesSquare,
+  MoveRight,
   PenLine,
+  Puzzle,
+  Quote,
   ScrollText,
+  Shuffle,
+  SpellCheck,
+  TextCursorInput,
+  Type,
   X,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import type { Category } from "./englishData";
+import type { Section } from "./englishData";
 
 const ICONS: Record<string, LucideIcon> = {
   AlignLeft,
   BookMarked,
-  MessagesSquare,
-  PenLine,
-  ScrollText,
+  CaseSensitive,
+  CircleHelp,
+  Link,
   Mail,
+  MessagesSquare,
+  MoveRight,
+  PenLine,
+  Puzzle,
+  Quote,
+  ScrollText,
+  Shuffle,
+  SpellCheck,
+  TextCursorInput,
+  Type,
 };
 
 interface SidebarProps {
-  categories: Category[];
+  sections: Section[];
   activeCategory: string;
   activePiece: string | null;
   onSelectCategory: (categoryId: string) => void;
@@ -39,7 +59,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({
-  categories,
+  sections,
   activeCategory,
   activePiece,
   onSelectCategory,
@@ -80,82 +100,95 @@ export default function Sidebar({
           </span>
           <button
             onClick={closeMobile}
-            aria-label="Close writing types"
+            aria-label="Close topics"
             className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted transition-colors duration-200 hover:bg-parchment/[0.06] hover:text-parchment md:hidden"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
-        <div
-          className={`px-5 pt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-faint ${labelled}`}
-        >
-          Writing Types
-        </div>
+        <nav className="flex-1 overflow-y-auto px-2 pb-4">
+          {sections.map((section) => (
+            <div key={section.id} className="mt-3 first:mt-2">
+              <div
+                className={`px-3 pb-2 pt-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-faint ${labelled}`}
+              >
+                {section.title}
+              </div>
+              {/* The collapsed rail has no room for a heading, so a rule marks
+                  where one section ends and the next begins. */}
+              <div
+                className={`mx-2 mb-2 hidden h-px bg-gold/8 ${
+                  sidebarOpen ? "" : "md:block"
+                }`}
+              />
 
-        <nav className="mt-2 flex-1 space-y-0.5 overflow-y-auto px-2 pb-4">
-          {categories.map((category) => {
-            const isOpen = activeCategory === category.id;
-            const Icon = ICONS[category.icon] ?? AlignLeft;
+              <div className="space-y-0.5">
+                {section.categories.map((category) => {
+                  const isOpen = activeCategory === category.id;
+                  const Icon = ICONS[category.icon] ?? AlignLeft;
 
-            return (
-              <div key={category.id}>
-                <button
-                  onClick={() => onSelectCategory(category.id)}
-                  aria-expanded={isOpen}
-                  className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors duration-200 ${
-                    isOpen
-                      ? "bg-gold/15 text-gold-soft"
-                      : "text-muted hover:bg-parchment/[0.04] hover:text-parchment"
-                  }`}
-                >
-                  <span
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${
-                      isOpen ? "bg-gold/25 text-gold-soft" : "bg-parchment/[0.05] text-faint"
-                    }`}
-                  >
-                    <Icon className="h-3.5 w-3.5" />
-                  </span>
-                  <span
-                    className={`flex min-w-0 flex-1 items-center gap-2 ${labelled}`}
-                  >
-                    <span className="flex-1 truncate">{category.title}</span>
-                    <span className="shrink-0 text-[10px] font-semibold text-faint">
-                      {category.pieces.length}
-                    </span>
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </span>
-                </button>
-
-                {isOpen && (
-                  <div
-                    className={`mb-1 ml-[19px] space-y-0.5 border-l border-gold/8 pl-3 pt-1 ${labelled}`}
-                  >
-                    {category.pieces.map((piece) => (
+                  return (
+                    <div key={category.id}>
                       <button
-                        key={piece.id}
-                        onClick={() => {
-                          onSelectPiece(piece.id);
-                          closeMobile();
-                        }}
-                        className={`block w-full rounded-md px-2.5 py-1.5 text-left text-xs leading-snug transition-colors duration-200 ${
-                          activePiece === piece.id
-                            ? "bg-parchment/[0.06] text-gold-soft"
-                            : "text-faint hover:bg-parchment/[0.04] hover:text-muted"
+                        onClick={() => onSelectCategory(category.id)}
+                        aria-expanded={isOpen}
+                        className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm transition-colors duration-200 ${
+                          isOpen
+                            ? "bg-gold/15 text-gold-soft"
+                            : "text-muted hover:bg-parchment/[0.04] hover:text-parchment"
                         }`}
                       >
-                        {piece.title}
+                        <span
+                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${
+                            isOpen ? "bg-gold/25 text-gold-soft" : "bg-parchment/[0.05] text-faint"
+                          }`}
+                        >
+                          <Icon className="h-3.5 w-3.5" />
+                        </span>
+                        <span
+                          className={`flex min-w-0 flex-1 items-center gap-2 ${labelled}`}
+                        >
+                          <span className="flex-1 truncate">{category.title}</span>
+                          <span className="shrink-0 text-[10px] font-semibold text-faint">
+                            {category.pieces.length}
+                          </span>
+                          <ChevronDown
+                            className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 ${
+                              isOpen ? "rotate-180" : ""
+                            }`}
+                          />
+                        </span>
                       </button>
-                    ))}
-                  </div>
-                )}
+
+                      {isOpen && (
+                        <div
+                          className={`mb-1 ml-[19px] space-y-0.5 border-l border-gold/8 pl-3 pt-1 ${labelled}`}
+                        >
+                          {category.pieces.map((piece) => (
+                            <button
+                              key={piece.id}
+                              onClick={() => {
+                                onSelectPiece(piece.id);
+                                closeMobile();
+                              }}
+                              className={`block w-full rounded-md px-2.5 py-1.5 text-left text-xs leading-snug transition-colors duration-200 ${
+                                activePiece === piece.id
+                                  ? "bg-parchment/[0.06] text-gold-soft"
+                                  : "text-faint hover:bg-parchment/[0.04] hover:text-muted"
+                              }`}
+                            >
+                              {piece.title}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </nav>
 
         <div className="border-t border-gold/8 p-3">
