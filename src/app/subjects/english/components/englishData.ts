@@ -1,11 +1,15 @@
 // components/englishData.ts
 //
-// SSC English, organised the way students actually revise it: by the kind of
-// writing the exam asks for. A category is one sidebar item (Paragraph,
-// Completing Story, Dialogue, …) and each piece under it is one topic that
-// opens in the reading pane.
+// SSC English, organised the way students actually revise it: split into
+// Grammar and Writing, then by the kind of question the exam asks. A section is
+// one sidebar heading, a category is one sidebar item under it (Paragraph,
+// Transformation, …) and each piece under a category is one topic that opens
+// in the reading pane.
 //
 // Everything here is written for this site, so it can be reproduced freely.
+
+import { suffixPrefix } from "./suffixPrefixData";
+import { transformation } from "./transformationData";
 
 export type Block =
   // A body paragraph.
@@ -15,7 +19,13 @@ export type Block =
   // A standalone line in a letter or application: date, subject, salutation.
   | { type: "label"; text: string }
   // Called-out line such as the title or the moral of a story.
-  | { type: "note"; label: string; text: string };
+  | { type: "note"; label: string; text: string }
+  // Grammar lessons only. A heading splits a lesson into parts, a rule is
+  // numbered in order down the lesson, and an example sets the same sentence
+  // out in each of its forms, one labelled line per form.
+  | { type: "heading"; text: string }
+  | { type: "rule"; text: string; formula?: string }
+  | { type: "example"; lines: { label: string; text: string }[] };
 
 // One hard word of a piece, noted down the way a student would note it before
 // writing: the meaning first, then the forms the exam actually asks for.
@@ -57,8 +67,16 @@ export interface Category {
   pieces: Piece[];
 }
 
+export interface Section {
+  id: string;
+  title: string;
+  categories: Category[];
+}
+
 /* ─────────────────────────── Paragraphs ─────────────────────────── */
 
+// The SSC exam always wants the answer as one single paragraph, so each body
+// here is exactly one "para" block: never split it into several.
 const paragraphs: Piece[] = [
   {
     id: "load-shedding",
@@ -365,6 +383,128 @@ const paragraphs: Piece[] = [
       {
         type: "para",
         text: "Artificial intelligence, or AI in short, is a branch of computer science that enables a machine to think, learn and take decisions almost like a human being. It was once a matter of science fiction, but today it has entered every corner of our daily life, often without our noticing it. When we unlock a mobile phone with our face, ask a voice assistant about the weather, or see a keyboard suggesting the very word we were going to type, we are using AI. It chooses the videos we watch, translates a page from one language into another in a moment, and warns a bank when a card is used in a suspicious way. Its benefits are many. In education, a student sitting in a remote village can now get an explanation of a difficult problem at midnight, and language learners can practise pronunciation without a teacher beside them. In medicine, AI helps doctors read X-rays and detect diseases like cancer at an early stage. In agriculture, it tells the farmer when to sow and when to irrigate; in offices and industries it does dull and repetitive work faster and more accurately than any man. Yet the picture has a darker side. Machines are taking over many jobs, and unskilled workers are the first to suffer. Students often copy their homework from AI tools instead of thinking for themselves, and thus lose the habit of hard work. Moreover, AI sometimes gives wrong information with great confidence, and dishonest people use it to make false pictures and videos and to spread rumours. Our personal data are also collected on a huge scale, which puts our privacy at risk. So we should remember that AI is a tool, not a master. If we use it honestly, verify what it tells us and never let it do our thinking for us, artificial intelligence will remain a great blessing for mankind.",
+      },
+    ],
+  },
+  {
+    id: "the-internet",
+    title: "The Internet",
+    prompt:
+      "Write a paragraph on 'The Internet' by answering the following questions.",
+    hints: [
+      "What is the internet?",
+      "How does it work?",
+      "How does it help us in education, business and communication?",
+      "What are its bad sides?",
+      "How should we use it?",
+    ],
+    vocab: [
+      { word: "addiction", bn: "আসক্তি", pos: "Noun", forms: [{ label: "adj", word: "addicted" }, { label: "adj", word: "addictive" }], synonyms: ["dependence", "craving"], antonyms: ["freedom", "control"] },
+      { word: "blessing", bn: "আশীর্বাদ", pos: "Noun", forms: [{ label: "verb", word: "bless (blessed)" }], synonyms: ["boon", "gift"], antonyms: ["curse", "bane"] },
+      { word: "browse", bn: "ইন্টারনেটে খোঁজা, চোখ বুলানো", pos: "Verb", past: "browsed", pastParticiple: "browsed", forms: [{ label: "noun", word: "browser" }], synonyms: ["search", "look through"] },
+      { word: "cyber crime", bn: "সাইবার অপরাধ", pos: "Phrase", synonyms: ["online crime", "computer crime"] },
+      { word: "fraud", bn: "প্রতারণা", pos: "Noun", forms: [{ label: "adj", word: "fraudulent" }], synonyms: ["cheating", "deception"], antonyms: ["honesty"] },
+      { word: "network", bn: "যোগাযোগ-জাল, নেটওয়ার্ক", pos: "Noun", forms: [{ label: "verb", word: "network" }], synonyms: ["system", "web"] },
+      { word: "obscene", bn: "অশ্লীল", pos: "Adjective", forms: [{ label: "noun", word: "obscenity" }], synonyms: ["indecent", "vulgar"], antonyms: ["decent", "clean"] },
+      { word: "transaction", bn: "লেনদেন", pos: "Noun", forms: [{ label: "verb", word: "transact" }], synonyms: ["deal", "exchange"] },
+      { word: "virtually", bn: "কার্যত, প্রায়", pos: "Adverb", forms: [{ label: "adj", word: "virtual" }], synonyms: ["almost", "nearly"] },
+      { word: "wisely", bn: "বুদ্ধিমানের মতো", pos: "Adverb", forms: [{ label: "adj", word: "wise" }, { label: "noun", word: "wisdom" }], synonyms: ["sensibly", "prudently"], antonyms: ["foolishly", "unwisely"] },
+    ],
+    body: [
+      {
+        type: "para",
+        text: "The internet is a worldwide network of millions of computers linked with one another through telephone lines, cables, satellites and mobile towers. It is often called the information superhighway, for any information stored in one computer can travel to another at any corner of the world within a second. Anyone who has a computer or a smartphone and an internet connection can use it. The internet has brought the whole world into our hands and turned it into a global village. In communication its contribution is the greatest: through email, messenger and video calls we can talk to our dear ones living abroad face to face at a very low cost. Students can browse websites, read books, attend online classes and download study materials without going to a library. Businessmen buy and sell goods, carry out bank transactions and advertise their products online. We can pay bills, book tickets, apply for jobs and get the latest news of the world while sitting at home. Doctors now give advice to patients living far away, and farmers learn about new methods of cultivation from it. But the internet has its dark sides too. Many young people spend hours on social media and games and become addicted to them, which harms their studies and health. Obscene pictures, false news and rumours spread quickly through it, and dishonest people commit cyber crimes such as fraud and hacking. So the internet is a blessing or a curse depending on how we use it. If we use it wisely and for good purposes, it will remain one of the greatest gifts of modern science, which has made virtually everything possible for mankind.",
+      },
+    ],
+  },
+  {
+    id: "a-village-doctor",
+    title: "A Village Doctor",
+    prompt:
+      "Write a paragraph on 'A Village Doctor' by answering the following questions.",
+    hints: [
+      "Who is a village doctor?",
+      "What are his qualifications?",
+      "How does he treat his patients?",
+      "What is his income and how does he live?",
+      "Why is he important to the villagers?",
+    ],
+    vocab: [
+      { word: "ailment", bn: "অসুখ, পীড়া", pos: "Noun", forms: [{ label: "verb", word: "ail" }], synonyms: ["illness", "disease"], antonyms: ["health", "fitness"] },
+      { word: "dispensary", bn: "ঔষধালয়, ডাক্তারখানা", pos: "Noun", forms: [{ label: "verb", word: "dispense" }], synonyms: ["pharmacy", "clinic"] },
+      { word: "diagnose", bn: "রোগ নির্ণয় করা", pos: "Verb", past: "diagnosed", pastParticiple: "diagnosed", forms: [{ label: "noun", word: "diagnosis" }], synonyms: ["identify", "detect"] },
+      { word: "humble", bn: "বিনয়ী, সাধারণ", pos: "Adjective", forms: [{ label: "noun", word: "humility" }, { label: "adv", word: "humbly" }], synonyms: ["modest", "simple"], antonyms: ["proud", "arrogant"] },
+      { word: "indispensable", bn: "অপরিহার্য", pos: "Adjective", forms: [{ label: "verb", word: "dispense" }], synonyms: ["essential", "necessary"], antonyms: ["unnecessary", "dispensable"] },
+      { word: "limited", bn: "সীমিত", pos: "Adjective", forms: [{ label: "noun", word: "limit" }, { label: "noun", word: "limitation" }], synonyms: ["restricted", "small"], antonyms: ["unlimited", "vast"] },
+      { word: "qualification", bn: "যোগ্যতা", pos: "Noun", forms: [{ label: "verb", word: "qualify" }, { label: "adj", word: "qualified" }], synonyms: ["ability", "training"] },
+      { word: "remote", bn: "প্রত্যন্ত, দূরবর্তী", pos: "Adjective", forms: [{ label: "noun", word: "remoteness" }], synonyms: ["distant", "far-off"], antonyms: ["near", "close"] },
+      { word: "sympathetic", bn: "সহানুভূতিশীল", pos: "Adjective", forms: [{ label: "noun", word: "sympathy" }, { label: "verb", word: "sympathise" }], synonyms: ["kind", "caring"], antonyms: ["unkind", "cruel"] },
+    ],
+    body: [
+      {
+        type: "para",
+        text: "A village doctor is a familiar and respected figure in the rural areas of Bangladesh. He is not a highly qualified physician with an MBBS degree; in most cases he has passed the SSC or HSC examination and taken a short training course in medicine, or has learned the work by assisting a doctor for some years. Some village doctors practise allopathic medicine, while others treat their patients with homeopathy or herbal medicine. He usually has a small dispensary in the village market, where he sits with a few shelves of medicines, a stethoscope, a thermometer and a blood pressure machine. He treats common ailments like fever, cold, cough, dysentery, diarrhoea and minor cuts and wounds. He diagnoses a disease by feeling the pulse, checking the temperature and asking the patient a few questions. He is always ready to go to his patients' houses at any hour of the day or night, sometimes on foot, sometimes on a bicycle or a motorbike, even in rain and darkness. His fee is very small, and he often treats the poor free of cost or on credit. So his income is limited and he leads a simple and humble life. Yet he is sympathetic and friendly, and the villagers love and trust him as a member of their own family. As there are few qualified doctors and hospitals in remote villages, the village doctor is indispensable to the rural people. However, his knowledge is limited, and a wrong treatment may sometimes put a patient's life in danger. So he should know his limits and send serious patients to the nearest hospital. The government should also arrange proper training for village doctors so that they can serve the rural people better.",
+      },
+    ],
+  },
+  {
+    id: "early-rising",
+    title: "Early Rising",
+    prompt:
+      "Write a paragraph on 'Early Rising' by answering the following questions.",
+    hints: [
+      "What is early rising?",
+      "Why is it a good habit?",
+      "How does it help our body and mind?",
+      "What do late risers lose?",
+      "How can we form the habit?",
+    ],
+    vocab: [
+      { word: "bestow", bn: "প্রদান করা", pos: "Verb", past: "bestowed", pastParticiple: "bestowed", synonyms: ["give", "grant"], antonyms: ["withhold", "take away"] },
+      { word: "cheerful", bn: "প্রফুল্ল, হাসিখুশি", pos: "Adjective", forms: [{ label: "noun", word: "cheerfulness" }, { label: "adv", word: "cheerfully" }], synonyms: ["happy", "joyful"], antonyms: ["gloomy", "sad"] },
+      { word: "dull", bn: "নিস্তেজ, অলস", pos: "Adjective", forms: [{ label: "noun", word: "dullness" }], synonyms: ["sluggish", "lifeless"], antonyms: ["lively", "active"] },
+      { word: "exclusively", bn: "একমাত্র, শুধুমাত্র", pos: "Adverb", forms: [{ label: "adj", word: "exclusive" }], synonyms: ["only", "solely"] },
+      { word: "habit", bn: "অভ্যাস", pos: "Noun", forms: [{ label: "adj", word: "habitual" }, { label: "adv", word: "habitually" }], synonyms: ["practice", "custom"] },
+      { word: "hurry", bn: "তাড়াহুড়া", pos: "Noun", forms: [{ label: "verb", word: "hurry (hurried)" }], synonyms: ["haste", "rush"], antonyms: ["leisure", "calm"] },
+      { word: "refreshing", bn: "সতেজকারী", pos: "Adjective", forms: [{ label: "verb", word: "refresh" }, { label: "noun", word: "refreshment" }], synonyms: ["fresh", "invigorating"], antonyms: ["tiring", "exhausting"] },
+      { word: "sluggard", bn: "অলস ব্যক্তি", pos: "Noun", forms: [{ label: "adj", word: "sluggish" }], synonyms: ["idler", "lazy person"], antonyms: ["worker"] },
+      { word: "tranquil", bn: "শান্ত, প্রশান্ত", pos: "Adjective", forms: [{ label: "noun", word: "tranquillity" }], synonyms: ["calm", "peaceful"], antonyms: ["noisy", "restless"] },
+    ],
+    body: [
+      {
+        type: "para",
+        text: "Early rising means getting up from bed early in the morning, before or at the time of sunrise. It is a very good habit, and there is a well-known proverb, 'Early to bed and early to rise makes a man healthy, wealthy and wise.' The morning is the best part of the day. At that time nature remains calm and tranquil, the air is fresh and free from dust and smoke, birds sing sweetly and flowers bloom in the gardens. An early riser can enjoy all this beauty, which a late riser never sees. A walk in the refreshing morning air makes the body strong and the mind cheerful, and a man who rises early is seldom attacked by diseases. The morning is also the best time for study, because the mind is fresh after a sound sleep and whatever we read at that time we can learn easily and remember for a long time. An early riser gets plenty of time to say his prayers, take some exercise, finish his lessons and get ready for school or office without any hurry. He can therefore do all his work of the day properly and in time. On the other hand, a late riser remains dull and lazy the whole day. He has to do everything in a hurry and cannot finish his work in time, and so he falls behind others in life. Most of the great men of the world were early risers. To form this habit, we should go to bed early at night and avoid sitting up late with mobile phones and television. We should all acquire this habit from our childhood and enjoy the blessings that early rising bestows on us.",
+      },
+    ],
+  },
+  {
+    id: "the-computer",
+    title: "The Computer",
+    prompt:
+      "Write a paragraph on 'The Computer' by answering the following questions.",
+    hints: [
+      "What is a computer?",
+      "What are its main parts?",
+      "In which fields is it used?",
+      "What are its bad sides?",
+      "How important is it for Bangladesh?",
+    ],
+    vocab: [
+      { word: "accuracy", bn: "নির্ভুলতা", pos: "Noun", forms: [{ label: "adj", word: "accurate" }, { label: "adv", word: "accurately" }], synonyms: ["correctness", "precision"], antonyms: ["inaccuracy", "error"] },
+      { word: "calculation", bn: "গণনা, হিসাব", pos: "Noun", forms: [{ label: "verb", word: "calculate" }, { label: "noun", word: "calculator" }], synonyms: ["computation", "reckoning"] },
+      { word: "device", bn: "যন্ত্র, কৌশল", pos: "Noun", forms: [{ label: "verb", word: "devise" }], synonyms: ["machine", "instrument"] },
+      { word: "indispensable", bn: "অপরিহার্য", pos: "Adjective", synonyms: ["essential", "necessary"], antonyms: ["unnecessary", "dispensable"] },
+      { word: "input", bn: "ভেতরে দেওয়া তথ্য, ইনপুট", pos: "Noun", synonyms: ["data given"], antonyms: ["output"] },
+      { word: "process", bn: "প্রক্রিয়া করা", pos: "Verb", past: "processed", pastParticiple: "processed", forms: [{ label: "noun", word: "process" }, { label: "noun", word: "processor" }], synonyms: ["handle", "deal with"] },
+      { word: "revolution", bn: "বিপ্লব", pos: "Noun", forms: [{ label: "adj", word: "revolutionary" }, { label: "verb", word: "revolutionise" }], synonyms: ["great change", "upheaval"] },
+      { word: "store", bn: "জমা রাখা", pos: "Verb", past: "stored", pastParticiple: "stored", forms: [{ label: "noun", word: "storage" }], synonyms: ["keep", "save"], antonyms: ["delete", "discard"] },
+      { word: "unemployment", bn: "বেকারত্ব", pos: "Noun", forms: [{ label: "adj", word: "unemployed" }, { label: "verb", word: "employ" }], synonyms: ["joblessness"], antonyms: ["employment"] },
+      { word: "wonder", bn: "বিস্ময়", pos: "Noun", forms: [{ label: "adj", word: "wonderful" }], synonyms: ["marvel", "miracle"] },
+    ],
+    body: [
+      {
+        type: "para",
+        text: "The computer is one of the greatest wonders of modern science. It is an electronic device that can receive information, store it, process it and give the result with great speed and accuracy. The word 'computer' comes from 'compute', which means to calculate, and at first it was made only for doing calculations. Charles Babbage is called the father of the computer. A computer has three main parts: the input unit such as the keyboard and the mouse, the central processing unit (CPU) which is its brain, and the output unit such as the monitor and the printer. A computer has no brain of its own; it works according to the instructions, called programs, given by man. Yet it can do in a few seconds the work that would take a man many days. Today computers are used in almost every field of life. In offices, banks, railway and air ticket counters and hospitals they keep records and do the accounts. In education, students use them to learn lessons, take online classes and publish examination results. Doctors use them to diagnose diseases, and scientists use them in research and in sending satellites into space. With the help of the internet, a computer connects us with the whole world within a moment. However, the computer has some bad sides too. Excessive use of it harms our eyes and health, and many young people waste their time playing games. It has also taken away many jobs from men and increased unemployment in some sectors, while hackers use it to commit cyber crimes. For a developing country like Bangladesh the computer is indispensable. To build a Smart Bangladesh, computer education should be spread to every school, even in the remote villages, so that our young generation can keep pace with the modern world of information technology.",
       },
     ],
   },
@@ -1224,6 +1364,375 @@ const letters: Piece[] = [
     ],
   },
   {
+    id: "application-for-study-tour",
+    title: "Application for Permission and Financial Help for a Study Tour",
+    prompt:
+      "Write an application to the Headmaster of your school seeking permission and financial help to go on a study tour.",
+    vocab: [
+      { word: "accompany", bn: "সঙ্গে যাওয়া", pos: "Verb", past: "accompanied", pastParticiple: "accompanied", forms: [{ label: "noun", word: "companion" }], synonyms: ["go with", "escort"], antonyms: ["leave", "abandon"] },
+      { word: "expenditure", bn: "ব্যয়, খরচ", pos: "Noun", forms: [{ label: "verb", word: "expend" }, { label: "noun", word: "expense" }], synonyms: ["cost", "expense"], antonyms: ["income", "earning"] },
+      { word: "firsthand", bn: "সরাসরি, প্রত্যক্ষ", pos: "Adjective", synonyms: ["direct", "personal"], antonyms: ["secondhand", "indirect"] },
+      { word: "monetary", bn: "আর্থিক", pos: "Adjective", forms: [{ label: "noun", word: "money" }], synonyms: ["financial"] },
+      { word: "remaining", bn: "অবশিষ্ট", pos: "Adjective", forms: [{ label: "verb", word: "remain" }, { label: "noun", word: "remainder" }], synonyms: ["rest of", "left over"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Rangpur Zilla School" },
+      { type: "label", text: "Rangpur" },
+      { type: "label", text: "Subject: Prayer for permission and financial help to go on a study tour." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, we, the students of class ten of your school, beg to state that we are very eager to go on a study tour to Paharpur and Mahasthangarh. We have read about these historical places in our textbooks, but we have never seen them with our own eyes. A visit to these ancient sites will give us firsthand knowledge of the history and culture of our country, which no book can give.",
+      },
+      {
+        type: "para",
+        text: "We have planned to go on 5 October 2026 and return the same evening. Two of our teachers have kindly agreed to accompany us. The total expenditure has been estimated at fifty thousand taka. We shall be able to raise thirty thousand taka by ourselves, but the remaining amount is beyond our capacity.",
+      },
+      {
+        type: "para",
+        text: "We, therefore, pray and hope that you would be kind enough to grant us permission to go on the study tour and sanction twenty thousand taka from the school fund to meet the rest of the cost.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "On behalf of the students of class ten" },
+      { type: "label", text: "Tanvir Ahmed" },
+      { type: "label", text: "Class: Ten, Roll: 3" },
+    ],
+  },
+  {
+    id: "application-for-library-facilities",
+    title: "Application for Enhancing Library Facilities",
+    prompt:
+      "Write an application to the Headmaster of your school requesting him to enhance the library facilities.",
+    vocab: [
+      { word: "adequate", bn: "পর্যাপ্ত", pos: "Adjective", forms: [{ label: "adv", word: "adequately" }], synonyms: ["enough", "sufficient"], antonyms: ["inadequate", "insufficient"] },
+      { word: "enhance", bn: "বৃদ্ধি করা, উন্নত করা", pos: "Verb", past: "enhanced", pastParticiple: "enhanced", forms: [{ label: "noun", word: "enhancement" }], synonyms: ["improve", "increase"], antonyms: ["reduce", "worsen"] },
+      { word: "outdated", bn: "পুরনো, সেকেলে", pos: "Adjective", synonyms: ["old-fashioned", "obsolete"], antonyms: ["modern", "up-to-date"] },
+      { word: "periodical", bn: "সাময়িকী", pos: "Noun", forms: [{ label: "adj", word: "periodic" }], synonyms: ["magazine", "journal"] },
+      { word: "reference book", bn: "সহায়ক গ্রন্থ", pos: "Phrase", synonyms: ["guide book", "handbook"] },
+      { word: "storehouse", bn: "ভান্ডার", pos: "Noun", synonyms: ["treasury", "treasure house"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Barishal Government Girls' High School" },
+      { type: "label", text: "Barishal" },
+      { type: "label", text: "Subject: Prayer for enhancing library facilities." },
+      { type: "label", text: "Madam" },
+      {
+        type: "para",
+        text: "With due respect, we, the students of your school, beg to draw your kind attention to the poor condition of our school library. A library is a storehouse of knowledge, but ours has very few books, and most of them are old and outdated. There are no reference books for the SSC examination, and no newspapers or periodicals are kept there.",
+      },
+      {
+        type: "para",
+        text: "Besides, the reading room is small and there are not adequate seats, fans or lights in it. The library remains open for only one hour a day, so we can hardly borrow books. As a result, we are deprived of the chance of widening our knowledge beyond the textbooks.",
+      },
+      {
+        type: "para",
+        text: "We, therefore, pray and hope that you would be kind enough to buy new books, arrange for daily newspapers and periodicals, enlarge the reading room and keep the library open for a longer time.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "On behalf of the students" },
+      { type: "label", text: "Nusrat Jahan" },
+      { type: "label", text: "Class: Ten, Roll: 7" },
+    ],
+  },
+  {
+    id: "application-for-debating-club",
+    title: "Application for Setting Up a Debating Club",
+    prompt:
+      "Write an application to the Headmaster of your school for setting up a debating club.",
+    vocab: [
+      { word: "argument", bn: "যুক্তি", pos: "Noun", forms: [{ label: "verb", word: "argue" }], synonyms: ["reasoning", "point"] },
+      { word: "confidence", bn: "আত্মবিশ্বাস", pos: "Noun", forms: [{ label: "adj", word: "confident" }], synonyms: ["self-assurance", "courage"], antonyms: ["shyness", "doubt"] },
+      { word: "eloquence", bn: "বাগ্মিতা", pos: "Noun", forms: [{ label: "adj", word: "eloquent" }], synonyms: ["fluency", "power of speech"] },
+      { word: "extempore", bn: "উপস্থিত, তাৎক্ষণিক", pos: "Adjective", synonyms: ["impromptu", "unprepared"], antonyms: ["prepared", "rehearsed"] },
+      { word: "stage fright", bn: "মঞ্চভীতি", pos: "Phrase", synonyms: ["nervousness"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Cumilla Zilla School" },
+      { type: "label", text: "Cumilla" },
+      { type: "label", text: "Subject: Application for setting up a debating club." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, we, the students of your school, beg to state that there is no debating club in our school. Debate is an important co-curricular activity. It teaches us to think logically, to present arguments clearly and to speak in public with confidence. It also helps us to overcome stage fright and develop the art of eloquence.",
+      },
+      {
+        type: "para",
+        text: "Many schools in our town have debating clubs, and their students regularly take part in inter-school and national debate competitions. Our students cannot do so for want of practice and guidance. If a club is set up with a teacher as its adviser, we can hold regular debates and extempore speech competitions in the afternoon.",
+      },
+      {
+        type: "para",
+        text: "We, therefore, pray and hope that you would be kind enough to set up a debating club in our school and arrange the necessary guidance for it.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "On behalf of the students" },
+      { type: "label", text: "Fahim Hossain" },
+      { type: "label", text: "Class: Ten, Roll: 5" },
+    ],
+  },
+  {
+    id: "application-for-testimonial",
+    title: "Application for a Testimonial",
+    prompt:
+      "Write an application to the Headmaster of your school for a testimonial.",
+    vocab: [
+      { word: "certify", bn: "প্রত্যয়ন করা", pos: "Verb", past: "certified", pastParticiple: "certified", forms: [{ label: "noun", word: "certificate" }], synonyms: ["confirm", "attest"] },
+      { word: "conduct", bn: "আচরণ", pos: "Noun", forms: [{ label: "verb", word: "conduct" }], synonyms: ["behaviour", "manners"] },
+      { word: "co-curricular", bn: "সহপাঠক্রমিক", pos: "Adjective", synonyms: ["extracurricular"] },
+      { word: "require", bn: "প্রয়োজন হওয়া", pos: "Verb", past: "required", pastParticiple: "required", forms: [{ label: "noun", word: "requirement" }], synonyms: ["need", "demand"] },
+      { word: "testimonial", bn: "প্রশংসাপত্র", pos: "Noun", synonyms: ["character certificate", "reference"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Mymensingh Zilla School" },
+      { type: "label", text: "Mymensingh" },
+      { type: "label", text: "Subject: Prayer for a testimonial." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, I beg to state that I passed the SSC examination from your school in 2026 in the Science group and obtained GPA 5.00. I was a regular student of this school from class six to class ten. I took part in various co-curricular activities and was the captain of the school football team.",
+      },
+      {
+        type: "para",
+        text: "Now I want to get admitted into a college, and the college authority requires a testimonial from my school, certifying my conduct and character.",
+      },
+      {
+        type: "para",
+        text: "I, therefore, pray and hope that you would be kind enough to issue me a testimonial and oblige thereby.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "Rakib Hasan" },
+      { type: "label", text: "SSC Examination 2026, Roll: 214563" },
+    ],
+  },
+  {
+    id: "application-for-canteen",
+    title: "Application for Setting Up a Canteen",
+    prompt:
+      "Write an application to the Headmaster of your school requesting him to set up a canteen in the school.",
+    vocab: [
+      { word: "hygienic", bn: "স্বাস্থ্যসম্মত", pos: "Adjective", forms: [{ label: "noun", word: "hygiene" }], synonyms: ["clean", "sanitary"], antonyms: ["unhygienic", "dirty"] },
+      { word: "nourishing", bn: "পুষ্টিকর", pos: "Adjective", forms: [{ label: "verb", word: "nourish" }, { label: "noun", word: "nourishment" }], synonyms: ["nutritious", "wholesome"], antonyms: ["unhealthy"] },
+      { word: "recess", bn: "টিফিন বিরতি", pos: "Noun", synonyms: ["break", "interval"] },
+      { word: "roadside", bn: "রাস্তার পাশের", pos: "Adjective", synonyms: ["wayside"] },
+      { word: "stomach trouble", bn: "পেটের পীড়া", pos: "Phrase", synonyms: ["indigestion", "stomach upset"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Jashore Government High School" },
+      { type: "label", text: "Jashore" },
+      { type: "label", text: "Subject: Prayer for setting up a canteen in the school." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, we, the students of your school, beg to state that there is no canteen in our school. We come to school at nine in the morning and cannot go home before four in the afternoon. During the recess we feel very hungry, but we have nowhere to get good food.",
+      },
+      {
+        type: "para",
+        text: "So we have to buy food from the roadside shops outside the school gate. The food there is neither hygienic nor nourishing, and many of us often suffer from stomach trouble after eating it. Besides, going out of the school during the recess is not safe. A canteen inside the school selling clean food at a fair price would solve this problem.",
+      },
+      {
+        type: "para",
+        text: "We, therefore, pray and hope that you would be kind enough to set up a canteen in our school for our health and safety.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "On behalf of the students" },
+      { type: "label", text: "Sabbir Rahman" },
+      { type: "label", text: "Class: Ten, Roll: 9" },
+    ],
+  },
+  {
+    id: "application-for-computer-club",
+    title: "Application for Setting Up a Computer Club",
+    prompt:
+      "Write an application to the Headmaster of your school for setting up a computer club.",
+    vocab: [
+      { word: "digital", bn: "ডিজিটাল, সংখ্যাভিত্তিক", pos: "Adjective", synonyms: ["computerised", "electronic"] },
+      { word: "equip", bn: "সজ্জিত করা", pos: "Verb", past: "equipped", pastParticiple: "equipped", forms: [{ label: "noun", word: "equipment" }], synonyms: ["provide", "furnish"] },
+      { word: "hands-on", bn: "হাতে-কলমে", pos: "Adjective", synonyms: ["practical", "direct"], antonyms: ["theoretical"] },
+      { word: "keep pace with", bn: "তাল মিলিয়ে চলা", pos: "Phrase", synonyms: ["keep up with"], antonyms: ["fall behind"] },
+      { word: "literacy", bn: "সাক্ষরতা, জ্ঞান", pos: "Noun", forms: [{ label: "adj", word: "literate" }], synonyms: ["knowledge", "education"], antonyms: ["illiteracy"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Sylhet Government Pilot High School" },
+      { type: "label", text: "Sylhet" },
+      { type: "label", text: "Subject: Application for setting up a computer club." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, we, the students of your school, beg to state that computer literacy has become essential in the modern world. Information and Communication Technology is a compulsory subject for us, but we get very little hands-on practice in the class. Most of us have no computer at home.",
+      },
+      {
+        type: "para",
+        text: "A computer club would give us the opportunity to practise typing, programming, graphic design and safe use of the internet after class hours. It would also help us take part in olympiads and keep pace with the digital world. The computers in our lab could be used for this purpose, and our ICT teacher could guide the club.",
+      },
+      {
+        type: "para",
+        text: "We, therefore, pray and hope that you would be kind enough to set up a computer club in our school and equip it properly.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "On behalf of the students" },
+      { type: "label", text: "Mahir Chowdhury" },
+      { type: "label", text: "Class: Nine, Roll: 2" },
+    ],
+  },
+  {
+    id: "application-for-multimedia-classroom",
+    title: "Application for Multimedia Classrooms",
+    prompt:
+      "Write an application to the Headmaster of your school for setting up more multimedia classrooms.",
+    vocab: [
+      { word: "abstract", bn: "বিমূর্ত", pos: "Adjective", forms: [{ label: "noun", word: "abstraction" }], synonyms: ["theoretical", "conceptual"], antonyms: ["concrete", "real"] },
+      { word: "animation", bn: "অ্যানিমেশন, চলমান ছবি", pos: "Noun", forms: [{ label: "verb", word: "animate" }], synonyms: ["moving pictures"] },
+      { word: "effective", bn: "কার্যকর", pos: "Adjective", forms: [{ label: "noun", word: "effect" }, { label: "adv", word: "effectively" }], synonyms: ["useful", "fruitful"], antonyms: ["ineffective", "useless"] },
+      { word: "projector", bn: "প্রজেক্টর", pos: "Noun", forms: [{ label: "verb", word: "project" }] },
+      { word: "visualise", bn: "কল্পনায় দেখা", pos: "Verb", past: "visualised", pastParticiple: "visualised", forms: [{ label: "adj", word: "visual" }], synonyms: ["picture", "imagine"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Khulna Zilla School" },
+      { type: "label", text: "Khulna" },
+      { type: "label", text: "Subject: Prayer for setting up more multimedia classrooms." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, we, the students of your school, beg to state that there is only one multimedia classroom in our school for more than one thousand students. So each class gets the chance to use it only once or twice a month.",
+      },
+      {
+        type: "para",
+        text: "A multimedia classroom makes learning easy and interesting. With pictures, videos and animations shown on a projector, we can easily visualise abstract topics of science and mathematics, and we can remember them for a long time. Teachers can also use the internet to show us up-to-date information. Such classes are far more effective than lessons taught only on the blackboard.",
+      },
+      {
+        type: "para",
+        text: "We, therefore, pray and hope that you would be kind enough to set up more multimedia classrooms in our school so that every class can benefit from them regularly.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "On behalf of the students" },
+      { type: "label", text: "Adnan Kabir" },
+      { type: "label", text: "Class: Ten, Roll: 4" },
+    ],
+  },
+  {
+    id: "application-for-free-studentship",
+    title: "Application for Full Free Studentship",
+    prompt:
+      "Write an application to the Headmaster of your school praying for full free studentship.",
+    vocab: [
+      { word: "bear the cost", bn: "খরচ বহন করা", pos: "Phrase", synonyms: ["pay for", "afford"] },
+      { word: "day labourer", bn: "দিনমজুর", pos: "Noun", synonyms: ["daily wage earner"] },
+      { word: "discontinue", bn: "বন্ধ করা", pos: "Verb", past: "discontinued", pastParticiple: "discontinued", forms: [{ label: "noun", word: "discontinuation" }], synonyms: ["stop", "give up"], antonyms: ["continue", "carry on"] },
+      { word: "meagre", bn: "সামান্য, অপ্রতুল", pos: "Adjective", synonyms: ["scanty", "small"], antonyms: ["plentiful", "ample"] },
+      { word: "studentship", bn: "বেতন মওকুফ সুবিধা", pos: "Noun", synonyms: ["scholarship", "free schooling"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Pabna Zilla School" },
+      { type: "label", text: "Pabna" },
+      { type: "label", text: "Subject: Prayer for full free studentship." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, I beg to state that I am a student of class nine in your school, bearing roll number one. My father is a day labourer. His income is meagre, and with it he has to maintain a family of six members. It is very hard for him to bear the cost of my education along with that of my younger brothers and sisters.",
+      },
+      {
+        type: "para",
+        text: "I have always stood first in my class and I have a strong desire to continue my studies. But if I do not get any help, I shall have to discontinue my education.",
+      },
+      {
+        type: "para",
+        text: "I, therefore, pray and hope that you would be kind enough to grant me full free studentship so that I can continue my studies.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "Sumaiya Akter" },
+      { type: "label", text: "Class: Nine, Roll: 1" },
+    ],
+  },
+  {
+    id: "application-for-common-room-facilities",
+    title: "Application for Increasing Common Room Facilities",
+    prompt:
+      "Write an application to the Headmaster of your school for increasing the common room facilities.",
+    vocab: [
+      { word: "indoor games", bn: "ঘরোয়া খেলা", pos: "Phrase", synonyms: ["in-house games"], antonyms: ["outdoor games"] },
+      { word: "leisure", bn: "অবসর", pos: "Noun", forms: [{ label: "adj", word: "leisurely" }], synonyms: ["free time", "spare time"], antonyms: ["work", "business"] },
+      { word: "recreation", bn: "বিনোদন", pos: "Noun", forms: [{ label: "adj", word: "recreational" }], synonyms: ["amusement", "entertainment"], antonyms: ["work", "labour"] },
+      { word: "refresh", bn: "সতেজ করা", pos: "Verb", past: "refreshed", pastParticiple: "refreshed", forms: [{ label: "noun", word: "refreshment" }], synonyms: ["revive", "freshen"], antonyms: ["tire", "exhaust"] },
+      { word: "worn-out", bn: "জীর্ণ", pos: "Adjective", synonyms: ["shabby", "damaged"], antonyms: ["new", "fresh"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Headmaster" },
+      { type: "label", text: "Bogura Zilla School" },
+      { type: "label", text: "Bogura" },
+      { type: "label", text: "Subject: Prayer for increasing common room facilities." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "With due respect, we, the students of your school, beg to state that our common room lacks the necessary facilities. It is small and poorly lit, and there are only a few worn-out chairs in it. The carrom board is broken and there is no chess set. No newspapers or magazines are kept there.",
+      },
+      {
+        type: "para",
+        text: "The common room is the only place where we can spend our leisure between classes. Recreation refreshes our minds, and indoor games and newspapers help us both to relax and to learn. For want of these facilities, many students waste their leisure wandering about outside.",
+      },
+      {
+        type: "para",
+        text: "We, therefore, pray and hope that you would be kind enough to increase the facilities of our common room by providing new furniture, indoor games, daily newspapers and magazines.",
+      },
+      { type: "label", text: "Yours obediently" },
+      { type: "label", text: "On behalf of the students" },
+      { type: "label", text: "Imran Hossain" },
+      { type: "label", text: "Class: Ten, Roll: 6" },
+    ],
+  },
+  {
+    id: "application-for-repairing-road",
+    title: "Application for Repairing a Damaged Road",
+    prompt:
+      "Write an application to the Chairman of your Union Parishad for repairing the damaged road of your village.",
+    vocab: [
+      { word: "impassable", bn: "চলাচলের অযোগ্য", pos: "Adjective", forms: [{ label: "verb", word: "pass" }], synonyms: ["blocked", "unusable"], antonyms: ["passable"] },
+      { word: "inhabitant", bn: "বাসিন্দা", pos: "Noun", forms: [{ label: "verb", word: "inhabit" }], synonyms: ["resident", "dweller"] },
+      { word: "muddy", bn: "কর্দমাক্ত", pos: "Adjective", forms: [{ label: "noun", word: "mud" }], synonyms: ["slushy", "miry"], antonyms: ["dry", "clean"] },
+      { word: "pothole", bn: "খানাখন্দ", pos: "Noun", synonyms: ["hole", "pit"] },
+      { word: "suffering", bn: "দুর্ভোগ", pos: "Noun", forms: [{ label: "verb", word: "suffer" }], synonyms: ["hardship", "misery"], antonyms: ["comfort", "ease"] },
+    ],
+    body: [
+      { type: "label", text: "10 September 2026" },
+      { type: "label", text: "The Chairman" },
+      { type: "label", text: "No. 4 Kashipur Union Parishad" },
+      { type: "label", text: "Narayanganj" },
+      { type: "label", text: "Subject: Prayer for repairing the damaged road of our village." },
+      { type: "label", text: "Sir" },
+      {
+        type: "para",
+        text: "We, the inhabitants of the village of Kashipur, beg to draw your kind attention to the miserable condition of the road that links our village with the Upazila town. The road has not been repaired for many years. It is now full of potholes and becomes muddy and impassable in the rainy season.",
+      },
+      {
+        type: "para",
+        text: "The sufferings of the villagers know no bounds. Students cannot go to school regularly, patients cannot be taken to hospital in time and farmers cannot carry their crops to the market. Accidents have also become common on this road.",
+      },
+      {
+        type: "para",
+        text: "We, therefore, pray and hope that you would be kind enough to take immediate steps to repair the road and save us from this suffering.",
+      },
+      { type: "label", text: "Yours faithfully" },
+      { type: "label", text: "On behalf of the villagers" },
+      { type: "label", text: "Md. Abdul Karim" },
+      { type: "label", text: "Kashipur, Narayanganj" },
+    ],
+  },
+  {
     id: "letter-about-aim-in-life",
     title: "Letter to a Friend about Your Aim in Life",
     prompt: "Write a letter to your friend telling him about your aim in life.",
@@ -1363,9 +1872,82 @@ const emails: Piece[] = [
   },
 ];
 
-/* ─────────────────────────── Categories ─────────────────────────── */
+/* ─────────────────────────── Sections ─────────────────────────── */
 
-export const categories: Category[] = [
+const grammar: Category[] = [
+  {
+    id: "articles",
+    title: "Articles",
+    icon: "Type",
+    description: "Filling gaps with a, an and the, and knowing when to leave them out.",
+    pieces: [],
+  },
+  {
+    id: "preposition",
+    title: "Preposition",
+    icon: "MoveRight",
+    description: "The right preposition for the gap, and the appropriate prepositions.",
+    pieces: [],
+  },
+  {
+    id: "completing-sentences",
+    title: "Completing Sentences",
+    icon: "TextCursorInput",
+    description: "Sentence beginnings finished in meaningful, correct English.",
+    pieces: [],
+  },
+  {
+    id: "right-form-of-verbs",
+    title: "Right Form of Verbs",
+    icon: "SpellCheck",
+    description: "Verbs in brackets put in the tense and form the sentence needs.",
+    pieces: [],
+  },
+  {
+    id: "transformation",
+    title: "Transformation of Sentences",
+    icon: "Shuffle",
+    description: "Sentences changed in form without changing their meaning.",
+    pieces: transformation,
+  },
+  {
+    id: "narration",
+    title: "Narration",
+    icon: "Quote",
+    description: "Direct speech turned into indirect speech and back again.",
+    pieces: [],
+  },
+  {
+    id: "tag-questions",
+    title: "Tag Questions",
+    icon: "CircleHelp",
+    description: "The short question tagged to the end of a statement.",
+    pieces: [],
+  },
+  {
+    id: "connectors",
+    title: "Connectors",
+    icon: "Link",
+    description: "Linking words that join sentences and ideas.",
+    pieces: [],
+  },
+  {
+    id: "suffix-prefix",
+    title: "Suffix & Prefix",
+    icon: "Puzzle",
+    description: "Words formed by adding a suffix or a prefix to the root.",
+    pieces: suffixPrefix,
+  },
+  {
+    id: "punctuation",
+    title: "Punctuation & Capitalization",
+    icon: "CaseSensitive",
+    description: "Punctuation marks and capital letters put where they belong.",
+    pieces: [],
+  },
+];
+
+const writing: Category[] = [
   {
     id: "paragraph",
     title: "Paragraph",
@@ -1409,3 +1991,10 @@ export const categories: Category[] = [
     pieces: emails,
   },
 ];
+
+export const sections: Section[] = [
+  { id: "grammar", title: "Grammar", categories: grammar },
+  { id: "writing", title: "Writing", categories: writing },
+];
+
+export const categories: Category[] = sections.flatMap((s) => s.categories);
