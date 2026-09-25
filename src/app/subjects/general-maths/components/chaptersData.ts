@@ -29,6 +29,9 @@
 // Chapter 13 "সসীম ধারা": অনুশীলনী ১৩.১ (book pages ২৫৫-২৫৬) and
 // অনুশীলনী ১৩.২ (book page ২৬৪), the latter followed by the chapter's
 // নমুনা প্রশ্ন (book page ২৬৫), numbered on from the exercise.
+// Chapter 15 "ক্ষেত্রফল সম্পর্কিত উপপাদ্য ও সম্পাদ্য": অনুশীলনী ১৫ (book pages
+// ২৯১-২৯২), followed by the chapter's নমুনা প্রশ্ন (book pages ২৯২-২৯৩),
+// numbered on from the exercise; it lives in chapter15Data.ts.
 // Chapter 16 "পরিমিতি": অনুশীলনী ১৬.১ (book pages ৩০০-৩০১) and
 // অনুশীলনী ১৬.২ (book pages ৩১০-৩১২).
 // Chapter 17 "পরিসংখ্যান": অনুশীলনী ১৭ (book pages ৩৪২-৩৪৩), followed by the
@@ -20527,6 +20530,10 @@ import {
   exercise84,
   exercise85,
 } from "./chapter8Data";
+// অধ্যায় ১৪ lives in its own file too; see chapter14Data.ts.
+import { exercise141, exercise142, exercise143 } from "./chapter14Data";
+// অধ্যায় ১৫ lives in its own file too; see chapter15Data.ts.
+import { exercise15 } from "./chapter15Data";
 
 export const chaptersData: Chapter[] = [
   { id: 1, title: "বাস্তব সংখ্যা", exercises: [exercise1] },
@@ -20593,12 +20600,12 @@ export const chaptersData: Chapter[] = [
   {
     id: 14,
     title: "অনুপাত, সদৃশতা ও প্রতিসমতা",
-    exercises: [],
+    exercises: [exercise141, exercise142, exercise143],
   },
   {
     id: 15,
     title: "ক্ষেত্রফল সম্পর্কিত উপপাদ্য ও সম্পাদ্য",
-    exercises: [],
+    exercises: [exercise15],
   },
   {
     id: 16,
