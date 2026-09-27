@@ -8,6 +8,7 @@
 //
 // Everything here is written for this site, so it can be reproduced freely.
 
+import { applications } from "./applicationsData";
 import { articles } from "./articlesData";
 import { completingSentences } from "./completingSentencesData";
 import { compositions } from "./compositionsData";
@@ -15,6 +16,8 @@ import { preposition } from "./prepositionData";
 import { punctuation } from "./punctuationData";
 import { connectors } from "./connectorsData";
 import { dialogues } from "./dialoguesData";
+import { moreEmails } from "./emailsData";
+import { personalLetters } from "./lettersData";
 import { narration } from "./narrationData";
 import { paragraphs } from "./paragraphsData";
 import { rightFormOfVerbs } from "./rightFormOfVerbsData";
@@ -1094,14 +1097,18 @@ const writing: Category[] = [
     title: "Application & Letter",
     icon: "ScrollText",
     description: "Formal applications and letters to friends and family.",
-    pieces: letters,
+    // Applications first, then letters; sort is stable, so each group keeps
+    // its written order.
+    pieces: [...letters, ...applications, ...personalLetters].sort(
+      (a, b) => Number(a.id.startsWith("letter")) - Number(b.id.startsWith("letter")),
+    ),
   },
   {
     id: "email",
     title: "Email",
     icon: "Mail",
     description: "Emails in the layout the examiner expects.",
-    pieces: emails,
+    pieces: [...emails, ...moreEmails],
   },
 ];
 
