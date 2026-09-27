@@ -16,6 +16,7 @@ import { scenes8 } from "./scenes8";
 import { scenes6 } from "./scenes6";
 import { scenes161 } from "./scenes161";
 import { scenes162 } from "./scenes162";
+import { scenes163 } from "./scenes163";
 
 export const scenes: Record<string, Scene> = {
   ...scenes1,
@@ -30,4 +31,5 @@ export const scenes: Record<string, Scene> = {
   ...scenes6,
   ...scenes161,
   ...scenes162,
+  ...scenes163,
 };

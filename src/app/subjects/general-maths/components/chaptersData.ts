@@ -33,7 +33,8 @@
 // ২৯১-২৯২), followed by the chapter's নমুনা প্রশ্ন (book pages ২৯২-২৯৩),
 // numbered on from the exercise; it lives in chapter15Data.ts.
 // Chapter 16 "পরিমিতি": অনুশীলনী ১৬.১ (book pages ৩০০-৩০১) and
-// অনুশীলনী ১৬.২ (book pages ৩১০-৩১২).
+// অনুশীলনী ১৬.২ (book pages ৩১০-৩১২); অনুশীলনী ১৬.৩ (book pages ৩১২-৩১৮)
+// lives in chapter16Data.ts.
 // Chapter 17 "পরিসংখ্যান": অনুশীলনী ১৭ (book pages ৩৪২-৩৪৩), followed by the
 // chapter's নমুনা প্রশ্ন (book page ৩৪৪), numbered on from the exercise.
 //
@@ -20534,6 +20535,8 @@ import {
 import { exercise141, exercise142, exercise143 } from "./chapter14Data";
 // অধ্যায় ১৫ lives in its own file too; see chapter15Data.ts.
 import { exercise15 } from "./chapter15Data";
+// অনুশীলনী ১৬.৩ lives in its own file; see chapter16Data.ts.
+import { exercise163 } from "./chapter16Data";
 
 export const chaptersData: Chapter[] = [
   { id: 1, title: "বাস্তব সংখ্যা", exercises: [exercise1] },
@@ -20610,7 +20613,7 @@ export const chaptersData: Chapter[] = [
   {
     id: 16,
     title: "পরিমিতি",
-    exercises: [exercise161, exercise162],
+    exercises: [exercise161, exercise162, exercise163],
   },
   {
     id: 17,
