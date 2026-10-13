@@ -62,6 +62,8 @@ export interface Piece {
   title: string;
   // The instruction as the board words it.
   prompt?: string;
+  // Where the question was asked, e.g. "Fall 23, Slot 02". Admission only.
+  source?: string;
   // Guiding questions printed with the question.
   hints?: string[];
   // The hard words of this piece, listed A to Z and shown before the writing

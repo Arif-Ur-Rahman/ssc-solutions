@@ -66,5 +66,14 @@ export const subjectsData = [
     description: 'Information and Communication Technology solutions, including some programming exercises',
     chapters: 6,
     icon: 'Computer'
+  },
+  {
+    id: 9,
+    name: 'Admission',
+    slug: 'admission',
+    description: 'College admission preparation in English and Math, organised by topic',
+    // TODO: set to the real chapter count once the content is written.
+    chapters: 0,
+    icon: 'GraduationCap',
   }
 ]

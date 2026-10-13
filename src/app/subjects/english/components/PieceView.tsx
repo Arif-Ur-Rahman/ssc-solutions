@@ -69,6 +69,11 @@ export default function PieceView({ piece }: { piece: Piece }) {
           <div className="mb-3 flex items-center gap-2 font-sans font-semibold text-[10px] uppercase tracking-[0.2em] text-gold">
             <HelpCircle className="h-3 w-3" />
             Question
+            {piece.source && (
+              <span className="ml-auto rounded-md border border-gold/10 bg-parchment/[0.05] px-2 py-0.5 font-normal normal-case tracking-normal text-muted">
+                {piece.source}
+              </span>
+            )}
           </div>
 
           {piece.prompt && (
