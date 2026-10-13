@@ -42,3 +42,6 @@ next-env.d.ts
 
 # reference textbooks (too large for git; kept locally)
 /public/books/
+
+# model question PDFs (kept locally)
+/public/Model Questions/
