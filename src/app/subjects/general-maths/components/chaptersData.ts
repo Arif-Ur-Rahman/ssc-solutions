@@ -17,7 +17,8 @@
 // অনুশীলনী ৭.২ (book pages ১৪৯-১৫০), the latter followed by the chapter's
 // নমুনা প্রশ্ন (book page ১৫১), numbered on from the exercise.
 // Chapter 9 "ত্রিকোণমিতিক অনুপাত": অনুশীলনী ৯.১ (book pages ১৮৪-১৮৬) and
-// অনুশীলনী ৯.২ (book pages ১৯৪-১৯৫).
+// অনুশীলনী ৯.২ (book pages ১৯৪-১৯৫), the latter followed by the chapter's
+// নমুনা প্রশ্ন (book page ১৯৬), numbered on from the exercise.
 // Chapter 12 "দুই চলকবিশিষ্ট সরল সহসমীকরণ": অনুশীলনী ১২.১ (book pages ২২৮-২২৯),
 // ১২.২ (book page ২৩৬), ১২.৩ (book page ২৪২) and ১২.৪ (book pages ২৪৬-২৪৭),
 // the last followed by the chapter's নমুনা প্রশ্ন (book pages ২৪৭-২৪৮),
@@ -4997,11 +4998,20 @@ const exercise91: Exercise = {
   ],
 };
 
+const TRIG2_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৪)";
+const TRIG2_VALUE = "মান নির্ণয় করো (৫ – ৮)";
+const TRIG2_SHOW = "দেখাও যে (৯ – ১৪)";
+const TRIG2_ANGLE = "কোণ নির্ণয় ও সমীকরণ সমাধান (১৫ – ২৩)";
+const TRIG2_TRI = "মান নির্ণয় ও ত্রিভুজে প্রয়োগ (২৪ – ২৭)";
+const TRIG2_MODEL_MCQ = "নমুনা প্রশ্ন — বহুনির্বাচনি (২৮ – ৩১)";
+const TRIG2_MODEL_CQ = "নমুনা প্রশ্ন — সৃজনশীল (৩২)";
+const TRIG2_MODEL_SA = "নমুনা প্রশ্ন — সংক্ষিপ্ত-উত্তর (৩৩)";
+
 const exercise92: Exercise = {
   id: "9.2",
   bnId: "অনুশীলনী ৯.২",
   title: "বিশেষ কোণের ত্রিকোণমিতিক অনুপাত",
-  bookPages: "১৯৪ – ১৯৫",
+  bookPages: "১৯৪ – ১৯৬",
   formulas: [
     {
       title: "৩০° ও ৬০° কোণের অনুপাত",
@@ -5137,7 +5147,784 @@ const exercise92: Exercise = {
       ],
     },
   ],
-  problems: [],
+  problems: [
+    // ─────────────── বহুনির্বাচনি প্রশ্ন (১ – ৪) ───────────────
+    {
+      id: 1,
+      group: TRIG2_MCQ,
+      question: String.raw`$\cos\theta=\dfrac{1}{2}$ হলে, $\cot\theta$ এর মান কোনটি?
+      ক) $\dfrac{1}{\sqrt{3}}$
+      খ) $1$
+      গ) $\sqrt{3}$
+      ঘ) $2$`,
+      solution: {
+        steps: [
+          String.raw`$$\cos\theta=\frac{1}{2}=\cos 60^{\circ}$$`,
+          String.raw`$$\therefore\;\theta=60^{\circ}$$`,
+          String.raw`$$\cot\theta=\cot 60^{\circ}=\frac{1}{\sqrt{3}}$$`,
+        ],
+        answer: String.raw`ক) $\dfrac{1}{\sqrt{3}}$`,
+      },
+    },
+    {
+      id: 2,
+      group: TRIG2_MCQ,
+      question: String.raw`$\cos^{2}\theta-\sin^{2}\theta=\dfrac{1}{3}$ হলে, $\cos^{4}\theta-\sin^{4}\theta$ এর মান কত?
+      ক) $3$
+      খ) $2$
+      গ) $1$
+      ঘ) $\dfrac{1}{3}$`,
+      solution: {
+        steps: [
+          String.raw`$$\cos^{4}\theta-\sin^{4}\theta=\left(\cos^{2}\theta\right)^{2}-\left(\sin^{2}\theta\right)^{2}$$`,
+          String.raw`$$=\left(\cos^{2}\theta+\sin^{2}\theta\right)\left(\cos^{2}\theta-\sin^{2}\theta\right)\qquad\left[\,a^{2}-b^{2}=(a+b)(a-b)\,\right]$$`,
+          String.raw`$$=1\times\frac{1}{3}\qquad\left[\,\sin^{2}\theta+\cos^{2}\theta=1\,\right]$$`,
+          String.raw`$$=\frac{1}{3}$$`,
+        ],
+        answer: String.raw`ঘ) $\dfrac{1}{3}$`,
+      },
+    },
+    {
+      id: 3,
+      group: TRIG2_MCQ,
+      question: String.raw`$\cot(\theta-30^{\circ})=\dfrac{1}{\sqrt{3}}$ হলে, $\sin\theta=$ কত?
+      ক) $\dfrac{1}{2}$
+      খ) $0$
+      গ) $1$
+      ঘ) $\dfrac{\sqrt{3}}{2}$`,
+      solution: {
+        steps: [
+          String.raw`$$\cot(\theta-30^{\circ})=\frac{1}{\sqrt{3}}=\cot 60^{\circ}$$`,
+          String.raw`$$\text{or, }\theta-30^{\circ}=60^{\circ}$$`,
+          String.raw`$$\therefore\;\theta=90^{\circ}$$`,
+          String.raw`$$\sin\theta=\sin 90^{\circ}=1$$`,
+        ],
+        answer: String.raw`গ) $1$`,
+      },
+    },
+    {
+      id: 4,
+      group: TRIG2_MCQ,
+      question: String.raw`$\tan(3A)=\sqrt{3}$ হলে, $A=$ কত?
+      ক) $45^{\circ}$
+      খ) $30^{\circ}$
+      গ) $20^{\circ}$
+      ঘ) $15^{\circ}$`,
+      solution: {
+        steps: [
+          String.raw`$$\tan(3A)=\sqrt{3}=\tan 60^{\circ}$$`,
+          String.raw`$$\text{or, }3A=60^{\circ}$$`,
+          String.raw`$$\therefore\;A=20^{\circ}$$`,
+        ],
+        answer: String.raw`গ) $20^{\circ}$`,
+      },
+    },
+
+    // ─────────────── মান নির্ণয় করো (৫ – ৮) ───────────────
+    {
+      id: 5,
+      group: TRIG2_VALUE,
+      question: String.raw`$$\frac{1-\cot^{2}60^{\circ}}{1+\cot^{2}60^{\circ}}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত রাশি,`,
+          String.raw`$$\frac{1-\cot^{2}60^{\circ}}{1+\cot^{2}60^{\circ}}$$`,
+          String.raw`$$=\frac{1-\left(\frac{1}{\sqrt{3}}\right)^{2}}{1+\left(\frac{1}{\sqrt{3}}\right)^{2}}\qquad\left[\,\cot 60^{\circ}=\frac{1}{\sqrt{3}}\,\right]$$`,
+          String.raw`$$=\frac{1-\frac{1}{3}}{1+\frac{1}{3}}$$`,
+          String.raw`$$=\frac{\frac{3-1}{3}}{\frac{3+1}{3}}=\frac{\frac{2}{3}}{\frac{4}{3}}$$`,
+          String.raw`$$=\frac{2}{3}\times\frac{3}{4}=\frac{1}{2}$$`,
+        ],
+        answer: String.raw`$\dfrac{1}{2}$`,
+      },
+    },
+    {
+      id: 6,
+      group: TRIG2_VALUE,
+      question: String.raw`$$\tan 45^{\circ}\cdot\sin^{2}60^{\circ}\cdot\tan 30^{\circ}\cdot\tan 60^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত রাশি,`,
+          String.raw`$$\tan 45^{\circ}\cdot\sin^{2}60^{\circ}\cdot\tan 30^{\circ}\cdot\tan 60^{\circ}$$`,
+          String.raw`$$=1\times\left(\frac{\sqrt{3}}{2}\right)^{2}\times\frac{1}{\sqrt{3}}\times\sqrt{3}$$`,
+          String.raw`$$=1\times\frac{3}{4}\times 1\qquad\left[\,\frac{1}{\sqrt{3}}\times\sqrt{3}=1\,\right]$$`,
+          String.raw`$$=\frac{3}{4}$$`,
+        ],
+        answer: String.raw`$\dfrac{3}{4}$`,
+      },
+    },
+    {
+      id: 7,
+      group: TRIG2_VALUE,
+      question: String.raw`$$\frac{1-\cos^{2}60^{\circ}}{1+\cos^{2}60^{\circ}}+\sec^{2}60^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত রাশি,`,
+          String.raw`$$\frac{1-\cos^{2}60^{\circ}}{1+\cos^{2}60^{\circ}}+\sec^{2}60^{\circ}$$`,
+          String.raw`$$=\frac{1-\left(\frac{1}{2}\right)^{2}}{1+\left(\frac{1}{2}\right)^{2}}+(2)^{2}\qquad\left[\,\cos 60^{\circ}=\frac{1}{2},\ \sec 60^{\circ}=2\,\right]$$`,
+          String.raw`$$=\frac{1-\frac{1}{4}}{1+\frac{1}{4}}+4$$`,
+          String.raw`$$=\frac{\frac{3}{4}}{\frac{5}{4}}+4=\frac{3}{5}+4$$`,
+          String.raw`$$=\frac{3+20}{5}=\frac{23}{5}$$`,
+        ],
+        answer: String.raw`$\dfrac{23}{5}$`,
+      },
+    },
+    {
+      id: 8,
+      group: TRIG2_VALUE,
+      question: String.raw`$$\cos 45^{\circ}\cdot\cot^{2}60^{\circ}\cdot\operatorname{cosec}^{2}30^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত রাশি,`,
+          String.raw`$$\cos 45^{\circ}\cdot\cot^{2}60^{\circ}\cdot\operatorname{cosec}^{2}30^{\circ}$$`,
+          String.raw`$$=\frac{1}{\sqrt{2}}\times\left(\frac{1}{\sqrt{3}}\right)^{2}\times(2)^{2}$$`,
+          String.raw`$$=\frac{1}{\sqrt{2}}\times\frac{1}{3}\times 4$$`,
+          String.raw`$$=\frac{4}{3\sqrt{2}}$$`,
+          String.raw`$$=\frac{4\sqrt{2}}{3\sqrt{2}\cdot\sqrt{2}}=\frac{4\sqrt{2}}{6}=\frac{2\sqrt{2}}{3}$$`,
+        ],
+        answer: String.raw`$\dfrac{2\sqrt{2}}{3}$`,
+      },
+    },
+
+    // ─────────────── দেখাও যে (৯ – ১৪) ───────────────
+    {
+      id: 9,
+      group: TRIG2_SHOW,
+      question: String.raw`$$\cos^{2}30^{\circ}-\sin^{2}30^{\circ}=\cos 60^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`বামপক্ষ,`,
+          String.raw`$$\cos^{2}30^{\circ}-\sin^{2}30^{\circ}$$`,
+          String.raw`$$=\left(\frac{\sqrt{3}}{2}\right)^{2}-\left(\frac{1}{2}\right)^{2}$$`,
+          String.raw`$$=\frac{3}{4}-\frac{1}{4}=\frac{2}{4}=\frac{1}{2}$$`,
+          String.raw`$$=\cos 60^{\circ}$$`,
+          String.raw`$=$ ডানপক্ষ (দেখানো হলো)।`,
+        ],
+        answer: String.raw`দেখানো হলো`,
+      },
+    },
+    {
+      id: 10,
+      group: TRIG2_SHOW,
+      question: String.raw`$$\sin 60^{\circ}\cdot\cos 30^{\circ}+\cos 60^{\circ}\cdot\sin 30^{\circ}=\sin 90^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`বামপক্ষ,`,
+          String.raw`$$\sin 60^{\circ}\cdot\cos 30^{\circ}+\cos 60^{\circ}\cdot\sin 30^{\circ}$$`,
+          String.raw`$$=\frac{\sqrt{3}}{2}\times\frac{\sqrt{3}}{2}+\frac{1}{2}\times\frac{1}{2}$$`,
+          String.raw`$$=\frac{3}{4}+\frac{1}{4}=\frac{4}{4}=1$$`,
+          String.raw`$$=\sin 90^{\circ}$$`,
+          String.raw`$=$ ডানপক্ষ (দেখানো হলো)।`,
+        ],
+        answer: String.raw`দেখানো হলো`,
+      },
+    },
+    {
+      id: 11,
+      group: TRIG2_SHOW,
+      question: String.raw`$$\cos 60^{\circ}\cdot\cos 30^{\circ}+\sin 60^{\circ}\cdot\sin 30^{\circ}=\cos 30^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`বামপক্ষ,`,
+          String.raw`$$\cos 60^{\circ}\cdot\cos 30^{\circ}+\sin 60^{\circ}\cdot\sin 30^{\circ}$$`,
+          String.raw`$$=\frac{1}{2}\times\frac{\sqrt{3}}{2}+\frac{\sqrt{3}}{2}\times\frac{1}{2}$$`,
+          String.raw`$$=\frac{\sqrt{3}}{4}+\frac{\sqrt{3}}{4}=\frac{2\sqrt{3}}{4}=\frac{\sqrt{3}}{2}$$`,
+          String.raw`$$=\cos 30^{\circ}$$`,
+          String.raw`$=$ ডানপক্ষ (দেখানো হলো)।`,
+        ],
+        answer: String.raw`দেখানো হলো`,
+      },
+    },
+    {
+      id: 12,
+      group: TRIG2_SHOW,
+      question: String.raw`$\sin 3A=\cos 3A$ যদি $A=15^{\circ}$ হয়।`,
+      solution: {
+        steps: [
+          String.raw`দেওয়া আছে, $A=15^{\circ}$; তাই $3A=3\times 15^{\circ}=45^{\circ}$।`,
+          String.raw`বামপক্ষ,`,
+          String.raw`$$\sin 3A=\sin 45^{\circ}=\frac{1}{\sqrt{2}}$$`,
+          String.raw`ডানপক্ষ,`,
+          String.raw`$$\cos 3A=\cos 45^{\circ}=\frac{1}{\sqrt{2}}$$`,
+          String.raw`$\therefore$ বামপক্ষ $=$ ডানপক্ষ (দেখানো হলো)।`,
+        ],
+        answer: String.raw`দেখানো হলো`,
+      },
+    },
+    {
+      id: 13,
+      group: TRIG2_SHOW,
+      question: String.raw`$\sin 2A=\dfrac{2\tan A}{1+\tan^{2}A}$ যদি $A=45^{\circ}$ হয়।`,
+      solution: {
+        steps: [
+          String.raw`দেওয়া আছে, $A=45^{\circ}$; তাই $2A=90^{\circ}$ এবং $\tan A=\tan 45^{\circ}=1$।`,
+          String.raw`বামপক্ষ,`,
+          String.raw`$$\sin 2A=\sin 90^{\circ}=1$$`,
+          String.raw`ডানপক্ষ,`,
+          String.raw`$$\frac{2\tan A}{1+\tan^{2}A}=\frac{2\tan 45^{\circ}}{1+\tan^{2}45^{\circ}}$$`,
+          String.raw`$$=\frac{2\times 1}{1+(1)^{2}}=\frac{2}{2}=1$$`,
+          String.raw`$\therefore$ বামপক্ষ $=$ ডানপক্ষ (দেখানো হলো)।`,
+        ],
+        answer: String.raw`দেখানো হলো`,
+      },
+    },
+    {
+      id: 14,
+      group: TRIG2_SHOW,
+      question: String.raw`$\tan 2A=\dfrac{2\tan A}{1-\tan^{2}A}$ যদি $A=30^{\circ}$ হয়।`,
+      solution: {
+        steps: [
+          String.raw`দেওয়া আছে, $A=30^{\circ}$; তাই $2A=60^{\circ}$ এবং $\tan A=\tan 30^{\circ}=\dfrac{1}{\sqrt{3}}$।`,
+          String.raw`বামপক্ষ,`,
+          String.raw`$$\tan 2A=\tan 60^{\circ}=\sqrt{3}$$`,
+          String.raw`ডানপক্ষ,`,
+          String.raw`$$\frac{2\tan A}{1-\tan^{2}A}=\frac{2\tan 30^{\circ}}{1-\tan^{2}30^{\circ}}$$`,
+          String.raw`$$=\frac{2\times\frac{1}{\sqrt{3}}}{1-\left(\frac{1}{\sqrt{3}}\right)^{2}}=\frac{\frac{2}{\sqrt{3}}}{1-\frac{1}{3}}$$`,
+          String.raw`$$=\frac{\frac{2}{\sqrt{3}}}{\frac{2}{3}}=\frac{2}{\sqrt{3}}\times\frac{3}{2}=\frac{3}{\sqrt{3}}$$`,
+          String.raw`$$=\frac{\sqrt{3}\cdot\sqrt{3}}{\sqrt{3}}=\sqrt{3}$$`,
+          String.raw`$\therefore$ বামপক্ষ $=$ ডানপক্ষ (দেখানো হলো)।`,
+        ],
+        answer: String.raw`দেখানো হলো`,
+      },
+    },
+
+    // ─────────────── কোণ নির্ণয় ও সমীকরণ সমাধান (১৫ – ২৩) ───────────────
+    {
+      id: 15,
+      group: TRIG2_ANGLE,
+      question: String.raw`$2\cos(A+B)=1=2\sin(A-B)$ এবং $A$, $B$ সূক্ষ্মকোণ হলে দেখাও যে, $A=45^{\circ}$, $B=15^{\circ}$।`,
+      solution: {
+        steps: [
+          String.raw`দেওয়া আছে, $2\cos(A+B)=1$ এবং $2\sin(A-B)=1$।`,
+          String.raw`$$2\cos(A+B)=1$$`,
+          String.raw`$$\text{or, }\cos(A+B)=\frac{1}{2}=\cos 60^{\circ}$$`,
+          String.raw`$$\therefore\;A+B=60^{\circ}\qquad\cdots(1)$$`,
+          String.raw`আবার,`,
+          String.raw`$$2\sin(A-B)=1$$`,
+          String.raw`$$\text{or, }\sin(A-B)=\frac{1}{2}=\sin 30^{\circ}$$`,
+          String.raw`$$\therefore\;A-B=30^{\circ}\qquad\cdots(2)$$`,
+          String.raw`(1) ও (2) যোগ করে পাই,`,
+          String.raw`$$2A=90^{\circ}$$`,
+          String.raw`$$\therefore\;A=45^{\circ}$$`,
+          String.raw`(1) থেকে (2) বিয়োগ করে পাই,`,
+          String.raw`$$2B=30^{\circ}$$`,
+          String.raw`$$\therefore\;B=15^{\circ}$$`,
+          String.raw`সুতরাং $A=45^{\circ}$ ও $B=15^{\circ}$ (দেখানো হলো)।`,
+        ],
+        answer: String.raw`$A=45^{\circ}$, $B=15^{\circ}$ (দেখানো হলো)`,
+      },
+    },
+    {
+      id: 16,
+      group: TRIG2_ANGLE,
+      question: String.raw`$\cos(A-B)=1$, $2\sin(A+B)=\sqrt{3}$ এবং $A$, $B$ সূক্ষ্মকোণ হলে, $A$ এবং $B$ এর মান নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\cos(A-B)=1=\cos 0^{\circ}$$`,
+          String.raw`$$\therefore\;A-B=0^{\circ}\qquad\cdots(1)$$`,
+          String.raw`আবার,`,
+          String.raw`$$2\sin(A+B)=\sqrt{3}$$`,
+          String.raw`$$\text{or, }\sin(A+B)=\frac{\sqrt{3}}{2}=\sin 60^{\circ}$$`,
+          String.raw`$$\therefore\;A+B=60^{\circ}\qquad\cdots(2)$$`,
+          String.raw`(1) ও (2) যোগ করে পাই,`,
+          String.raw`$$2A=60^{\circ}$$`,
+          String.raw`$$\therefore\;A=30^{\circ}$$`,
+          String.raw`(2) থেকে (1) বিয়োগ করে পাই,`,
+          String.raw`$$2B=60^{\circ}$$`,
+          String.raw`$$\therefore\;B=30^{\circ}$$`,
+        ],
+        answer: String.raw`$A=30^{\circ}$, $B=30^{\circ}$`,
+      },
+    },
+    {
+      id: 17,
+      group: TRIG2_ANGLE,
+      question: String.raw`সমাধান করো: $$\frac{\cos A-\sin A}{\cos A+\sin A}=\frac{\sqrt{3}-1}{\sqrt{3}+1}$$`,
+      solution: {
+        steps: [
+          String.raw`$$\frac{\cos A-\sin A}{\cos A+\sin A}=\frac{\sqrt{3}-1}{\sqrt{3}+1}$$`,
+          String.raw`$$\text{or, }\frac{\cos A-\sin A+\cos A+\sin A}{\cos A-\sin A-\cos A-\sin A}=\frac{\sqrt{3}-1+\sqrt{3}+1}{\sqrt{3}-1-\sqrt{3}-1}\qquad\left[\,\text{যোজন-বিয়োজন করে}\,\right]$$`,
+          String.raw`$$\text{or, }\frac{2\cos A}{-2\sin A}=\frac{2\sqrt{3}}{-2}$$`,
+          String.raw`$$\text{or, }\frac{\cos A}{\sin A}=\sqrt{3}$$`,
+          String.raw`$$\text{or, }\cot A=\sqrt{3}=\cot 30^{\circ}$$`,
+          String.raw`$$\therefore\;A=30^{\circ}$$`,
+        ],
+        answer: String.raw`$A=30^{\circ}$`,
+      },
+    },
+    {
+      id: 18,
+      group: TRIG2_ANGLE,
+      question: String.raw`$A$ ও $B$ সূক্ষ্মকোণ এবং $\cot(A+B)=1$, $\cot(A-B)=\sqrt{3}$ হলে, $A$ ও $B$ এর মান নির্ণয় করো।`,
+      solution: {
+        steps: [
+          String.raw`$$\cot(A+B)=1=\cot 45^{\circ}$$`,
+          String.raw`$$\therefore\;A+B=45^{\circ}\qquad\cdots(1)$$`,
+          String.raw`আবার,`,
+          String.raw`$$\cot(A-B)=\sqrt{3}=\cot 30^{\circ}$$`,
+          String.raw`$$\therefore\;A-B=30^{\circ}\qquad\cdots(2)$$`,
+          String.raw`(1) ও (2) যোগ করে পাই,`,
+          String.raw`$$2A=75^{\circ}$$`,
+          String.raw`$$\therefore\;A=\frac{75^{\circ}}{2}=37\tfrac{1}{2}^{\circ}$$`,
+          String.raw`(1) থেকে (2) বিয়োগ করে পাই,`,
+          String.raw`$$2B=15^{\circ}$$`,
+          String.raw`$$\therefore\;B=\frac{15^{\circ}}{2}=7\tfrac{1}{2}^{\circ}$$`,
+        ],
+        answer: String.raw`$A=37\tfrac{1}{2}^{\circ}$, $B=7\tfrac{1}{2}^{\circ}$`,
+      },
+    },
+    {
+      id: 19,
+      group: TRIG2_ANGLE,
+      question: String.raw`দেখাও যে, $\cos 3A=4\cos^{3}A-3\cos A$ যদি $A=30^{\circ}$ হয়।`,
+      solution: {
+        steps: [
+          String.raw`দেওয়া আছে, $A=30^{\circ}$; তাই $3A=90^{\circ}$ এবং $\cos A=\cos 30^{\circ}=\dfrac{\sqrt{3}}{2}$।`,
+          String.raw`বামপক্ষ,`,
+          String.raw`$$\cos 3A=\cos 90^{\circ}=0$$`,
+          String.raw`ডানপক্ষ,`,
+          String.raw`$$4\cos^{3}A-3\cos A=4\cos^{3}30^{\circ}-3\cos 30^{\circ}$$`,
+          String.raw`$$=4\left(\frac{\sqrt{3}}{2}\right)^{3}-3\times\frac{\sqrt{3}}{2}$$`,
+          String.raw`$$=4\times\frac{3\sqrt{3}}{8}-\frac{3\sqrt{3}}{2}$$`,
+          String.raw`$$=\frac{3\sqrt{3}}{2}-\frac{3\sqrt{3}}{2}=0$$`,
+          String.raw`$\therefore$ বামপক্ষ $=$ ডানপক্ষ (দেখানো হলো)।`,
+        ],
+        answer: String.raw`দেখানো হলো`,
+      },
+    },
+    {
+      id: 20,
+      group: TRIG2_ANGLE,
+      question: String.raw`সমাধান করো: $\sin\theta+\cos\theta=1$, যখন $0^{\circ}\le\theta\le 90^{\circ}$।`,
+      solution: {
+        steps: [
+          String.raw`$$\sin\theta+\cos\theta=1$$`,
+          String.raw`উভয়পক্ষকে বর্গ করে পাই,`,
+          String.raw`$$(\sin\theta+\cos\theta)^{2}=1$$`,
+          String.raw`$$\text{or, }\sin^{2}\theta+2\sin\theta\cos\theta+\cos^{2}\theta=1$$`,
+          String.raw`$$\text{or, }1+2\sin\theta\cos\theta=1\qquad\left[\,\sin^{2}\theta+\cos^{2}\theta=1\,\right]$$`,
+          String.raw`$$\text{or, }2\sin\theta\cos\theta=0$$`,
+          String.raw`$$\therefore\;\sin\theta=0\quad\text{অথবা}\quad\cos\theta=0$$`,
+          String.raw`$\sin\theta=0=\sin 0^{\circ}$ হলে $\theta=0^{\circ}$; আবার $\cos\theta=0=\cos 90^{\circ}$ হলে $\theta=90^{\circ}$।`,
+          String.raw`বর্গ করায় বাড়তি মূল আসতে পারে, তাই মূল সমীকরণে যাচাই করি:`,
+          String.raw`$$\theta=0^{\circ}:\ \sin 0^{\circ}+\cos 0^{\circ}=0+1=1$$`,
+          String.raw`$$\theta=90^{\circ}:\ \sin 90^{\circ}+\cos 90^{\circ}=1+0=1$$`,
+          String.raw`দুইটি মানই সমীকরণটিকে সিদ্ধ করে এবং $0^{\circ}\le\theta\le 90^{\circ}$ সীমার মধ্যে আছে।`,
+          String.raw`$$\therefore\;\theta=0^{\circ}\ \text{অথবা}\ \theta=90^{\circ}$$`,
+        ],
+        answer: String.raw`$\theta=0^{\circ}$ অথবা $90^{\circ}$`,
+      },
+    },
+    {
+      id: 21,
+      group: TRIG2_ANGLE,
+      question: String.raw`সমাধান করো: $\cos^{2}\theta-\sin^{2}\theta=2-5\cos\theta$ যখন $\theta$ সূক্ষ্মকোণ।`,
+      solution: {
+        steps: [
+          String.raw`$$\cos^{2}\theta-\sin^{2}\theta=2-5\cos\theta$$`,
+          String.raw`$$\text{or, }\cos^{2}\theta-\left(1-\cos^{2}\theta\right)=2-5\cos\theta\qquad\left[\,\sin^{2}\theta=1-\cos^{2}\theta\,\right]$$`,
+          String.raw`$$\text{or, }2\cos^{2}\theta-1=2-5\cos\theta$$`,
+          String.raw`$$\text{or, }2\cos^{2}\theta+5\cos\theta-3=0$$`,
+          String.raw`$$\text{or, }2\cos^{2}\theta+6\cos\theta-\cos\theta-3=0$$`,
+          String.raw`$$\text{or, }2\cos\theta(\cos\theta+3)-1(\cos\theta+3)=0$$`,
+          String.raw`$$\text{or, }(\cos\theta+3)(2\cos\theta-1)=0$$`,
+          String.raw`$$\therefore\;\cos\theta+3=0\quad\text{অথবা}\quad 2\cos\theta-1=0$$`,
+          String.raw`$\cos\theta+3=0$ হলে $\cos\theta=-3$, যা অসম্ভব — সূক্ষ্মকোণের $\cos$ এর মান $0$ ও $1$ এর মধ্যে থাকে।`,
+          String.raw`$$\therefore\;2\cos\theta-1=0$$`,
+          String.raw`$$\text{or, }\cos\theta=\frac{1}{2}=\cos 60^{\circ}$$`,
+          String.raw`$$\therefore\;\theta=60^{\circ}$$`,
+        ],
+        answer: String.raw`$\theta=60^{\circ}$`,
+      },
+    },
+    {
+      id: 22,
+      group: TRIG2_ANGLE,
+      question: String.raw`সমাধান করো: $2\sin^{2}\theta+3\cos\theta-3=0$, $\theta$ সূক্ষ্মকোণ।`,
+      solution: {
+        steps: [
+          String.raw`$$2\sin^{2}\theta+3\cos\theta-3=0$$`,
+          String.raw`$$\text{or, }2\left(1-\cos^{2}\theta\right)+3\cos\theta-3=0\qquad\left[\,\sin^{2}\theta=1-\cos^{2}\theta\,\right]$$`,
+          String.raw`$$\text{or, }2-2\cos^{2}\theta+3\cos\theta-3=0$$`,
+          String.raw`$$\text{or, }-2\cos^{2}\theta+3\cos\theta-1=0$$`,
+          String.raw`$$\text{or, }2\cos^{2}\theta-3\cos\theta+1=0$$`,
+          String.raw`$$\text{or, }2\cos^{2}\theta-2\cos\theta-\cos\theta+1=0$$`,
+          String.raw`$$\text{or, }2\cos\theta(\cos\theta-1)-1(\cos\theta-1)=0$$`,
+          String.raw`$$\text{or, }(\cos\theta-1)(2\cos\theta-1)=0$$`,
+          String.raw`$$\therefore\;\cos\theta-1=0\quad\text{অথবা}\quad 2\cos\theta-1=0$$`,
+          String.raw`$\cos\theta-1=0$ হলে $\cos\theta=1=\cos 0^{\circ}$, অর্থাৎ $\theta=0^{\circ}$ — কিন্তু $0^{\circ}$ সূক্ষ্মকোণ নয়।`,
+          String.raw`$$\therefore\;2\cos\theta-1=0$$`,
+          String.raw`$$\text{or, }\cos\theta=\frac{1}{2}=\cos 60^{\circ}$$`,
+          String.raw`$$\therefore\;\theta=60^{\circ}$$`,
+        ],
+        answer: String.raw`$\theta=60^{\circ}$`,
+      },
+    },
+    {
+      id: 23,
+      group: TRIG2_ANGLE,
+      question: String.raw`সমাধান করো: $\tan^{2}\theta-(1+\sqrt{3})\tan\theta+\sqrt{3}=0$`,
+      solution: {
+        steps: [
+          String.raw`$$\tan^{2}\theta-(1+\sqrt{3})\tan\theta+\sqrt{3}=0$$`,
+          String.raw`$$\text{or, }\tan^{2}\theta-\tan\theta-\sqrt{3}\tan\theta+\sqrt{3}=0$$`,
+          String.raw`$$\text{or, }\tan\theta(\tan\theta-1)-\sqrt{3}(\tan\theta-1)=0$$`,
+          String.raw`$$\text{or, }(\tan\theta-1)(\tan\theta-\sqrt{3})=0$$`,
+          String.raw`$$\therefore\;\tan\theta-1=0\quad\text{অথবা}\quad\tan\theta-\sqrt{3}=0$$`,
+          String.raw`$\tan\theta-1=0$ হলে,`,
+          String.raw`$$\tan\theta=1=\tan 45^{\circ}$$`,
+          String.raw`$$\therefore\;\theta=45^{\circ}$$`,
+          String.raw`আবার $\tan\theta-\sqrt{3}=0$ হলে,`,
+          String.raw`$$\tan\theta=\sqrt{3}=\tan 60^{\circ}$$`,
+          String.raw`$$\therefore\;\theta=60^{\circ}$$`,
+          String.raw`$$\therefore\;\theta=45^{\circ}\ \text{অথবা}\ \theta=60^{\circ}$$`,
+        ],
+        answer: String.raw`$\theta=45^{\circ}$ অথবা $60^{\circ}$`,
+      },
+    },
+
+    // ─────────────── মান নির্ণয় ও ত্রিভুজে প্রয়োগ (২৪ – ২৭) ───────────────
+    {
+      id: 24,
+      group: TRIG2_TRI,
+      question: String.raw`মান নির্ণয় করো: $$3\cot^{2}60^{\circ}+\frac{1}{4}\operatorname{cosec}^{2}30^{\circ}+5\sin^{2}45^{\circ}-4\cos^{2}60^{\circ}$$`,
+      solution: {
+        steps: [
+          String.raw`প্রদত্ত রাশি,`,
+          String.raw`$$3\cot^{2}60^{\circ}+\frac{1}{4}\operatorname{cosec}^{2}30^{\circ}+5\sin^{2}45^{\circ}-4\cos^{2}60^{\circ}$$`,
+          String.raw`$$=3\left(\frac{1}{\sqrt{3}}\right)^{2}+\frac{1}{4}(2)^{2}+5\left(\frac{1}{\sqrt{2}}\right)^{2}-4\left(\frac{1}{2}\right)^{2}$$`,
+          String.raw`$$=3\times\frac{1}{3}+\frac{1}{4}\times 4+5\times\frac{1}{2}-4\times\frac{1}{4}$$`,
+          String.raw`$$=1+1+\frac{5}{2}-1$$`,
+          String.raw`$$=1+\frac{5}{2}=\frac{2+5}{2}=\frac{7}{2}$$`,
+        ],
+        answer: String.raw`$\dfrac{7}{2}$`,
+      },
+    },
+    {
+      id: 25,
+      group: TRIG2_TRI,
+      question: String.raw`$\triangle ABC$ এর $\angle B=90^{\circ}$, $AB=5$ সে.মি., $BC=12$ সে.মি.।`,
+      figure: "92-p25",
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$AC$ এর দৈর্ঘ্য নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$\triangle ABC$-এ $\angle B=90^{\circ}$, তাই সমকোণের বিপরীত বাহু $AC$-ই অতিভুজ।`,
+              String.raw`পিথাগোরাসের সূত্র থেকে পাই,`,
+              String.raw`$$AC^{2}=AB^{2}+BC^{2}=(5)^{2}+(12)^{2}=25+144=169$$`,
+              String.raw`$$\therefore\;AC=\sqrt{169}=13$$`,
+              String.raw`সুতরাং $AC$ এর দৈর্ঘ্য $13$ সে.মি.।`,
+            ],
+            answer: String.raw`$AC=13$ সে.মি.`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$\angle C=\theta$ হলে $\sin\theta+\cos\theta$ এর মান নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`(ক) থেকে পাই, $AC=13$ সে.মি.।`,
+              String.raw`$\angle C=\theta$ কোণটির বিপরীত বাহু $AB=5$, সন্নিহিত বাহু $BC=12$ এবং অতিভুজ $AC=13$।`,
+              String.raw`$$\sin\theta=\frac{AB}{AC}=\frac{5}{13}$$`,
+              String.raw`$$\cos\theta=\frac{BC}{AC}=\frac{12}{13}$$`,
+              String.raw`$$\therefore\;\sin\theta+\cos\theta=\frac{5}{13}+\frac{12}{13}=\frac{17}{13}$$`,
+            ],
+            answer: String.raw`$\sin\theta+\cos\theta=\dfrac{17}{13}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`উদ্দীপকের আলোকে দেখাও যে, $\sec^{2}A+\operatorname{cosec}^{2}A=\sec^{2}A\cdot\operatorname{cosec}^{2}A$।`,
+          solution: {
+            steps: [
+              String.raw`(ক) থেকে পাই, $AC=13$ সে.মি.।`,
+              String.raw`$\angle A$ কোণটির বিপরীত বাহু $BC=12$, সন্নিহিত বাহু $AB=5$ এবং অতিভুজ $AC=13$।`,
+              String.raw`$$\sec A=\frac{AC}{AB}=\frac{13}{5},\qquad\operatorname{cosec}A=\frac{AC}{BC}=\frac{13}{12}$$`,
+              String.raw`বামপক্ষ,`,
+              String.raw`$$\sec^{2}A+\operatorname{cosec}^{2}A=\left(\frac{13}{5}\right)^{2}+\left(\frac{13}{12}\right)^{2}$$`,
+              String.raw`$$=\frac{169}{25}+\frac{169}{144}=169\left(\frac{1}{25}+\frac{1}{144}\right)$$`,
+              String.raw`$$=169\times\frac{144+25}{25\times 144}=\frac{169\times 169}{3600}$$`,
+              String.raw`ডানপক্ষ,`,
+              String.raw`$$\sec^{2}A\cdot\operatorname{cosec}^{2}A=\frac{169}{25}\times\frac{169}{144}=\frac{169\times 169}{3600}$$`,
+              String.raw`$\therefore$ বামপক্ষ $=$ ডানপক্ষ (দেখানো হলো)।`,
+              String.raw`[লক্ষ করো, যেকোনো সূক্ষ্মকোণ $A$-এর জন্যই $\sec^{2}A+\operatorname{cosec}^{2}A=\dfrac{1}{\cos^{2}A}+\dfrac{1}{\sin^{2}A}=\dfrac{\sin^{2}A+\cos^{2}A}{\sin^{2}A\cos^{2}A}=\dfrac{1}{\sin^{2}A\cos^{2}A}=\sec^{2}A\cdot\operatorname{cosec}^{2}A$ — উদ্দীপকের মানগুলো তারই একটি উদাহরণ।]`,
+            ],
+            answer: String.raw`দেখানো হলো`,
+          },
+        },
+      ],
+    },
+    {
+      id: 26,
+      group: TRIG2_TRI,
+      question: String.raw`$ABC$ সমকোণী ত্রিভুজের $\angle B=$ এক সমকোণ এবং $AB=BC$ হলে প্রমাণ করো যে, $$\frac{BC\cos C-AC\cos B}{BC\cos B-AC\cos A}+\cos C=0$$`,
+      solution: {
+        steps: [
+          String.raw`$\triangle ABC$-এ $\angle B=90^{\circ}$, তাই $AC$ অতিভুজ; $\angle A$-এর সন্নিহিত বাহু $AB$ এবং $\angle C$-এর সন্নিহিত বাহু $BC$।`,
+          String.raw`$$\cos B=\cos 90^{\circ}=0$$`,
+          String.raw`$$\cos A=\frac{AB}{AC},\qquad\cos C=\frac{BC}{AC}$$`,
+          String.raw`বামপক্ষ,`,
+          String.raw`$$\frac{BC\cos C-AC\cos B}{BC\cos B-AC\cos A}+\cos C$$`,
+          String.raw`$$=\frac{BC\cdot\dfrac{BC}{AC}-AC\cdot 0}{BC\cdot 0-AC\cdot\dfrac{AB}{AC}}+\frac{BC}{AC}$$`,
+          String.raw`$$=\frac{\dfrac{BC^{2}}{AC}}{-AB}+\frac{BC}{AC}$$`,
+          String.raw`$$=-\frac{BC^{2}}{AB\cdot AC}+\frac{BC}{AC}$$`,
+          String.raw`$$=-\frac{BC^{2}}{BC\cdot AC}+\frac{BC}{AC}\qquad\left[\,AB=BC\,\right]$$`,
+          String.raw`$$=-\frac{BC}{AC}+\frac{BC}{AC}=0$$`,
+          String.raw`$=$ ডানপক্ষ (প্রমাণিত)।`,
+        ],
+        answer: String.raw`প্রমাণিত`,
+      },
+    },
+    {
+      id: 27,
+      group: TRIG2_TRI,
+      question: String.raw`$ABC$ সমকোণী ত্রিভুজের $\angle B=$ এক সমকোণ এবং $\cot A+\cot B=2\cot C$ হলে প্রমাণ করো যে, $AC^{2}+BC^{2}=2AB^{2}$।`,
+      solution: {
+        steps: [
+          String.raw`$\triangle ABC$-এ $\angle B=90^{\circ}$, তাই $AC$ অতিভুজ। $\angle A$-এর বিপরীত বাহু $BC$ ও সন্নিহিত বাহু $AB$; $\angle C$-এর বিপরীত বাহু $AB$ ও সন্নিহিত বাহু $BC$।`,
+          String.raw`$$\cot A=\frac{AB}{BC},\qquad\cot C=\frac{BC}{AB},\qquad\cot B=\cot 90^{\circ}=0$$`,
+          String.raw`দেওয়া আছে,`,
+          String.raw`$$\cot A+\cot B=2\cot C$$`,
+          String.raw`$$\text{or, }\frac{AB}{BC}+0=2\cdot\frac{BC}{AB}$$`,
+          String.raw`$$\text{or, }\frac{AB}{BC}=\frac{2BC}{AB}$$`,
+          String.raw`$$\text{or, }AB^{2}=2BC^{2}\qquad\cdots(1)$$`,
+          String.raw`আবার পিথাগোরাসের সূত্র থেকে পাই,`,
+          String.raw`$$AC^{2}=AB^{2}+BC^{2}\qquad\cdots(2)$$`,
+          String.raw`বামপক্ষ,`,
+          String.raw`$$AC^{2}+BC^{2}$$`,
+          String.raw`$$=AB^{2}+BC^{2}+BC^{2}\qquad\left[\,(2)\ \text{থেকে}\,\right]$$`,
+          String.raw`$$=AB^{2}+2BC^{2}$$`,
+          String.raw`$$=AB^{2}+AB^{2}\qquad\left[\,(1)\ \text{থেকে}\,\right]$$`,
+          String.raw`$$=2AB^{2}$$`,
+          String.raw`$=$ ডানপক্ষ (প্রমাণিত)।`,
+        ],
+        answer: String.raw`প্রমাণিত`,
+      },
+    },
+
+    // ─────────────── নমুনা প্রশ্ন — বইয়ের পৃষ্ঠা ১৯৬ ───────────────
+    {
+      id: 28,
+      group: TRIG2_MODEL_MCQ,
+      question: String.raw`$0^{\circ}\le\theta\le 90^{\circ}$ এর জন্য, $\sin\theta$ এর সর্বোচ্চ মান কত?
+      ক) $-1$
+      খ) $0$
+      গ) $\dfrac{1}{2}$
+      ঘ) $1$`,
+      solution: {
+        steps: [
+          String.raw`সমকোণী ত্রিভুজে $\sin\theta=\dfrac{\text{লম্ব}}{\text{অতিভুজ}}$, আর অতিভুজ কখনো লম্বের চেয়ে ছোট নয়; তাই $\sin\theta\le 1$।`,
+          String.raw`$\theta$ যত বাড়ে, $\sin\theta$ তত বাড়ে: $\sin 0^{\circ}=0$, $\sin 30^{\circ}=\dfrac{1}{2}$, $\sin 45^{\circ}=\dfrac{1}{\sqrt{2}}$, $\sin 60^{\circ}=\dfrac{\sqrt{3}}{2}$, $\sin 90^{\circ}=1$।`,
+          String.raw`$$\therefore\;\text{সর্বোচ্চ মান}=\sin 90^{\circ}=1$$`,
+        ],
+        answer: String.raw`ঘ) $1$`,
+      },
+    },
+    {
+      id: 29,
+      group: TRIG2_MODEL_MCQ,
+      question: String.raw`$ABC$ সমকোণী ত্রিভুজে অতিভুজ $AC=2$, $AB=1$ হলে—
+      $(i)$ $\angle ACB=30^{\circ}$
+      $(ii)$ $\tan A=\sqrt{3}$
+      $(iii)$ $\sin(A+C)=0$
+      নিচের কোনটি সঠিক?
+      ক) $(i)$
+      খ) $(ii)$
+      গ) $(i)$ ও $(ii)$
+      ঘ) $(ii)$ ও $(iii)$`,
+      figure: "92-p29",
+      solution: {
+        steps: [
+          String.raw`চিত্রে $\angle B=90^{\circ}$, অতিভুজ $AC=2$ এবং $AB=1$।`,
+          String.raw`পিথাগোরাসের সূত্র থেকে পাই,`,
+          String.raw`$$BC^{2}=AC^{2}-AB^{2}=(2)^{2}-(1)^{2}=4-1=3$$`,
+          String.raw`$$\therefore\;BC=\sqrt{3}$$`,
+          String.raw`$(i)$: $\angle ACB=\angle C$ কোণের বিপরীত বাহু $AB$ ও অতিভুজ $AC$।`,
+          String.raw`$$\sin C=\frac{AB}{AC}=\frac{1}{2}=\sin 30^{\circ}\quad\Rightarrow\quad\angle ACB=30^{\circ}$$`,
+          String.raw`সুতরাং $(i)$ সঠিক।`,
+          String.raw`$(ii)$: $\angle A$ কোণের বিপরীত বাহু $BC$ ও সন্নিহিত বাহু $AB$।`,
+          String.raw`$$\tan A=\frac{BC}{AB}=\frac{\sqrt{3}}{1}=\sqrt{3}$$`,
+          String.raw`সুতরাং $(ii)$ সঠিক।`,
+          String.raw`$(iii)$: সমকোণী ত্রিভুজের সূক্ষ্মকোণ দুইটির সমষ্টি $90^{\circ}$, অর্থাৎ $A+C=90^{\circ}$।`,
+          String.raw`$$\sin(A+C)=\sin 90^{\circ}=1\neq 0$$`,
+          String.raw`সুতরাং $(iii)$ সঠিক নয়।`,
+          String.raw`$\therefore$ $(i)$ ও $(ii)$ সঠিক।`,
+        ],
+        answer: String.raw`গ) $(i)$ ও $(ii)$`,
+      },
+    },
+    {
+      id: 30,
+      group: TRIG2_MODEL_MCQ,
+      question: String.raw`পাশের চিত্রে $ABC$ সমকোণী ত্রিভুজের অতিভুজ $AC=2$ একক, $AB=1$ একক। $\tan C=$ কত?
+      ক) $2$
+      খ) $\sqrt{3}$
+      গ) $1$
+      ঘ) $\dfrac{1}{\sqrt{3}}$`,
+      figure: "92-p29",
+      solution: {
+        steps: [
+          String.raw`চিত্রে $\angle B=90^{\circ}$, $AC=2$ ও $AB=1$।`,
+          String.raw`$$BC=\sqrt{AC^{2}-AB^{2}}=\sqrt{4-1}=\sqrt{3}$$`,
+          String.raw`$\angle C$ কোণের বিপরীত বাহু $AB$ ও সন্নিহিত বাহু $BC$।`,
+          String.raw`$$\tan C=\frac{AB}{BC}=\frac{1}{\sqrt{3}}$$`,
+        ],
+        answer: String.raw`ঘ) $\dfrac{1}{\sqrt{3}}$`,
+      },
+    },
+    {
+      id: 31,
+      group: TRIG2_MODEL_MCQ,
+      question: String.raw`পাশের চিত্রে $ABC$ সমকোণী ত্রিভুজের অতিভুজ $AC=2$ একক, $AB=1$ একক। $\sin^{2}A-\cos^{2}A$ এর মান কত?
+      ক) $\dfrac{1}{2}$
+      খ) $\dfrac{\sqrt{3}}{2}$
+      গ) $1$
+      ঘ) $0$`,
+      figure: "92-p29",
+      solution: {
+        steps: [
+          String.raw`চিত্রে $\angle B=90^{\circ}$, $AC=2$, $AB=1$ এবং $BC=\sqrt{AC^{2}-AB^{2}}=\sqrt{3}$।`,
+          String.raw`$\angle A$ কোণের বিপরীত বাহু $BC$, সন্নিহিত বাহু $AB$ ও অতিভুজ $AC$।`,
+          String.raw`$$\sin A=\frac{BC}{AC}=\frac{\sqrt{3}}{2},\qquad\cos A=\frac{AB}{AC}=\frac{1}{2}$$`,
+          String.raw`$$\therefore\;\sin^{2}A-\cos^{2}A=\left(\frac{\sqrt{3}}{2}\right)^{2}-\left(\frac{1}{2}\right)^{2}=\frac{3}{4}-\frac{1}{4}=\frac{1}{2}$$`,
+        ],
+        answer: String.raw`ক) $\dfrac{1}{2}$`,
+      },
+    },
+    {
+      id: 32,
+      group: TRIG2_MODEL_CQ,
+      question: String.raw`$\sin\theta=p$, $\cos\theta=q$, $\tan\theta=r$, যেখানে $\theta$ সূক্ষ্মকোণ।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`$r=\sqrt{(3)^{-1}}$ হলে, $\theta$ এর মান নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`দেওয়া আছে, $\tan\theta=r$ এবং $r=\sqrt{(3)^{-1}}$।`,
+              String.raw`$$r=\sqrt{(3)^{-1}}=\sqrt{\frac{1}{3}}=\frac{1}{\sqrt{3}}$$`,
+              String.raw`$$\therefore\;\tan\theta=\frac{1}{\sqrt{3}}=\tan 30^{\circ}$$`,
+              String.raw`$$\therefore\;\theta=30^{\circ}$$`,
+            ],
+            answer: String.raw`$\theta=30^{\circ}$`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$p+q=\sqrt{2}$ হলে, প্রমাণ করো যে, $\theta=45^{\circ}$।`,
+          solution: {
+            steps: [
+              String.raw`দেওয়া আছে, $p+q=\sqrt{2}$, অর্থাৎ $\sin\theta+\cos\theta=\sqrt{2}$।`,
+              String.raw`উভয়পক্ষকে বর্গ করে পাই,`,
+              String.raw`$$(\sin\theta+\cos\theta)^{2}=(\sqrt{2})^{2}$$`,
+              String.raw`$$\text{or, }\sin^{2}\theta+\cos^{2}\theta+2\sin\theta\cos\theta=2$$`,
+              String.raw`$$\text{or, }1+2\sin\theta\cos\theta=2\qquad\left[\,\sin^{2}\theta+\cos^{2}\theta=1\,\right]$$`,
+              String.raw`$$\text{or, }2\sin\theta\cos\theta=1$$`,
+              String.raw`$$\text{or, }2\sin\theta\cos\theta=\sin^{2}\theta+\cos^{2}\theta$$`,
+              String.raw`$$\text{or, }\sin^{2}\theta-2\sin\theta\cos\theta+\cos^{2}\theta=0$$`,
+              String.raw`$$\text{or, }(\sin\theta-\cos\theta)^{2}=0$$`,
+              String.raw`$$\text{or, }\sin\theta-\cos\theta=0$$`,
+              String.raw`$$\text{or, }\sin\theta=\cos\theta$$`,
+              String.raw`$$\text{or, }\frac{\sin\theta}{\cos\theta}=1$$`,
+              String.raw`$$\text{or, }\tan\theta=1=\tan 45^{\circ}$$`,
+              String.raw`$$\therefore\;\theta=45^{\circ}\quad\text{(প্রমাণিত)}$$`,
+            ],
+            answer: String.raw`প্রমাণিত`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$7p^{2}+3q^{2}=4$ হলে, দেখাও যে, $\tan\theta=\dfrac{1}{\sqrt{3}}$।`,
+          solution: {
+            steps: [
+              String.raw`দেওয়া আছে, $7p^{2}+3q^{2}=4$, অর্থাৎ $7\sin^{2}\theta+3\cos^{2}\theta=4$।`,
+              String.raw`$$7\sin^{2}\theta+3\cos^{2}\theta=4$$`,
+              String.raw`$$\text{or, }7\sin^{2}\theta+3\cos^{2}\theta=4\left(\sin^{2}\theta+\cos^{2}\theta\right)\qquad\left[\,\sin^{2}\theta+\cos^{2}\theta=1\,\right]$$`,
+              String.raw`$$\text{or, }7\sin^{2}\theta+3\cos^{2}\theta=4\sin^{2}\theta+4\cos^{2}\theta$$`,
+              String.raw`$$\text{or, }7\sin^{2}\theta-4\sin^{2}\theta=4\cos^{2}\theta-3\cos^{2}\theta$$`,
+              String.raw`$$\text{or, }3\sin^{2}\theta=\cos^{2}\theta$$`,
+              String.raw`$$\text{or, }\frac{\sin^{2}\theta}{\cos^{2}\theta}=\frac{1}{3}$$`,
+              String.raw`$$\text{or, }\tan^{2}\theta=\frac{1}{3}$$`,
+              String.raw`$$\therefore\;\tan\theta=\frac{1}{\sqrt{3}}\qquad\left[\,\theta\ \text{সূক্ষ্মকোণ, তাই}\ \tan\theta>0\,\right]$$`,
+              String.raw`(দেখানো হলো)`,
+            ],
+            answer: String.raw`$\tan\theta=\dfrac{1}{\sqrt{3}}$ (দেখানো হলো)`,
+          },
+        },
+      ],
+    },
+    {
+      id: 33,
+      group: TRIG2_MODEL_SA,
+      question: String.raw`সংক্ষিপ্ত-উত্তর প্রশ্ন।`,
+      parts: [
+        {
+          label: "ক",
+          question: String.raw`দেখাও যে, $\tan^{2}A-\sin^{2}A=\tan^{2}A\cdot\sin^{2}A$।`,
+          solution: {
+            steps: [
+              String.raw`বামপক্ষ,`,
+              String.raw`$$\tan^{2}A-\sin^{2}A$$`,
+              String.raw`$$=\frac{\sin^{2}A}{\cos^{2}A}-\sin^{2}A$$`,
+              String.raw`$$=\sin^{2}A\left(\frac{1}{\cos^{2}A}-1\right)$$`,
+              String.raw`$$=\sin^{2}A\cdot\frac{1-\cos^{2}A}{\cos^{2}A}$$`,
+              String.raw`$$=\sin^{2}A\cdot\frac{\sin^{2}A}{\cos^{2}A}\qquad\left[\,1-\cos^{2}A=\sin^{2}A\,\right]$$`,
+              String.raw`$$=\sin^{2}A\cdot\tan^{2}A=\tan^{2}A\cdot\sin^{2}A$$`,
+              String.raw`$=$ ডানপক্ষ (দেখানো হলো)।`,
+            ],
+            answer: String.raw`দেখানো হলো`,
+          },
+        },
+        {
+          label: "খ",
+          question: String.raw`$\triangle ABC$-এর $\angle B=90^{\circ}$, $BC=6$ সে.মি. এবং $AB=8$ সে.মি. হলে, $\sin A$ এর মান নির্ণয় করো।`,
+          solution: {
+            steps: [
+              String.raw`$\triangle ABC$-এ $\angle B=90^{\circ}$, তাই $AC$ অতিভুজ।`,
+              String.raw`পিথাগোরাসের সূত্র থেকে পাই,`,
+              String.raw`$$AC^{2}=AB^{2}+BC^{2}=(8)^{2}+(6)^{2}=64+36=100$$`,
+              String.raw`$$\therefore\;AC=10$$`,
+              String.raw`$\angle A$ কোণের বিপরীত বাহু $BC$ এবং অতিভুজ $AC$।`,
+              String.raw`$$\sin A=\frac{BC}{AC}=\frac{6}{10}=\frac{3}{5}$$`,
+            ],
+            answer: String.raw`$\sin A=\dfrac{3}{5}$`,
+          },
+        },
+        {
+          label: "গ",
+          question: String.raw`$\sin^{2}A=1+\cos^{2}A$ হলে, $A$ এর মান নির্ণয় করো; যখন $A$ সূক্ষ্মকোণ।`,
+          solution: {
+            steps: [
+              String.raw`$$\sin^{2}A=1+\cos^{2}A$$`,
+              String.raw`$$\text{or, }1-\cos^{2}A=1+\cos^{2}A\qquad\left[\,\sin^{2}A=1-\cos^{2}A\,\right]$$`,
+              String.raw`$$\text{or, }-\cos^{2}A-\cos^{2}A=1-1$$`,
+              String.raw`$$\text{or, }2\cos^{2}A=0$$`,
+              String.raw`$$\text{or, }\cos A=0=\cos 90^{\circ}$$`,
+              String.raw`$$\therefore\;A=90^{\circ}$$`,
+              String.raw`লক্ষ করো: $0^{\circ}$ থেকে $90^{\circ}$ এর মধ্যে $\cos A=0$ কেবল $A=90^{\circ}$ তেই হয়। কোনো সূক্ষ্মকোণের জন্য $\cos^{2}A>0$, তাই $\sin^{2}A=1-\cos^{2}A<1<1+\cos^{2}A$ — অর্থাৎ শর্তটি কোনো সূক্ষ্মকোণে সিদ্ধ হয় না; এটি কেবল সীমান্ত মান $A=90^{\circ}$ তেই খাটে।`,
+            ],
+            answer: String.raw`$A=90^{\circ}$`,
+          },
+        },
+        {
+          label: "ঘ",
+          question: String.raw`$A=15^{\circ}$ হলে দেখাও যে, $\cos^{3}3A=\sin^{3}3A$।`,
+          solution: {
+            steps: [
+              String.raw`দেওয়া আছে, $A=15^{\circ}$; তাই $3A=3\times 15^{\circ}=45^{\circ}$।`,
+              String.raw`বামপক্ষ,`,
+              String.raw`$$\cos^{3}3A=\cos^{3}45^{\circ}=\left(\frac{1}{\sqrt{2}}\right)^{3}=\frac{1}{2\sqrt{2}}$$`,
+              String.raw`ডানপক্ষ,`,
+              String.raw`$$\sin^{3}3A=\sin^{3}45^{\circ}=\left(\frac{1}{\sqrt{2}}\right)^{3}=\frac{1}{2\sqrt{2}}$$`,
+              String.raw`$\therefore$ বামপক্ষ $=$ ডানপক্ষ (দেখানো হলো)।`,
+            ],
+            answer: String.raw`দেখানো হলো`,
+          },
+        },
+      ],
+    },
+  ],
 };
 
 const DIST_MCQ = "বহুনির্বাচনি প্রশ্ন (১ – ৪)";

@@ -13,6 +13,7 @@ import { scenes52 } from "./scenes52";
 import { scenes71 } from "./scenes71";
 import { scenes72 } from "./scenes72";
 import { scenes8 } from "./scenes8";
+import { scenes9 } from "./scenes9";
 import { scenes6 } from "./scenes6";
 import { scenes161 } from "./scenes161";
 import { scenes162 } from "./scenes162";
@@ -28,6 +29,7 @@ export const scenes: Record<string, Scene> = {
   ...scenes71,
   ...scenes72,
   ...scenes8,
+  ...scenes9,
   ...scenes6,
   ...scenes161,
   ...scenes162,
